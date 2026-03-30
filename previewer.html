@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mullin360 — Design Previews</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#020202;
+  --surface:#020202;
+  --surface-2:#0e0e0e;
+  --border:rgba(255,255,255,0.07);
+  --green:#0E6133;
+  --green-bright:#1DB954;
+  --green-pale:#C8DDCF;
+  --text:rgba(255,255,255,0.88);
+  --text-dim:rgba(255,255,255,0.38);
+  --text-muted:rgba(255,255,255,0.2);
+}
+html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text)}
+
+/* LAYOUT */
+#app{display:grid;grid-template-columns:260px 1fr;grid-template-rows:48px 1fr;height:100vh;transition:grid-template-columns 0.25s ease}
+#app.sidebar-collapsed{grid-template-columns:0px 1fr}
+
+/* TOP BAR */
+#topbar{grid-column:1/-1;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1rem;gap:1rem;z-index:10}
+.logo{font-size:0.85rem;font-weight:600;color:var(--text);letter-spacing:0.04em;white-space:nowrap}
+.logo span{color:var(--text)}
+.tb-divider{width:1px;height:20px;background:var(--border);flex-shrink:0}
+.tb-label{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap}
+#current-name{font-size:0.78rem;color:var(--green-pale);font-weight:500;min-width:140px}
+.tb-spacer{flex:1}
+.tb-btn{display:flex;align-items:center;gap:0.4rem;padding:0.35rem 0.85rem;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);background:transparent;border:1px solid var(--border);cursor:pointer;transition:all 0.15s;border-radius:3px;white-space:nowrap}
+.tb-btn:hover{color:var(--text);border-color:rgba(255,255,255,0.2)}
+.tb-btn.active{color:var(--green-pale);border-color:var(--green);background:rgba(14,97,51,0.12)}
+#open-btn{color:var(--green-pale);border-color:var(--green);background:rgba(14,97,51,0.1)}
+#open-btn:hover{background:rgba(14,97,51,0.2)}
+.nav-arrows{display:flex;gap:0.35rem}
+.nav-arrows button{width:30px;height:28px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);cursor:pointer;font-size:0.8rem;transition:all 0.15s;border-radius:3px;display:flex;align-items:center;justify-content:center}
+.nav-arrows button:hover{color:var(--text);border-color:rgba(255,255,255,0.2)}
+.nav-arrows button:disabled{opacity:0.25;cursor:not-allowed}
+.kbd{display:inline-flex;align-items:center;justify-content:center;background:var(--surface-2);border:1px solid var(--border);border-radius:3px;font-size:0.58rem;padding:0.1rem 0.35rem;color:var(--text-muted);margin-left:0.25rem}
+
+/* SIDEBAR */
+#sidebar{background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;overflow-x:hidden;transition:opacity 0.2s ease}
+#app.sidebar-collapsed #sidebar{opacity:0;pointer-events:none}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-track{background:transparent}
+#sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:2px}
+.sidebar-section{padding:0.75rem 0.85rem 0.4rem;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);border-top:1px solid var(--border)}
+.sidebar-section:first-child{border-top:none}
+.variant-btn{width:100%;display:flex;align-items:center;gap:0.65rem;padding:0.55rem 0.85rem;background:transparent;border:none;cursor:pointer;text-align:left;transition:background 0.12s;position:relative;user-select:none}
+.variant-btn:hover{background:rgba(255,255,255,0.04)}
+.variant-btn.active{background:rgba(14,97,51,0.15)}
+.variant-btn.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--green-bright)}
+.variant-btn.drag-over-top::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--green-bright);z-index:10;width:auto}
+.variant-btn.drag-over-bottom::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green-bright);z-index:10;width:auto}
+.variant-btn.drag-over-child::before{content:'';position:absolute;bottom:0;left:28px;right:0;height:2px;background:var(--green-bright);z-index:10;width:auto}
+.variant-btn.active.drag-over-top::before,.variant-btn.active.drag-over-bottom::before,.variant-btn.active.drag-over-child::before{width:auto}
+.variant-btn.dragging{opacity:0.35;background:rgba(255,255,255,0.02)}
+/* collapse toggle */
+.vb-collapse{width:14px;flex-shrink:0;background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:0.55rem;padding:0;display:flex;align-items:center;justify-content:center;transition:color 0.15s, transform 0.15s;line-height:1}
+.vb-collapse:hover{color:var(--text-dim)}
+.vb-collapse.collapsed{transform:rotate(-90deg)}
+.vb-collapse.hidden{visibility:hidden;pointer-events:none}
+/* child indent */
+.variant-btn.is-child{padding-left:2.2rem}
+.variant-btn.is-child .vb-collapse{visibility:hidden;pointer-events:none}
+.vb-drag{display:flex;align-items:center;color:var(--text-muted);cursor:grab;padding:0 0.1rem;opacity:0;transition:opacity 0.12s;font-size:0.65rem;letter-spacing:0.05em;flex-shrink:0}
+.variant-btn:hover .vb-drag{opacity:1}
+.vb-drag:active{cursor:grabbing}
+.vb-num{font-size:0.58rem;color:var(--text-muted);min-width:1.5rem;font-variant-numeric:tabular-nums;font-family:monospace}
+.variant-btn.active .vb-num{color:var(--green-bright)}
+.vb-info{flex:1;min-width:0}
+.vb-name{font-size:0.75rem;color:var(--text);font-weight:500;display:block;truncate:ellipsis;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.variant-btn.active .vb-name{color:var(--green-pale)}
+.vb-tag{font-size:0.6rem;color:var(--text-dim);margin-top:0.1rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vb-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background 0.12s}
+.variant-btn.active .vb-dot{background:var(--green-bright)}
+.variant-btn:hover .vb-dot{background:rgba(255,255,255,0.2)}
+
+/* IFRAME */
+#preview-wrap{position:relative;background:#020202;overflow:hidden}
+#preview{width:100%;height:100%;border:none;display:block}
+#loading-overlay{position:absolute;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;transition:opacity 0.3s;z-index:5}
+#loading-overlay.hidden{opacity:0;pointer-events:none}
+.spinner{width:28px;height:28px;border:2px solid rgba(255,255,255,0.06);border-top-color:var(--green);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-name{font-size:0.72rem;color:var(--text-dim);letter-spacing:0.1em}
+
+/* SCALE TOGGLE */
+#scale-bar{position:absolute;bottom:1rem;right:1rem;display:flex;gap:0.35rem;z-index:10}
+.scale-btn{padding:0.3rem 0.65rem;font-size:0.6rem;letter-spacing:0.1em;background:rgba(13,15,14,0.85);border:1px solid var(--border);color:var(--text-dim);cursor:pointer;border-radius:3px;backdrop-filter:blur(6px);transition:all 0.15s}
+.scale-btn:hover{color:var(--text);border-color:rgba(255,255,255,0.2)}
+.scale-btn.active{color:var(--green-pale);border-color:var(--green);background:rgba(14,97,51,0.2)}
+
+/* NOTES PANEL */
+#notes-panel{position:absolute;top:0;right:0;bottom:0;width:300px;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.25s ease;z-index:20}
+#notes-panel.open{transform:translateX(0)}
+.np-header{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.np-title{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim)}
+.np-variant{font-size:0.72rem;color:var(--green-pale);font-weight:500;margin-top:0.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.np-filename{font-size:0.6rem;color:var(--text-muted);margin-top:0.1rem;font-family:monospace;letter-spacing:0.02em}
+.np-close{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:1rem;padding:0.2rem 0.4rem;transition:color 0.15s;line-height:1}
+.np-close:hover{color:var(--text)}
+.np-body{flex:1;display:flex;flex-direction:column;padding:0.85rem;gap:0.6rem;overflow:hidden}
+#notes-textarea{flex:1;background:var(--surface-2);border:1px solid var(--border);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:0.82rem;line-height:1.65;padding:0.75rem;resize:none;outline:none;border-radius:3px;transition:border-color 0.15s}
+#notes-textarea:focus{border-color:rgba(14,97,51,0.6)}
+#notes-textarea::placeholder{color:var(--text-muted)}
+.np-meta{font-size:0.6rem;color:var(--text-muted);text-align:right}
+.np-footer{padding:0.75rem 0.85rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;flex-shrink:0}
+.np-btn{flex:1;padding:0.45rem 0;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:pointer;border-radius:3px;transition:all 0.15s}
+.np-btn:hover{color:var(--text);border-color:rgba(255,255,255,0.2)}
+.np-btn.primary{color:var(--green-pale);border-color:var(--green);background:rgba(14,97,51,0.1)}
+.np-btn.primary:hover{background:rgba(14,97,51,0.2)}
+/* note indicator dot on sidebar */
+.vb-note-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.35);flex-shrink:0;opacity:0;transition:opacity 0.15s}
+.vb-note-dot.has-note{opacity:1}
+/* star rating in sidebar */
+.vb-stars{font-size:0.6rem;letter-spacing:0.04em;color:var(--green-bright);flex-shrink:0;min-width:2rem;text-align:right;opacity:0;transition:opacity 0.15s}
+.vb-stars.rated{opacity:1}
+/* label row in notes panel */
+.np-label-row{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.85rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.np-label-prefix{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap}
+#label-input{flex:1;background:transparent;border:none;border-bottom:1px solid transparent;color:var(--green-pale);font-size:0.78rem;font-weight:500;outline:none;padding:0.1rem 0.25rem;transition:border-color 0.15s;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+#label-input:focus{border-bottom-color:var(--green)}
+#label-input::placeholder{color:var(--text-muted);font-weight:400}
+/* pass/fail in sidebar */
+.vb-passfail{font-size:0.6rem;margin-top:0.1rem;display:none;white-space:nowrap}
+.vb-passfail.visible{display:block}
+.vb-passfail.pass{color:#4ade80}
+.vb-passfail.fail{color:#f87171}
+/* pass/fail toggle in notes panel */
+.np-passfail-row{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.85rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.np-pf-label{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap;margin-right:0.25rem}
+.pf-btn{flex:1;padding:0.35rem 0;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:pointer;border-radius:3px;transition:all 0.15s}
+.pf-btn:hover{border-color:rgba(255,255,255,0.2);color:var(--text)}
+.pf-btn.pass.active{color:#4ade80;border-color:#4ade80;background:rgba(74,222,128,0.08)}
+.pf-btn.fail.active{color:#f87171;border-color:#f87171;background:rgba(248,113,113,0.08)}
+.np-rating{display:flex;align-items:center;gap:0.5rem;padding:0.65rem 0.85rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.np-rating-label{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-dim);margin-right:0.25rem}
+.stars{display:flex;gap:0.2rem}
+.star{background:none;border:none;cursor:pointer;font-size:1.1rem;color:rgba(255,255,255,0.12);transition:color 0.12s;padding:0;line-height:1}
+.star:hover,.star.on{color:#f0c040}
+.star.on{text-shadow:0 0 6px rgba(240,192,64,0.4)}
+.np-rating-clear{background:none;border:none;color:var(--text-muted);font-size:0.6rem;cursor:pointer;padding:0 0.25rem;transition:color 0.15s;margin-left:auto}
+.np-rating-clear:hover{color:var(--text-dim)}
+
+/* TOAST */
+/* SYNC STATUS */
+#sync-status{font-size:0.62rem;letter-spacing:0.1em;white-space:nowrap;transition:color 0.3s}
+#sync-status.syncing{color:rgba(255,255,255,0.3)}
+#sync-status.saved{color:var(--green-bright)}
+#sync-status.error{color:#f87171}
+
+#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--surface-2);border:1px solid var(--border);padding:0.5rem 1.25rem;font-size:0.7rem;color:var(--text-dim);border-radius:4px;opacity:0;pointer-events:none;transition:all 0.25s;z-index:100;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- TOP BAR -->
+  <div id="topbar">
+    <div class="logo">Mullin<span>360</span></div>
+    <button class="tb-btn" id="collapse-btn" onclick="toggleSidebar()" title="Toggle sidebar (S)">&#9776;</button>
+    <div class="tb-divider"></div>
+    <span class="tb-label">Viewing</span>
+    <span id="current-name">—</span>
+    <div class="tb-divider"></div>
+    <div class="nav-arrows">
+      <button id="prev-btn" title="Previous (←)" onclick="navigate(-1)">&#8592;</button>
+      <button id="next-btn" title="Next (→)" onclick="navigate(1)">&#8594;</button>
+      <button title="Reload preview (R)" onclick="document.getElementById('preview').src = document.getElementById('preview').src">&#8635;</button>
+    </div>
+    <div class="tb-spacer"></div>
+    <span id="sync-status" title="Cloud sync status">&#9679; Syncing...</span>
+    <button class="tb-btn" onclick="refreshFromCloud()" title="Pull latest state from cloud">&#8635; Refresh</button>
+    <div class="tb-divider"></div>
+    <button class="tb-btn" id="notes-btn" onclick="toggleNotes()" title="Toggle notes panel">Notes</button>
+    <button class="tb-btn" id="open-btn" onclick="openInTab()">Open in Tab &#8599;</button>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="sidebar-section">Client Rankings</div>
+    <div id="variant-list"></div>
+  </div>
+
+  <!-- PREVIEW -->
+  <div id="preview-wrap">
+    <iframe id="preview" title="Preview"></iframe>
+    <div id="loading-overlay">
+      <div class="spinner"></div>
+      <span class="loading-name" id="loading-name">Loading...</span>
+    </div>
+    <div id="scale-bar">
+      <button class="scale-btn active" onclick="setScale('fit')" id="sc-fit">Fit</button>
+      <button class="scale-btn" onclick="setScale('75')" id="sc-75">75%</button>
+      <button class="scale-btn" onclick="setScale('100')" id="sc-100">100%</button>
+    </div>
+
+    <!-- NOTES PANEL -->
+    <div id="notes-panel">
+      <div class="np-header">
+        <div>
+          <div class="np-title">Notes</div>
+          <div class="np-variant" id="np-variant-name">—</div>
+          <div class="np-filename" id="np-filename">—</div>
+        </div>
+        <button class="np-close" onclick="toggleNotes()" title="Close (N)">&#x2715;</button>
+      </div>
+      <div class="np-label-row">
+        <span class="np-label-prefix">Title</span>
+        <input id="title-input" type="text" placeholder="Rename version title…" maxlength="60" oninput="handleTitleInput()" onkeydown="if(event.key==='Enter')this.blur()">
+      </div>
+      <div class="np-label-row">
+        <span class="np-label-prefix">Label</span>
+        <input id="label-input" type="text" placeholder="Short descriptor…" maxlength="60" oninput="handleLabelInput()" onkeydown="if(event.key==='Enter')this.blur()">
+      </div>
+      <div class="np-passfail-row">
+        <span class="np-pf-label">Status</span>
+        <button class="pf-btn pass" id="pf-pass" onclick="setPassFail('pass')">✓ Pass</button>
+        <button class="pf-btn fail" id="pf-fail" onclick="setPassFail('fail')">✕ Fail</button>
+      </div>
+      <div class="np-rating">
+        <span class="np-rating-label">Rating</span>
+        <div class="stars" id="np-stars">
+          <button class="star" data-val="1" onclick="setRating(1)">★</button>
+          <button class="star" data-val="2" onclick="setRating(2)">★</button>
+          <button class="star" data-val="3" onclick="setRating(3)">★</button>
+          <button class="star" data-val="4" onclick="setRating(4)">★</button>
+          <button class="star" data-val="5" onclick="setRating(5)">★</button>
+        </div>
+        <button class="np-rating-clear" onclick="setRating(0)" title="Clear rating">✕</button>
+      </div>
+      <div class="np-body">
+        <textarea id="notes-textarea" placeholder="Type notes for this version here…&#10;&#10;e.g. Client liked the hero section, wants the CTA button green, prefers darker nav..." rows="10"></textarea>
+        <div class="np-meta" id="np-meta"></div>
+      </div>
+      <div class="np-footer">
+        <button class="np-btn primary" onclick="saveNote()" title="Save note (Cmd+S)">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- hidden file input for CSV import -->
+  <input type="file" id="csv-import-input" accept=".csv" style="display:none" onchange="handleImport(event)">
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ─── VARIANT REGISTRY ───────────────────────────────────────────────────────
+// Edit this list freely — just add/remove entries as new versions are created.
+const VARIANTS = [
+  // ── Numbered iterations ──────────────────────────────────────
+  { file: 'home0.html',  name: 'Home 0',  tag: 'Initial concept' },
+  { file: 'home1.html',  name: 'Home 1',  tag: 'Iteration 1' },
+  { file: 'home1b.html', name: 'Home 1b', tag: 'Iteration 1b' },
+  { file: 'home1c.html', name: 'Home 1c', tag: 'Iteration 1c' },
+  { file: 'home1d.html', name: 'Home 1d', tag: 'Iteration 1d' },
+  { file: 'home1e.html', name: 'Home 1e', tag: 'Iteration 1e' },
+  { file: 'home1f.html', name: 'Home 1f', tag: 'Iteration 1f' },
+  { file: 'home1g.html', name: 'Home 1g', tag: 'Iteration 1g' },
+  { file: 'home2.html',  name: 'Home 2',  tag: 'Iteration 2' },
+  { file: 'home2b.html', name: 'Home 2b', tag: 'Iteration 2b' },
+  { file: 'home3.html',  name: 'Home 3',  tag: 'Iteration 3' },
+  { file: 'home4.html',  name: 'Home 4',  tag: 'Iteration 4' },
+  { file: 'home5.html',  name: 'Home 5',  tag: 'Iteration 5' },
+  { file: 'home6.html',  name: 'Home 6',  tag: 'Iteration 6' },
+  { file: 'home7.html',  name: 'Home 7',  tag: 'Iteration 7' },
+  { file: 'home8.html',  name: 'Home 8',  tag: 'Iteration 8' },
+  { file: 'home9.html',  name: 'Home 9',  tag: 'Iteration 9' },
+  { file: 'home10.html', name: 'Home 10', tag: 'Iteration 10' },
+  { file: 'home11.html', name: 'Home 11', tag: 'Iteration 11' },
+  { file: 'home12.html', name: 'Home 12', tag: 'Iteration 12' },
+  { file: 'home13.html', name: 'Home 13', tag: 'Iteration 13' },
+  { file: 'home14.html', name: 'Home 14', tag: 'Latest iteration' },
+  // ── Named design variants ────────────────────────────────────
+  { file: 'index.html',  name: 'Canonical', tag: 'Primary / production' },
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let current = 0;
+let scaleMode = 'fit';
+
+// ─── TREE ORDER ───────────────────────────────────────────────────────────────
+// treeOrder: [{id: variantIdx, parent: null | variantIdx}] — in display order
+// Max depth: 1 (parent + children, no deeper)
+const LS_ORDER = 'mullin360_order';
+const LS_COLLAPSED = 'mullin360_collapsed';
+let treeOrder = VARIANTS.map((_, i) => ({id: i, parent: null}));
+let groupCollapsed = new Set(); // variantIdx of collapsed parents
+
+function loadOrder() {
+  try {
+    const s = localStorage.getItem(LS_ORDER);
+    if (s) {
+      const saved = JSON.parse(s);
+      // validate all ids present
+      const ids = saved.map(n => n.id);
+      if (saved.length === VARIANTS.length && ids.every(n => n >= 0 && n < VARIANTS.length)) {
+        treeOrder = saved;
+      }
+    }
+  } catch(e) {}
+  try {
+    const s = localStorage.getItem(LS_COLLAPSED);
+    if (s) groupCollapsed = new Set(JSON.parse(s));
+  } catch(e) {}
+}
+
+function saveOrder() {
+  localStorage.setItem(LS_ORDER, JSON.stringify(treeOrder));
+  localStorage.setItem(LS_COLLAPSED, JSON.stringify([...groupCollapsed]));
+  markDirty();
+}
+
+// Returns treeOrder entries that should be visible (children of collapsed parents hidden)
+function visibleItems() {
+  return treeOrder.filter(n => n.parent === null || !groupCollapsed.has(n.parent));
+}
+
+function childrenOf(parentId) {
+  return treeOrder.filter(n => n.parent === parentId);
+}
+
+function hasChildren(id) {
+  return treeOrder.some(n => n.parent === id);
+}
+
+// ─── BUILD SIDEBAR ───────────────────────────────────────────────────────────
+const list = document.getElementById('variant-list');
+
+function buildSidebar() {
+  list.innerHTML = '';
+  let position = 0;
+  visibleItems().forEach(node => {
+    const {id: variantIdx, parent} = node;
+    const v = VARIANTS[variantIdx];
+    const isChild = parent !== null;
+    const isParent = hasChildren(variantIdx);
+    const isCollapsed = groupCollapsed.has(variantIdx);
+
+    const btn = document.createElement('button');
+    btn.className = 'variant-btn' + (isChild ? ' is-child' : '');
+    btn.id = 'vbtn-' + variantIdx;
+    btn.dataset.variantIdx = variantIdx;
+    btn.draggable = true;
+
+    const collapseIcon = isParent
+      ? `<button class="vb-collapse${isCollapsed ? ' collapsed' : ''}" data-id="${variantIdx}" title="${isCollapsed ? 'Expand' : 'Collapse'}">▾</button>`
+      : `<button class="vb-collapse hidden" tabindex="-1">▾</button>`;
+
+    btn.innerHTML = `
+      <span class="vb-drag" title="Drag to reorder">⠿</span>
+      ${collapseIcon}
+      <span class="vb-num">${String(position).padStart(2,'0')}</span>
+      <span class="vb-info">
+        <span class="vb-name" id="vname-${variantIdx}">${v.name}</span>
+        <span class="vb-tag" id="vtag-${variantIdx}">${v.tag}</span>
+        <span class="vb-passfail" id="vpf-${variantIdx}"></span>
+      </span>
+      <span class="vb-note-dot" id="ndot-${variantIdx}"></span>
+      <span class="vb-stars" id="vstars-${variantIdx}"></span>
+      <span class="vb-dot"></span>`;
+
+    // Collapse toggle click
+    const collapseBtn = btn.querySelector('.vb-collapse:not(.hidden)');
+    if (collapseBtn) {
+      collapseBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        toggleGroupCollapse(variantIdx);
+      });
+    }
+
+    btn.onclick = e => {
+      if (btn._wasDrag) { btn._wasDrag = false; return; }
+      load(variantIdx);
+    };
+
+    attachDragHandlers(btn);
+    list.appendChild(btn);
+    position++;
+  });
+
+  refreshAllDots();
+  VARIANTS.forEach((_,i) => { refreshSidebarTag(i); refreshSidebarName(i); refreshSidebarStars(i); refreshSidebarPassFail(i); });
+  document.querySelectorAll('.variant-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.variantIdx) === current);
+  });
+}
+
+function toggleGroupCollapse(parentId) {
+  if (groupCollapsed.has(parentId)) { groupCollapsed.delete(parentId); }
+  else { groupCollapsed.add(parentId); }
+  saveOrder();
+  buildSidebar();
+}
+
+// ─── DRAG ENGINE ─────────────────────────────────────────────────────────────
+let dragSrcIdx = null;
+let dropMode = null; // 'before' | 'after' | 'child'
+let dropTargetIdx = null;
+
+function attachDragHandlers(btn) {
+  btn.querySelector('.vb-drag').addEventListener('mousedown', () => { btn.draggable = true; });
+
+  btn.addEventListener('dragstart', e => {
+    dragSrcIdx = parseInt(btn.dataset.variantIdx);
+    btn._wasDrag = false;
+    btn.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', dragSrcIdx);
+  });
+
+  btn.addEventListener('dragend', () => {
+    btn.classList.remove('dragging');
+    btn._wasDrag = true;
+    clearDropIndicators();
+    dragSrcIdx = null; dropMode = null; dropTargetIdx = null;
+  });
+
+  btn.addEventListener('dragover', e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    if (dragSrcIdx === null) return;
+
+    const targetIdx = parseInt(btn.dataset.variantIdx);
+    if (targetIdx === dragSrcIdx) return;
+
+    clearDropIndicators();
+
+    const rect = btn.getBoundingClientRect();
+    const relY = e.clientY - rect.top;
+    const h = rect.height;
+    const isChild = btn.classList.contains('is-child');
+    const srcHasChildren = hasChildren(dragSrcIdx);
+    const tgtHasChildren = hasChildren(targetIdx);
+    const srcIsChild = treeOrder.find(n => n.id === dragSrcIdx)?.parent !== null;
+
+    // Determine drop zone
+    let mode;
+    if (relY < h * 0.3) {
+      mode = 'before';
+    } else if (relY > h * 0.7) {
+      // "after" or "child": if target is top-level, src has no children, not dragging a parent with kids
+      const canNest = !isChild && !srcHasChildren && targetIdx !== dragSrcIdx;
+      // use X to distinguish: right side of item = nest
+      const relX = e.clientX - rect.left;
+      mode = (canNest && relX > rect.width * 0.45) ? 'child' : 'after';
+    } else {
+      // Middle zone: nest if possible
+      const canNest = !isChild && !srcHasChildren;
+      const relX = e.clientX - rect.left;
+      mode = (canNest && relX > rect.width * 0.45) ? 'child' : 'after';
+    }
+
+    dropMode = mode;
+    dropTargetIdx = targetIdx;
+
+    if (mode === 'before') btn.classList.add('drag-over-top');
+    else if (mode === 'after') btn.classList.add('drag-over-bottom');
+    else btn.classList.add('drag-over-child');
+  });
+
+  btn.addEventListener('dragleave', e => {
+    // only clear if leaving to outside the button
+    if (!btn.contains(e.relatedTarget)) clearDropIndicators();
+  });
+
+  btn.addEventListener('drop', e => {
+    e.preventDefault();
+    clearDropIndicators();
+    if (dragSrcIdx === null || dropTargetIdx === null || dragSrcIdx === dropTargetIdx) return;
+
+    const mode = dropMode;
+    const tgt = dropTargetIdx;
+    const src = dragSrcIdx;
+
+    // Remove src from treeOrder
+    const srcNode = treeOrder.find(n => n.id === src);
+    treeOrder = treeOrder.filter(n => n.id !== src);
+
+    if (mode === 'child') {
+      // Make src a child of tgt: insert right after tgt (or after tgt's last child)
+      srcNode.parent = tgt;
+      // Find the last child of tgt in treeOrder, insert after it; otherwise after tgt
+      let insertAt = treeOrder.findIndex(n => n.id === tgt) + 1;
+      while (insertAt < treeOrder.length && treeOrder[insertAt].parent === tgt) insertAt++;
+      treeOrder.splice(insertAt, 0, srcNode);
+    } else {
+      // Sibling: unparent src
+      srcNode.parent = treeOrder.find(n => n.id === tgt)?.parent ?? null;
+      const tgtPos = treeOrder.findIndex(n => n.id === tgt);
+      if (mode === 'before') {
+        treeOrder.splice(tgtPos, 0, srcNode);
+      } else {
+        // after: insert after tgt and all of tgt's children
+        let insertAt = tgtPos + 1;
+        while (insertAt < treeOrder.length && treeOrder[insertAt].parent === tgt) insertAt++;
+        treeOrder.splice(insertAt, 0, srcNode);
+      }
+    }
+
+    saveOrder();
+    buildSidebar();
+  });
+}
+
+function clearDropIndicators() {
+  document.querySelectorAll('.drag-over-top,.drag-over-bottom,.drag-over-child').forEach(el => {
+    el.classList.remove('drag-over-top','drag-over-bottom','drag-over-child');
+  });
+}
+
+
+// ─── LOAD A VARIANT ──────────────────────────────────────────────────────────
+function load(idx) {
+  if (idx < 0 || idx >= VARIANTS.length) return;
+  current = idx;
+  const v = VARIANTS[idx];
+
+  // Update sidebar active state
+  document.querySelectorAll('.variant-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.variantIdx) === idx);
+  });
+
+  // Scroll sidebar item into view
+  const btn = document.getElementById('vbtn-'+idx);
+  if (btn) btn.scrollIntoView({block:'nearest',behavior:'smooth'});
+
+  const vis = visibleItems();
+  const pos = vis.findIndex(n => n.id === idx);
+  document.getElementById('prev-btn').disabled = pos <= 0;
+  document.getElementById('next-btn').disabled = pos >= vis.length - 1;
+
+  // Show loading overlay
+  const overlay = document.getElementById('loading-overlay');
+  document.getElementById('loading-name').textContent = 'Loading ' + v.name + '...';
+  overlay.classList.remove('hidden');
+
+  // Load iframe
+  const iframe = document.getElementById('preview');
+  iframe.onload = () => {
+    setTimeout(() => overlay.classList.add('hidden'), 200);
+    applyScale();
+  };
+  iframe.src = v.file;
+
+  updateHash(idx);
+  updateTopbarName(idx);
+  if (notesOpen) updateNotesPanel();
+}
+
+// ─── SCALE ───────────────────────────────────────────────────────────────────
+function setScale(mode) {
+  scaleMode = mode;
+  ['fit','75','100'].forEach(m => document.getElementById('sc-'+m).classList.toggle('active', m===mode));
+  applyScale();
+}
+
+function applyScale() {
+  const iframe = document.getElementById('preview');
+  const wrap = document.getElementById('preview-wrap');
+  if (scaleMode === '100') {
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.transform = 'none';
+    iframe.style.transformOrigin = 'top left';
+    wrap.style.overflow = 'auto';
+  } else if (scaleMode === '75') {
+    iframe.style.width = (100/0.75)+'%';
+    iframe.style.height = (100/0.75)+'%';
+    iframe.style.transform = 'scale(0.75)';
+    iframe.style.transformOrigin = 'top left';
+    wrap.style.overflow = 'hidden';
+  } else {
+    // fit — scale iframe to fill wrap
+    iframe.style.width = '1440px';
+    iframe.style.height = '100%';
+    const ww = wrap.offsetWidth;
+    const scale = ww / 1440;
+    iframe.style.transform = `scale(${scale})`;
+    iframe.style.transformOrigin = 'top left';
+    wrap.style.overflow = 'hidden';
+    // Adjust height
+    const wh = wrap.offsetHeight;
+    iframe.style.height = (wh / scale) + 'px';
+  }
+}
+
+window.addEventListener('resize', () => { if (scaleMode === 'fit') applyScale(); });
+
+// ─── SIDEBAR COLLAPSE ────────────────────────────────────────────────────────
+function toggleSidebar() {
+  const app = document.getElementById('app');
+  const collapsed = app.classList.toggle('sidebar-collapsed');
+  document.getElementById('collapse-btn').classList.toggle('active', !collapsed);
+  // Re-fit after transition
+  setTimeout(() => { if (scaleMode === 'fit') applyScale(); }, 270);
+}
+function navigate(dir) {
+  const vis = visibleItems();
+  const pos = vis.findIndex(n => n.id === current);
+  const next = pos + dir;
+  if (next >= 0 && next < vis.length) load(vis[next].id);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   navigate(-1);
+  if (e.key === 's' || e.key === 'S') toggleSidebar();
+  if (e.key === 'n' || e.key === 'N') toggleNotes();
+  if (e.key === 'r' || e.key === 'R') { const f = document.getElementById('preview'); f.src = f.src; }
+});
+
+// ─── OPEN IN TAB ─────────────────────────────────────────────────────────────
+function openInTab() {
+  window.open(VARIANTS[current].file, '_blank');
+}
+
+// ─── RATINGS ─────────────────────────────────────────────────────────────────
+const LS_RATINGS = 'mullin360_ratings';
+let ratings = {};
+
+function loadRatings() {
+  try { const s = localStorage.getItem(LS_RATINGS); if (s) ratings = JSON.parse(s); } catch(e) {}
+  VARIANTS.forEach((_,i) => refreshSidebarStars(i));
+}
+
+function setRating(val) {
+  const file = VARIANTS[current].file;
+  if (val === 0) { delete ratings[file]; } else { ratings[file] = val; }
+  localStorage.setItem(LS_RATINGS, JSON.stringify(ratings));
+  markDirty();
+  renderPanelStars();
+  refreshSidebarStars(current);
+}
+
+function renderPanelStars() {
+  const val = ratings[VARIANTS[current].file] || 0;
+  document.querySelectorAll('#np-stars .star').forEach(s => {
+    s.classList.toggle('on', parseInt(s.dataset.val) <= val);
+  });
+}
+
+function refreshSidebarStars(i) {
+  const el = document.getElementById('vstars-' + i);
+  if (!el) return;
+  const val = ratings[VARIANTS[i].file] || 0;
+  el.textContent = val ? '★'.repeat(val) : '';
+  el.classList.toggle('rated', val > 0);
+}
+
+// ─── LABELS (edits the vb-tag text directly) ─────────────────────────────────
+const LS_LABELS = 'mullin360_labels';
+let labels = {};
+
+function loadLabels() {
+  try { const s = localStorage.getItem(LS_LABELS); if (s) labels = JSON.parse(s); } catch(e) {}
+  VARIANTS.forEach((_,i) => refreshSidebarTag(i));
+}
+
+function handleLabelInput() {
+  const val = document.getElementById('label-input').value.trim();
+  const file = VARIANTS[current].file;
+  if (val) { labels[file] = val; } else { delete labels[file]; }
+  localStorage.setItem(LS_LABELS, JSON.stringify(labels));
+  markDirty();
+  refreshSidebarTag(current);
+  updateTopbarName(current);
+}
+
+function refreshSidebarTag(i) {
+  const el = document.getElementById('vtag-' + i);
+  if (!el) return;
+  const lbl = labels[VARIANTS[i].file];
+  el.textContent = lbl || VARIANTS[i].tag;
+}
+
+function updateTopbarName(idx) {
+  const v = VARIANTS[idx];
+  const title = titles[v.file] || v.name;
+  const lbl = labels[v.file] || v.tag;
+  document.getElementById('current-name').textContent = title + ' — ' + lbl;
+}
+
+// ─── TITLES (edits the vb-name text — the version's main title) ──────────────
+const LS_TITLES = 'mullin360_titles';
+let titles = {};
+
+function loadTitles() {
+  try { const s = localStorage.getItem(LS_TITLES); if (s) titles = JSON.parse(s); } catch(e) {}
+  VARIANTS.forEach((_,i) => refreshSidebarName(i));
+}
+
+function handleTitleInput() {
+  const val = document.getElementById('title-input').value.trim();
+  const file = VARIANTS[current].file;
+  if (val) { titles[file] = val; } else { delete titles[file]; }
+  localStorage.setItem(LS_TITLES, JSON.stringify(titles));
+  markDirty();
+  refreshSidebarName(current);
+  updateTopbarName(current);
+  // Keep notes panel header in sync
+  const v = VARIANTS[current];
+  document.getElementById('np-variant-name').textContent = titles[v.file] || v.name;
+}
+
+function refreshSidebarName(i) {
+  const el = document.getElementById('vname-' + i);
+  if (!el) return;
+  el.textContent = titles[VARIANTS[i].file] || VARIANTS[i].name;
+}
+
+// ─── PASS / FAIL ─────────────────────────────────────────────────────────────
+const LS_PASSFAIL = 'mullin360_passfail';
+let passfails = {};
+
+function loadPassFail() {
+  try { const s = localStorage.getItem(LS_PASSFAIL); if (s) passfails = JSON.parse(s); } catch(e) {}
+  VARIANTS.forEach((_,i) => refreshSidebarPassFail(i));
+}
+
+function setPassFail(val) {
+  const file = VARIANTS[current].file;
+  // clicking active state again clears it
+  if (passfails[file] === val) { delete passfails[file]; }
+  else { passfails[file] = val; }
+  localStorage.setItem(LS_PASSFAIL, JSON.stringify(passfails));
+  markDirty();
+  renderPanelPassFail();
+  refreshSidebarPassFail(current);
+}
+
+function renderPanelPassFail() {
+  const val = passfails[VARIANTS[current].file] || null;
+  document.getElementById('pf-pass').classList.toggle('active', val === 'pass');
+  document.getElementById('pf-fail').classList.toggle('active', val === 'fail');
+}
+
+function refreshSidebarPassFail(i) {
+  const el = document.getElementById('vpf-' + i);
+  if (!el) return;
+  const val = passfails[VARIANTS[i].file] || null;
+  el.className = 'vb-passfail' + (val ? ' visible ' + val : '');
+  el.textContent = val ? '↳ ' + (val === 'pass' ? 'Pass' : 'Fail') : '';
+}
+
+// ─── NOTES ENGINE ────────────────────────────────────────────────────────────
+const LS_KEY = 'mullin360_notes';
+let notes = {};          // { 'home1.html': 'some note text', ... }
+let notesOpen = false;
+let saveTimer = null;
+
+// Load notes: try notes.csv first, then fall back to localStorage
+async function initNotes() {
+  // Always seed from localStorage first (persists edits between sessions)
+  try {
+    const stored = localStorage.getItem(LS_KEY);
+    if (stored) notes = JSON.parse(stored);
+  } catch(e) {}
+
+  // Then try to fetch notes.csv and merge (CSV wins for keys not already in localStorage)
+  try {
+    const res = await fetch('notes.csv');
+    if (res.ok) {
+      const text = await res.text();
+      const parsed = parseCSV(text);
+      // Merge: localStorage edits take priority
+      for (const [file, note] of Object.entries(parsed)) {
+        if (!notes[file]) notes[file] = note;
+      }
+      persistNotes();
+      toast('notes.csv loaded');
+    }
+  } catch(e) { /* no csv file yet — that's fine */ }
+
+  refreshAllDots();
+}
+
+// Parse a simple CSV: first row is header (file,note), rest are data
+// Handles quoted fields with internal commas/newlines
+function parseCSV(text) {
+  const result = {};
+  const lines = text.split(/\r?\n/);
+  if (lines.length < 2) return result;
+  // skip header row
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+    // Split on first comma only
+    const commaIdx = line.indexOf(',');
+    if (commaIdx === -1) continue;
+    const file = unquote(line.slice(0, commaIdx).trim());
+    const note = unquote(line.slice(commaIdx + 1).trim());
+    if (file) result[file] = note;
+  }
+  return result;
+}
+
+function unquote(s) {
+  if (s.startsWith('"') && s.endsWith('"')) {
+    return s.slice(1, -1).replace(/""/g, '"');
+  }
+  return s;
+}
+
+function quoteField(s) {
+  if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+  return s;
+}
+
+function persistNotes() {
+  localStorage.setItem(LS_KEY, JSON.stringify(notes));
+  markDirty();
+}
+
+function saveNote() {
+  const val = document.getElementById('notes-textarea').value;
+  const v = VARIANTS[current];
+  if (val.trim()) { notes[v.file] = val; } else { delete notes[v.file]; }
+  persistNotes();
+  refreshDot(current);
+  updateNoteMeta(v.file);
+  toast('Note saved');
+}
+function exportCSV() {
+  const rows = ['file,note'];
+  VARIANTS.forEach(v => {
+    const note = notes[v.file] || '';
+    rows.push(quoteField(v.file) + ',' + quoteField(note));
+  });
+  const blob = new Blob([rows.join('\n')], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'notes.csv'; a.click();
+  URL.revokeObjectURL(url);
+  toast('notes.csv downloaded — replace the file in your folder');
+}
+
+// Import CSV from file picker
+function importCSV() {
+  document.getElementById('csv-import-input').click();
+}
+
+function handleImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const parsed = parseCSV(ev.target.result);
+    notes = {...notes, ...parsed};  // imported file wins
+    persistNotes();
+    refreshAllDots();
+    updateNotesPanel();
+    toast('Imported ' + Object.keys(parsed).length + ' notes from ' + file.name);
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+// Toggle the panel open/closed
+function toggleNotes() {
+  notesOpen = !notesOpen;
+  document.getElementById('notes-panel').classList.toggle('open', notesOpen);
+  document.getElementById('notes-btn').classList.toggle('active', notesOpen);
+  if (notesOpen) updateNotesPanel();
+}
+
+// Populate the panel for the current variant
+function updateNotesPanel() {
+  const v = VARIANTS[current];
+  document.getElementById('np-variant-name').textContent = titles[v.file] || v.name;
+  document.getElementById('np-filename').textContent = v.file;
+  document.getElementById('title-input').value = titles[v.file] || '';
+  document.getElementById('label-input').value = labels[v.file] || '';
+  const ta = document.getElementById('notes-textarea');
+  ta.value = notes[v.file] || '';
+  updateNoteMeta(v.file);
+  renderPanelStars();
+  renderPanelPassFail();
+}
+
+function updateNoteMeta(file) {
+  const note = notes[file] || '';
+  const words = note.trim() ? note.trim().split(/\s+/).length : 0;
+  document.getElementById('np-meta').textContent = words ? words + ' word' + (words===1?'':'s') : '';
+}
+
+// Autosave on keystroke with debounce
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('notes-textarea').addEventListener('input', e => {
+    const v = VARIANTS[current];
+    const val = e.target.value;
+    if (val.trim()) {
+      notes[v.file] = val;
+    } else {
+      delete notes[v.file];
+    }
+    persistNotes();
+    refreshDot(current);
+    updateNoteMeta(v.file);
+  });
+});
+
+// Refresh note indicator dots
+function refreshAllDots() {
+  VARIANTS.forEach((v, i) => refreshDot(i));
+}
+
+function refreshDot(i) {
+  const dot = document.getElementById('ndot-' + i);
+  if (dot) dot.classList.toggle('has-note', !!(notes[VARIANTS[i].file] || '').trim());
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+// ─── HASH ROUTING ────────────────────────────────────────────────────────────
+function updateHash(idx) {
+  history.replaceState(null,'','#'+VARIANTS[idx].file);
+}
+
+function loadFromHash() {
+  const hash = location.hash.replace('#','');
+  if (hash) {
+    const idx = VARIANTS.findIndex(v => v.file === hash);
+    if (idx !== -1) { load(idx); return; }
+  }
+  load(0);
+}
+
+// ─── CLOUD SYNC ──────────────────────────────────────────────────────────────
+let syncTimer = null;
+let syncEl = null;
+
+function getSyncEl() {
+  if (!syncEl) syncEl = document.getElementById('sync-status');
+  return syncEl;
+}
+
+function setSyncStatus(status, msg) {
+  const el = getSyncEl();
+  if (!el) return;
+  el.className = status; // 'syncing' | 'saved' | 'error'
+  el.textContent = msg;
+}
+
+// Gather all current state into one object
+function gatherState() {
+  return {
+    version: 1,
+    order: treeOrder,
+    collapsed: [...groupCollapsed],
+    notes,
+    ratings,
+    labels,
+    titles,
+    passfails,
+  };
+}
+
+// Push state to the cloud (debounced — waits 1s after last change)
+function scheduleSyncToCloud() {
+  setSyncStatus('syncing', '● Saving…');
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(syncToCloud, 1000);
+}
+
+async function syncToCloud() {
+  try {
+    const res = await fetch('/api/save-state', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(gatherState()),
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`HTTP ${res.status}: ${text}`);
+    }
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Unknown error');
+    setSyncStatus('saved', '● Saved');
+  } catch (err) {
+    setSyncStatus('error', '● Sync failed');
+    console.error('[Previewer] Sync error:', err.message);
+    // Retry once after 5s
+    setTimeout(syncToCloud, 5000);
+  }
+}
+
+// Load state from the cloud on startup
+async function loadFromCloud() {
+  setSyncStatus('syncing', '● Connecting…');
+  try {
+    const res = await fetch('/api/get-state');
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Unknown error');
+
+    if (data.state) {
+      const state = data.state;
+
+      // Apply order if valid
+      if (state.order && Array.isArray(state.order)) {
+        const ids = state.order.map(n => n.id);
+        if (state.order.length === VARIANTS.length && ids.every(n => n >= 0 && n < VARIANTS.length)) {
+          treeOrder = state.order;
+        }
+      }
+      if (state.collapsed) groupCollapsed = new Set(state.collapsed);
+      if (state.notes)     notes     = state.notes;
+      if (state.ratings)   ratings   = state.ratings;
+      if (state.labels)    labels    = state.labels;
+      if (state.titles)    titles    = state.titles;
+      if (state.passfails) passfails = state.passfails;
+
+      // Mirror to localStorage as fallback
+      localStorage.setItem(LS_ORDER,    JSON.stringify(treeOrder));
+      localStorage.setItem(LS_COLLAPSED,JSON.stringify([...groupCollapsed]));
+      localStorage.setItem(LS_KEY,      JSON.stringify(notes));
+      localStorage.setItem(LS_RATINGS,  JSON.stringify(ratings));
+      localStorage.setItem(LS_LABELS,   JSON.stringify(labels));
+      localStorage.setItem(LS_TITLES,   JSON.stringify(titles));
+      localStorage.setItem(LS_PASSFAIL, JSON.stringify(passfails));
+
+    window._lastSyncedAt = state.savedAt ? new Date(state.savedAt).getTime() : Date.now();
+
+    // Rebuild UI with cloud state
+    buildSidebar();
+      loadFromHash();
+      updateTopbarName(current);
+      refreshAllDots();
+    }
+
+    setSyncStatus('saved', '● Live');
+    startPolling();
+  } catch (err) {
+    setSyncStatus('error', '● Offline');
+    console.warn('Could not reach cloud, using localStorage:', err);
+    startPolling(); // still poll in case connection recovers
+  }
+}
+
+// Manual refresh — pull latest cloud state on demand
+async function refreshFromCloud() {
+  setSyncStatus('syncing', '● Refreshing…');
+  try {
+    const res = await fetch('/api/get-state');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Unknown error');
+
+    if (data.state) {
+      const state = data.state;
+      if (state.order && Array.isArray(state.order)) {
+        const ids = state.order.map(n => n.id);
+        if (state.order.length === VARIANTS.length && ids.every(n => n >= 0 && n < VARIANTS.length)) {
+          treeOrder = state.order;
+        }
+      }
+      if (state.collapsed) groupCollapsed = new Set(state.collapsed);
+      if (state.notes)     notes     = state.notes;
+      if (state.ratings)   ratings   = state.ratings;
+      if (state.labels)    labels    = state.labels;
+      if (state.titles)    titles    = state.titles;
+      if (state.passfails) passfails = state.passfails;
+      window._lastSyncedAt = state.savedAt ? new Date(state.savedAt).getTime() : Date.now();
+      buildSidebar();
+      updateTopbarName(current);
+      if (notesOpen) updateNotesPanel();
+      refreshAllDots();
+    }
+
+    setSyncStatus('saved', '● Live');
+    toast('↻ Refreshed from cloud');
+  } catch (err) {
+    setSyncStatus('error', '● Offline');
+    toast('⚠ Could not reach cloud');
+  }
+}
+function markDirty() {
+  scheduleSyncToCloud();
+}
+function markClean() {
+  // no-op — kept for compatibility with any remaining calls
+}
+
+// ─── LIVE POLLING ────────────────────────────────────────────────────────────
+const POLL_INTERVAL = 30000; // 30 seconds
+let pollTimer = null;
+let userActiveTimer = null;
+let userIsActive = false;
+
+function markUserActive() {
+  userIsActive = true;
+  clearTimeout(userActiveTimer);
+  userActiveTimer = setTimeout(() => { userIsActive = false; }, 5000);
+}
+
+async function pollForChanges() {
+  if (userIsActive || syncTimer) return;
+  try {
+    const res = await fetch('/api/get-state');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.ok || !data.state) return;
+    const state = data.state;
+    const cloudTime = state.savedAt ? new Date(state.savedAt).getTime() : 0;
+    const localTime = window._lastSyncedAt || 0;
+    if (cloudTime <= localTime) return;
+    if (state.order && Array.isArray(state.order)) {
+      const ids = state.order.map(n => n.id);
+      if (state.order.length === VARIANTS.length && ids.every(n => n >= 0 && n < VARIANTS.length)) {
+        treeOrder = state.order;
+      }
+    }
+    if (state.collapsed) groupCollapsed = new Set(state.collapsed);
+    if (state.notes)     notes     = state.notes;
+    if (state.ratings)   ratings   = state.ratings;
+    if (state.labels)    labels    = state.labels;
+    if (state.titles)    titles    = state.titles;
+    if (state.passfails) passfails = state.passfails;
+    window._lastSyncedAt = cloudTime;
+    buildSidebar();
+    updateTopbarName(current);
+    if (notesOpen) updateNotesPanel();
+    refreshAllDots();
+    toast('↻ Updated from cloud');
+  } catch (err) { /* silent fail */ }
+}
+
+function startPolling() {
+  pollTimer = setInterval(pollForChanges, POLL_INTERVAL);
+}
+
+document.addEventListener('keydown', markUserActive, { passive: true });
+document.addEventListener('mousedown', markUserActive, { passive: true });
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+// Load localStorage as instant baseline, then cloud state overwrites on arrival
+loadOrder();
+buildSidebar();
+loadFromHash();
+initNotes();
+loadRatings();
+loadLabels();
+loadTitles();
+loadPassFail();
+
+// Then fetch cloud state (overwrites local if available)
+loadFromCloud();
+</script>
+</body>
+</html>

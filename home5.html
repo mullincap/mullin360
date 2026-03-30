@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mullin360 — Bold & Modern</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#000000;
+  --black2:#0A0A0A;
+  --black3:#111111;
+  --copper:#B87333;
+  --copper-bright:#D4933F;
+  --copper-dim:#7A4E22;
+  --white:#FFFFFF;
+  --off:#F2F0EC;
+  --gray:#888888;
+  --gray-light:#CCCCCC;
+  --font-d:'Bebas Neue',Impact,sans-serif;
+  --font-b:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--black);color:var(--white);font-size:16px;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 4rem;border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-logo{font-family:var(--font-d);font-size:1.8rem;color:var(--white);text-decoration:none;letter-spacing:0.1em}
+.nav-logo span{color:var(--copper-bright)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--copper-bright)}
+.nav-btn{border:1px solid var(--copper);color:var(--copper-bright);padding:0.5rem 1.25rem;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:all 0.2s}
+.nav-btn:hover{background:var(--copper);color:var(--black)}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(to top,var(--black) 10%,rgba(0,0,0,0.55) 55%,rgba(0,0,0,0.3) 100%),url('https://mullin360.com/wp-content/uploads/2025/09/scottsdalechapman.png') center/cover no-repeat}
+.hero-content{position:relative;z-index:2;padding:0 4rem 5rem;width:100%}
+.hero-grid{display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:3rem}
+.eyebrow{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--copper-bright);margin-bottom:1rem}
+h1{font-family:var(--font-d);font-size:clamp(5rem,11vw,10rem);line-height:0.95;color:var(--white);letter-spacing:0.04em;margin-bottom:1.5rem}
+h1 span{color:var(--copper-bright);display:block}
+.hero-sub{font-size:0.95rem;color:var(--gray);max-width:400px;margin-bottom:2rem;font-weight:300}
+.btns{display:flex;gap:1rem;align-items:center}
+.btn-copper{display:inline-flex;align-items:center;gap:0.75rem;background:var(--copper-bright);color:var(--black);padding:0.9rem 2rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;font-weight:700;transition:background 0.2s,transform 0.15s}
+.btn-copper:hover{background:var(--copper);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.75rem;border:1px solid rgba(255,255,255,0.2);color:var(--white);padding:0.9rem 2rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:border-color 0.2s,background 0.2s}
+.btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,0.06)}
+.hero-stat-stack{text-align:right;padding-bottom:0.5rem}
+.hero-stat-stack .big{font-family:var(--font-d);font-size:5rem;color:var(--copper-bright);line-height:1;letter-spacing:0.04em}
+.hero-stat-stack .lbl{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray)}
+.ticker{position:absolute;bottom:0;left:0;right:0;background:var(--copper);padding:0.6rem 4rem;display:flex;gap:4rem;overflow:hidden}
+.ticker p{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);font-weight:700;white-space:nowrap}
+
+/* STATS */
+#stats{background:var(--black2);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:3rem 2rem;text-align:center;border-right:1px solid rgba(255,255,255,0.06)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:var(--font-d);font-size:3.5rem;color:var(--copper-bright);line-height:1;letter-spacing:0.06em}
+.stat-l{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-top:0.4rem}
+
+/* VISION */
+#vision{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;min-height:600px}
+.vision-img{position:relative;overflow:hidden}
+.vision-img img{width:100%;height:100%;object-fit:cover;min-height:500px;display:block;filter:grayscale(20%)}
+.vision-copper-bar{position:absolute;top:0;left:0;bottom:0;width:4px;background:var(--copper-bright)}
+.vision-text{padding:5rem 4rem;background:var(--black3);display:flex;flex-direction:column;justify-content:center}
+.section-label{font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--copper-bright);margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::before{content:'';display:block;width:2rem;height:1px;background:var(--copper-bright)}
+.section-title{font-family:var(--font-d);font-size:clamp(2.5rem,4vw,3.5rem);color:var(--white);line-height:1.05;letter-spacing:0.05em;margin-bottom:1.5rem}
+.section-title em{color:var(--copper-bright);font-style:normal}
+blockquote{font-size:1rem;color:rgba(255,255,255,0.5);border-left:2px solid var(--copper-bright);padding-left:1.25rem;margin:1.75rem 0;font-weight:300;line-height:1.7}
+.vision-text p{color:var(--gray);font-weight:300;margin-bottom:0.9rem;font-size:0.92rem}
+
+/* PROJECTS */
+#projects{padding:5rem 4rem;background:var(--black)}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.pcard{position:relative;overflow:hidden;cursor:pointer;background:var(--black3)}
+.pcard img{width:100%;height:400px;object-fit:cover;display:block;transition:transform 0.7s ease,filter 0.4s;filter:grayscale(30%)}
+.pcard:hover img{transform:scale(1.05);filter:grayscale(0%)}
+.pcard.big{grid-row:span 2}
+.pcard.big img{height:100%}
+.poverlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;transition:background 0.3s}
+.pcard:hover .poverlay{background:linear-gradient(to top,rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.2) 55%)}
+.ptag{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--copper-bright);margin-bottom:0.3rem}
+.pname{font-family:var(--font-d);font-size:1.5rem;color:var(--white);letter-spacing:0.06em}
+.ploc{font-size:0.75rem;color:var(--gray)}
+.parrow{position:absolute;top:1.25rem;right:1.25rem;width:2.25rem;height:2.25rem;background:var(--copper-bright);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;color:var(--black);font-weight:700}
+.pcard:hover .parrow{opacity:1}
+
+/* APPROACH */
+#approach{padding:5rem 4rem;background:var(--black2);display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start}
+.approach-intro p{color:var(--gray);font-weight:300;font-size:0.92rem;max-width:340px;margin-top:1.25rem}
+.pillars{display:flex;flex-direction:column}
+.pillar{display:grid;grid-template-columns:3rem 1fr;gap:1.5rem;padding:1.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);align-items:start}
+.pnum{font-family:var(--font-d);font-size:2rem;color:var(--copper-bright);line-height:1;letter-spacing:0.06em}
+.pillar h3{font-size:0.9rem;font-weight:700;color:var(--white);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.35rem}
+.pillar p{font-size:0.85rem;color:var(--gray);font-weight:300}
+
+/* CTA */
+#cta{background:var(--copper-bright);padding:4rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+#cta h2{font-family:var(--font-d);font-size:3rem;color:var(--black);letter-spacing:0.06em}
+#cta p{color:rgba(0,0,0,0.55);font-size:0.9rem;margin-top:0.3rem}
+.btn-black{display:inline-flex;align-items:center;gap:0.75rem;background:var(--black);color:var(--white);padding:1rem 2.5rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;font-weight:700;white-space:nowrap;transition:background 0.2s}
+.btn-black:hover{background:var(--black3)}
+
+/* FOOTER */
+footer{background:#050505;padding:5rem 4rem 3rem}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:2rem}
+.fbrand{font-family:var(--font-d);font-size:2rem;color:var(--white);letter-spacing:0.1em;margin-bottom:0.5rem}
+.fbrand span{color:var(--copper-bright)}
+.ftag{font-size:0.75rem;color:var(--gray);margin-bottom:1rem}
+footer h4{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:1.25rem}
+footer ul{list-style:none}
+footer li{margin-bottom:0.5rem}
+footer a{font-size:0.85rem;color:var(--gray);text-decoration:none;transition:color 0.2s;font-weight:300}
+footer a:hover{color:var(--copper-bright)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center}
+.fcopy,.faddr{font-size:0.72rem;color:rgba(255,255,255,0.15);font-style:normal}
+
+@media(max-width:1024px){nav,#vision .vision-text,#projects,#approach,#cta,footer{padding:4rem 2rem}#vision{grid-template-columns:1fr}.vision-img{display:none}#approach{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.pcard.big{grid-row:span 1}.stats-inner{grid-template-columns:1fr 1fr}.footer-top{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.nav-links,.nav-btn{display:none}h1{font-size:5rem}.grid{grid-template-columns:1fr}#cta{flex-direction:column}.footer-top{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">MULLIN<span>360</span></a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#cta">Contact</a></li>
+  </ul>
+  <a href="#cta" class="nav-btn">Get in Touch</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Scottsdale, Arizona · Est. 1994</p>
+        <h1>DEVELOPING<span>WITH PURPOSE.</span></h1>
+        <p class="hero-sub">30+ years building the real estate developments that define markets — from Scottsdale to Saudi Arabia.</p>
+        <div class="btns">
+          <a href="#projects" class="btn-copper">View Projects &rarr;</a>
+          <a href="#vision" class="btn-ghost">Our Story</a>
+        </div>
+      </div>
+      <div class="hero-stat-stack">
+        <div class="big">$1.6B</div>
+        <div class="lbl">Portfolio Value</div>
+      </div>
+    </div>
+  </div>
+  <div class="ticker">
+    <p>Automotive Retail · Commercial Development · Resort Living · Sale-Leaseback Finance</p>
+    <p>Scottsdale · Phoenix · Dallas · National & International</p>
+    <p>30+ Years · 1,200+ Locations · 40+ Developments</p>
+  </div>
+</section>
+
+<div id="stats">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Years in Operation</div></div>
+    <div class="stat"><div class="stat-n">1,200+</div><div class="stat-l">Automotive Locations</div></div>
+    <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Developments Completed</div></div>
+    <div class="stat"><div class="stat-n">$1.6B</div><div class="stat-l">Portfolio Value</div></div>
+  </div>
+</div>
+
+<section id="vision">
+  <div class="vision-img">
+    <div class="vision-copper-bar"></div>
+    <img src="https://azcollaborate.com/wp-content/uploads/2025/09/Collaborations-1-of-12.jpg" alt="Mullin360">
+  </div>
+  <div class="vision-text">
+    <p class="section-label">Our Vision</p>
+    <div class="section-title">A LEGACY BUILT ON <em>RESULTS</em></div>
+    <blockquote>"Committed to impacting our communities through innovative development and loyal relationships."</blockquote>
+    <p>Mullin360 began as a family-owned firm by father-son team Art and Jim Mullin. Over three decades, we've served as owner, investor, partner, and advisor in automotive and commercial real estate.</p>
+    <p>Our approach is strategic rather than transactional — we build for the long term, not just the deal.</p>
+    <a href="#" class="btn-copper" style="margin-top:1.5rem;align-self:flex-start">Meet the Team &rarr;</a>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="ph">
+    <div>
+      <p class="section-label">Our Work</p>
+      <div class="section-title" style="font-size:clamp(2rem,4vw,3rem)">FEATURED PROJECTS</div>
+    </div>
+    <a href="#" class="btn-ghost">All Projects &rarr;</a>
+  </div>
+  <div class="grid">
+    <div class="pcard big">
+      <img src="https://mullin360.com/wp-content/uploads/2025/09/scottsdalechapman.png" alt="Scottsdale Autoshow">
+      <div class="poverlay"><p class="ptag">Automotive · Scottsdale, AZ</p><p class="pname">SCOTTSDALE AUTOSHOW</p><p class="ploc">70 acre development on Salt River Pima-Maricopa Indian Community</p></div>
+      <div class="parrow">&rarr;</div>
+    </div>
+    <div class="pcard">
+      <img src="https://mullin360.com/wp-content/uploads/2025/09/PenskeNorthScottsdale-1024x443.png" alt="Penske North Scottsdale 101">
+      <div class="poverlay"><p class="ptag">Automotive · Scottsdale, AZ</p><p class="pname">PENSKE NORTH SCOTTSDALE 101</p><p class="ploc">40 acre facility &mdash; 9 premium franchises off Loop 101</p></div>
+      <div class="parrow">&rarr;</div>
+    </div>
+    <div class="pcard">
+      <img src="https://mullin360.com/wp-content/uploads/2025/09/RiversideCounty-1024x443.png" alt="Riverside County Auto Park">
+      <div class="poverlay"><p class="ptag">Automotive · Riverside County, CA</p><p class="pname">RIVERSIDE COUNTY AUTO PARK</p><p class="ploc">Under development &mdash; dealership inquiries open</p></div>
+      <div class="parrow">&rarr;</div>
+    </div>
+    <div class="pcard">
+      <img src="https://mullin360.com/wp-content/uploads/2025/09/theartatmmm-1024x443.png" alt="The Art at MMR">
+      <div class="poverlay"><p class="ptag">Retail · McDowell Mountain Ranch, AZ</p><p class="pname">THE ART AT MMR</p><p class="ploc">15,000 sq ft stylized retail development</p></div>
+      <div class="parrow">&rarr;</div>
+    </div>
+    <div class="pcard">
+      <img src="https://mullin360.com/wp-content/uploads/2025/09/303autoshow-1024x471.png" alt="303 Autoshow">
+      <div class="poverlay"><p class="ptag">Automotive · Surprise, AZ</p><p class="pname">303 AUTOSHOW</p><p class="ploc">80 acre autoplex within Prasada community</p></div>
+      <div class="parrow">&rarr;</div>
+    </div>
+    <div class="pcard">
+      <img src="https://mullin360.com/wp-content/uploads/2025/09/Roof-Garden-Bar.jpeg" alt="Greencastle Hotel">
+      <div class="poverlay"><p class="ptag">Hospitality · Greencastle, IN</p><p class="pname">GREENCASTLE HOTEL</p><p class="ploc">Historic hotel transformed into luxury boutique</p></div>
+      <div class="parrow">&rarr;</div>
+    </div>
+    <div class="pcard">
+      <img src="https://mullin360.com/wp-content/uploads/2025/09/tempeautoplex-1024x471.png" alt="Tempe Autoplex">
+      <div class="poverlay"><p class="ptag">Automotive · Tempe, AZ</p><p class="pname">TEMPE AUTOPLEX</p><p class="ploc">80 acre autoplex development</p></div>
+      <div class="parrow">&rarr;</div>
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="approach-intro">
+    <p class="section-label">How We Work</p>
+    <div class="section-title" style="font-size:clamp(2.5rem,4vw,3.5rem)">STRATEGIC.<br><em>INTENTIONAL.</em><br>LONG-TERM.</div>
+    <p>We build lasting relationships and community-defining developments that stand for decades.</p>
+  </div>
+  <div class="pillars">
+    <div class="pillar"><span class="pnum">01</span><div><h3>Site Selection & Research</h3><p>Rigorous market analysis identifying development opportunities with long-term viability.</p></div></div>
+    <div class="pillar"><span class="pnum">02</span><div><h3>Development & Construction</h3><p>End-to-end management from entitlements through construction completion.</p></div></div>
+    <div class="pillar"><span class="pnum">03</span><div><h3>Investment & Finance</h3><p>Sophisticated structuring of real estate investments and sale-leaseback financing.</p></div></div>
+    <div class="pillar"><span class="pnum">04</span><div><h3>Partnerships & Collaboration</h3><p>Deep relationships with national and international clients and local communities.</p></div></div>
+  </div>
+</section>
+
+<div id="cta">
+  <div><h2>LET'S BUILD SOMETHING TOGETHER.</h2><p>Scottsdale, AZ · Serving clients nationally and internationally</p></div>
+  <a href="https://mullin360.com/locate-contact/" class="btn-black">Get in Touch &rarr;</a>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="fbrand">MULLIN<span>360</span></div>
+      <p class="ftag">Developing with Purpose.</p>
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.2);font-weight:300;max-width:260px">Family-owned real estate development specializing in automotive retail and commercial properties.</p>
+    </div>
+    <div><h4>Navigate</h4><ul><li><a href="#">Our Projects</a></li><li><a href="#">Our Vision</a></li><li><a href="#">Our Team</a></li><li><a href="#">Contact</a></li></ul></div>
+    <div><h4>Ventures</h4><ul><li><a href="#">American Resort Communities</a></li><li><a href="#">AZ Collaborate</a></li></ul></div>
+    <div><h4>Contact</h4><ul><li><a href="https://mullin360.com/locate-contact/">Locate &amp; Contact</a></li><li><a href="#">Scottsdale, AZ</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="fcopy">&copy; 2025 Mullin360, LLC. All rights reserved.</p>
+    <address class="faddr">7272 E Indian School Rd &middot; Scottsdale, AZ 85251</address>
+  </div>
+</footer>
+
+<script>
+  const nb = document.getElementById('nb');
+  window.addEventListener('scroll', function() {
+    nb.classList.toggle('scrolled', window.scrollY > 60);
+  });
+</script>
+
+</body>
+</html>

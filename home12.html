@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mullin360 — Asymmetric</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#FAFAF7;
+  --off:#F2F0EA;
+  --ink:#171310;
+  --green:#0E6133;
+  --green-light:#14803F;
+  --green-pale:#C8DDD0;
+  --green-xpale:#EAF2EE;
+  --rust:#C4541A;
+  --stone:#6B6560;
+  --line:#D8D4CC;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;background:var(--white);color:var(--ink);font-size:16px;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:stretch;height:60px;background:var(--ink);transition:all 0.3s}
+.nav-brand{display:flex;align-items:center;padding:0 2rem;background:var(--green);gap:1rem}
+.nav-brand-text{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-0.01em}
+.nav-brand-text span{color:var(--green-pale)}
+.nav-meta-strip{display:flex;align-items:center;padding:0 2rem;border-right:1px solid rgba(255,255,255,0.08)}
+.nav-meta-strip span{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35)}
+.nav-links{display:flex;list-style:none;margin-left:auto}
+.nav-links li a{display:flex;align-items:center;height:100%;padding:0 1.5rem;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.55);text-decoration:none;border-left:1px solid rgba(255,255,255,0.06);transition:all 0.2s}
+.nav-links li a:hover{color:var(--white);background:rgba(255,255,255,0.05)}
+
+/* HERO */
+#hero{margin-top:60px;display:grid;grid-template-columns:3fr 2fr;min-height:calc(100vh - 60px)}
+.hero-main{position:relative;overflow:hidden;background:var(--ink)}
+.hero-main img{width:100%;height:100%;object-fit:cover;display:block;opacity:0.55;mix-blend-mode:luminosity}
+.hero-main::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,97,51,0.8) 0%,rgba(23,19,16,0.6) 60%,transparent 100%);z-index:1}
+.hero-main-text{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;padding:3.5rem}
+.hero-tag{display:inline-block;background:var(--rust);color:var(--white);font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.3rem 0.75rem;margin-bottom:2rem}
+h1.asym{font-family:'Fraunces',serif;font-size:clamp(4rem,8vw,7rem);font-weight:700;line-height:0.88;color:var(--white);letter-spacing:-0.02em;margin-bottom:1.5rem}
+h1.asym em{font-style:italic;font-weight:300;color:var(--green-pale);display:block}
+.hero-sub-asym{font-size:0.9rem;color:rgba(250,250,247,0.65);max-width:380px;margin-bottom:2.5rem;font-weight:300;line-height:1.7}
+.btn-asym{display:inline-flex;align-items:center;gap:0.6rem;background:var(--green);color:var(--white);padding:0.85rem 2rem;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all 0.2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+.btn-asym:hover{background:var(--green-light)}
+.btn-asym-ghost{display:inline-flex;align-items:center;gap:0.6rem;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.7);padding:0.85rem 2rem;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;margin-left:0.75rem;transition:all 0.2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+.btn-asym-ghost:hover{border-color:var(--green-pale);color:var(--green-pale)}
+.hero-side{display:flex;flex-direction:column;background:var(--off)}
+.hero-side-stat{flex:1;display:flex;flex-direction:column;justify-content:center;padding:3rem 2.5rem;border-bottom:2px solid var(--white);position:relative;overflow:hidden}
+.hero-side-stat::before{content:attr(data-n);position:absolute;right:-0.5rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',serif;font-size:6rem;font-weight:700;color:var(--green-pale);opacity:0.3;line-height:1;letter-spacing:-0.03em;pointer-events:none}
+.hero-side-stat:last-child{border-bottom:none}
+.stat-val{font-family:'Fraunces',serif;font-size:2.75rem;font-weight:700;color:var(--green);line-height:1;letter-spacing:-0.02em}
+.stat-lbl{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone);margin-top:0.4rem}
+
+/* DIAGONAL BAND */
+.diag-band{background:var(--green);padding:1.5rem 3rem;display:flex;align-items:center;gap:4rem;overflow:hidden;position:relative}
+.diag-band::before{content:'';position:absolute;right:-2rem;top:-50%;width:120px;height:200%;background:var(--green-light);transform:skewX(-8deg)}
+.ticker-item{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.6);white-space:nowrap;display:flex;align-items:center;gap:2rem}
+.ticker-item::after{content:'✦';color:rgba(255,255,255,0.3);font-size:0.5rem}
+
+/* VISION — 40/60 split */
+#vision{display:grid;grid-template-columns:2fr 3fr;min-height:580px}
+.vis-text-asym{padding:5rem 3.5rem;background:var(--green-xpale);display:flex;flex-direction:column;justify-content:center}
+.sec-kicker{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem}
+.sec-kicker::before{content:'';width:1.5rem;height:2px;background:var(--green);display:block}
+h2.asym-title{font-family:'Fraunces',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.05;color:var(--ink);margin-bottom:1.25rem;letter-spacing:-0.02em}
+h2.asym-title em{font-style:italic;color:var(--green);font-weight:300}
+.big-quote{font-family:'Fraunces',serif;font-size:1.15rem;font-style:italic;font-weight:300;color:var(--green);line-height:1.5;padding:1.5rem 0;border-top:2px solid var(--green);border-bottom:1px solid var(--green-pale);margin:1.5rem 0}
+p.asym-body{font-size:0.9rem;color:var(--stone);font-weight:300;margin-bottom:0.9rem;line-height:1.75}
+.vis-img-asym{position:relative;overflow:hidden}
+.vis-img-asym img{width:100%;height:100%;object-fit:cover;display:block;min-height:500px}
+.vis-img-asym::after{content:'Est.\A1994';white-space:pre;position:absolute;bottom:2rem;left:0;background:var(--ink);color:var(--white);font-family:'Fraunces',serif;font-size:2.5rem;font-weight:700;line-height:1.1;padding:1rem 1.5rem;letter-spacing:-0.02em}
+
+/* PROJECTS — asymmetric bento */
+#projects{padding:5rem 3rem;background:var(--white)}
+.proj-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem}
+.bento{display:grid;grid-template-columns:5fr 3fr 4fr;grid-template-rows:auto;gap:3px}
+.bcard{position:relative;overflow:hidden;cursor:pointer;background:var(--ink)}
+.bcard img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease,opacity 0.3s;opacity:0.8;min-height:280px}
+.bcard:hover img{transform:scale(1.04);opacity:0.95}
+.bcard.tall{grid-row:span 2}
+.bcard.tall img{min-height:563px}
+.bcard-info{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;background:linear-gradient(to top,rgba(23,19,16,0.92) 0%,transparent 60%)}
+.bcard-tag{font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green-pale);margin-bottom:0.2rem}
+.bcard-name{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--white);letter-spacing:-0.01em}
+.bcard-loc{font-size:0.75rem;color:rgba(250,250,247,0.5);margin-top:0.2rem}
+.bcard-corner{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 2.5rem 2.5rem 0;border-color:transparent var(--green) transparent transparent;opacity:0;transition:opacity 0.3s}
+.bcard:hover .bcard-corner{opacity:1}
+/* Pull quote card */
+.bcard-quote{background:var(--green);display:flex;flex-direction:column;justify-content:center;padding:2rem;min-height:280px}
+.bcard-quote p{font-family:'Fraunces',serif;font-size:1.2rem;font-style:italic;font-weight:300;color:rgba(255,255,255,0.8);line-height:1.45}
+.bcard-quote cite{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:1rem;display:block}
+
+/* DEVELOPMENT */
+#development{display:grid;grid-template-columns:1fr 2fr;background:var(--off)}
+.dev-side-asym{padding:5rem 3rem;border-right:3px solid var(--ink);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.dev-side-asym::before{content:'DEVELOPMENT';position:absolute;bottom:-1rem;left:-0.5rem;font-family:'Fraunces',serif;font-size:7rem;font-weight:700;color:var(--green-pale);opacity:0.35;line-height:1;letter-spacing:-0.04em;pointer-events:none;white-space:nowrap}
+.dev-side-asym h2{font-family:'Fraunces',serif;font-size:2.75rem;font-weight:700;line-height:1;letter-spacing:-0.02em;position:relative;z-index:1}
+.dev-side-asym h2 em{font-style:italic;color:var(--green);font-weight:300;display:block}
+.dev-side-asym p{font-size:0.88rem;color:var(--stone);font-weight:300;margin-top:1.25rem;max-width:220px;position:relative;z-index:1}
+.dev-grid-asym{padding:5rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:0}
+.dev-card-asym{padding:2rem 0;border-bottom:1px solid var(--line)}
+.dev-card-asym:nth-child(odd){padding-right:3rem;border-right:1px solid var(--line)}
+.dev-card-asym:nth-child(even){padding-left:3rem}
+.dev-card-asym:nth-last-child(-n+2){border-bottom:none}
+.dev-tag-asym{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rust);margin-bottom:0.5rem;font-weight:500}
+.dev-card-asym h3{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:0.5rem;letter-spacing:-0.01em}
+.dev-card-asym p{font-size:0.855rem;color:var(--stone);font-weight:300;line-height:1.7}
+
+/* APPROACH */
+#approach{background:var(--ink);display:grid;grid-template-columns:2fr 3fr;padding:0}
+.appr-left-asym{padding:5rem 4rem;border-right:1px solid rgba(255,255,255,0.07)}
+.appr-left-asym .sec-kicker{color:var(--green-pale)}
+.appr-left-asym .sec-kicker::before{background:var(--green-pale)}
+.appr-left-asym h2{font-family:'Fraunces',serif;font-size:clamp(2rem,3vw,3rem);font-weight:700;line-height:1.0;color:var(--white);letter-spacing:-0.02em;margin-bottom:1rem}
+.appr-left-asym h2 em{font-style:italic;color:var(--green-pale);font-weight:300}
+.appr-left-asym p{font-size:0.88rem;color:rgba(250,250,247,0.5);font-weight:300;max-width:300px}
+.appr-right-asym{padding:5rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:0}
+.pillar-asym{padding:2rem;border-right:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)}
+.pillar-asym:nth-child(even){border-right:none}
+.pillar-asym:nth-last-child(-n+2){border-bottom:none}
+.pn-asym{font-family:'Fraunces',serif;font-size:2.5rem;font-weight:700;color:var(--green);opacity:0.35;line-height:1;margin-bottom:0.75rem;letter-spacing:-0.03em}
+.pillar-asym h3{font-size:0.78rem;font-weight:500;color:var(--white);margin-bottom:0.4rem;letter-spacing:0.03em}
+.pillar-asym p{font-size:0.82rem;color:rgba(250,250,247,0.4);font-weight:300}
+
+/* TEAM */
+#team{padding:5rem 3rem;background:var(--white)}
+.team-header{display:flex;align-items:flex-end;gap:3rem;margin-bottom:3rem}
+.team-header h2{font-family:'Fraunces',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;letter-spacing:-0.02em}
+.team-header h2 em{font-style:italic;color:var(--green);font-weight:300}
+.team-asym-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.tmem-asym{position:relative;overflow:hidden;cursor:pointer;background:var(--off)}
+.tmem-asym img{width:100%;height:auto;display:block;transition:transform 0.5s,filter 0.3s;filter:saturate(0.8)}
+.tmem-asym:hover img{transform:scale(1.03);filter:saturate(1)}
+.tov-asym{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(23,19,16,0.9) 0%,transparent 55%);padding:1.75rem}
+.tname-asym{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:700;color:var(--white);letter-spacing:-0.01em}
+.ttitle-asym{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--green-pale);margin-top:0.2rem}
+.team-bios-asym{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:3rem;padding-top:2.5rem;border-top:2px solid var(--ink)}
+.bio-asym h3{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:0.15rem;letter-spacing:-0.01em}
+.bio-asym .bio-t{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;font-weight:500}
+.bio-asym p{font-size:0.84rem;color:var(--stone);font-weight:300;line-height:1.75}
+
+/* CTA */
+#cta{background:var(--rust);padding:5rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:3rem;position:relative;overflow:hidden}
+#cta::before{content:'';position:absolute;right:-3rem;top:-50%;width:200px;height:200%;background:rgba(0,0,0,0.1);transform:skewX(-8deg)}
+#cta h2{font-family:'Fraunces',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;color:var(--white);letter-spacing:-0.02em;line-height:1}
+#cta h2 em{font-style:italic;font-weight:300}
+#cta p{color:rgba(250,250,247,0.65);font-size:0.88rem;margin-top:0.5rem;font-weight:300}
+.btn-cta-asym{display:inline-flex;align-items:center;gap:0.75rem;background:var(--ink);color:var(--white);padding:1rem 2.5rem;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;font-weight:500;white-space:nowrap;transition:all 0.2s;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)}
+.btn-cta-asym:hover{background:var(--green)}
+
+/* FOOTER */
+footer{background:var(--ink);padding:4.5rem 3rem 2.5rem;border-top:3px solid var(--green)}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:1.5rem}
+.fbrand-asym{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:700;color:var(--white);letter-spacing:-0.02em;margin-bottom:0.4rem}
+.fbrand-asym span{color:var(--green-pale);font-weight:300;font-style:italic}
+.ftag-asym{font-size:0.72rem;color:rgba(250,250,247,0.35);margin-bottom:1rem}
+footer h4{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(250,250,247,0.25);margin-bottom:1.2rem}
+footer ul{list-style:none}
+footer li{margin-bottom:0.5rem}
+footer a{font-size:0.83rem;color:rgba(250,250,247,0.5);text-decoration:none;font-weight:300;transition:color 0.2s}
+footer a:hover{color:var(--green-pale)}
+.footer-bottom{display:flex;justify-content:space-between}
+.fcopy{font-size:0.68rem;color:rgba(250,250,247,0.2)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.85s ease,transform 0.85s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-child{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal-stagger .reveal-child:nth-child(1){transition-delay:0s}
+.reveal-stagger .reveal-child:nth-child(2){transition-delay:0.1s}
+.reveal-stagger .reveal-child:nth-child(3){transition-delay:0.2s}
+.reveal-stagger .reveal-child:nth-child(4){transition-delay:0.3s}
+.reveal-stagger .reveal-child:nth-child(5){transition-delay:0.38s}
+.reveal-stagger .reveal-child:nth-child(6){transition-delay:0.46s}
+.reveal-child.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:1024px){
+  nav{height:auto}
+  .nav-brand{padding:1rem 1.5rem}
+  #hero{grid-template-columns:1fr;margin-top:52px}
+  .hero-side{flex-direction:row}
+  .hero-side-stat{border-bottom:none;border-right:1px solid var(--white)}
+  #vision{grid-template-columns:1fr}
+  .vis-img-asym{min-height:360px}
+  #projects,#team,#cta,footer{padding:4rem 2rem}
+  .bento{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .bcard.tall{grid-row:span 1}
+  .bcard.tall img{min-height:280px;height:280px}
+  #development{grid-template-columns:1fr}
+  .dev-side-asym{padding:3rem 2rem;border-right:none;border-bottom:3px solid var(--ink)}
+  .dev-grid-asym{padding:3rem 2rem}
+  #approach{grid-template-columns:1fr}
+  .appr-right-asym{padding:3rem 2rem}
+  .team-asym-grid{grid-template-columns:1fr 1fr}
+  .team-bios-asym{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hero-side{flex-direction:column}
+  .hero-side-stat{border-right:none;border-bottom:1px solid var(--white)}
+  .bento{grid-template-columns:1fr}
+  .team-asym-grid,.team-bios-asym{grid-template-columns:1fr}
+  #cta{flex-direction:column}
+  .footer-top{grid-template-columns:1fr}
+  .dev-grid-asym{grid-template-columns:1fr}
+  .dev-card-asym:nth-child(odd){border-right:none;padding-right:0}
+  .dev-card-asym:nth-child(even){padding-left:0}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <a href="#" class="nav-brand-text">Mullin<span>360</span></a>
+  </div>
+  <div class="nav-meta-strip">
+    <span>Est. 1994 &middot; Scottsdale, AZ</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#cta">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-main">
+    <img src="https://mullin360.com/wp-content/uploads/2025/09/scottsdalechapman.png" alt="Scottsdale Autoshow">
+    <div class="hero-main-text">
+      <span class="hero-tag">Family-Owned &middot; Since 1994</span>
+      <h1 class="asym">Developing<em>with Purpose.</em></h1>
+      <p class="hero-sub-asym">Real estate development rooted in the desert Southwest — building communities and legacies for over 30 years.</p>
+      <div>
+        <a href="#projects" class="btn-asym">View Projects &rarr;</a>
+        <a href="#vision" class="btn-asym-ghost">Our Story</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-side">
+    <div class="hero-side-stat" data-n="$1.6B"><div class="stat-val">$1.6B</div><div class="stat-lbl">Development Value</div></div>
+    <div class="hero-side-stat" data-n="30+"><div class="stat-val">30+</div><div class="stat-lbl">Years in Business</div></div>
+    <div class="hero-side-stat" data-n="1,200+"><div class="stat-val">1,200+</div><div class="stat-lbl">Automotive Locations</div></div>
+    <div class="hero-side-stat" data-n="40+"><div class="stat-val">40+</div><div class="stat-lbl">Developments</div></div>
+  </div>
+</section>
+
+<div class="diag-band">
+  <span class="ticker-item">Scottsdale, Arizona</span>
+  <span class="ticker-item">Developing with Purpose</span>
+  <span class="ticker-item">Est. 1994</span>
+  <span class="ticker-item">Nationally &amp; Internationally</span>
+  <span class="ticker-item">Family-Owned</span>
+</div>
+
+<section id="vision">
+  <div class="vis-text-asym reveal">
+    <p class="sec-kicker">Our Vision</p>
+    <h2 class="asym-title">Rooted in the Southwest.<br><em>Built for the Nation.</em></h2>
+    <div class="big-quote">&ldquo;Committed to impacting communities through innovative development, dedicated people, and loyal relationships.&rdquo;</div>
+    <p class="asym-body">Mullin360 began as a family-owned firm by father-son team Art and Jim Mullin. Over three decades, we've shaped automotive and commercial real estate at local and national level.</p>
+    <p class="asym-body">Strategic rather than transactional — we invest in relationships as much as real estate.</p>
+    <a href="#team" class="btn-asym" style="margin-top:1.5rem;align-self:flex-start">Meet the Team &rarr;</a>
+  </div>
+  <div class="vis-img-asym reveal">
+    <img src="https://azcollaborate.com/wp-content/uploads/2025/09/Collaborations-1-of-12.jpg" alt="Mullin360 team">
+  </div>
+</section>
+
+<section id="projects">
+  <div class="proj-header reveal">
+    <div>
+      <p class="sec-kicker">Our Work</p>
+      <h2 class="asym-title">Featured <em>Projects</em></h2>
+    </div>
+    <a href="projects.html" class="btn-asym">All Projects &rarr;</a>
+  </div>
+  <div class="bento reveal reveal-stagger">
+    <div class="bcard tall reveal-child">
+      <img src="https://mullin360.com/wp-content/uploads/2025/09/scottsdalechapman.png" alt="Scottsdale Autoshow">
+      <div class="bcard-info"><div class="bcard-tag">Automotive &middot; Scottsdale, AZ</div><div class="bcard-name">Scottsdale Autoshow</div><div class="bcard-loc">70-acre Salt River development</div></div>
+      <div class="bcard-corner"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3px">
+      <div class="bcard reveal-child">
+        <img src="https://mullin360.com/wp-content/uploads/2025/09/PenskeNorthScottsdale-1024x443.png" alt="Penske">
+        <div class="bcard-info"><div class="bcard-tag">Automotive &middot; Scottsdale, AZ</div><div class="bcard-name">Penske North Scottsdale 101</div></div>
+        <div class="bcard-corner"></div>
+      </div>
+      <div class="bcard reveal-child">
+        <img src="https://mullin360.com/wp-content/uploads/2025/09/RiversideCounty-1024x443.png" alt="Riverside">
+        <div class="bcard-info"><div class="bcard-tag">Automotive &middot; Riverside County, CA</div><div class="bcard-name">Riverside County Auto Park</div></div>
+        <div class="bcard-corner"></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3px">
+      <div class="bcard reveal-child">
+        <img src="https://mullin360.com/wp-content/uploads/2025/09/theartatmmm-1024x443.png" alt="The Art at MMR">
+        <div class="bcard-info"><div class="bcard-tag">Retail &middot; McDowell Mountain Ranch</div><div class="bcard-name">The Art at MMR</div></div>
+        <div class="bcard-corner"></div>
+      </div>
+      <div class="bcard-quote reveal-child">
+        <p>&ldquo;Every project makes a long-term contribution to its community.&rdquo;</p>
+        <cite>— Jim Mullin, President</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="development">
+  <div class="dev-side-asym reveal">
+    <p class="sec-kicker">Our Services</p>
+    <h2>With<br><em>Purpose</em></h2>
+    <p>Six pillars that define how we engage — from first site visit to final handshake.</p>
+  </div>
+  <div class="dev-grid-asym reveal reveal-stagger">
+    <div class="dev-card-asym reveal-child">
+      <div class="dev-tag-asym">01 &mdash; Develop</div>
+      <h3>Develop with Purpose</h3>
+      <p>A different approach to crafting developments, resulting in high-quality properties and value for stakeholders and neighboring communities.</p>
+    </div>
+    <div class="dev-card-asym reveal-child">
+      <div class="dev-tag-asym">02 &mdash; Give</div>
+      <h3>Give with Purpose</h3>
+      <p>We align our services with clients whom we can give back to, ensuring every engagement creates lasting community value.</p>
+    </div>
+    <div class="dev-card-asym reveal-child">
+      <div class="dev-tag-asym">03 &mdash; Plan</div>
+      <h3>Plan with Purpose</h3>
+      <p>Projects exhibit focus on strategic location, attention to detail, and aesthetic consideration of the surrounding environment.</p>
+    </div>
+    <div class="dev-card-asym reveal-child">
+      <div class="dev-tag-asym">04 &mdash; Consult</div>
+      <h3>Consult with Purpose</h3>
+      <p>Strategically approaching client needs with proprietary research to deliver results that surpass expectations.</p>
+    </div>
+    <div class="dev-card-asym reveal-child">
+      <div class="dev-tag-asym">05 &mdash; Build</div>
+      <h3>Build with Purpose</h3>
+      <p>Minimizing environmental impact by influencing the way buildings are built, sourced, managed, occupied and sold.</p>
+    </div>
+    <div class="dev-card-asym reveal-child">
+      <div class="dev-tag-asym">06 &mdash; Partner</div>
+      <h3>Partner with Purpose</h3>
+      <p>Long-lasting relationships with retailers, financial institutions, property owners, communities and municipalities.</p>
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="appr-left-asym reveal">
+    <p class="sec-kicker">How We Work</p>
+    <h2 class="asym-title">Strategic.<br><em>Intentional.</em><br>Long-term.</h2>
+    <p>We don't just build properties. We build lasting relationships and community-defining developments that stand for generations.</p>
+  </div>
+  <div class="appr-right-asym reveal reveal-stagger">
+    <div class="pillar-asym reveal-child"><div class="pn-asym">01</div><h3>Site Selection &amp; Research</h3><p>Rigorous market analysis identifying development opportunities with long-term viability.</p></div>
+    <div class="pillar-asym reveal-child"><div class="pn-asym">02</div><h3>Development &amp; Construction</h3><p>End-to-end management from entitlements through construction completion.</p></div>
+    <div class="pillar-asym reveal-child"><div class="pn-asym">03</div><h3>Investment &amp; Finance</h3><p>Sophisticated structuring of real estate investments and sale-leaseback financing.</p></div>
+    <div class="pillar-asym reveal-child"><div class="pn-asym">04</div><h3>Partnerships &amp; Collaboration</h3><p>Deep relationships with national and international clients and local communities.</p></div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="team-header reveal">
+    <div>
+      <p class="sec-kicker">Our Team</p>
+      <h2 class="asym-title">Leadership Behind <em>Mullin360</em></h2>
+    </div>
+  </div>
+  <div class="team-asym-grid reveal reveal-stagger">
+    <div class="tmem-asym reveal-child"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jim-Mullin720.jpg" alt="Jim Mullin"><div class="tov-asym"><div class="tname-asym">Jim Mullin</div><div class="ttitle-asym">President</div></div></div>
+    <div class="tmem-asym reveal-child"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jacqueline-Swanson720.jpg" alt="Jacqueline Swanson"><div class="tov-asym"><div class="tname-asym">Jacqueline Swanson</div><div class="ttitle-asym">Director of Operations</div></div></div>
+    <div class="tmem-asym reveal-child"><img src="https://mullin360.com/wp-content/uploads/2025/09/Mark-Simmons720.jpg" alt="Mark Simmons"><div class="tov-asym"><div class="tname-asym">Mark Simmons</div><div class="ttitle-asym">Corporate Controller</div></div></div>
+  </div>
+  <div class="team-bios-asym reveal reveal-stagger">
+    <div class="bio-asym reveal-child"><h3>Jim Mullin</h3><div class="bio-t">President</div><p>With an early foundation in automotive retailing, Jim has deep experience in high-impact developments. Past President of Staubach AutoGroup, involved in 1,200+ automotive locations and 40+ developments across the US and internationally.</p></div>
+    <div class="bio-asym reveal-child"><h3>Jacqueline Swanson</h3><div class="bio-t">Director of Operations</div><p>Seasoned professional in Operational Excellence and Project Management with background in healthcare and property and construction management. Drives efficiencies and profitability while meeting stakeholder expectations.</p></div>
+    <div class="bio-asym reveal-child"><h3>Mark Simmons</h3><div class="bio-t">Corporate Controller</div><p>A career spanning four decades of executive experience across private and public sectors including the Big Four accounting firms, with over 30 years as Controller, VP-Finance, or CFO.</p></div>
+  </div>
+</section>
+
+<div id="cta" class="reveal">
+  <div>
+    <h2>Let&rsquo;s Build Something <em>Together.</em></h2>
+    <p>Scottsdale, AZ &middot; Serving clients nationally and internationally</p>
+  </div>
+  <a href="contact.html" class="btn-cta-asym">Get in Touch &rarr;</a>
+</div>
+
+<footer>
+  <div class="footer-top reveal reveal-stagger">
+    <div>
+      <div class="fbrand-asym">Mullin<span>360</span></div>
+      <div class="ftag-asym">Developing with Purpose.</div>
+      <p style="font-size:0.78rem;color:rgba(250,250,247,0.28);font-weight:300;max-width:260px">Family-owned real estate development specializing in automotive retail and commercial properties since 1994.</p>
+    </div>
+    <div><h4>Navigate</h4><ul><li><a href="#projects">Projects</a></li><li><a href="#vision">Vision</a></li><li><a href="#team">Team</a></li><li><a href="#cta">Contact</a></li></ul></div>
+    <div><h4>Ventures</h4><ul><li><a href="https://americanresortlife.com" target="_blank">American Resort Communities</a></li><li><a href="https://azcollaborate.com" target="_blank">AZ Collaborate</a></li></ul></div>
+    <div><h4>Contact</h4><ul><li><a href="#">Locate &amp; Contact</a></li><li><a href="#">Scottsdale, AZ</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p class="fcopy">&copy; 2026 Mullin360, LLC. All rights reserved.</p><p class="fcopy">7272 E Indian School Rd &middot; Scottsdale, AZ 85251</p></div>
+</footer>
+
+<script>
+(function(){
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.reveal-child').forEach(function(c){c.classList.add('visible')});obs.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+})();
+</script>
+</body>
+</html>

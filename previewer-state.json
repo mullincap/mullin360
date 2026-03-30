@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "savedAt": "2026-03-30T11:16:30.211Z",
+  "order": [
+    {
+      "id": 22,
+      "parent": null
+    },
+    {
+      "id": 0,
+      "parent": 22
+    },
+    {
+      "id": 4,
+      "parent": 22
+    },
+    {
+      "id": 16,
+      "parent": null
+    },
+    {
+      "id": 1,
+      "parent": null
+    },
+    {
+      "id": 6,
+      "parent": 1
+    },
+    {
+      "id": 2,
+      "parent": 1
+    },
+    {
+      "id": 3,
+      "parent": 1
+    },
+    {
+      "id": 7,
+      "parent": 1
+    },
+    {
+      "id": 5,
+      "parent": 1
+    },
+    {
+      "id": 8,
+      "parent": null
+    },
+    {
+      "id": 9,
+      "parent": 8
+    },
+    {
+      "id": 10,
+      "parent": 8
+    },
+    {
+      "id": 11,
+      "parent": null
+    },
+    {
+      "id": 12,
+      "parent": null
+    },
+    {
+      "id": 14,
+      "parent": null
+    },
+    {
+      "id": 15,
+      "parent": 14
+    },
+    {
+      "id": 13,
+      "parent": 14
+    },
+    {
+      "id": 17,
+      "parent": null
+    },
+    {
+      "id": 18,
+      "parent": null
+    },
+    {
+      "id": 19,
+      "parent": null
+    },
+    {
+      "id": 20,
+      "parent": null
+    },
+    {
+      "id": 21,
+      "parent": null
+    }
+  ],
+  "collapsed": [
+    1,
+    8,
+    14
+  ],
+  "notes": {
+    "home0.html": "We like this gradient the most. ",
+    "home1e.html": "fix loader logo bg",
+    "home1d.html": "We like this black gradient second. "
+  },
+  "ratings": {
+    "index.html": 5
+  },
+  "labels": {
+    "home0.html": "wht loader",
+    "home1.html": "green BG loader - slide up",
+    "home1e.html": "blur - bold",
+    "home1f.html": "grn - BOLD",
+    "home1b.html": "wht - simple",
+    "home1c.html": "grn - simple",
+    "home1d.html": "blk gradient",
+    "home1g.html": "sq nav logo",
+    "home2.html": "M360 - desert - centered",
+    "home2b.html": "w/ loader",
+    "home3.html": "left align",
+    "home4.html": "bold lux",
+    "home5.html": "bold modern",
+    "home6.html": "dark",
+    "home7.html": "rounded",
+    "home8.html": "light 2",
+    "home9.html": "M360 - light",
+    "home10.html": "M360 - editorial",
+    "home11.html": "M360 - Bold",
+    "home13.html": "M360 - minimal",
+    "home14.html": "m360 - cinematic",
+    "home12.html": "m360 - asymetric",
+    "index.html": "PRODUCTION"
+  },
+  "titles": {},
+  "passfails": {
+    "index.html": "pass"
+  }
+}

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mullin Brand Reveal</title>
+  <style>
+    :root {
+      --bg: #0f6031;
+      --fg: rgba(255, 255, 255, 0.96);
+      --muted: rgba(255, 255, 255, 0.52);
+      --line: rgba(255, 255, 255, 0.14);
+      --glow: rgba(255, 255, 255, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      position: relative;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,0.035), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06)),
+        var(--bg);
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 6.5vh 6vw;
+      border: 1px solid rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+
+    .scene {
+      position: relative;
+      width: min(82vw, 520px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+      animation: sceneIn 1.15s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .logo-wrap {
+      position: relative;
+      width: min(56vw, 340px);
+      display: grid;
+      place-items: center;
+      padding: 10px 0;
+    }
+
+    .logo-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 16% 12%;
+      background: radial-gradient(circle, var(--glow), transparent 68%);
+      filter: blur(18px);
+      opacity: 0.55;
+      animation: glowPulse 4.6s ease-in-out infinite;
+    }
+
+    .logo {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 16px 34px rgba(0,0,0,0.16));
+      animation: logoFloat 4.6s ease-in-out infinite;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .rule {
+      width: min(64vw, 220px);
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.18) 24%,
+        rgba(255,255,255,0.18) 76%,
+        transparent 100%
+      );
+      transform-origin: center;
+      animation: ruleIn 1.3s ease-out both;
+      animation-delay: 0.18s;
+    }
+
+    .wordmark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .title {
+      font-size: 10px;
+      letter-spacing: 0.46em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap;
+      animation: textFade 1.2s ease-out both;
+      animation-delay: 0.28s;
+    }
+
+    .progress {
+      position: relative;
+      width: min(64vw, 200px);
+      height: 1px;
+      background: var(--line);
+      overflow: hidden;
+      animation: textFade 1.2s ease-out both;
+      animation-delay: 0.38s;
+    }
+
+    .progress::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.88) 50%,
+        transparent 100%
+      );
+      box-shadow: 0 0 22px rgba(255,255,255,0.15);
+      animation: travel 2.9s cubic-bezier(.55,.08,.22,.98) infinite;
+    }
+
+    @keyframes sceneIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.992); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes ruleIn {
+      from { opacity: 0; transform: scaleX(0.6); }
+      to   { opacity: 1; transform: scaleX(1); }
+    }
+
+    @keyframes textFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.36; transform: scale(0.98); }
+      50% { opacity: 0.62; transform: scale(1.02); }
+    }
+
+    @keyframes travel {
+      0% { transform: translateX(-135%); }
+      100% { transform: translateX(405%); }
+    }
+
+    @media (max-width: 640px) {
+      body::before { inset: 4vh 5vw; }
+      .scene { gap: 20px; width: min(88vw, 420px); }
+      .logo-wrap { width: min(68vw, 280px); }
+      .title { font-size: 9px; letter-spacing: 0.34em; }
+    }
+  </style>
+</head>
+<body>
+  <main class="scene" aria-label="Mullin loading screen">
+    <div class="logo-wrap">
+      <img class="logo" src="white-full.png" alt="Mullin Development Company logo" />
+    </div>
+
+    <div class="rule" aria-hidden="true"></div>
+
+    <div class="wordmark" aria-hidden="true">
+      <div class="title">Preparing Experience</div>
+      <div class="progress"></div>
+    </div>
+  </main>
+</body>
+</html>
