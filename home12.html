@@ -27,6 +27,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:str
 .nav-brand{display:flex;align-items:center;padding:0 2rem;background:var(--green);gap:1rem}
 .nav-brand-text{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-0.01em}
 .nav-brand-text span{color:var(--green-pale)}
+.nav-logo{position:relative;display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:30px;width:auto;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.18))}
 .nav-meta-strip{display:flex;align-items:center;padding:0 2rem;border-right:1px solid rgba(255,255,255,0.08)}
 .nav-meta-strip span{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35)}
 .nav-links{display:flex;list-style:none;margin-left:auto}
@@ -216,7 +218,7 @@ footer a:hover{color:var(--green-pale)}
 
 <nav>
   <div class="nav-brand">
-    <a href="#" class="nav-brand-text">Mullin<span>360</span></a>
+    <a href="#" class="nav-logo" aria-label="Mullin home"><img src="white-sq-long.png" alt="Mullin Development Company logo"></a>
   </div>
   <div class="nav-meta-strip">
     <span>Est. 1994 &middot; Scottsdale, AZ</span>

@@ -11,8 +11,8 @@
   --black:#000000;
   --black2:#0A0A0A;
   --black3:#111111;
-  --copper:#B87333;
-  --copper-bright:#D4933F;
+  --copper:#0f6031;
+  --copper-bright:#0f6031;
   --copper-dim:#7A4E22;
   --white:#FFFFFF;
   --off:#F2F0EC;
@@ -26,8 +26,8 @@ body{font-family:var(--font-b);background:var(--black);color:var(--white);font-s
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 4rem;border-bottom:1px solid rgba(255,255,255,0.06)}
-.nav-logo{font-family:var(--font-d);font-size:1.8rem;color:var(--white);text-decoration:none;letter-spacing:0.1em}
-.nav-logo span{color:var(--copper-bright)}
+.nav-logo{position:relative;display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:40px;width:auto;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.18))}
 .nav-links{display:flex;gap:2.5rem;list-style:none}
 .nav-links a{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color 0.2s}
 .nav-links a:hover{color:var(--copper-bright)}
@@ -129,7 +129,7 @@ footer a:hover{color:var(--copper-bright)}
 <body>
 
 <nav>
-  <a href="#" class="nav-logo">MULLIN<span>360</span></a>
+  <a href="#" class="nav-logo" aria-label="Mullin home"><img src="white-sq-long.png" alt="Mullin Development Company logo"></a>
   <ul class="nav-links">
     <li><a href="#projects">Projects</a></li>
     <li><a href="#vision">Vision</a></li>

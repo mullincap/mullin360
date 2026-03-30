@@ -26,8 +26,8 @@ body{font-family:var(--font-b);background:var(--bg);color:var(--white);font-size
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 5rem;border-bottom:1px solid transparent;transition:all 0.4s}
 nav.scrolled{background:rgba(13,13,13,0.97);border-bottom-color:var(--border)}
-.nav-logo{font-family:var(--font-d);font-size:1.4rem;color:var(--white);text-decoration:none;letter-spacing:0.06em}
-.nav-logo span{color:var(--gold)}
+.nav-logo{position:relative;display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:30px;width:auto;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.18))}
 .nav-links{display:flex;gap:2.5rem;list-style:none}
 .nav-links a{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
 .nav-links a:hover{color:var(--gold)}
@@ -124,7 +124,7 @@ footer a:hover{color:var(--gold)}
 <body>
 
 <nav id="nb">
-  <a href="#" class="nav-logo">Mullin<span>360</span></a>
+  <a href="#" class="nav-logo" aria-label="Mullin home"><img src="white-sq-long.png" alt="Mullin Development Company logo"></a>
   <ul class="nav-links">
     <li><a href="#projects">Projects</a></li>
     <li><a href="#vision">Our Vision</a></li>

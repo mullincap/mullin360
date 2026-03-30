@@ -78,7 +78,9 @@ nav::before{content:'';position:absolute;inset:0;background:linear-gradient(to b
 nav.scrolled::before{opacity:0}
 nav.scrolled{background:rgba(16,34,24,0.96);box-shadow:0 1px 0 rgba(255,255,255,0.06)}
 .nav-logo{position:relative;display:flex;align-items:center;text-decoration:none}
-.nav-logo img{height:50px;margin-top:8px;width:auto;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.18))}
+.nav-logo img{height:40px;width:auto;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.18))}
+.load-logo{position:relative;display:flex;align-items:center;text-decoration:none}
+.load-logo img{height:70px;width:auto;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.18))}
 .nav-links{position:relative;display:flex;gap:2.5rem;list-style:none}
 .nav-links a{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.78);text-decoration:none;transition:color 0.2s}
 .nav-links a:hover{color:var(--green-pale)}
@@ -290,7 +292,7 @@ body.site-ready .scroll-hint{animation:fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 1
 <!-- LOADING ANIMATION -->
 <div id="loader">
   <div class="loader-content">
-    <div class="loader-logo">Mullin<span>360</span></div>
+    <a href="#" class="load-logo" aria-label="Mullin home"><img src="logo-long-blk.png" alt="Mullin Development Company logo"></a>
     <div class="loader-tagline">Developing with Purpose</div>
     <div class="loader-bar-container">
       <div class="loader-bar"></div>
@@ -325,8 +327,8 @@ body.site-ready .scroll-hint{animation:fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 1
     </div>
     <div class="hero-right hero-animate delay-5">
       <div class="hero-stat">
-        <strong>$1.6B</strong>
-        <span>Portfolio Value</span>
+        <strong>$1.6B+</strong>
+        <span>Development Completed</span>
       </div>
       <p class="hero-desc">National and international real estate development &mdash; automotive retail, resort communities, commercial properties.</p>
     </div>

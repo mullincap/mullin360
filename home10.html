@@ -22,8 +22,8 @@ body{font-family:'Lato',sans-serif;background:var(--paper);color:var(--ink);font
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 3rem;background:var(--paper);border-bottom:1px solid var(--rule);transition:all 0.3s}
-.nav-logo-text{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:-0.01em}
-.nav-logo-text span{color:var(--green)}
+.nav-logo{position:relative;display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:40px;width:auto;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.18))}
 .nav-meta{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--stone)}
 .nav-links{display:flex;gap:2.5rem;list-style:none}
 .nav-links a{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color 0.2s}
@@ -200,7 +200,7 @@ footer a:hover{color:var(--paper)}
 
 <nav>
   <div style="display:flex;align-items:center;gap:2rem">
-    <a href="#" class="nav-logo-text">Mullin<span>360</span></a>
+    <a href="#" class="nav-logo" aria-label="Mullin home"><img src="logo-long-blk.png" alt="Mullin Development Company logo"></a>
     <span class="nav-meta">Est. 1994 &middot; Scottsdale</span>
   </div>
   <ul class="nav-links">
