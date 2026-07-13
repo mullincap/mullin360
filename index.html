@@ -156,28 +156,89 @@ body.menu-open #mobileMenu nav a{transform:translateY(0)}
 #mobileMenu .m-foot{margin-top:2.5rem;display:flex;justify-content:space-between;align-items:flex-end;color:var(--bone-45)}
 #mobileMenu .m-foot .mono{line-height:2}
 
-/* ————————————————— HERO / COVER ————————————————— */
+/* ————————————————— HERO / COVER — the site assembles ————————————————
+   The frame is built out of seven vertical bays that rise in sequence, each
+   seam flaring seal-green as its column lands — the way a building goes up.
+   Then it settles and drifts, so the hero is never a still.
+   Each bay carries the whole photograph, offset and clipped to its own
+   column, so the geometry is identical to object-fit:cover — no stretching.
+   ———————————————————————————————————————————————————————————————— */
 #hero{
   position:relative;height:100svh;min-height:640px;
   display:flex;flex-direction:column;justify-content:flex-end;
   overflow:hidden;background:var(--night);
 }
-.hero-media{position:absolute;inset:0;overflow:hidden}
+/* The photograph stays ONE continuous image — slicing it into seven elements
+   leaves hairline seams, because 1440/7 is not a whole number of pixels.
+   Instead we slice the SHUTTERS: seven night panels that retract bay by bay.
+   Any sub-pixel gap between them is night-on-night, and therefore invisible. */
+.hero-media{position:absolute;inset:0;z-index:1;overflow:hidden}
 .hero-media img{
   width:100%;height:100%;object-fit:cover;object-position:center 62%;
-  filter:saturate(0.88) contrast(1.04);transform:scale(1.07);
+  filter:saturate(0.88) contrast(1.04);transform:scale(1.06);
 }
+.js .hero-media img{animation:heroSettle 4s var(--ease) 0.9s forwards, heroDrift 40s ease-in-out 5s infinite alternate}
 @keyframes heroSettle{to{transform:scale(1)}}
-.js .hero-media img{animation:heroSettle 3.2s var(--ease) 0.2s forwards}
-.hero-media::after{
-  content:'';position:absolute;inset:0;
+@keyframes heroDrift{to{transform:scale(1.04) translateX(-1.4%)}}
+
+/* the bays go up */
+.hero-shutters{position:absolute;inset:0;z-index:4;display:grid;grid-template-columns:repeat(7,1fr);pointer-events:none}
+.hero-shutters .sh{background:var(--night)}
+.js .hero-shutters .sh{animation:bayUp 1.5s var(--ease) forwards}
+@keyframes bayUp{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 100% 0)}}
+.js .sh:nth-child(1){animation-delay:0.15s}
+.js .sh:nth-child(2){animation-delay:0.27s}
+.js .sh:nth-child(3){animation-delay:0.39s}
+.js .sh:nth-child(4){animation-delay:0.51s}
+.js .sh:nth-child(5){animation-delay:0.63s}
+.js .sh:nth-child(6){animation-delay:0.75s}
+.js .sh:nth-child(7){animation-delay:0.87s}
+
+/* the seam flares as its bay lands, then goes out — the seal, seven times */
+.hero-seams{position:absolute;inset:0;z-index:5;pointer-events:none}
+.hero-seams .sm{
+  position:absolute;top:0;bottom:0;width:1px;
+  left:calc(var(--i) * 100% / 7);
+  background:var(--green-lift);opacity:0;
+}
+.js .hero-seams .sm{animation:seam 2.4s var(--ease) forwards}
+@keyframes seam{0%{opacity:0}18%{opacity:0.8}100%{opacity:0}}
+.js .sm:nth-child(1){animation-delay:0.27s}
+.js .sm:nth-child(2){animation-delay:0.39s}
+.js .sm:nth-child(3){animation-delay:0.51s}
+.js .sm:nth-child(4){animation-delay:0.63s}
+.js .sm:nth-child(5){animation-delay:0.75s}
+.js .sm:nth-child(6){animation-delay:0.87s}
+
+/* the parking lot, thrown out of focus — the cars become atmosphere */
+.hero-dof{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  -webkit-backdrop-filter:blur(7px) saturate(0.45) brightness(0.86);
+  backdrop-filter:blur(7px) saturate(0.45) brightness(0.86);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 40%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.8) 72%,#000 88%);
+  mask-image:linear-gradient(to bottom,transparent 0%,transparent 40%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.8) 72%,#000 88%);
+}
+.hero-vig{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse 78% 62% at 50% 34%,transparent 0%,transparent 42%,rgba(8,13,9,0.42) 100%);
+}
+.hero-scrim{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
   background:
-    radial-gradient(ellipse 120% 90% at 50% 58%,rgba(8,13,9,0.52) 0%,rgba(8,13,9,0.30) 48%,rgba(8,13,9,0.14) 72%),
+    radial-gradient(ellipse 120% 90% at 50% 58%,rgba(8,13,9,0.5) 0%,rgba(8,13,9,0.28) 48%,rgba(8,13,9,0.12) 72%),
     linear-gradient(to top,rgba(8,13,9,0.78) 0%,rgba(8,13,9,0.18) 26%,transparent 45%),
     linear-gradient(to bottom,rgba(8,13,9,0.5) 0%,transparent 22%);
 }
+
+/* kinetic type — each line rises from behind its own mask */
+.line{display:block;overflow:hidden;padding-bottom:0.1em;margin-bottom:-0.1em}
+.js .line > span{display:block;transform:translateY(105%);animation:lineUp 1.3s var(--ease) forwards}
+@keyframes lineUp{to{transform:translateY(0)}}
+.js .line.l1 > span{animation-delay:1.15s}
+.js .line.l2 > span{animation-delay:1.32s}
+
 .hero-center{
-  position:relative;z-index:2;flex:1;
+  position:relative;z-index:3;flex:1;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:4.5rem var(--gutter) 3.5rem;
 }
@@ -203,7 +264,7 @@ h1 em{font-style:italic;font-weight:400}
   margin-top:clamp(1.6rem,4.5vh,2.8rem);
 }
 .hero-foot{
-  position:relative;z-index:2;display:flex;justify-content:center;
+  position:relative;z-index:3;display:flex;justify-content:center;
   padding:1.35rem var(--gutter);
   border-top:1px solid rgba(244,241,234,0.18);
 }
@@ -218,10 +279,10 @@ h1 em{font-style:italic;font-weight:400}
 
 .js .h-in{opacity:0;transform:translateY(22px);animation:hIn 1.2s var(--ease) forwards}
 @keyframes hIn{to{opacity:1;transform:translateY(0)}}
-.js .h-in.d1{animation-delay:0.35s}
-.js .h-in.d2{animation-delay:0.55s}
-.js .h-in.d3{animation-delay:0.8s}
-.js .h-in.d4{animation-delay:1.05s}
+.js .h-in.d1{animation-delay:0.9s}
+.js .h-in.d2{animation-delay:1.15s}
+.js .h-in.d3{animation-delay:1.85s}
+.js .h-in.d4{animation-delay:2.1s}
 
 /* ————————————————— CHAPTER SCAFFOLD ————————————————— */
 main{background:var(--paper)}
@@ -518,7 +579,10 @@ footer{background:var(--night);color:var(--bone)}
 
 @media(prefers-reduced-motion:reduce){
   .js .rv,.js .h-in{opacity:1;transform:none;animation:none;transition:none}
+  /* the bays are simply already up, and the frame never drifts */
   .js .hero-media img{animation:none;transform:none}
+  .hero-shutters,.hero-seams{display:none}
+  .js .line > span{transform:none;animation:none}
   .plate .plx{position:absolute;inset:0;transform:none !important}
   .wp-img img,.p-photo img,.lnk .ar,.v-ar,.meter .b{transition:none}
 }
@@ -625,11 +689,26 @@ footer{background:var(--night);color:var(--bone)}
 <!-- ——— HERO / COVER ——— -->
 <section id="hero" aria-label="Mullin Development">
   <div class="hero-media">
-    <img src="sas.jpg" alt="The Scottsdale Autoshow development at dusk, desert mountains on the horizon" width="1504" height="688" fetchpriority="high">
+    <img src="sas.jpg" alt="The Scottsdale Autoshow development at dusk, Camelback Mountain on the horizon" width="1504" height="688" fetchpriority="high">
   </div>
+  <div class="hero-dof" aria-hidden="true"></div>
+  <div class="hero-vig" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-shutters" aria-hidden="true">
+    <span class="sh"></span><span class="sh"></span><span class="sh"></span><span class="sh"></span>
+    <span class="sh"></span><span class="sh"></span><span class="sh"></span>
+  </div>
+  <div class="hero-seams" aria-hidden="true">
+    <span class="sm" style="--i:1"></span><span class="sm" style="--i:2"></span><span class="sm" style="--i:3"></span>
+    <span class="sm" style="--i:4"></span><span class="sm" style="--i:5"></span><span class="sm" style="--i:6"></span>
+  </div>
+
   <div class="hero-center">
     <p class="hero-imprint mono h-in d1">Scottsdale, Arizona — Est. 1994</p>
-    <h1 class="h-in d2">Developing<br>with <em>Purpose.</em></h1>
+    <h1>
+      <span class="line l1"><span>Developing</span></span>
+      <span class="line l2"><span>with <em>Purpose.</em></span></span>
+    </h1>
     <p class="hero-sub h-in d3">A national real estate development practice rooted in the desert Southwest — carrying raw ground through the full arc, from a line on paper to open doors, for more than thirty years.</p>
     <div class="hero-rule h-in d4" aria-hidden="true"></div>
   </div>

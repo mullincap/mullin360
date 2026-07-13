@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero studies — Mullin Development</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="logo-green.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#F4F1EA;--paper-2:#ECE8DE;--ink:#151A15;
+  --ink-70:rgba(21,26,21,0.72);--ink-55:rgba(21,26,21,0.56);
+  --line:rgba(21,26,21,0.16);--line-soft:rgba(21,26,21,0.09);
+  --night:#0C120D;--bone:#F4F1EA;--bone-70:rgba(244,241,234,0.72);--bone-45:rgba(244,241,234,0.45);
+  --nline:rgba(244,241,234,0.14);
+  --green:#0E6133;--green-deep:#0A4A27;--green-lift:#7FA98E;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',-apple-system,'Helvetica Neue',sans-serif;
+  --mono:'IBM Plex Mono','SF Mono',Consolas,monospace;
+  --gutter:clamp(1.5rem,6vw,7.5rem);
+  --ease:cubic-bezier(0.19,1,0.22,1);
+}
+body{font-family:var(--sans);font-weight:300;background:var(--paper);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.mono{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.18em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
+/* ——— sticky jump nav ——— */
+#jump{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap;
+  padding:0.85rem clamp(1rem,4vw,2.5rem);
+  background:rgba(244,241,234,0.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft);
+}
+#jump .t{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink)}
+#jump a{
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--ink-55);text-decoration:none;padding:0.25rem 0;border-bottom:1px solid transparent;
+  transition:color 0.3s,border-color 0.3s;
+}
+#jump a:hover,#jump a.on{color:var(--green);border-bottom-color:var(--green)}
+#jump .sp{margin-left:auto;color:var(--ink-55);font-family:var(--mono);font-size:0.58rem;letter-spacing:0.14em}
+
+/* ——— the hero, shared ——— */
+.study{position:relative}
+.hero{
+  position:relative;height:100svh;min-height:600px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:hidden;background:var(--night);
+}
+.hero-media{position:absolute;inset:0;overflow:hidden}
+.hero-media img{
+  width:100%;height:100%;object-fit:cover;object-position:center 62%;
+  filter:saturate(0.88) contrast(1.04);
+  transform:scale(1.07);
+}
+@keyframes settle{to{transform:scale(1)}}
+.play .hero-media img{animation:settle 3.2s var(--ease) 0.2s forwards}
+
+/* the standard scrim (present in all three, as on the live site) */
+.scrim{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 58%,rgba(8,13,9,0.52) 0%,rgba(8,13,9,0.30) 48%,rgba(8,13,9,0.14) 72%),
+    linear-gradient(to top,rgba(8,13,9,0.78) 0%,rgba(8,13,9,0.18) 26%,transparent 45%),
+    linear-gradient(to bottom,rgba(8,13,9,0.5) 0%,transparent 22%);
+}
+
+.hero-logo{position:absolute;top:1.5rem;left:var(--gutter);z-index:4}
+.hero-logo img{height:26px;width:auto}
+
+.hero-center{
+  position:relative;z-index:3;flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem var(--gutter) 3.5rem;
+}
+.imprint{
+  color:rgba(244,241,234,0.9);letter-spacing:0.3em;display:flex;align-items:center;gap:1.3rem;
+  text-shadow:0 1px 14px rgba(8,13,9,0.6);
+}
+.imprint::before,.imprint::after{content:'';display:block;width:clamp(2rem,6vw,4.5rem);height:1px;background:rgba(244,241,234,0.4)}
+.hero h1{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(3rem,8.4vw,7.6rem);line-height:1.02;letter-spacing:-0.015em;color:var(--bone);
+  margin:1.5rem 0 1.3rem;text-shadow:0 2px 46px rgba(8,13,9,0.4);
+}
+.hero h1 em{font-style:italic;font-weight:400}
+.hero-sub{max-width:52ch;font-size:1rem;line-height:1.8;color:var(--bone-70)}
+.hero-foot{
+  position:relative;z-index:3;display:flex;justify-content:center;
+  padding:1.35rem var(--gutter);border-top:1px solid rgba(244,241,234,0.18);
+}
+.hero-foot p{text-align:center;line-height:2}
+.hero-foot span{
+  font-family:var(--mono);font-size:0.64rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(244,241,234,0.62);white-space:nowrap;
+}
+.hero-foot b{font-weight:400;color:var(--green-lift);margin-right:0.5em}
+.hero-foot .sep{color:rgba(244,241,234,0.3);margin:0 0.6em}
+
+/* entrance */
+.h-in{opacity:0;transform:translateY(20px)}
+.play .h-in{animation:hIn 1.2s var(--ease) forwards}
+@keyframes hIn{to{opacity:1;transform:none}}
+.play .d1{animation-delay:0.35s}
+.play .d2{animation-delay:0.55s}
+.play .d3{animation-delay:0.8s}
+.play .d4{animation-delay:1.05s}
+
+/* replay */
+.replay{
+  position:absolute;right:var(--gutter);bottom:5.5rem;z-index:6;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--bone-70);background:transparent;border:1px solid var(--bone-45);
+  padding:0.7rem 1.2rem;cursor:pointer;transition:background 0.4s var(--ease),color 0.4s,border-color 0.4s;
+}
+.replay:hover{background:var(--green);border-color:var(--green);color:#fff}
+
+/* ————————————————————————————————————————————————
+   A — DEPTH OF FIELD
+   The parking lot is thrown out of focus and desaturated, so the cars
+   become atmosphere. The sunset and the mountain stay sharp and rich.
+   One masked backdrop-filter does all of it.
+   ———————————————————————————————————————————————— */
+#a .dof{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  -webkit-backdrop-filter:blur(7px) saturate(0.45) brightness(0.86);
+  backdrop-filter:blur(7px) saturate(0.45) brightness(0.86);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 40%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.8) 72%,#000 88%);
+  mask-image:linear-gradient(to bottom,transparent 0%,transparent 40%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.8) 72%,#000 88%);
+}
+/* an offset vignette — brightest at the mountain, falling off through the corners */
+#a .vig{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse 78% 62% at 50% 34%,transparent 0%,transparent 42%,rgba(8,13,9,0.42) 100%);
+}
+
+/* ————————————————————————————————————————————————
+   B — THE APERTURE
+   Opens from a cinematic letterbox — the sunset and Camelback, the only
+   genuinely beautiful two inches of this photograph — and the frame
+   expands to full. Leads with the strongest imagery. Depth of field on top.
+   ———————————————————————————————————————————————— */
+#b .hero-media{clip-path:inset(37% 0 43% 0)}
+.play#b .hero-media{animation:aperture 2.6s var(--ease) 0.25s forwards}
+@keyframes aperture{to{clip-path:inset(0 0 0 0)}}
+#b .hero-media img{transform:scale(1.14)}
+.play#b .hero-media img{animation:settle 3.6s var(--ease) 0.25s forwards}
+/* the letterbox rules ride the opening edges, then fade */
+#b .bar{position:absolute;left:0;right:0;height:1px;background:var(--green-lift);z-index:5;opacity:0.85}
+#b .bar.t{top:37%}
+#b .bar.b{bottom:43%}
+.play#b .bar.t{animation:barT 2.6s var(--ease) 0.25s forwards}
+.play#b .bar.b{animation:barB 2.6s var(--ease) 0.25s forwards}
+@keyframes barT{to{top:0;opacity:0}}
+@keyframes barB{to{bottom:0;opacity:0}}
+#b .dof{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  -webkit-backdrop-filter:blur(7px) saturate(0.45) brightness(0.86);
+  backdrop-filter:blur(7px) saturate(0.45) brightness(0.86);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 40%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.8) 72%,#000 88%);
+  mask-image:linear-gradient(to bottom,transparent 0%,transparent 40%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.8) 72%,#000 88%);
+  opacity:0;
+}
+.play#b .dof{animation:fadeIn 1.6s var(--ease) 2.2s forwards}
+@keyframes fadeIn{to{opacity:1}}
+#b .vig{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse 78% 62% at 50% 34%,transparent 0%,transparent 42%,rgba(8,13,9,0.42) 100%);
+}
+
+/* ————————————————————————————————————————————————
+   C — THE SEAL GRADE
+   Everything in A, plus the image is graded INTO the palette: a duotone
+   that pulls the shadows toward night-green and warms the highlights
+   toward bone. It also mutes the red LED roofline, which is the most
+   off-brand thing in the frame. Plus a slow, endless drift.
+   ———————————————————————————————————————————————— */
+#c .hero-media img{
+  filter:saturate(0.78) contrast(1.12) brightness(0.95);
+  transform:scale(1.08);
+}
+.play#c .hero-media img{animation:settle 3.4s var(--ease) 0.2s forwards, drift 42s ease-in-out 3.6s infinite alternate}
+@keyframes drift{to{transform:scale(1.05) translate(-1.2%,-0.8%)}}
+/* shadows → night green. multiply only bites the darks, so the sky survives. */
+#c .tone-s{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(12,18,13,0.10) 0%,rgba(12,18,13,0.55) 55%,rgba(12,18,13,0.8) 100%);
+  mix-blend-mode:multiply;
+}
+/* highlights → cool bone, not sepia: lifts the glass and the sky without muddying them */
+#c .tone-h{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:var(--bone);mix-blend-mode:soft-light;opacity:0.2;
+}
+#c .dof{
+  position:absolute;inset:0;z-index:3;pointer-events:none;
+  -webkit-backdrop-filter:blur(8px) saturate(0.4) brightness(0.84);
+  backdrop-filter:blur(8px) saturate(0.4) brightness(0.84);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 40%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.8) 72%,#000 88%);
+  mask-image:linear-gradient(to bottom,transparent 0%,transparent 40%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.8) 72%,#000 88%);
+}
+#c .vig{
+  position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(ellipse 76% 60% at 50% 33%,transparent 0%,transparent 40%,rgba(8,13,9,0.5) 100%);
+}
+#c .scrim{z-index:3}
+
+/* ——— the caption strip under each study ——— */
+.note{padding:clamp(2.5rem,6vh,4rem) var(--gutter) clamp(2.5rem,6vh,4rem);border-bottom:1px solid var(--line)}
+.note .k{display:flex;align-items:baseline;gap:1.2rem;border-top:1px solid var(--ink);padding-top:0.9rem;margin-bottom:1.6rem}
+.note .k .i{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.14em;color:var(--green);font-weight:500}
+.note .k .n{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-55)}
+.note h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,3.4vw,3rem);line-height:1.1;letter-spacing:-0.01em;max-width:18ch}
+.note h2 em{font-style:italic;font-weight:400}
+.note .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,5vw,5rem);margin-top:1.8rem}
+.note p{color:var(--ink-70);max-width:52ch}
+.note ul{list-style:none;margin-top:0.2rem}
+.note li{
+  display:grid;grid-template-columns:1.2rem 1fr;gap:0.8rem;
+  padding:0.7rem 0;border-top:1px solid var(--line-soft);
+  font-size:0.9rem;color:var(--ink-70);
+}
+.note li::before{content:'—';color:var(--green);font-family:var(--mono);font-size:0.7rem}
+.note .verdict{margin-top:1.6rem;font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--ink)}
+.note .verdict b{font-style:normal;font-weight:500;color:var(--green-deep)}
+
+@media(max-width:820px){
+  .note .cols{grid-template-columns:1fr;gap:1.6rem}
+  .replay{bottom:5rem;right:1.5rem}
+  .hero-foot span{font-size:0.54rem;letter-spacing:0.12em}
+}
+@media(prefers-reduced-motion:reduce){
+  .h-in{opacity:1;transform:none;animation:none}
+  .hero-media img{transform:none !important;animation:none !important}
+  #b .hero-media{clip-path:none;animation:none}
+  #b .bar{display:none}
+  #b .dof{opacity:1;animation:none}
+}
+</style>
+</head>
+<body>
+
+<nav id="jump" aria-label="Studies">
+  <span class="t">Hero studies</span>
+  <a href="#a" data-j="a">A — Depth of field</a>
+  <a href="#b" data-j="b">B — The aperture</a>
+  <a href="#c" data-j="c">C — The seal grade</a>
+  <a href="index.html" style="color:var(--ink-55)">← Live site</a>
+  <span class="sp">Same photo. Same markup. Light only.</span>
+</nav>
+
+<!-- ——————————————— A ——————————————— -->
+<section class="study">
+  <div class="hero" id="a">
+    <div class="hero-media"><img src="sas.jpg" alt="The Scottsdale Autoshow at dusk" width="1504" height="688"></div>
+    <div class="dof"></div>
+    <div class="vig"></div>
+    <div class="scrim"></div>
+    <a class="hero-logo" href="index.html"><img src="white-sq-long.png" alt="Mullin Development" width="721" height="145"></a>
+    <div class="hero-center">
+      <p class="imprint mono h-in d1">Scottsdale, Arizona — Est. 1994</p>
+      <h1 class="h-in d2">Developing<br>with <em>Purpose.</em></h1>
+      <p class="hero-sub h-in d3">A national real estate development practice rooted in the desert Southwest — carrying raw ground through the full arc, from a line on paper to open doors.</p>
+    </div>
+    <div class="hero-foot h-in d4">
+      <p>
+        <span><b>01</b>The Firm</span><span class="sep mono">·</span>
+        <span><b>02</b>The Work</span><span class="sep mono">·</span>
+        <span><b>03</b>The Arc</span><span class="sep mono">·</span>
+        <span><b>04</b>The Purpose</span><span class="sep mono">·</span>
+        <span><b>05</b>The People</span><span class="sep mono">·</span>
+        <span><b>06</b>Ventures</span>
+      </p>
+    </div>
+    <button class="replay" type="button" data-replay="a">Replay ↻</button>
+  </div>
+
+  <div class="note">
+    <div class="k"><span class="i">A</span><span class="n">Depth of field</span></div>
+    <h2>Throw the parking lot <em>out of focus.</em></h2>
+    <div class="cols">
+      <p>The photograph's real problem is that its bottom half is in sharp focus on parked cars. No cinematographer would ever do that. A single masked <code>backdrop-filter</code> blurs, desaturates, and darkens the lower frame on a gradient — zero at the horizon, full at the bottom edge. The cars become atmosphere. The sunset and Camelback stay sharp and rich, and the eye goes where it belongs.</p>
+      <ul>
+        <li>Blur 7px, saturation 45%, brightness 86% — gradient-masked to the lower frame only</li>
+        <li>An <em>offset</em> vignette, brightest at the mountain rather than a lazy dark border</li>
+        <li>No new assets, no JS, ~12 lines of CSS</li>
+        <li>Nobody consciously notices it — they just think the photo is better than it is</li>
+      </ul>
+    </div>
+    <p class="verdict"><b>The cheapest real fix.</b> If you only take one thing from this page, take this one.</p>
+  </div>
+</section>
+
+<!-- ——————————————— B ——————————————— -->
+<section class="study">
+  <div class="hero" id="b">
+    <div class="hero-media"><img src="sas.jpg" alt="The Scottsdale Autoshow at dusk" width="1504" height="688"></div>
+    <div class="dof"></div>
+    <div class="vig"></div>
+    <div class="scrim"></div>
+    <span class="bar t"></span>
+    <span class="bar b"></span>
+    <a class="hero-logo" href="index.html"><img src="white-sq-long.png" alt="Mullin Development" width="721" height="145"></a>
+    <div class="hero-center">
+      <p class="imprint mono h-in d1">Scottsdale, Arizona — Est. 1994</p>
+      <h1 class="h-in d2">Developing<br>with <em>Purpose.</em></h1>
+      <p class="hero-sub h-in d3">A national real estate development practice rooted in the desert Southwest — carrying raw ground through the full arc, from a line on paper to open doors.</p>
+    </div>
+    <div class="hero-foot h-in d4">
+      <p>
+        <span><b>01</b>The Firm</span><span class="sep mono">·</span>
+        <span><b>02</b>The Work</span><span class="sep mono">·</span>
+        <span><b>03</b>The Arc</span><span class="sep mono">·</span>
+        <span><b>04</b>The Purpose</span><span class="sep mono">·</span>
+        <span><b>05</b>The People</span><span class="sep mono">·</span>
+        <span><b>06</b>Ventures</span>
+      </p>
+    </div>
+    <button class="replay" type="button" data-replay="b">Replay ↻</button>
+  </div>
+
+  <div class="note">
+    <div class="k"><span class="i">B</span><span class="n">The aperture</span></div>
+    <h2>Lead with the only beautiful <em>two inches.</em></h2>
+    <div class="cols">
+      <p>The frame opens from a cinematic letterbox — the sunset and Camelback's silhouette, the one genuinely good part of this photograph — and the aperture expands to full over two and a half seconds. Two seal-green rules ride the opening edges and fade. You see the strongest imagery first, and the reveal reads as a title sequence rather than a slideshow. Depth of field fades in behind it.</p>
+      <ul>
+        <li><code>clip-path</code> inset, on the brand easing — nothing bounces or spins</li>
+        <li>Hold the letterbox a beat, then open: the sunset is the first thing anyone sees</li>
+        <li>The image settles from 1.14 → 1.0 as it opens, so the land seems to relax into place</li>
+        <li>Under <code>prefers-reduced-motion</code> it renders as the graded still, no animation</li>
+      </ul>
+    </div>
+    <p class="verdict"><b>The signature moment.</b> Costs nothing, and it's the thing someone would screenshot.</p>
+  </div>
+</section>
+
+<!-- ——————————————— C ——————————————— -->
+<section class="study">
+  <div class="hero" id="c">
+    <div class="hero-media"><img src="sas.jpg" alt="The Scottsdale Autoshow at dusk" width="1504" height="688"></div>
+    <div class="tone-s"></div>
+    <div class="tone-h"></div>
+    <div class="dof"></div>
+    <div class="vig"></div>
+    <div class="scrim"></div>
+    <a class="hero-logo" href="index.html"><img src="white-sq-long.png" alt="Mullin Development" width="721" height="145"></a>
+    <div class="hero-center">
+      <p class="imprint mono h-in d1">Scottsdale, Arizona — Est. 1994</p>
+      <h1 class="h-in d2">Developing<br>with <em>Purpose.</em></h1>
+      <p class="hero-sub h-in d3">A national real estate development practice rooted in the desert Southwest — carrying raw ground through the full arc, from a line on paper to open doors.</p>
+    </div>
+    <div class="hero-foot h-in d4">
+      <p>
+        <span><b>01</b>The Firm</span><span class="sep mono">·</span>
+        <span><b>02</b>The Work</span><span class="sep mono">·</span>
+        <span><b>03</b>The Arc</span><span class="sep mono">·</span>
+        <span><b>04</b>The Purpose</span><span class="sep mono">·</span>
+        <span><b>05</b>The People</span><span class="sep mono">·</span>
+        <span><b>06</b>Ventures</span>
+      </p>
+    </div>
+    <button class="replay" type="button" data-replay="c">Replay ↻</button>
+  </div>
+
+  <div class="note">
+    <div class="k"><span class="i">C</span><span class="n">The seal grade</span></div>
+    <h2>Grade it <em>into the brand.</em></h2>
+    <div class="cols">
+      <p>Everything in A, plus the photograph is graded into the palette rather than merely dimmed. A gradient multiply pulls the shadows toward night-green — biting the darks while leaving the sky intact — and a cool bone soft-light lifts the highlights without sepia. The red LED roofline is muted by the desaturation, though honestly it cannot be surgically removed in CSS: it shares its hue with the sunset, and killing one kills the other. A 42-second drift keeps the frame quietly alive.</p>
+      <ul>
+        <li>Shadows → <code>#0C120D</code> on a gradient multiply; highlights → bone via soft-light</li>
+        <li>Desaturation to 78% mutes the red without draining the sky</li>
+        <li>An endless, almost imperceptible drift — the frame breathes instead of freezing</li>
+        <li>The most "designed" of the three, and the furthest from the source photo</li>
+      </ul>
+    </div>
+    <p class="verdict"><b>The most authored — and the most opinionated.</b> Push it too far and the sunset turns to mud; this is tuned to the edge of that.</p>
+  </div>
+</section>
+
+<div class="note" style="border-bottom:0">
+  <div class="k"><span class="i">→</span><span class="n">Recommendation</span></div>
+  <h2>A and B, together.</h2>
+  <div class="cols">
+    <p>Depth of field fixes the <em>content</em> of the photograph; the aperture gives you a moment worth remembering and leads with its best material. They compose without conflict, and neither one editorialises the image so hard that it stops looking like Scottsdale. C is the most beautiful frame on this page, but it is also the one where a client might say "that isn't what it looks like."</p>
+    <p>All three are pure CSS on the photograph you already have. No new assets, no libraries, no build step — and every one of them degrades to a still, graded frame under <code>prefers-reduced-motion</code>.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var heroes = ['a','b','c'].map(function(id){ return document.getElementById(id); });
+
+  /* play a hero the first time it is seen */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting) en.target.classList.add('play');
+    });
+  }, {threshold:0.35});
+  heroes.forEach(function(h){ io.observe(h); });
+
+  /* replay — rewind the press */
+  document.querySelectorAll('[data-replay]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var h = document.getElementById(btn.getAttribute('data-replay'));
+      h.classList.remove('play');
+      void h.offsetWidth;              /* reflow */
+      h.classList.add('play');
+    });
+  });
+
+  /* mark the jump-nav */
+  var links = document.querySelectorAll('#jump a[data-j]');
+  var spy = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      links.forEach(function(l){ l.classList.toggle('on', l.getAttribute('data-j') === en.target.id); });
+    });
+  }, {rootMargin:'-45% 0px -45% 0px'});
+  heroes.forEach(function(h){ spy.observe(h); });
+})();
+</script>
+</body>
+</html>
