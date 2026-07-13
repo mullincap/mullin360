@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://mullindev.com/sas.jpg">
 
 <link rel="icon" type="image/png" href="logo-green.png">
-<link rel="preload" as="image" href="sas.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="horizon.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -156,72 +156,115 @@ body.menu-open #mobileMenu nav a{transform:translateY(0)}
 #mobileMenu .m-foot{margin-top:2.5rem;display:flex;justify-content:space-between;align-items:flex-end;color:var(--bone-45)}
 #mobileMenu .m-foot .mono{line-height:2}
 
-/* ————————————————— HERO / COVER ————————————————— */
+/* ————————————————— HERO / COVER — the title page ————————————————
+   Not a photograph with words on it. A title page: the imprint, the
+   tagline, the firm's numbers as a ruled ledger — and the ground itself
+   along the foot. Type above, land below. That is the whole business.
+   ———————————————————————————————————————————————————————————————— */
 #hero{
-  position:relative;height:100svh;min-height:640px;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  overflow:hidden;background:var(--night);
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;
+  background:var(--night);color:var(--bone);overflow:hidden;
 }
-.hero-media{position:absolute;inset:0;overflow:hidden}
-.hero-media img{
-  width:100%;height:100%;object-fit:cover;object-position:center 62%;
-  filter:saturate(0.88) contrast(1.04);transform:scale(1.07);
+.hero-body{
+  flex:1;display:grid;
+  grid-template-columns:minmax(0,1.4fr) minmax(0,0.6fr);
+  gap:clamp(2rem,6vw,6rem);align-items:center;
+  padding:9rem var(--gutter) clamp(2.5rem,6vh,4rem);
 }
-@keyframes heroSettle{to{transform:scale(1)}}
-.js .hero-media img{animation:heroSettle 3.2s var(--ease) 0.2s forwards}
-.hero-media::after{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 120% 90% at 50% 58%,rgba(8,13,9,0.52) 0%,rgba(8,13,9,0.30) 48%,rgba(8,13,9,0.14) 72%),
-    linear-gradient(to top,rgba(8,13,9,0.78) 0%,rgba(8,13,9,0.18) 26%,transparent 45%),
-    linear-gradient(to bottom,rgba(8,13,9,0.5) 0%,transparent 22%);
+
+/* the title page faces a contents — as a book does */
+.hero-contents{justify-self:end;width:100%;max-width:300px}
+.hero-contents h2{
+  font-family:var(--mono);font-size:0.6rem;font-weight:400;letter-spacing:0.24em;
+  text-transform:uppercase;color:var(--bone-45);margin-bottom:1.1rem;
 }
-.hero-center{
-  position:relative;z-index:2;flex:1;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:4.5rem var(--gutter) 3.5rem;
+.hero-contents ol{list-style:none}
+.hero-contents li{border-top:1px solid var(--nline)}
+.hero-contents li:last-child{border-bottom:1px solid var(--nline)}
+.hero-contents a{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:0.72rem 0;text-decoration:none;
+  font-family:var(--serif);font-weight:500;font-size:1.16rem;letter-spacing:-0.005em;
+  color:var(--bone-70);transition:color 0.35s var(--ease);
 }
+.hero-contents a .no{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;color:var(--green-lift);
+  font-variant-numeric:tabular-nums;flex:none;
+}
+.hero-contents a:hover,.hero-contents a:focus-visible{color:var(--bone)}
 .hero-imprint{
-  color:rgba(244,241,234,0.9);letter-spacing:0.3em;
-  display:flex;align-items:center;gap:1.3rem;
-  text-shadow:0 1px 14px rgba(8,13,9,0.6);
+  color:var(--bone-45);letter-spacing:0.3em;
+  display:flex;align-items:center;gap:1.2rem;
 }
-.hero-imprint::before,.hero-imprint::after{
-  content:'';display:block;width:clamp(2rem,6vw,4.5rem);height:1px;background:rgba(244,241,234,0.4);
+.hero-imprint::before{
+  content:'';display:block;width:clamp(2rem,5vw,4rem);height:1px;background:var(--green-lift);
+  transform:scaleX(0);transform-origin:left;
 }
+.js .hero-imprint::before{animation:ruleIn 1.3s var(--ease) 0.5s forwards}
+@keyframes ruleIn{to{transform:scaleX(1)}}
+
 h1{
   font-family:var(--serif);font-weight:500;
-  font-size:clamp(3.3rem,9.2vw,8.4rem);
-  line-height:1.02;letter-spacing:-0.015em;color:var(--bone);
-  margin:1.6rem 0 1.4rem;text-shadow:0 2px 46px rgba(8,13,9,0.4);
+  font-size:clamp(3rem,8.2vw,7.4rem);
+  line-height:0.99;letter-spacing:-0.02em;color:var(--bone);
+  margin:1.5rem 0 0;max-width:12ch;
 }
 h1 em{font-style:italic;font-weight:400}
-.hero-sub{max-width:54ch;font-size:1.02rem;line-height:1.8;color:var(--bone-70)}
-.hero-rule{
-  width:1px;height:clamp(2rem,6vh,3.4rem);
-  background:linear-gradient(to bottom,rgba(244,241,234,0.55),transparent);
-  margin-top:clamp(1.6rem,4.5vh,2.8rem);
-}
-.hero-foot{
-  position:relative;z-index:2;display:flex;justify-content:center;
-  padding:1.35rem var(--gutter);
-  border-top:1px solid rgba(244,241,234,0.18);
-}
-.hero-foot p{text-align:center;line-height:2}
-.hero-foot a{
-  font-family:var(--mono);font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:rgba(244,241,234,0.62);text-decoration:none;transition:color 0.3s;white-space:nowrap;
-}
-.hero-foot a:hover,.hero-foot a:focus-visible{color:var(--bone)}
-.hero-foot a b{font-weight:400;color:var(--green-lift);margin-right:0.55em}
-.hero-foot .sep{color:rgba(244,241,234,0.3);font-family:var(--mono);font-size:0.66rem;margin:0 0.7em}
 
-.js .h-in{opacity:0;transform:translateY(22px);animation:hIn 1.2s var(--ease) forwards}
+.hero-sub{margin-top:1.9rem;max-width:50ch;font-size:1.02rem;line-height:1.8;color:var(--bone-70)}
+.hero-status{
+  margin-top:1.4rem;display:flex;align-items:center;gap:0.9rem;
+  color:var(--green-lift);letter-spacing:0.2em;
+}
+.hero-status::before{content:'';display:block;width:1.6rem;height:1px;background:var(--green-lift);flex:none}
+
+/* the ledger — the firm's numbers, at the door */
+.hero-ledger{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  padding:0 var(--gutter);
+}
+.hero-ledger::before{
+  content:'';position:absolute;left:var(--gutter);right:var(--gutter);top:0;height:1px;
+  background:var(--nline);transform:scaleX(0);transform-origin:left;
+}
+.js .hero-ledger::before{animation:ruleIn 1.6s var(--ease) 1s forwards}
+.hero-ledger .f{position:relative;padding:1.5rem 1.5rem 1.7rem 0}
+.hero-ledger .f+.f{padding-left:1.5rem}
+.hero-ledger .f+.f::before{
+  content:'';position:absolute;left:0;top:1.5rem;bottom:1.7rem;width:1px;background:var(--nline);
+}
+.hero-ledger .n{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,3vw,2.9rem);
+  line-height:1;letter-spacing:-0.01em;color:var(--bone);font-variant-numeric:lining-nums;
+}
+.hero-ledger .n .u{color:var(--green-lift)}
+.hero-ledger .l{margin-top:0.65rem;color:var(--bone-45)}
+
+/* the horizon — the ground the firm develops */
+.hero-horizon{position:relative;height:clamp(104px,16vh,180px);overflow:hidden;background:var(--night)}
+.hero-horizon img{width:100%;height:100%;object-fit:cover;object-position:center 42%;transform:scale(1.08)}
+@keyframes landSettle{to{transform:scale(1)}}
+.js .hero-horizon img{animation:landSettle 3.6s var(--ease) 0.3s forwards}
+.hero-horizon::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,
+    var(--night) 0%,
+    rgba(12,18,13,0.62) 26%,
+    rgba(12,18,13,0.08) 66%,
+    rgba(12,18,13,0.34) 100%);
+}
+
+.js .h-in{opacity:0;transform:translateY(20px);animation:hIn 1.2s var(--ease) forwards}
 @keyframes hIn{to{opacity:1;transform:translateY(0)}}
-.js .h-in.d1{animation-delay:0.35s}
-.js .h-in.d2{animation-delay:0.55s}
-.js .h-in.d3{animation-delay:0.8s}
-.js .h-in.d4{animation-delay:1.05s}
+.js .h-in.d1{animation-delay:0.3s}
+.js .h-in.d2{animation-delay:0.5s}
+.js .h-in.d3{animation-delay:0.78s}
+.js .h-in.d4{animation-delay:1.15s}
+.js .h-in.d5{animation-delay:1.3s}
+.js .h-in.d6{animation-delay:1.45s}
+.js .h-in.d7{animation-delay:1.6s}
 
 /* ————————————————— CHAPTER SCAFFOLD ————————————————— */
 main{background:var(--paper)}
@@ -518,7 +561,8 @@ footer{background:var(--night);color:var(--bone)}
 
 @media(prefers-reduced-motion:reduce){
   .js .rv,.js .h-in{opacity:1;transform:none;animation:none;transition:none}
-  .js .hero-media img{animation:none;transform:none}
+  .js .hero-horizon img{animation:none;transform:none}
+  .js .hero-imprint::before,.js .hero-ledger::before{animation:none;transform:none}
   .plate .plx{position:absolute;inset:0;transform:none !important}
   .wp-img img,.p-photo img,.lnk .ar,.v-ar,.meter .b{transition:none}
 }
@@ -542,6 +586,9 @@ footer{background:var(--night);color:var(--bone)}
 @media(max-width:900px){
   .nav-links{display:none}
   .menu-btn{display:flex}
+  /* the contents column folds away — the mobile menu carries it */
+  .hero-body{grid-template-columns:1fr}
+  .hero-contents{display:none}
   .wplate,.wplate.flip{grid-template-columns:1fr;gap:1.6rem}
   .wplate.flip .wp-img{order:0}
   .wplate.flip .wp-info{order:1}
@@ -562,9 +609,15 @@ footer{background:var(--night);color:var(--bone)}
 }
 @media(max-width:640px){
   :root{--chapter-gap:5rem}
-  .hero-imprint::before,.hero-imprint::after{display:none}
-  .hero-foot a,.hero-foot .sep{font-size:0.56rem;letter-spacing:0.14em}
-  .hero-foot .sep{margin:0 0.45em}
+  #hero{min-height:auto}
+  .hero-body{padding-top:7.5rem;padding-bottom:2.5rem;min-height:78svh}
+  .hero-ledger{grid-template-columns:1fr 1fr}
+  .hero-ledger .f{padding:1.2rem 1rem 1.3rem 0}
+  .hero-ledger .f+.f{padding-left:0}
+  .hero-ledger .f:nth-child(even){padding-left:1.2rem}
+  .hero-ledger .f:nth-child(even)::before{top:1.2rem;bottom:1.3rem}
+  .hero-ledger .f:nth-child(odd)::before{display:none}
+  .hero-ledger .f:nth-child(n+3){border-top:1px solid var(--nline)}
   .work-intro{flex-direction:column;align-items:flex-start;gap:1.4rem}
   .figures{grid-template-columns:1fr 1fr}
   .arc{grid-template-columns:1fr}
@@ -622,27 +675,39 @@ footer{background:var(--night);color:var(--bone)}
   </div>
 </div>
 
-<!-- ——— HERO / COVER ——— -->
+<!-- ——— HERO / COVER — the title page ——— -->
 <section id="hero" aria-label="Mullin Development">
-  <div class="hero-media">
-    <img src="sas.jpg" alt="The Scottsdale Autoshow development at dusk, desert mountains on the horizon" width="1504" height="688" fetchpriority="high">
+  <div class="hero-body">
+    <div class="hero-lead">
+      <p class="hero-imprint mono h-in d1">Scottsdale, Arizona — Est. 1994</p>
+      <h1 class="h-in d2">Developing<br>with <em>Purpose.</em></h1>
+      <p class="hero-sub h-in d3">A national development practice rooted in the desert Southwest — carrying raw ground through the full arc, from a line on paper to open doors.</p>
+      <p class="hero-status mono h-in d3">Ten works — six open, four still in the arc</p>
+    </div>
+
+    <nav class="hero-contents h-in d4" aria-label="Contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#vision"><span>The Firm</span><span class="no">01</span></a></li>
+        <li><a href="#projects"><span>The Work</span><span class="no">02</span></a></li>
+        <li><a href="#arc"><span>The Arc</span><span class="no">03</span></a></li>
+        <li><a href="#purpose"><span>The Purpose</span><span class="no">04</span></a></li>
+        <li><a href="#team"><span>The People</span><span class="no">05</span></a></li>
+        <li><a href="#ventures"><span>Ventures</span><span class="no">06</span></a></li>
+      </ol>
+    </nav>
   </div>
-  <div class="hero-center">
-    <p class="hero-imprint mono h-in d1">Scottsdale, Arizona — Est. 1994</p>
-    <h1 class="h-in d2">Developing<br>with <em>Purpose.</em></h1>
-    <p class="hero-sub h-in d3">A national real estate development practice rooted in the desert Southwest — carrying raw ground through the full arc, from a line on paper to open doors, for more than thirty years.</p>
-    <div class="hero-rule h-in d4" aria-hidden="true"></div>
+
+  <div class="hero-ledger" role="list" aria-label="The firm in figures">
+    <div class="f h-in d4" role="listitem"><p class="n">30<span class="u">+</span></p><p class="l mono">Years of development</p></div>
+    <div class="f h-in d5" role="listitem"><p class="n">7<span class="u">+</span></p><p class="l mono">Industries served</p></div>
+    <div class="f h-in d6" role="listitem"><p class="n">1,200<span class="u">+</span></p><p class="l mono">Sites involved</p></div>
+    <div class="f h-in d7" role="listitem"><p class="n"><span class="u">$</span>1.6B</p><p class="l mono">CRE value developed</p></div>
   </div>
-  <nav class="hero-foot h-in d4" aria-label="Contents">
-    <p>
-      <a href="#vision"><b>01</b>The Firm</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#projects"><b>02</b>The Work</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#arc"><b>03</b>The Arc</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#purpose"><b>04</b>The Purpose</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#team"><b>05</b>The People</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#ventures"><b>06</b>Ventures</a>
-    </p>
-  </nav>
+
+  <div class="hero-horizon">
+    <img src="horizon.jpg" alt="The desert horizon at dusk — Camelback Mountain above Scottsdale, Arizona" width="1504" height="156" fetchpriority="high">
+  </div>
 </section>
 
 <main id="main">
