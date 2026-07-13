@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mullin Development — Developing with Purpose</title>
+<title>Archived hero — The Title Page (Mullin Development)</title>
 <meta name="description" content="Mullin Development is a Scottsdale-based real estate development firm — thirty years, 1,200+ sites, and $1.6B in commercial real estate value. We carry ground through the full arc, from raw land to standing building.">
 
 <meta property="og:type" content="website">
@@ -19,8 +19,8 @@
 <meta name="twitter:description" content="A national real estate development practice rooted in the desert Southwest. Thirty years, 1,200+ sites, $1.6B in commercial real estate value.">
 <meta name="twitter:image" content="https://mullindev.com/sas.jpg">
 
-<link rel="icon" type="image/png" href="logo-green.png">
-<link rel="preload" as="image" href="sas.jpg" fetchpriority="high">
+<link rel="icon" type="image/png" href="../logo-green.png">
+<link rel="preload" as="image" href="../horizon.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -156,72 +156,115 @@ body.menu-open #mobileMenu nav a{transform:translateY(0)}
 #mobileMenu .m-foot{margin-top:2.5rem;display:flex;justify-content:space-between;align-items:flex-end;color:var(--bone-45)}
 #mobileMenu .m-foot .mono{line-height:2}
 
-/* ————————————————— HERO / COVER ————————————————— */
+/* ————————————————— HERO / COVER — the title page ————————————————
+   Not a photograph with words on it. A title page: the imprint, the
+   tagline, the firm's numbers as a ruled ledger — and the ground itself
+   along the foot. Type above, land below. That is the whole business.
+   ———————————————————————————————————————————————————————————————— */
 #hero{
-  position:relative;height:100svh;min-height:640px;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  overflow:hidden;background:var(--night);
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;
+  background:var(--night);color:var(--bone);overflow:hidden;
 }
-.hero-media{position:absolute;inset:0;overflow:hidden}
-.hero-media img{
-  width:100%;height:100%;object-fit:cover;object-position:center 62%;
-  filter:saturate(0.88) contrast(1.04);transform:scale(1.07);
+.hero-body{
+  flex:1;display:grid;
+  grid-template-columns:minmax(0,1.4fr) minmax(0,0.6fr);
+  gap:clamp(2rem,6vw,6rem);align-items:center;
+  padding:9rem var(--gutter) clamp(2.5rem,6vh,4rem);
 }
-@keyframes heroSettle{to{transform:scale(1)}}
-.js .hero-media img{animation:heroSettle 3.2s var(--ease) 0.2s forwards}
-.hero-media::after{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 120% 90% at 50% 58%,rgba(8,13,9,0.52) 0%,rgba(8,13,9,0.30) 48%,rgba(8,13,9,0.14) 72%),
-    linear-gradient(to top,rgba(8,13,9,0.78) 0%,rgba(8,13,9,0.18) 26%,transparent 45%),
-    linear-gradient(to bottom,rgba(8,13,9,0.5) 0%,transparent 22%);
+
+/* the title page faces a contents — as a book does */
+.hero-contents{justify-self:end;width:100%;max-width:300px}
+.hero-contents h2{
+  font-family:var(--mono);font-size:0.6rem;font-weight:400;letter-spacing:0.24em;
+  text-transform:uppercase;color:var(--bone-45);margin-bottom:1.1rem;
 }
-.hero-center{
-  position:relative;z-index:2;flex:1;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:4.5rem var(--gutter) 3.5rem;
+.hero-contents ol{list-style:none}
+.hero-contents li{border-top:1px solid var(--nline)}
+.hero-contents li:last-child{border-bottom:1px solid var(--nline)}
+.hero-contents a{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:0.72rem 0;text-decoration:none;
+  font-family:var(--serif);font-weight:500;font-size:1.16rem;letter-spacing:-0.005em;
+  color:var(--bone-70);transition:color 0.35s var(--ease);
 }
+.hero-contents a .no{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;color:var(--green-lift);
+  font-variant-numeric:tabular-nums;flex:none;
+}
+.hero-contents a:hover,.hero-contents a:focus-visible{color:var(--bone)}
 .hero-imprint{
-  color:rgba(244,241,234,0.9);letter-spacing:0.3em;
-  display:flex;align-items:center;gap:1.3rem;
-  text-shadow:0 1px 14px rgba(8,13,9,0.6);
+  color:var(--bone-45);letter-spacing:0.3em;
+  display:flex;align-items:center;gap:1.2rem;
 }
-.hero-imprint::before,.hero-imprint::after{
-  content:'';display:block;width:clamp(2rem,6vw,4.5rem);height:1px;background:rgba(244,241,234,0.4);
+.hero-imprint::before{
+  content:'';display:block;width:clamp(2rem,5vw,4rem);height:1px;background:var(--green-lift);
+  transform:scaleX(0);transform-origin:left;
 }
+.js .hero-imprint::before{animation:ruleIn 1.3s var(--ease) 0.5s forwards}
+@keyframes ruleIn{to{transform:scaleX(1)}}
+
 h1{
   font-family:var(--serif);font-weight:500;
-  font-size:clamp(3.3rem,9.2vw,8.4rem);
-  line-height:1.02;letter-spacing:-0.015em;color:var(--bone);
-  margin:1.6rem 0 1.4rem;text-shadow:0 2px 46px rgba(8,13,9,0.4);
+  font-size:clamp(3rem,8.2vw,7.4rem);
+  line-height:0.99;letter-spacing:-0.02em;color:var(--bone);
+  margin:1.5rem 0 0;max-width:12ch;
 }
 h1 em{font-style:italic;font-weight:400}
-.hero-sub{max-width:54ch;font-size:1.02rem;line-height:1.8;color:var(--bone-70)}
-.hero-rule{
-  width:1px;height:clamp(2rem,6vh,3.4rem);
-  background:linear-gradient(to bottom,rgba(244,241,234,0.55),transparent);
-  margin-top:clamp(1.6rem,4.5vh,2.8rem);
-}
-.hero-foot{
-  position:relative;z-index:2;display:flex;justify-content:center;
-  padding:1.35rem var(--gutter);
-  border-top:1px solid rgba(244,241,234,0.18);
-}
-.hero-foot p{text-align:center;line-height:2}
-.hero-foot a{
-  font-family:var(--mono);font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:rgba(244,241,234,0.62);text-decoration:none;transition:color 0.3s;white-space:nowrap;
-}
-.hero-foot a:hover,.hero-foot a:focus-visible{color:var(--bone)}
-.hero-foot a b{font-weight:400;color:var(--green-lift);margin-right:0.55em}
-.hero-foot .sep{color:rgba(244,241,234,0.3);font-family:var(--mono);font-size:0.66rem;margin:0 0.7em}
 
-.js .h-in{opacity:0;transform:translateY(22px);animation:hIn 1.2s var(--ease) forwards}
+.hero-sub{margin-top:1.9rem;max-width:50ch;font-size:1.02rem;line-height:1.8;color:var(--bone-70)}
+.hero-status{
+  margin-top:1.4rem;display:flex;align-items:center;gap:0.9rem;
+  color:var(--green-lift);letter-spacing:0.2em;
+}
+.hero-status::before{content:'';display:block;width:1.6rem;height:1px;background:var(--green-lift);flex:none}
+
+/* the ledger — the firm's numbers, at the door */
+.hero-ledger{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  padding:0 var(--gutter);
+}
+.hero-ledger::before{
+  content:'';position:absolute;left:var(--gutter);right:var(--gutter);top:0;height:1px;
+  background:var(--nline);transform:scaleX(0);transform-origin:left;
+}
+.js .hero-ledger::before{animation:ruleIn 1.6s var(--ease) 1s forwards}
+.hero-ledger .f{position:relative;padding:1.5rem 1.5rem 1.7rem 0}
+.hero-ledger .f+.f{padding-left:1.5rem}
+.hero-ledger .f+.f::before{
+  content:'';position:absolute;left:0;top:1.5rem;bottom:1.7rem;width:1px;background:var(--nline);
+}
+.hero-ledger .n{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,3vw,2.9rem);
+  line-height:1;letter-spacing:-0.01em;color:var(--bone);font-variant-numeric:lining-nums;
+}
+.hero-ledger .n .u{color:var(--green-lift)}
+.hero-ledger .l{margin-top:0.65rem;color:var(--bone-45)}
+
+/* the horizon — the ground the firm develops */
+.hero-horizon{position:relative;height:clamp(104px,16vh,180px);overflow:hidden;background:var(--night)}
+.hero-horizon img{width:100%;height:100%;object-fit:cover;object-position:center 42%;transform:scale(1.08)}
+@keyframes landSettle{to{transform:scale(1)}}
+.js .hero-horizon img{animation:landSettle 3.6s var(--ease) 0.3s forwards}
+.hero-horizon::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,
+    var(--night) 0%,
+    rgba(12,18,13,0.62) 26%,
+    rgba(12,18,13,0.08) 66%,
+    rgba(12,18,13,0.34) 100%);
+}
+
+.js .h-in{opacity:0;transform:translateY(20px);animation:hIn 1.2s var(--ease) forwards}
 @keyframes hIn{to{opacity:1;transform:translateY(0)}}
-.js .h-in.d1{animation-delay:0.35s}
-.js .h-in.d2{animation-delay:0.55s}
-.js .h-in.d3{animation-delay:0.8s}
-.js .h-in.d4{animation-delay:1.05s}
+.js .h-in.d1{animation-delay:0.3s}
+.js .h-in.d2{animation-delay:0.5s}
+.js .h-in.d3{animation-delay:0.78s}
+.js .h-in.d4{animation-delay:1.15s}
+.js .h-in.d5{animation-delay:1.3s}
+.js .h-in.d6{animation-delay:1.45s}
+.js .h-in.d7{animation-delay:1.6s}
 
 /* ————————————————— CHAPTER SCAFFOLD ————————————————— */
 main{background:var(--paper)}
@@ -518,7 +561,8 @@ footer{background:var(--night);color:var(--bone)}
 
 @media(prefers-reduced-motion:reduce){
   .js .rv,.js .h-in{opacity:1;transform:none;animation:none;transition:none}
-  .js .hero-media img{animation:none;transform:none}
+  .js .hero-horizon img{animation:none;transform:none}
+  .js .hero-imprint::before,.js .hero-ledger::before{animation:none;transform:none}
   .plate .plx{position:absolute;inset:0;transform:none !important}
   .wp-img img,.p-photo img,.lnk .ar,.v-ar,.meter .b{transition:none}
 }
@@ -542,6 +586,9 @@ footer{background:var(--night);color:var(--bone)}
 @media(max-width:900px){
   .nav-links{display:none}
   .menu-btn{display:flex}
+  /* the contents column folds away — the mobile menu carries it */
+  .hero-body{grid-template-columns:1fr}
+  .hero-contents{display:none}
   .wplate,.wplate.flip{grid-template-columns:1fr;gap:1.6rem}
   .wplate.flip .wp-img{order:0}
   .wplate.flip .wp-info{order:1}
@@ -562,9 +609,15 @@ footer{background:var(--night);color:var(--bone)}
 }
 @media(max-width:640px){
   :root{--chapter-gap:5rem}
-  .hero-imprint::before,.hero-imprint::after{display:none}
-  .hero-foot a,.hero-foot .sep{font-size:0.56rem;letter-spacing:0.14em}
-  .hero-foot .sep{margin:0 0.45em}
+  #hero{min-height:auto}
+  .hero-body{padding-top:7.5rem;padding-bottom:2.5rem;min-height:78svh}
+  .hero-ledger{grid-template-columns:1fr 1fr}
+  .hero-ledger .f{padding:1.2rem 1rem 1.3rem 0}
+  .hero-ledger .f+.f{padding-left:0}
+  .hero-ledger .f:nth-child(even){padding-left:1.2rem}
+  .hero-ledger .f:nth-child(even)::before{top:1.2rem;bottom:1.3rem}
+  .hero-ledger .f:nth-child(odd)::before{display:none}
+  .hero-ledger .f:nth-child(n+3){border-top:1px solid var(--nline)}
   .work-intro{flex-direction:column;align-items:flex-start;gap:1.4rem}
   .figures{grid-template-columns:1fr 1fr}
   .arc{grid-template-columns:1fr}
@@ -589,16 +642,16 @@ footer{background:var(--night);color:var(--bone)}
 <!-- ——— NAV ——— -->
 <header id="nav">
   <a href="#hero" class="nav-logo" aria-label="Mullin Development — home">
-    <img class="lg-wht" src="white-sq-long.png" alt="Mullin Development" width="721" height="145">
-    <img class="lg-blk" src="logo-long-blk.png" alt="" aria-hidden="true" width="767" height="203">
+    <img class="lg-wht" src="../white-sq-long.png" alt="Mullin Development" width="721" height="145">
+    <img class="lg-blk" src="../logo-long-blk.png" alt="" aria-hidden="true" width="767" height="203">
   </a>
   <nav aria-label="Primary">
     <ul class="nav-links">
       <li><a href="#vision">The Firm</a></li>
       <li><a href="#projects">The Work</a></li>
       <li><a href="#team">The People</a></li>
-      <li><a href="media.html">Media</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="../media.html">Media</a></li>
+      <li><a href="../contact.html">Contact</a></li>
     </ul>
   </nav>
   <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -612,8 +665,8 @@ footer{background:var(--night);color:var(--bone)}
       <li><a href="#vision"><span>The Firm</span><span class="mono">01</span></a></li>
       <li><a href="#projects"><span>The Work</span><span class="mono">02</span></a></li>
       <li><a href="#team"><span>The People</span><span class="mono">05</span></a></li>
-      <li><a href="media.html"><span>Media</span><span class="mono">→</span></a></li>
-      <li><a href="contact.html"><span>Contact</span><span class="mono">→</span></a></li>
+      <li><a href="../media.html"><span>Media</span><span class="mono">→</span></a></li>
+      <li><a href="../contact.html"><span>Contact</span><span class="mono">→</span></a></li>
     </ul>
   </nav>
   <div class="m-foot">
@@ -622,27 +675,39 @@ footer{background:var(--night);color:var(--bone)}
   </div>
 </div>
 
-<!-- ——— HERO / COVER ——— -->
+<!-- ——— HERO / COVER — the title page ——— -->
 <section id="hero" aria-label="Mullin Development">
-  <div class="hero-media">
-    <img src="sas.jpg" alt="The Scottsdale Autoshow development at dusk, desert mountains on the horizon" width="1504" height="688" fetchpriority="high">
+  <div class="hero-body">
+    <div class="hero-lead">
+      <p class="hero-imprint mono h-in d1">Scottsdale, Arizona — Est. 1994</p>
+      <h1 class="h-in d2">Developing<br>with <em>Purpose.</em></h1>
+      <p class="hero-sub h-in d3">A national development practice rooted in the desert Southwest — carrying raw ground through the full arc, from a line on paper to open doors.</p>
+      <p class="hero-status mono h-in d3">Ten works — six open, four still in the arc</p>
+    </div>
+
+    <nav class="hero-contents h-in d4" aria-label="Contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#vision"><span>The Firm</span><span class="no">01</span></a></li>
+        <li><a href="#projects"><span>The Work</span><span class="no">02</span></a></li>
+        <li><a href="#arc"><span>The Arc</span><span class="no">03</span></a></li>
+        <li><a href="#purpose"><span>The Purpose</span><span class="no">04</span></a></li>
+        <li><a href="#team"><span>The People</span><span class="no">05</span></a></li>
+        <li><a href="#ventures"><span>Ventures</span><span class="no">06</span></a></li>
+      </ol>
+    </nav>
   </div>
-  <div class="hero-center">
-    <p class="hero-imprint mono h-in d1">Scottsdale, Arizona — Est. 1994</p>
-    <h1 class="h-in d2">Developing<br>with <em>Purpose.</em></h1>
-    <p class="hero-sub h-in d3">A national real estate development practice rooted in the desert Southwest — carrying raw ground through the full arc, from a line on paper to open doors, for more than thirty years.</p>
-    <div class="hero-rule h-in d4" aria-hidden="true"></div>
+
+  <div class="hero-ledger" role="list" aria-label="The firm in figures">
+    <div class="f h-in d4" role="listitem"><p class="n">30<span class="u">+</span></p><p class="l mono">Years of development</p></div>
+    <div class="f h-in d5" role="listitem"><p class="n">7<span class="u">+</span></p><p class="l mono">Industries served</p></div>
+    <div class="f h-in d6" role="listitem"><p class="n">1,200<span class="u">+</span></p><p class="l mono">Sites involved</p></div>
+    <div class="f h-in d7" role="listitem"><p class="n"><span class="u">$</span>1.6B</p><p class="l mono">CRE value developed</p></div>
   </div>
-  <nav class="hero-foot h-in d4" aria-label="Contents">
-    <p>
-      <a href="#vision"><b>01</b>The Firm</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#projects"><b>02</b>The Work</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#arc"><b>03</b>The Arc</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#purpose"><b>04</b>The Purpose</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#team"><b>05</b>The People</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#ventures"><b>06</b>Ventures</a>
-    </p>
-  </nav>
+
+  <div class="hero-horizon">
+    <img src="../horizon.jpg" alt="The desert horizon at dusk — Camelback Mountain above Scottsdale, Arizona" width="1504" height="156" fetchpriority="high">
+  </div>
 </section>
 
 <main id="main">
@@ -676,7 +741,7 @@ footer{background:var(--night);color:var(--bone)}
 
   <!-- ——— PLATE 01 ——— -->
   <figure class="plate" aria-label="The Mullin Development studio campus in Scottsdale">
-    <div class="plx"><img src="m360-14.jpg" alt="Row of white sawtooth-roofed studio buildings at the Mullin Development campus in Scottsdale" width="1080" height="720" loading="lazy" decoding="async"></div>
+    <div class="plx"><img src="../m360-14.jpg" alt="Row of white sawtooth-roofed studio buildings at the Mullin Development campus in Scottsdale" width="1080" height="720" loading="lazy" decoding="async"></div>
     <figcaption><span class="mono">Plate 01</span><span class="mono">Scottsdale, Arizona</span></figcaption>
   </figure>
 
@@ -690,11 +755,11 @@ footer{background:var(--night);color:var(--bone)}
 
     <div class="work-intro">
       <h2 class="display rv">Selected <em>work.</em></h2>
-      <a class="lnk rv" href="projects.html">Complete portfolio <span class="ar">→</span></a>
+      <a class="lnk rv" href="../projects.html">Complete portfolio <span class="ar">→</span></a>
     </div>
 
-    <a class="wplate rv" href="project-detail.html?id=scottsdale-autoshow">
-      <div class="wp-img"><img src="1project-sas.jpg" alt="Scottsdale Autoshow at dusk — dealership campus against desert mountains" width="1022" height="480" loading="lazy" decoding="async"></div>
+    <a class="wplate rv" href="../project-detail.html?id=scottsdale-autoshow">
+      <div class="wp-img"><img src="../1project-sas.jpg" alt="Scottsdale Autoshow at dusk — dealership campus against desert mountains" width="1022" height="480" loading="lazy" decoding="async"></div>
       <div class="wp-info">
         <div class="wp-meta"><span class="mono"><b>W.01</b>&ensp;Automotive</span><span class="mono">Scottsdale, AZ</span></div>
         <h3 class="wp-name">Scottsdale Autoshow</h3>
@@ -709,8 +774,8 @@ footer{background:var(--night);color:var(--bone)}
       </div>
     </a>
 
-    <a class="wplate flip rv" href="project-detail.html?id=penske-north-scottsdale">
-      <div class="wp-img"><img src="1project-penske.jpg" alt="Penske North Scottsdale campus — aerial view with palm-lined drives" width="1253" height="542" loading="lazy" decoding="async"></div>
+    <a class="wplate flip rv" href="../project-detail.html?id=penske-north-scottsdale">
+      <div class="wp-img"><img src="../1project-penske.jpg" alt="Penske North Scottsdale campus — aerial view with palm-lined drives" width="1253" height="542" loading="lazy" decoding="async"></div>
       <div class="wp-info">
         <div class="wp-meta"><span class="mono"><b>W.02</b>&ensp;Automotive</span><span class="mono">Scottsdale, AZ</span></div>
         <h3 class="wp-name">Penske North Scottsdale 101</h3>
@@ -725,8 +790,8 @@ footer{background:var(--night);color:var(--bone)}
       </div>
     </a>
 
-    <a class="wplate rv" href="project-detail.html?id=riverside-county">
-      <div class="wp-img"><img src="1project-reverside.jpg" alt="Site plan for the Riverside County Auto Park" width="1264" height="547" loading="lazy" decoding="async" style="object-position:0% 50%"></div>
+    <a class="wplate rv" href="../project-detail.html?id=riverside-county">
+      <div class="wp-img"><img src="../1project-reverside.jpg" alt="Site plan for the Riverside County Auto Park" width="1264" height="547" loading="lazy" decoding="async" style="object-position:0% 50%"></div>
       <div class="wp-info">
         <div class="wp-meta"><span class="mono"><b>W.06</b>&ensp;Automotive</span><span class="mono">Riverside County, CA</span></div>
         <h3 class="wp-name">Riverside County Auto Park</h3>
@@ -741,8 +806,8 @@ footer{background:var(--night);color:var(--bone)}
       </div>
     </a>
 
-    <a class="wplate flip rv" href="project-detail.html?id=greencastle-hotel">
-      <div class="wp-img"><img class="crop-t" src="1project-greencastle.jpeg" alt="Rendering of the Greencastle Hotel roof garden bar, looking south" width="720" height="402" loading="lazy" decoding="async"></div>
+    <a class="wplate flip rv" href="../project-detail.html?id=greencastle-hotel">
+      <div class="wp-img"><img class="crop-t" src="../1project-greencastle.jpeg" alt="Rendering of the Greencastle Hotel roof garden bar, looking south" width="720" height="402" loading="lazy" decoding="async"></div>
       <div class="wp-info">
         <div class="wp-meta"><span class="mono"><b>W.09</b>&ensp;Hospitality</span><span class="mono">Greencastle, IN</span></div>
         <h3 class="wp-name">Greencastle Hotel</h3>
@@ -772,7 +837,7 @@ footer{background:var(--night);color:var(--bone)}
         <span class="mono"><b>05</b>Occupancy</span>
       </div>
 
-      <a class="row" href="project-detail.html?id=scottsdale-autoshow">
+      <a class="row" href="../project-detail.html?id=scottsdale-autoshow">
         <span class="c-no">01</span>
         <span class="c-name">Scottsdale Autoshow</span>
         <span class="c-loc">Scottsdale, AZ — Automotive</span>
@@ -783,7 +848,7 @@ footer{background:var(--night);color:var(--bone)}
         <span class="c-scale">70 acres</span>
         <span class="c-ar">→</span>
       </a>
-      <a class="row" href="project-detail.html?id=penske-north-scottsdale">
+      <a class="row" href="../project-detail.html?id=penske-north-scottsdale">
         <span class="c-no">02</span>
         <span class="c-name">Penske North Scottsdale 101</span>
         <span class="c-loc">Scottsdale, AZ — Automotive</span>
@@ -794,7 +859,7 @@ footer{background:var(--night);color:var(--bone)}
         <span class="c-scale">40 acres</span>
         <span class="c-ar">→</span>
       </a>
-      <a class="row" href="project-detail.html?id=303-autoshow">
+      <a class="row" href="../project-detail.html?id=303-autoshow">
         <span class="c-no">03</span>
         <span class="c-name">303 Autoshow</span>
         <span class="c-loc">Surprise, AZ — Automotive</span>
@@ -805,7 +870,7 @@ footer{background:var(--night);color:var(--bone)}
         <span class="c-scale">80 acres</span>
         <span class="c-ar">→</span>
       </a>
-      <a class="row" href="project-detail.html?id=tempe-autoplex">
+      <a class="row" href="../project-detail.html?id=tempe-autoplex">
         <span class="c-no">04</span>
         <span class="c-name">Tempe Autoplex</span>
         <span class="c-loc">Tempe, AZ — Automotive</span>
@@ -816,7 +881,7 @@ footer{background:var(--night);color:var(--bone)}
         <span class="c-scale">80 acres</span>
         <span class="c-ar">→</span>
       </a>
-      <a class="row" href="project-detail.html?id=centerra">
+      <a class="row" href="../project-detail.html?id=centerra">
         <span class="c-no">05</span>
         <span class="c-name">Motorplex at Centerra</span>
         <span class="c-loc">Loveland, CO — Automotive retail</span>
@@ -827,7 +892,7 @@ footer{background:var(--night);color:var(--bone)}
         <span class="c-scale">100 acres</span>
         <span class="c-ar">→</span>
       </a>
-      <a class="row" href="project-detail.html?id=riverside-county">
+      <a class="row" href="../project-detail.html?id=riverside-county">
         <span class="c-no">06</span>
         <span class="c-name">Riverside County Auto Park</span>
         <span class="c-loc">Riverside County, CA — Automotive</span>
@@ -838,7 +903,7 @@ footer{background:var(--night);color:var(--bone)}
         <span class="c-scale">70 acres</span>
         <span class="c-ar">→</span>
       </a>
-      <a class="row" href="project-detail.html?id=art-at-mmr">
+      <a class="row" href="../project-detail.html?id=art-at-mmr">
         <span class="c-no">07</span>
         <span class="c-name">The Art at MMR</span>
         <span class="c-loc">McDowell Mountain Ranch, AZ — Retail</span>
@@ -849,7 +914,7 @@ footer{background:var(--night);color:var(--bone)}
         <span class="c-scale">15,000 sq ft</span>
         <span class="c-ar">→</span>
       </a>
-      <a class="row" href="project-detail.html?id=costco">
+      <a class="row" href="../project-detail.html?id=costco">
         <span class="c-no">08</span>
         <span class="c-name">Costco at Salt River</span>
         <span class="c-loc">Scottsdale, AZ — Retail</span>
@@ -860,7 +925,7 @@ footer{background:var(--night);color:var(--bone)}
         <span class="c-scale">162,000 sq ft</span>
         <span class="c-ar">→</span>
       </a>
-      <a class="row" href="project-detail.html?id=greencastle-hotel">
+      <a class="row" href="../project-detail.html?id=greencastle-hotel">
         <span class="c-no">09</span>
         <span class="c-name">Greencastle Hotel</span>
         <span class="c-loc">Greencastle, IN — Hospitality</span>
@@ -871,7 +936,7 @@ footer{background:var(--night);color:var(--bone)}
         <span class="c-scale">Adaptive reuse</span>
         <span class="c-ar">→</span>
       </a>
-      <a class="row" href="project-detail.html?id=casa-grande">
+      <a class="row" href="../project-detail.html?id=casa-grande">
         <span class="c-no">10</span>
         <span class="c-name">Casa Grande Autoplex</span>
         <span class="c-loc">Casa Grande, AZ — Automotive</span>
@@ -983,7 +1048,7 @@ footer{background:var(--night);color:var(--bone)}
 
   <!-- ——— PLATE 02 ——— -->
   <figure class="plate" aria-label="The Mullin Development studio in Scottsdale at dusk">
-    <div class="plx"><img src="m360-15.jpg" alt="Entrance of the Mullin Development studio in Scottsdale, lit warmly at dusk" width="1200" height="797" loading="lazy" decoding="async"></div>
+    <div class="plx"><img src="../m360-15.jpg" alt="Entrance of the Mullin Development studio in Scottsdale, lit warmly at dusk" width="1200" height="797" loading="lazy" decoding="async"></div>
     <figcaption><span class="mono">Plate 02</span><span class="mono">Scottsdale, Arizona</span></figcaption>
   </figure>
 
@@ -1004,7 +1069,7 @@ footer{background:var(--night);color:var(--bone)}
           <p class="p-title mono">President</p>
         </div>
         <p class="p-bio">Past President of Staubach AutoGroup. Involved in more than 1,200 automotive retail locations and forty-plus developments across four continents.</p>
-        <div class="p-photo"><img src="team-headshot-1.jpg" alt="Portrait of Jim Mullin" width="720" height="1008" loading="lazy" decoding="async"></div>
+        <div class="p-photo"><img src="../team-headshot-1.jpg" alt="Portrait of Jim Mullin" width="720" height="1008" loading="lazy" decoding="async"></div>
       </li>
       <li class="rv">
         <div class="p-id">
@@ -1012,7 +1077,7 @@ footer{background:var(--night);color:var(--bone)}
           <p class="p-title mono">Director of Operations</p>
         </div>
         <p class="p-bio">Operational excellence and project management, with a background spanning healthcare, property, and construction management.</p>
-        <div class="p-photo"><img src="team-headshot-2.jpg" alt="Portrait of Jacqueline Swanson" width="720" height="1009" loading="lazy" decoding="async"></div>
+        <div class="p-photo"><img src="../team-headshot-2.jpg" alt="Portrait of Jacqueline Swanson" width="720" height="1009" loading="lazy" decoding="async"></div>
       </li>
       <li class="rv">
         <div class="p-id">
@@ -1020,7 +1085,7 @@ footer{background:var(--night);color:var(--bone)}
           <p class="p-title mono">Corporate Controller</p>
         </div>
         <p class="p-bio">A four-decade finance career across Big Four firms — more than thirty years as Controller, VP&#8209;Finance, or CFO.</p>
-        <div class="p-photo"><img src="team-headshot-3.jpg" alt="Portrait of Mark Simmons" width="720" height="1008" loading="lazy" decoding="async"></div>
+        <div class="p-photo"><img src="../team-headshot-3.jpg" alt="Portrait of Mark Simmons" width="720" height="1008" loading="lazy" decoding="async"></div>
       </li>
       <li class="rv no-photo">
         <div class="p-id">
@@ -1062,24 +1127,24 @@ footer{background:var(--night);color:var(--bone)}
     <h2 class="rv">Bring us <em>ground.</em></h2>
     <div class="cta-right">
       <p class="mono rv">Scottsdale, Arizona<br>Serving clients nationally<br>and internationally</p>
-      <a href="contact.html" class="btn-seal rv">Get in touch <span class="ar">→</span></a>
+      <a href="../contact.html" class="btn-seal rv">Get in touch <span class="ar">→</span></a>
     </div>
   </div>
 
   <div class="colophon">
     <div class="f-brand">
-      <img src="white-full.png" alt="Mullin — A Development Company" width="1024" height="1024" loading="lazy" decoding="async">
+      <img src="../white-full.png" alt="Mullin — A Development Company" width="1024" height="1024" loading="lazy" decoding="async">
       <p class="f-tag">Developing with Purpose.</p>
     </div>
     <nav aria-label="Footer">
       <h4>Navigate</h4>
       <ul>
-        <li><a href="projects.html">Projects</a></li>
+        <li><a href="../projects.html">Projects</a></li>
         <li><a href="#vision">The Firm</a></li>
         <li><a href="#arc">The Arc</a></li>
         <li><a href="#team">The People</a></li>
-        <li><a href="media.html">Media</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="../media.html">Media</a></li>
+        <li><a href="../contact.html">Contact</a></li>
       </ul>
     </nav>
     <div>
@@ -1098,7 +1163,7 @@ footer{background:var(--night);color:var(--bone)}
 
   <div class="baseline">
     <p class="mono">© 2026 Mullin Development, LLC. All rights reserved.</p>
-    <p class="mono"><a href="brand-system.html" style="color:inherit;text-decoration:none">Brand system</a></p>
+    <p class="mono"><a href="../brand-system.html" style="color:inherit;text-decoration:none">Brand system</a></p>
     <p class="mono">Est. 1994 — Scottsdale, Arizona</p>
   </div>
 </footer>
