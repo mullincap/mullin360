@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero + Stats — Mockup Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#FFFFFF;
+  --white-soft:#F8FAF8;
+  --mist:#EEF3EF;
+  --mist-2:#E1E9E3;
+  --green:#0E6133;
+  --green-deep:#0A4A27;
+  --green-soft:#2C7A4B;
+  --green-muted:#7EA08A;
+  --green-pale:#DCE9E1;
+  --charcoal:#102218;
+  --charcoal-soft:#1A2E22;
+  --stone:#5F6F66;
+  --line:#D5DED8;
+  --font-d:'Cormorant Garamond',Georgia,serif;
+  --font-b:'DM Sans',sans-serif;
+}
+body{font-family:var(--font-b);background:var(--white);color:var(--charcoal);font-size:16px;line-height:1.7}
+
+/* Mockup chrome */
+.mockup-banner{position:sticky;top:0;z-index:1000;background:var(--charcoal);color:var(--white);padding:0.85rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08)}
+.mockup-banner h1{font-family:var(--font-d);font-size:1.1rem;font-weight:400}
+.mockup-banner span{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+.mockup-nav{display:flex;gap:1rem}
+.mockup-nav a{color:var(--green-pale);text-decoration:none;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.4rem 0.75rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;transition:all 0.2s}
+.mockup-nav a:hover{background:rgba(255,255,255,0.08);border-color:var(--green-pale)}
+
+.option-label{padding:3rem 5rem 1rem;background:var(--white)}
+.option-label .pill{display:inline-block;background:var(--green);color:var(--white);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.4rem 0.9rem;border-radius:999px;margin-bottom:0.75rem}
+.option-label h2{font-family:var(--font-d);font-size:2rem;font-weight:300;color:var(--charcoal)}
+.option-label p{font-size:0.9rem;color:var(--stone);max-width:680px;margin-top:0.5rem;font-weight:300}
+
+/* Shared hero base */
+.hero{position:relative;min-height:760px;height:90vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,40,32,0.97) 0%,rgba(0,0,0,0.9) 45%,rgba(0,0,0,0.5) 100%),url('sas.jpg') center/cover no-repeat}
+.hero-content{position:relative;z-index:2;max-width:960px;padding:0 2rem}
+.eyebrow{font-size:0.82rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--green-pale);margin-bottom:1.25rem}
+.hero h1{font-family:var(--font-d);font-size:clamp(3.8rem,8.5vw,7.2rem);font-weight:300;line-height:1.02;color:var(--white);margin-bottom:1.25rem}
+.hero h1 em{font-style:italic;color:var(--green-pale);font-weight:400}
+.hero-sub{font-size:1.22rem;color:rgba(255,255,255,0.88);max-width:620px;margin:0 auto 2.5rem;font-weight:300}
+.btn-terra{display:inline-flex;align-items:center;gap:0.9rem;padding:1.25rem 3rem;font-size:0.85rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;font-weight:500;border-radius:6px;background:var(--green);color:var(--white);transition:all 0.3s}
+.btn-terra:hover{background:var(--green-deep);transform:translateY(-3px)}
+.btn-sage{display:inline-flex;align-items:center;gap:0.9rem;padding:1.25rem 3rem;font-size:0.85rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;font-weight:500;border-radius:6px;border:2px solid rgba(255,255,255,0.75);color:var(--white);margin-left:1rem;transition:all 0.3s}
+.btn-sage:hover{background:rgba(255,255,255,0.1)}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION A — STATS AS FLOATING BAND OVERLAPPING BOTTOM OF HERO
+   Hero keeps original layout, but a translucent stats band
+   floats over the bottom edge.
+   ──────────────────────────────────────────────────────────────── */
+#optA .hero{min-height:820px;padding-bottom:120px}
+.statband-float{position:absolute;left:5rem;right:5rem;bottom:-50px;background:var(--white);box-shadow:0 30px 60px rgba(0,0,0,0.18);display:grid;grid-template-columns:repeat(4,1fr);z-index:5;border-radius:4px;overflow:hidden}
+.statband-float .stat{padding:2.5rem 1.5rem;text-align:center;border-right:1px solid var(--line)}
+.statband-float .stat:last-child{border-right:none}
+.statband-float .stat-n{font-family:var(--font-d);font-size:2.75rem;font-weight:300;color:var(--green);line-height:1}
+.statband-float .stat-l{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone);margin-top:0.5rem}
+#optA-spacer{height:80px;background:var(--white)}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION B — STATS AS VERTICAL COLUMN, ASYMMETRIC HERO
+   Hero text left-aligned, stats stacked in a column at right.
+   ──────────────────────────────────────────────────────────────── */
+#optB .hero{text-align:left}
+#optB .hero-content{max-width:1280px;width:100%;display:grid;grid-template-columns:1.4fr 1fr;gap:5rem;align-items:center}
+#optB .hero h1{font-size:clamp(3rem,6.5vw,5.5rem)}
+#optB .hero-sub{margin-left:0}
+.statcol{display:flex;flex-direction:column;gap:0;border-left:1px solid rgba(220,233,225,0.25);padding-left:2.5rem}
+.statcol .stat{padding:1.4rem 0;border-bottom:1px solid rgba(220,233,225,0.15)}
+.statcol .stat:last-child{border-bottom:none}
+.statcol .stat-n{font-family:var(--font-d);font-size:2.5rem;font-weight:300;color:var(--white);line-height:1}
+.statcol .stat-n em{color:var(--green-pale);font-style:normal}
+.statcol .stat-l{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(220,233,225,0.6);margin-top:0.35rem}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION C — INLINE STAT ROW BELOW SUBTITLE
+   Replaces statline with a clean 4-up row of stats inside hero.
+   ──────────────────────────────────────────────────────────────── */
+.statinline{display:flex;justify-content:center;gap:0;margin:0 auto 2.5rem;max-width:800px;border-top:1px solid rgba(220,233,225,0.2);border-bottom:1px solid rgba(220,233,225,0.2);padding:1.5rem 0}
+.statinline .stat{flex:1;text-align:center;border-right:1px solid rgba(220,233,225,0.15);padding:0 0.5rem}
+.statinline .stat:last-child{border-right:none}
+.statinline .stat-n{font-family:var(--font-d);font-size:1.85rem;font-weight:400;color:var(--green-pale);line-height:1}
+.statinline .stat-l{font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-top:0.4rem}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION D — TYPOGRAPHIC BACKDROP
+   Single hero-stat shown massive behind the headline as a
+   watermark; rotating between values.
+   ──────────────────────────────────────────────────────────────── */
+#optD .hero-content{position:relative}
+.statwatermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:0;overflow:hidden}
+.statwatermark .stat-n{font-family:var(--font-d);font-size:clamp(12rem,24vw,22rem);font-weight:300;color:rgba(220,233,225,0.06);letter-spacing:-0.02em;line-height:1;animation:swap 12s infinite}
+@keyframes swap{
+  0%,20%{content:"$1.6B"}
+  25%,45%{content:"30+"}
+  50%,70%{content:"1,200+"}
+  75%,95%{content:"7+"}
+}
+#optD .hero h1,#optD .eyebrow,#optD .hero-sub,#optD .btn-group{position:relative;z-index:2}
+.statwm-row{position:absolute;bottom:3.5rem;left:0;right:0;display:flex;justify-content:center;gap:3rem;z-index:3;flex-wrap:wrap}
+.statwm-row .stat{text-align:center;opacity:0.85}
+.statwm-row .stat-n{font-family:var(--font-d);font-size:1.5rem;font-weight:400;color:var(--green-pale)}
+.statwm-row .stat-l{font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-top:0.2rem}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION E — EDGE-TO-EDGE STATS BAR INTEGRATED INTO HERO BOTTOM
+   The stats become part of the hero itself — no separation.
+   Dark glass bar at bottom of hero with stats as part of the photo.
+   ──────────────────────────────────────────────────────────────── */
+#optE .hero{min-height:880px}
+.stats-glass{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(10,74,39,0.92) 0%,rgba(10,74,39,0.78) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:grid;grid-template-columns:repeat(4,1fr);z-index:3;border-top:1px solid rgba(220,233,225,0.15)}
+.stats-glass .stat{padding:2rem 1.5rem;text-align:center;border-right:1px solid rgba(220,233,225,0.1);position:relative}
+.stats-glass .stat:last-child{border-right:none}
+.stats-glass .stat::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:2.5rem;height:2px;background:var(--green-pale)}
+.stats-glass .stat-n{font-family:var(--font-d);font-size:2.4rem;font-weight:300;color:var(--white);line-height:1}
+.stats-glass .stat-l{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green-pale);margin-top:0.5rem}
+
+/* Footer note */
+.note{padding:4rem 5rem 6rem;background:var(--mist);text-align:center}
+.note p{color:var(--stone);font-weight:300;font-size:0.95rem;max-width:700px;margin:0 auto}
+.note p strong{color:var(--charcoal);font-weight:500}
+
+@media(max-width:768px){
+  #optA .statband-float,#optE .stats-glass{grid-template-columns:repeat(2,1fr)}
+  #optB .hero-content{grid-template-columns:1fr;gap:2rem}
+  .statinline{flex-wrap:wrap}
+  .statinline .stat{flex-basis:50%;border-right:none;padding:0.75rem 0.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-banner">
+  <div>
+    <h1 style="display:inline">Hero + Stats</h1>
+    <span style="margin-left:1rem">5 mockup options</span>
+  </div>
+  <div class="mockup-nav">
+    <a href="#optA">A</a>
+    <a href="#optB">B</a>
+    <a href="#optC">C</a>
+    <a href="#optD">D</a>
+    <a href="#optE">E</a>
+  </div>
+</div>
+
+<!-- ─── OPTION A: FLOATING STAT CARD OVERLAP ─────────────────── -->
+<section class="option-label" id="optA">
+  <span class="pill">Option A</span>
+  <h2>Floating stat card</h2>
+  <p>Hero stays clean. A white stat card overlaps the bottom edge of the hero photo and bleeds into the next section &mdash; suggests "the proof underneath the promise."</p>
+</section>
+<section id="optA">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="eyebrow">Scottsdale, Arizona &middot; Est. 1994</p>
+      <h1>Developing<br>with <em>Purpose.</em></h1>
+      <p class="hero-sub">Real estate development rooted in the desert Southwest &mdash; building communities and legacies for over 30 years.</p>
+      <div class="btn-group">
+        <a href="#" class="btn-terra">View Projects &rarr;</a>
+        <a href="#" class="btn-sage">Our Story</a>
+      </div>
+    </div>
+    <div class="statband-float">
+      <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Years in Operation</div></div>
+      <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Industries</div></div>
+      <div class="stat"><div class="stat-n">1,200+</div><div class="stat-l">Sites</div></div>
+      <div class="stat"><div class="stat-n">$1.6B</div><div class="stat-l">Commercial Real Estate</div></div>
+    </div>
+  </div>
+  <div id="optA-spacer"></div>
+</section>
+
+<!-- ─── OPTION B: VERTICAL STAT COLUMN ───────────────────────── -->
+<section class="option-label" id="optB-label">
+  <span class="pill">Option B</span>
+  <h2>Vertical stat column</h2>
+  <p>Asymmetric hero. Headline + CTA on the left, stats stacked vertically on the right with a hairline divider. Editorial feel, like an annual report cover.</p>
+</section>
+<section id="optB">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div>
+        <p class="eyebrow">Scottsdale, Arizona &middot; Est. 1994</p>
+        <h1>Developing<br>with <em>Purpose.</em></h1>
+        <p class="hero-sub">Real estate development rooted in the desert Southwest &mdash; building communities and legacies for over 30 years.</p>
+        <div class="btn-group">
+          <a href="#" class="btn-terra">View Projects &rarr;</a>
+          <a href="#" class="btn-sage">Our Story</a>
+        </div>
+      </div>
+      <div class="statcol">
+        <div class="stat"><div class="stat-n"><em>30+</em></div><div class="stat-l">Years in Operation</div></div>
+        <div class="stat"><div class="stat-n"><em>7+</em></div><div class="stat-l">Industries</div></div>
+        <div class="stat"><div class="stat-n"><em>1,200+</em></div><div class="stat-l">Sites</div></div>
+        <div class="stat"><div class="stat-n"><em>$1.6B</em></div><div class="stat-l">Commercial Real Estate</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── OPTION C: INLINE STAT ROW UNDER SUBTITLE ─────────────── -->
+<section class="option-label" id="optC-label">
+  <span class="pill">Option C</span>
+  <h2>Inline stat row</h2>
+  <p>Replaces the current "$1.6B &bull; 30+ Years" text line with a real 4-up stat row, framed by hairlines. Compact, integrated, no extra section needed below.</p>
+</section>
+<section id="optC">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="eyebrow">Scottsdale, Arizona &middot; Est. 1994</p>
+      <h1>Developing<br>with <em>Purpose.</em></h1>
+      <p class="hero-sub">Real estate development rooted in the desert Southwest &mdash; building communities and legacies for over 30 years.</p>
+      <div class="statinline">
+        <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Years</div></div>
+        <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Industries</div></div>
+        <div class="stat"><div class="stat-n">1,200+</div><div class="stat-l">Sites</div></div>
+        <div class="stat"><div class="stat-n">$1.6B</div><div class="stat-l">CRE Value</div></div>
+      </div>
+      <div class="btn-group">
+        <a href="#" class="btn-terra">View Projects &rarr;</a>
+        <a href="#" class="btn-sage">Our Story</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── OPTION D: TYPOGRAPHIC WATERMARK ──────────────────────── -->
+<section class="option-label" id="optD-label">
+  <span class="pill">Option D</span>
+  <h2>Typographic watermark</h2>
+  <p>One headline number ("$1.6B") set huge as a faded watermark behind the headline. Smaller stat row sits at the bottom. Confident, magazine-cover feel.</p>
+</section>
+<section id="optD">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="statwatermark">
+      <div class="stat-n">$1.6B</div>
+    </div>
+    <div class="hero-content">
+      <p class="eyebrow">Scottsdale, Arizona &middot; Est. 1994</p>
+      <h1>Developing<br>with <em>Purpose.</em></h1>
+      <p class="hero-sub">Real estate development rooted in the desert Southwest &mdash; building communities and legacies for over 30 years.</p>
+      <div class="btn-group">
+        <a href="#" class="btn-terra">View Projects &rarr;</a>
+        <a href="#" class="btn-sage">Our Story</a>
+      </div>
+    </div>
+    <div class="statwm-row">
+      <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Years</div></div>
+      <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Industries</div></div>
+      <div class="stat"><div class="stat-n">1,200+</div><div class="stat-l">Sites</div></div>
+      <div class="stat"><div class="stat-n">$1.6B</div><div class="stat-l">CRE Value</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── OPTION E: GLASS STATS BAR ────────────────────────────── -->
+<section class="option-label" id="optE-label">
+  <span class="pill">Option E</span>
+  <h2>Integrated glass stats bar</h2>
+  <p>Stats become part of the hero itself &mdash; a frosted-green glass bar pinned to the bottom of the hero image. Each stat marked with a small accent line above. No visual seam between hero and stats.</p>
+</section>
+<section id="optE">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content" style="margin-bottom:7rem">
+      <p class="eyebrow">Scottsdale, Arizona &middot; Est. 1994</p>
+      <h1>Developing<br>with <em>Purpose.</em></h1>
+      <p class="hero-sub">Real estate development rooted in the desert Southwest &mdash; building communities and legacies for over 30 years.</p>
+      <div class="btn-group">
+        <a href="#" class="btn-terra">View Projects &rarr;</a>
+        <a href="#" class="btn-sage">Our Story</a>
+      </div>
+    </div>
+    <div class="stats-glass">
+      <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Years in Operation</div></div>
+      <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Industries</div></div>
+      <div class="stat"><div class="stat-n">1,200+</div><div class="stat-l">Sites</div></div>
+      <div class="stat"><div class="stat-n">$1.6B</div><div class="stat-l">Commercial Real Estate</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="note">
+  <p><strong>Reviewing:</strong> Open this file in a browser. All five options use the same fonts, colors, hero photo, and stat values as the live site. Pick a letter (or mix &mdash; e.g. "A but with B's typography") and I&rsquo;ll port it into <code>index.html</code>.</p>
+</div>
+
+</body>
+</html>

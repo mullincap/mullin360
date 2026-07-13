@@ -3,28 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Correspondence — Mullin Development</title>
-<meta name="description" content="Write, call, or visit Mullin Development — 6910 E 5th Ave, Scottsdale, AZ 85251. We respond to every inquiry within one business day.">
+<title>The Journal — Mullin Development</title>
+<meta name="description" content="The Journal — dispatches from Mullin Development: project updates, market analysis, and perspectives on commercial real estate development in the Southwest and beyond.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mullin Development">
-<meta property="og:title" content="Correspondence — Mullin Development">
-<meta property="og:description" content="Write, call, or visit Mullin Development — 6910 E 5th Ave, Scottsdale, AZ 85251. We respond to every inquiry within one business day.">
-<meta property="og:url" content="https://mullindev.com/contact.html">
-<meta property="og:image" content="https://mullindev.com/office.jpg">
+<meta property="og:title" content="The Journal — Mullin Development">
+<meta property="og:description" content="The Journal — dispatches from Mullin Development: project updates, market analysis, and perspectives on commercial real estate development in the Southwest and beyond.">
+<meta property="og:url" content="https://mullindev.com/media.html">
+<meta property="og:image" content="https://mullindev.com/m360-17.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Correspondence — Mullin Development">
-<meta name="twitter:description" content="Write, call, or visit Mullin Development — 6910 E 5th Ave, Scottsdale, AZ 85251. We respond to every inquiry within one business day.">
-<meta name="twitter:image" content="https://mullindev.com/office.jpg">
+<meta name="twitter:title" content="The Journal — Mullin Development">
+<meta name="twitter:description" content="The Journal — dispatches from Mullin Development: project updates, market analysis, and perspectives on commercial real estate development in the Southwest and beyond.">
+<meta name="twitter:image" content="https://mullindev.com/m360-17.jpg">
 <link rel="icon" type="image/png" href="logo-green.png">
-<link rel="preload" as="image" href="office.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="m360-17.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 /* ————————————————————————————————————————————————
-   MULLIN DEVELOPMENT — Folio: Correspondence
-   The page is the CTA: one letter, one office, one reply.
+   MULLIN DEVELOPMENT — media (Folio: The Journal)
+   Dispatches from the field. One feature, three
+   entries, a quarterly letter. Same book, same hand.
    ———————————————————————————————————————————————— */
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -149,8 +150,8 @@ body.menu-open #mobileMenu nav a{transform:translateY(0)}
 .js .h-in{opacity:0;transform:translateY(22px);animation:hIn 1.2s cubic-bezier(0.19,1,0.22,1) forwards}
 @keyframes hIn{to{opacity:1;transform:translateY(0)}}
 .js .h-in.d1{animation-delay:0.25s}.js .h-in.d2{animation-delay:0.45s}.js .h-in.d3{animation-delay:0.65s}
-
-#cover .cover-media img{object-position:center 42%}
+/* this cover's crop: keep the stairwell photograph in frame */
+.cover-media img{object-position:50% 38%}
 
 /* ————————————————— CHAPTER SCAFFOLD ————————————————— */
 main{background:var(--paper)}
@@ -164,66 +165,19 @@ main{background:var(--paper)}
 .chapterbar .idx{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.14em;color:var(--green);font-weight:500}
 .chapterbar .lbl{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-55)}
 .chapterbar .of{margin-left:auto;font-family:var(--mono);font-size:0.66rem;letter-spacing:0.14em;color:var(--ink-55)}
+.night .chapterbar{border-top-color:var(--bone)}
+.night .chapterbar .idx{color:var(--green-lift)}
+.night .chapterbar .lbl,.night .chapterbar .of{color:var(--bone-45)}
 
-/* ————————————————— CORRESPONDENCE ————————————————— */
-.corr-grid{
-  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
-  gap:clamp(3rem,6vw,6.5rem);align-items:start;
+h2.display{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(2.4rem,5vw,4.6rem);
+  line-height:1.06;letter-spacing:-0.01em;color:var(--ink);
 }
-.corr-lead{
-  font-family:var(--serif);font-weight:400;
-  font-size:clamp(1.9rem,3.4vw,3.2rem);
-  line-height:1.18;letter-spacing:-0.005em;color:var(--ink);
-  max-width:19ch;
-}
-.corr-lead em{font-style:italic;font-weight:400}
+h2.display em{font-style:italic;font-weight:400}
+.night h2.display{color:var(--bone)}
+.chapter-head{margin-bottom:clamp(2.6rem,6vh,4.2rem)}
 
-/* the office, as a ledger */
-.ledger{margin-top:clamp(2.6rem,6vh,4rem)}
-.ledger .row{
-  display:grid;grid-template-columns:8.5rem minmax(0,1fr);
-  gap:1.2rem;align-items:baseline;
-  padding:1.15rem 0;
-  border-top:1px solid var(--line);
-}
-.ledger .row:last-child{border-bottom:1px solid var(--line)}
-.ledger dt{font-family:var(--mono);font-size:0.62rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-55)}
-.ledger dd{font-size:0.95rem;color:var(--ink);line-height:1.8}
-.ledger address{font-style:normal}
-.ledger dd a.plain{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px;transition:color 0.3s,border-color 0.3s}
-.ledger dd a.plain:hover,.ledger dd a.plain:focus-visible{color:var(--green);border-bottom-color:var(--green)}
-
-/* the form */
-.form-kicker{color:var(--ink-55);border-top:1px solid var(--ink);padding-top:1rem;margin-bottom:0.4rem}
-#contactForm{display:flex;flex-direction:column;gap:1.8rem}
-#contactForm[hidden]{display:none}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.4rem,3vw,2.2rem)}
-.field{display:flex;flex-direction:column;gap:0.5rem}
-.field label{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-55)}
-.field input,.field select,.field textarea{font-family:var(--sans);font-weight:300;font-size:1rem;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:0.55rem 0;transition:border-color 0.3s;appearance:none;-webkit-appearance:none}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-bottom-color:var(--green);box-shadow:0 1px 0 0 var(--green)}
-.field input::placeholder,.field textarea::placeholder{color:var(--ink-55)}
-.field textarea{resize:vertical;min-height:110px}
-.field select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' fill='none' stroke='%23151A15' stroke-opacity='0.62' stroke-width='1.2'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 0.2rem center;
-  padding-right:2rem;cursor:pointer;
-}
-.field select:invalid{color:var(--ink-55)}
-#contactForm .btn-seal{align-self:flex-start;margin-top:0.6rem}
-
-/* success state */
-.form-error{margin-top:1.4rem;color:var(--green-deep);letter-spacing:0.1em;line-height:1.9;text-transform:none}
-.form-error a{color:inherit}
-.form-done{border-top:1px solid var(--ink);padding-top:1.7rem;scroll-margin-top:6.5rem}
-.form-done:focus{outline:none}
-@keyframes doneIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.js .form-done:not([hidden]){animation:doneIn 0.9s cubic-bezier(0.19,1,0.22,1)}
-.done-title{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,3.6vw,3.2rem);line-height:1.1;letter-spacing:-0.01em;color:var(--ink)}
-.done-title em{font-style:italic;font-weight:400}
-.done-note{margin-top:1.3rem;color:var(--ink-55);line-height:2;display:block;max-width:40ch}
-
-/* ————————————————— SHARED: LNK + SEAL ————————————————— */
 .lnk{
   display:inline-flex;align-items:baseline;gap:0.7rem;
   font-family:var(--mono);font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;
@@ -234,9 +188,125 @@ main{background:var(--paper)}
 .lnk .ar{transition:transform 0.4s cubic-bezier(0.19,1,0.22,1);display:inline-block}
 .lnk:hover,.lnk:focus-visible{color:var(--green);border-color:var(--green)}
 .lnk:hover .ar{transform:translateX(5px)}
-.night .lnk{color:var(--bone);border-color:var(--bone-45)}
-.night .lnk:hover{color:var(--green-lift);border-color:var(--green-lift)}
 
+/* ————————————————— THE FEATURE — J.01 ————————————————— */
+.feature{
+  display:grid;grid-template-columns:minmax(0,7.2fr) minmax(0,4.8fr);
+  gap:clamp(2.4rem,5vw,5rem);
+  align-items:start;
+  padding:clamp(2.4rem,5vh,3.6rem) 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.feat-meta{display:flex;justify-content:space-between;gap:1rem;color:var(--ink-55)}
+.feat-meta .mono b{color:var(--green);font-weight:500}
+.feat-title{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(2rem,3.8vw,3.4rem);
+  line-height:1.08;letter-spacing:-0.01em;
+  margin-top:1.3rem;max-width:26ch;
+}
+.feat-dek{margin-top:1.4rem;color:var(--ink-70);max-width:52ch}
+.byline{margin-top:2.4rem;display:flex;align-items:center;gap:1rem}
+.byline::before{content:'';width:2.6rem;height:1px;background:var(--green)}
+.byline span{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-55)}
+
+.feat-side{width:min(318px,100%);justify-self:end}
+.feat-fig figure{margin:0}
+.feat-fig .ffi{overflow:hidden;background:var(--paper-2)}
+.feat-fig img{width:100%;height:auto;filter:saturate(0.84) contrast(1.05) sepia(0.05)}
+.feat-fig figcaption{margin-top:0.85rem;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-55);font-variant-numeric:tabular-nums}
+.feat-figs{margin-top:2.2rem;display:grid;grid-template-columns:1fr 1fr;gap:0 1.4rem}
+.feat-figs .ff{border-top:1px solid var(--line);padding-top:1rem}
+.feat-figs .n{font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,2.6vw,2.6rem);line-height:1;letter-spacing:-0.01em;font-variant-numeric:lining-nums}
+.feat-figs .l{margin-top:0.5rem;color:var(--ink-55)}
+.feat-side .lnk{margin-top:2.4rem}
+
+/* ————————————————— THE JOURNAL INDEX — J.02–04 ————————————————— */
+.journal{margin-top:clamp(4.5rem,10vh,7rem)}
+.journal-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:2rem;
+  margin-bottom:2rem;
+}
+.journal-head h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,2vw,1.9rem);letter-spacing:-0.005em}
+.journal-head .mono{color:var(--ink-55)}
+
+.jrow{
+  display:grid;
+  grid-template-columns:3.4rem 10.5rem minmax(0,1fr) 172px;
+  gap:clamp(1.4rem,3vw,2.8rem);
+  align-items:center;
+  padding:clamp(1.8rem,3.6vh,2.5rem) 0;
+  border-top:1px solid var(--line);
+}
+.jrow:last-of-type{border-bottom:1px solid var(--line)}
+.j-no{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;color:var(--ink-55);font-variant-numeric:tabular-nums}
+.j-when{display:flex;flex-direction:column;gap:0.5rem;flex-wrap:wrap}
+.j-when time{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-70);font-variant-numeric:tabular-nums;white-space:nowrap}
+.j-cat{white-space:nowrap}
+.j-cat{color:var(--green);font-weight:500;letter-spacing:0.2em}
+.j-title{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(1.35rem,2vw,1.8rem);line-height:1.15;letter-spacing:-0.005em;
+}
+.j-dek{margin-top:0.6rem;color:var(--ink-70);font-size:0.93rem;max-width:52ch}
+.j-thumb{width:172px;height:108px;overflow:hidden;background:var(--paper-2);justify-self:end}
+.j-thumb img{width:100%;height:100%;object-fit:cover;filter:saturate(0.84) contrast(1.05) sepia(0.05)}
+.j-thumb img.crop-t{transform:scale(1.14);transform-origin:20% 88%}
+.j-thumb img.crop-plan{transform:scale(1.32);transform-origin:36% 52%}
+.j-scale{justify-self:end;display:flex;align-items:baseline;gap:0.7rem;padding-right:0.2rem}
+.j-scale .num{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,2.8vw,2.8rem);line-height:1;letter-spacing:-0.01em}
+.j-scale .txt{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.15rem,1.6vw,1.45rem);line-height:1;color:var(--ink-70)}
+
+/* ————————————————— THE LETTER (night band) ————————————————— */
+.letter{padding:clamp(5rem,11vh,8.5rem) var(--gutter);border-bottom:1px solid var(--nline)}
+.letter-grid{
+  display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+  gap:clamp(3rem,6vw,6.5rem);align-items:end;
+}
+.letter-kick{color:var(--bone-45);letter-spacing:0.26em;display:flex;align-items:center;gap:1.1rem}
+.letter-kick::before{content:'';display:block;width:2.4rem;height:1px;background:var(--bone-45)}
+.letter h2{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(2.1rem,4vw,3.6rem);line-height:1.08;letter-spacing:-0.01em;
+  color:var(--bone);margin-top:1.2rem;max-width:18ch;
+}
+.letter h2 em{font-style:italic;font-weight:400}
+.letter .note{margin-top:1.2rem;color:var(--bone-70);font-size:0.95rem;max-width:44ch}
+
+.news-form{display:flex;gap:2rem;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:0.5rem}
+.field label{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-55)}
+.field input,.field select,.field textarea{font-family:var(--sans);font-weight:300;font-size:1rem;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:0.55rem 0;transition:border-color 0.3s;appearance:none;-webkit-appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-bottom-color:var(--green);box-shadow:0 1px 0 0 var(--green)}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink-55)}
+.night .field label{color:var(--bone-45)}
+.night .field input{color:var(--bone);border-bottom-color:var(--nline)}
+.night .field input:focus{border-bottom-color:var(--green-lift);box-shadow:0 1px 0 0 var(--green-lift)}
+.night .field input::placeholder{color:var(--bone-45)}
+.news-form .field{flex:1;min-width:0}
+button.btn-seal{background:transparent;cursor:pointer;appearance:none;-webkit-appearance:none;border-radius:0}
+
+.news-done p.done{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1.2;color:var(--bone)}
+.news-done p.done em{font-style:italic;font-weight:400}
+.news-done .done-note{margin-top:0.9rem;color:var(--bone-45)}
+
+/* ————————————————— CTA + COLOPHON ————————————————— */
+#cta{scroll-margin-top:4.5rem}
+.cta-inner{
+  padding:var(--chapter-gap) var(--gutter);
+  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
+  gap:3rem;align-items:end;
+  border-bottom:1px solid var(--nline);
+}
+.cta-inner h2{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(2.6rem,6vw,5.4rem);line-height:1.04;letter-spacing:-0.012em;color:var(--bone);
+  max-width:20ch;
+}
+.cta-inner h2 em{font-style:italic;font-weight:400}
+.cta-right{display:flex;flex-direction:column;align-items:flex-start;gap:2.2rem;justify-self:end}
+.cta-right .mono{color:var(--bone-45);line-height:2.1;letter-spacing:0.2em}
 .btn-seal{
   display:inline-flex;align-items:center;gap:1.1rem;
   font-family:var(--mono);font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;
@@ -247,33 +317,7 @@ main{background:var(--paper)}
 .btn-seal .ar{transition:transform 0.4s cubic-bezier(0.19,1,0.22,1)}
 .btn-seal:hover,.btn-seal:focus-visible{background:var(--green);border-color:var(--green);color:#fff}
 .btn-seal:hover .ar{transform:translateX(5px)}
-button.btn-seal{background:transparent;cursor:pointer}
-.btn-seal.paper{color:var(--ink);border-color:var(--ink)}
-.btn-seal.paper:hover,.btn-seal.paper:focus-visible{background:var(--green);border-color:var(--green);color:#fff}
 
-/* ————————————————— VENTURES ————————————————— */
-.vent-note{margin-bottom:2.6rem;color:var(--ink-70);max-width:44ch}
-.ventures{list-style:none}
-.ventures a{
-  display:grid;grid-template-columns:3.4rem minmax(0,1fr) auto 2rem;
-  gap:1.2rem;align-items:baseline;
-  padding:clamp(1.7rem,3.4vh,2.4rem) 0;
-  border-top:1px solid var(--line);
-  text-decoration:none;color:inherit;transition:background 0.3s;
-}
-.ventures li:last-child a{border-bottom:1px solid var(--line)}
-.ventures .v-no{font-family:var(--mono);font-size:0.7rem;color:var(--ink-55)}
-.ventures .v-name{
-  font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,3.4vw,3.1rem);
-  line-height:1.05;letter-spacing:-0.01em;
-}
-.ventures .v-url{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;color:var(--ink-55)}
-.ventures .v-ar{font-family:var(--mono);color:var(--ink-55);transition:transform 0.4s cubic-bezier(0.19,1,0.22,1),color 0.3s}
-.ventures a:hover{background:var(--paper-2)}
-.ventures a:hover .v-ar{transform:translate(4px,-4px);color:var(--green)}
-.ventures a:hover .v-name{color:var(--green-deep)}
-
-/* ————————————————— COLOPHON ————————————————— */
 footer{background:var(--night);color:var(--bone)}
 .colophon{
   padding:clamp(3.5rem,7vh,5.5rem) var(--gutter) 2.6rem;
@@ -305,30 +349,42 @@ footer{background:var(--night);color:var(--bone)}
 @media(prefers-reduced-motion:reduce){
   .js .rv,.js .h-in{opacity:1;transform:none;animation:none;transition:none}
   .js .cover-media img{animation:none;transform:none}
-  .js .form-done:not([hidden]){animation:none}
-  .lnk .ar,.btn-seal .ar,.v-ar{transition:none}
+  .lnk .ar,.btn-seal .ar,.j-thumb img{transition:none}
 }
 
 /* ————————————————— RESPONSIVE ————————————————— */
 @media(max-width:1100px){
-  .corr-grid{gap:clamp(2.5rem,5vw,4rem)}
-  .ledger .row{grid-template-columns:7rem minmax(0,1fr)}
+  .jrow{grid-template-columns:2.8rem 9.5rem minmax(0,1fr) 150px}
+  .j-thumb{width:150px;height:96px}
 }
 @media(max-width:900px){
   .nav-links{display:none}
   .menu-btn{display:flex}
-  .corr-grid{grid-template-columns:1fr;gap:3.6rem}
-  .corr-lead{max-width:22ch}
+  .feature{grid-template-columns:1fr;gap:2.6rem}
+  .feat-side{justify-self:start}
+  .jrow{grid-template-columns:2.6rem minmax(0,1fr) 140px;row-gap:0.55rem}
+  .j-no{grid-column:1;grid-row:1}
+  .j-when{grid-column:2;grid-row:1;flex-direction:row;align-items:baseline;gap:1.3rem}
+  .j-body{grid-column:2;grid-row:2}
+  .j-thumb,.j-scale{grid-column:3;grid-row:1 / span 2;align-self:center}
+  .j-thumb{width:140px;height:92px}
+  .letter-grid{grid-template-columns:1fr;gap:2.8rem;align-items:start}
+  .letter h2{max-width:none}
+  .cta-inner{grid-template-columns:1fr;align-items:start}
+  .cta-right{justify-self:start}
   .colophon{grid-template-columns:1fr 1fr}
 }
 @media(max-width:640px){
   :root{--chapter-gap:5rem}
-  .cover-foot{flex-wrap:wrap;gap:0.3rem 1rem}
-  .cover-foot .mono{font-size:0.58rem;letter-spacing:0.14em}
-  .frow{grid-template-columns:1fr;gap:1.8rem}
-  .ledger .row{grid-template-columns:1fr;gap:0.35rem;padding:1rem 0}
-  .ventures a{grid-template-columns:2.6rem minmax(0,1fr) 2rem}
-  .ventures .v-url{display:none}
+  .feat-meta{flex-direction:column;gap:0.5rem}
+  .jrow{grid-template-columns:minmax(0,1fr) 118px}
+  .j-no{display:none}
+  .j-when{grid-column:1;grid-row:1}
+  .j-body{grid-column:1;grid-row:2}
+  .j-thumb,.j-scale{grid-column:2;grid-row:1 / span 2}
+  .j-thumb{width:118px;height:80px}
+  .news-form{flex-direction:column;align-items:stretch;gap:1.8rem}
+  .news-form .btn-seal{align-self:flex-start}
   .colophon{grid-template-columns:1fr;gap:2.4rem}
   .baseline{flex-direction:column;gap:0.4rem}
 }
@@ -348,8 +404,8 @@ footer{background:var(--night);color:var(--bone)}
       <li><a href="index.html#vision">The Firm</a></li>
       <li><a href="projects.html">The Work</a></li>
       <li><a href="index.html#team">The People</a></li>
-      <li><a href="media.html">Media</a></li>
-      <li><a href="contact.html" class="here" aria-current="page">Contact</a></li>
+      <li><a href="media.html" class="here" aria-current="page">Media</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
   <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -375,137 +431,143 @@ footer{background:var(--night);color:var(--bone)}
 </div>
 
 <!-- ——— FOLIO COVER ——— -->
-<section class="cover" id="cover" aria-label="Correspondence">
-  <div class="cover-media"><img src="office.jpg" alt="Steel staircase inside the Mullin Development office in Scottsdale, daylight entering through the glass entry" width="1248" height="832" fetchpriority="high"></div>
+<section class="cover" id="cover" aria-label="The Journal">
+  <div class="cover-media">
+    <img src="m360-17.jpg" alt="Steel staircase inside the Mullin Development studio, a desert photograph hung in the stairwell" width="1080" height="720" fetchpriority="high">
+  </div>
   <div class="cover-text">
-    <p class="cover-kicker mono h-in d1">Folio — Correspondence</p>
-    <h1 class="h-in d2">Start the <em>conversation.</em></h1>
-    <p class="cover-sub h-in d3">A project, a site, a partnership, or simply a question — write, call, or visit the Scottsdale office.</p>
+    <p class="cover-kicker mono h-in d1">Folio — The Journal</p>
+    <h1 class="h-in d2">Dispatches from<br>the <em>field.</em></h1>
+    <p class="cover-sub h-in d3">Project updates, market analysis, and perspectives on commercial real estate development — in the Southwest and beyond.</p>
   </div>
   <div class="cover-foot h-in d3">
-    <span class="mono">Response within one business day</span><span class="mono">33.49° N — 111.93° W</span>
+    <span class="mono">Four entries</span><span class="mono">Spring 2026</span>
   </div>
 </section>
 
 <main id="main">
 
-  <!-- ——— 01 CORRESPONDENCE ——— -->
-  <section class="chapter wrap" aria-label="Write to the firm">
+  <!-- ——— THE JOURNAL ——— -->
+  <section class="chapter wrap" aria-label="The Journal — entries">
     <div class="chapterbar rv">
-      <span class="idx">01</span>
-      <span class="lbl">Correspondence</span>
-      <span class="of">/ 02</span>
+      <span class="idx">J</span>
+      <span class="lbl">The Journal</span>
+      <span class="of">Four entries — 2026</span>
     </div>
 
-    <div class="corr-grid">
-      <div>
-        <h2 class="corr-lead rv">Every development in this book began the same way — with a <em>letter.</em></h2>
+    <div class="chapter-head">
+      <h2 class="display rv">The latest <em>dispatch.</em></h2>
+    </div>
 
-        <dl class="ledger rv" style="--d:0.1s">
-          <div class="row">
-            <dt>Visit</dt>
-            <dd><address>6910 East 5th Avenue<br>Scottsdale, Arizona 85251</address></dd>
-          </div>
-          <div class="row">
-            <dt>Hours</dt>
-            <dd>Monday&ndash;Friday, 9am&ndash;5pm MST</dd>
-          </div>
-          <div class="row">
-            <dt>Telephone</dt>
-            <dd><a class="plain" href="tel:+14808005500">(480) 800-5500</a></dd>
-          </div>
-          <div class="row">
-            <dt>Email</dt>
-            <dd><a class="plain" href="mailto:info@mullindev.com">info@mullindev.com</a></dd>
-          </div>
-          <div class="row">
-            <dt>Directions</dt>
-            <dd><a class="lnk" href="https://maps.google.com/?q=6910+E+5th+Ave+Scottsdale+AZ" target="_blank" rel="noopener">Open in maps <span class="ar">→</span></a></dd>
-          </div>
-        </dl>
+    <!-- J.01 — feature -->
+    <article class="feature" aria-label="Featured entry">
+      <div class="feat-text">
+        <div class="feat-meta rv">
+          <span class="mono"><b>J.01</b>&ensp;Development</span>
+          <span class="mono"><time datetime="2026-04-28">April 28, 2026</time> — 8 min read</span>
+        </div>
+        <h3 class="feat-title rv" style="--d:0.08s">Motorplex at Centerra: how a 100&#8209;acre vision became Northern Colorado&rsquo;s largest auto destination.</h3>
+        <p class="feat-dek rv" style="--d:0.16s">From early site selection through tenant signing — a look inside the eight-year arc of one of the region&rsquo;s most ambitious automotive developments.</p>
+        <div class="byline rv" style="--d:0.24s"><span>Jim Mullin — President</span></div>
+      </div>
+      <div class="feat-side rv" style="--d:0.2s">
+        <figure class="feat-fig">
+          <div class="ffi"><img src="1project-centerra.jpg" alt="Curved office building at Motorplex at Centerra, Loveland, Colorado" width="318" height="159" loading="lazy" decoding="async"></div>
+          <figcaption>Fig. 01 — Loveland, Colorado</figcaption>
+        </figure>
+        <div class="feat-figs">
+          <div class="ff"><div class="n">100</div><div class="l mono">Acres</div></div>
+          <div class="ff"><div class="n">8</div><div class="l mono">Years, site to signing</div></div>
+        </div>
+        <a class="lnk" href="project-detail.html?id=centerra">See the project <span class="ar">→</span></a>
+      </div>
+    </article>
+
+    <!-- J.02–04 — the index -->
+    <div class="journal">
+      <div class="journal-head rv">
+        <h3>Earlier entries.</h3>
+        <span class="mono">J.02 — J.04</span>
       </div>
 
-      <div class="rv" style="--d:0.15s">
-        <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="contact">
-          <p class="hp" hidden aria-hidden="true"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-          <p class="form-kicker mono">Send a message</p>
-          <div class="frow">
-            <div class="field">
-              <label for="first-name">First name</label>
-              <input type="text" id="first-name" name="first_name" autocomplete="given-name" required>
-            </div>
-            <div class="field">
-              <label for="last-name">Last name</label>
-              <input type="text" id="last-name" name="last_name" autocomplete="family-name" required>
-            </div>
-          </div>
+      <article class="jrow rv">
+        <span class="j-no">02</span>
+        <div class="j-when">
+          <time class="mono" datetime="2026-04-12">Apr 12, 2026</time>
+          <span class="j-cat mono">Development</span>
+        </div>
+        <div class="j-body">
+          <h4 class="j-title">303 Autoshow breaks ground in Surprise, AZ.</h4>
+          <p class="j-dek">The 80-acre autoplex within the Prasada master-plan community will house up to nine premium franchises by 2028.</p>
+        </div>
+        <div class="j-thumb"><img class="crop-plan" src="1project-303.jpg" alt="Site plan of the 303 Autoshow — dealership parcels along Loop 303 in Surprise, Arizona" width="1200" height="552" loading="lazy" decoding="async"></div>
+      </article>
+
+      <article class="jrow rv">
+        <span class="j-no">03</span>
+        <div class="j-when">
+          <time class="mono" datetime="2026-03-30">Mar 30, 2026</time>
+          <span class="j-cat mono">Hospitality</span>
+        </div>
+        <div class="j-body">
+          <h4 class="j-title">Adaptive reuse: turning a historic Indiana hotel into a luxury boutique.</h4>
+          <p class="j-dek">What changes — and what stays — when restoring a 19th-century building for a new hospitality concept.</p>
+        </div>
+        <div class="j-thumb"><img class="crop-t" src="1project-greencastle.jpeg" alt="Rendering of the Greencastle Hotel roof garden bar overlooking the town" width="720" height="402" loading="lazy" decoding="async"></div>
+      </article>
+
+      <article class="jrow rv">
+        <span class="j-no">04</span>
+        <div class="j-when">
+          <time class="mono" datetime="2026-03-18">Mar 18, 2026</time>
+          <span class="j-cat mono">Market Insights</span>
+        </div>
+        <div class="j-body">
+          <h4 class="j-title">Why dealership real estate is consolidating in the Southwest.</h4>
+          <p class="j-dek">Land scarcity, OEM territory rules, and the rise of the autoplex format — a look at the forces reshaping the asset class.</p>
+        </div>
+        <div class="j-scale" aria-hidden="true"><span class="num">3</span><span class="txt">forces</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ——— THE LETTER ——— -->
+  <section class="letter night" aria-label="The quarterly letter">
+    <div class="letter-grid">
+      <div>
+        <p class="letter-kick mono rv">The Quarterly Letter</p>
+        <h2 class="rv" style="--d:0.08s">Get our quarterly <em>insights</em> letter.</h2>
+        <p class="note rv" style="--d:0.16s">One email every three months — new projects, market notes, and the occasional photograph from the field.</p>
+      </div>
+      <div class="news-slot rv" style="--d:0.2s" aria-live="polite">
+        <form class="news-form" id="newsForm" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="newsletter">
+          <p hidden aria-hidden="true"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
           <div class="field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" autocomplete="email" required>
+            <label for="nl-email">Email address</label>
+            <input type="email" id="nl-email" name="email" required autocomplete="email" spellcheck="false" placeholder="name@company.com">
           </div>
-          <div class="field">
-            <label for="inquiry">Inquiry</label>
-            <select id="inquiry" name="inquiry" required>
-              <option value="" disabled selected>Select an inquiry</option>
-              <option>Development Partnership</option>
-              <option>Dealership &amp; Automotive</option>
-              <option>Investment Opportunity</option>
-              <option>Sale-Leaseback Financing</option>
-              <option>General Inquiry</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="Whatever is relevant — location, timeline, scale." required></textarea>
-          </div>
-          <button type="submit" class="btn-seal paper">Send message <span class="ar">→</span></button>
+          <button type="submit" class="btn-seal">Subscribe <span class="ar">→</span></button>
         </form>
-
-        <p class="form-error mono" id="formError" role="alert" hidden>
-          The message could not be sent. Please email <a href="mailto:info@mullindev.com">info@mullindev.com</a> or call (480) 800-5500.
-        </p>
-
-        <div class="form-done" id="formDone" role="status" tabindex="-1" hidden>
-          <p class="done-title">Message <em>received.</em></p>
-          <p class="done-note mono">A member of our team will reply within one business day.</p>
+        <div class="news-done" id="newsDone" hidden>
+          <p class="done">Thank you — <em>you&rsquo;re on the list.</em></p>
+          <p class="done-note mono">One letter, every three months</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ——— 02 VENTURES ——— -->
-  <section class="chapter wrap" aria-label="Ventures" style="padding-top:0">
-    <div class="chapterbar rv">
-      <span class="idx">02</span>
-      <span class="lbl">Ventures</span>
-      <span class="of">/ 02</span>
-    </div>
-    <p class="vent-note rv">Inquiries for the firm&rsquo;s ventures are best addressed directly — each keeps its own correspondence.</p>
-    <ul class="ventures">
-      <li class="rv">
-        <a href="https://mullin360.com" target="_blank" rel="noopener">
-          <span class="v-no">V.01</span>
-          <span class="v-name">Mullin360</span>
-          <span class="v-url">mullin360.com</span>
-          <span class="v-ar">↗</span>
-        </a>
-      </li>
-      <li class="rv">
-        <a href="https://azcollaborate.com" target="_blank" rel="noopener">
-          <span class="v-no">V.02</span>
-          <span class="v-name">AZ Collaborate</span>
-          <span class="v-url">azcollaborate.com</span>
-          <span class="v-ar">↗</span>
-        </a>
-      </li>
-    </ul>
-  </section>
-
 </main>
 
-<!-- ——— COLOPHON ——— -->
+<!-- ——— CTA + COLOPHON ——— -->
 <footer class="night">
+  <div id="cta" class="cta-inner">
+    <h2 class="rv">Let&rsquo;s build something <em>together.</em></h2>
+    <div class="cta-right">
+      <p class="mono rv">Scottsdale, Arizona<br>Serving clients nationally<br>and internationally</p>
+      <a href="contact.html" class="btn-seal rv">Get in touch <span class="ar">→</span></a>
+    </div>
+  </div>
   <div class="colophon">
     <div class="f-brand">
       <img src="white-full.png" alt="Mullin — A Development Company" width="1024" height="1024" loading="lazy" decoding="async">
@@ -594,31 +656,31 @@ footer{background:var(--night);color:var(--bone)}
     }, {passive:true});
     plx();
   }
+})();
 
-  /* ——— the letter is posted to Netlify Forms; the page keeps its composure ——— */
-  var form = document.getElementById('contactForm');
-  var done = document.getElementById('formDone');
-  if(form && done){
-    var btn = form.querySelector('button[type="submit"]');
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      if(btn){ btn.disabled = true; }
-      fetch('/', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: new URLSearchParams(new FormData(form)).toString()
-      }).then(function(){
-        form.hidden = true;
-        done.hidden = false;
-        done.focus();
-      }).catch(function(){
-        /* the network failed — never swallow it; give them a way to reach us */
-        if(btn){ btn.disabled = false; }
-        var err = document.getElementById('formError');
-        if(err) err.hidden = false;
-      });
+/* ——— the letter — posted to Netlify Forms ——— */
+(function(){
+  'use strict';
+  var form = document.getElementById('newsForm');
+  var done = document.getElementById('newsDone');
+  if(!form || !done) return;
+  var btn = form.querySelector('button[type="submit"]');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+    if(btn){ btn.disabled = true; }
+    fetch('/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: new URLSearchParams(new FormData(form)).toString()
+    }).then(function(){
+      form.hidden = true;
+      done.hidden = false;
+    }).catch(function(){
+      if(btn){ btn.disabled = false; }
+      form.setAttribute('data-failed', 'true');
     });
-  }
+  });
 })();
 </script>
 </body>

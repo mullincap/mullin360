@@ -1,9 +1,79 @@
 [build]
-  functions = "netlify/functions"
+  # A static site — nothing to build. Everything in the repo root is published
+  # except what is excluded below.
+  publish = "."
+  command = ""
+
+# Working files that must never be served publicly.
+[build.processing]
+  skip_processing = false
 
 [[headers]]
-  for = "/api/*"
+  for = "/*"
   [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
-    Access-Control-Allow-Headers = "Content-Type"
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Fonts and images are immutable — cache them hard.
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.avif"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# HTML must always revalidate so edits go live immediately.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Netlify publishes the whole directory, so the working files must be blocked at
+# the edge — noindex is not enough, these must not be reachable at all.
+[[redirects]]
+  from = "/_source/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/archive/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Clean URLs: /projects → /projects.html
+[[redirects]]
+  from = "/projects"
+  to = "/projects.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/media"
+  to = "/media.html"
+  status = 200
+
+[[redirects]]
+  from = "/brand"
+  to = "/brand-system.html"
+  status = 200

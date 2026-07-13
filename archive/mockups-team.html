@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Section — Mockup Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#FFFFFF;
+  --white-soft:#F8FAF8;
+  --mist:#EEF3EF;
+  --mist-2:#E1E9E3;
+  --green:#0E6133;
+  --green-deep:#0A4A27;
+  --green-soft:#2C7A4B;
+  --green-muted:#7EA08A;
+  --green-pale:#DCE9E1;
+  --charcoal:#102218;
+  --stone:#5F6F66;
+  --line:#D5DED8;
+  --font-d:'Cormorant Garamond',Georgia,serif;
+  --font-b:'DM Sans',sans-serif;
+}
+body{font-family:var(--font-b);background:var(--white);color:var(--charcoal);font-size:16px;line-height:1.7}
+
+/* Mockup chrome */
+.mockup-banner{position:sticky;top:0;z-index:1000;background:var(--charcoal);color:var(--white);padding:0.85rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08)}
+.mockup-banner h1{font-family:var(--font-d);font-size:1.1rem;font-weight:400;display:inline}
+.mockup-banner span{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+.mockup-nav{display:flex;gap:0.6rem}
+.mockup-nav a{color:var(--green-pale);text-decoration:none;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.4rem 0.75rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px}
+.mockup-nav a:hover{background:rgba(255,255,255,0.08);border-color:var(--green-pale)}
+.option-label{padding:3rem 5rem 1rem;background:var(--white)}
+.option-label .pill{display:inline-block;background:var(--green);color:var(--white);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.4rem 0.9rem;border-radius:999px;margin-bottom:0.75rem}
+.option-label h2{font-family:var(--font-d);font-size:2rem;font-weight:300;color:var(--charcoal)}
+.option-label p{font-size:0.9rem;color:var(--stone);max-width:680px;margin-top:0.5rem;font-weight:300}
+
+/* Shared section frame */
+.team-frame{padding:6rem 5rem;background:var(--mist-2)}
+.section-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::before{content:'';display:block;width:2rem;height:1px;background:var(--green)}
+.section-title{font-family:var(--font-d);font-size:clamp(2rem,3.5vw,2.75rem);font-weight:300;line-height:1.2;color:var(--charcoal);margin-bottom:3rem}
+.section-title em{font-style:italic;color:var(--green)}
+
+/* Background-removed treatment — apply to all variants:
+   We simulate "background removed" with a flat --green-pale wash and
+   blend-mode multiply on the photos. In production this becomes a real
+   transparent PNG of each subject on a flat color. */
+.headshot{background:var(--green-pale);position:relative;overflow:hidden}
+.headshot img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 18%;mix-blend-mode:multiply;filter:contrast(0.95) saturate(0.85)}
+/* Placeholder fallback (Mark Jackson — no photo) */
+.headshot.placeholder{display:flex;align-items:center;justify-content:center}
+.headshot.placeholder::after{content:'JM';font-family:var(--font-d);font-size:3rem;color:var(--green);opacity:0.5;font-style:italic}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION A — CLEAN GRID, NAMES BELOW (NO OVERLAY)
+   The current 4-up grid, but headshots sit on flat --green-pale,
+   names/titles move below the photo (no dark overlay).
+   ──────────────────────────────────────────────────────────────── */
+#optA .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+#optA .tmember{background:transparent}
+#optA .headshot{height:380px;border-radius:2px}
+#optA .tinfo{padding-top:1.25rem;text-align:left}
+#optA .tname{font-family:var(--font-d);font-size:1.4rem;font-weight:400;color:var(--charcoal)}
+#optA .ttitle{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-top:0.35rem}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION B — FEATURED LEAD + 3 SMALLER
+   Jim (President) gets a 2-column feature card with bio inline;
+   the others sit in a row of 3 below.
+   ──────────────────────────────────────────────────────────────── */
+#optB .lead-card{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;background:var(--white);padding:3rem;margin-bottom:3rem;align-items:center;border-radius:4px}
+#optB .lead-card .headshot{height:420px;border-radius:2px}
+#optB .lead-card h3{font-family:var(--font-d);font-size:2.4rem;font-weight:300;color:var(--charcoal);margin-bottom:0.4rem}
+#optB .lead-card .ttitle{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem}
+#optB .lead-card p{font-size:0.92rem;color:var(--stone);font-weight:300;line-height:1.75}
+#optB .row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+#optB .row-3 .headshot{height:320px}
+#optB .row-3 .tinfo{padding-top:1rem;text-align:left}
+#optB .row-3 .tname{font-family:var(--font-d);font-size:1.2rem;font-weight:400;color:var(--charcoal)}
+#optB .row-3 .ttitle{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-top:0.3rem}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION C — CIRCULAR PORTRAITS, CENTER-ALIGNED
+   Soft, approachable. Round headshots on the section background
+   itself (no card), names + titles centered below.
+   ──────────────────────────────────────────────────────────────── */
+#optC .team-frame{background:var(--mist)}
+#optC .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3rem;max-width:1200px;margin:0 auto}
+#optC .headshot{width:240px;height:240px;border-radius:50%;margin:0 auto;background:var(--green-pale)}
+#optC .headshot img{border-radius:50%}
+#optC .tinfo{text-align:center;padding-top:1.5rem}
+#optC .tname{font-family:var(--font-d);font-size:1.35rem;font-weight:400;color:var(--charcoal)}
+#optC .ttitle{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);margin-top:0.4rem;margin-bottom:1rem}
+#optC .tbio{font-size:0.85rem;color:var(--stone);font-weight:300;line-height:1.65;max-width:240px;margin:0 auto}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION D — ROSTER LIST, EDITORIAL
+   Each member gets a full horizontal row: portrait left, big name
+   center, bio right. Feels like a magazine masthead.
+   ──────────────────────────────────────────────────────────────── */
+#optD .roster{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+#optD .roster-row{display:grid;grid-template-columns:200px 1.2fr 2fr;gap:3rem;padding:2.5rem 0;border-bottom:1px solid var(--line);align-items:center}
+#optD .roster-row .headshot{width:200px;height:200px;border-radius:2px}
+#optD .roster-row h3{font-family:var(--font-d);font-size:2rem;font-weight:300;color:var(--charcoal);line-height:1.1}
+#optD .roster-row .ttitle{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-top:0.5rem}
+#optD .roster-row p{font-size:0.88rem;color:var(--stone);font-weight:300;line-height:1.7}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION E — HOVER-REVEAL TILE
+   4-up grid like A, but each tile has a bio that slides up on hover.
+   On mobile, the bio is always shown.
+   ──────────────────────────────────────────────────────────────── */
+#optE .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+#optE .tmember{position:relative;overflow:hidden;border-radius:2px;cursor:pointer;background:var(--green-pale)}
+#optE .headshot{height:420px}
+#optE .reveal-info{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top,var(--charcoal) 60%,rgba(16,34,24,0.8) 90%,transparent 100%);color:var(--white);padding:1.5rem 1.5rem 1.5rem;transform:translateY(calc(100% - 5rem));transition:transform 0.45s cubic-bezier(0.22,1,0.36,1)}
+#optE .tmember:hover .reveal-info{transform:translateY(0)}
+#optE .tname{font-family:var(--font-d);font-size:1.3rem;font-weight:400}
+#optE .ttitle{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green-pale);margin-top:0.3rem;margin-bottom:0.85rem}
+#optE .tbio{font-size:0.8rem;color:rgba(255,255,255,0.75);font-weight:300;line-height:1.6}
+
+/* Footer note */
+.note{padding:4rem 5rem 6rem;background:var(--mist);text-align:center}
+.note p{color:var(--stone);font-weight:300;font-size:0.95rem;max-width:700px;margin:0 auto}
+.note p strong{color:var(--charcoal);font-weight:500}
+
+@media(max-width:1024px){
+  #optA .team-grid,#optC .team-grid,#optE .team-grid{grid-template-columns:repeat(2,1fr)}
+  #optB .lead-card{grid-template-columns:1fr}
+  #optB .row-3{grid-template-columns:1fr 1fr}
+  #optD .roster-row{grid-template-columns:120px 1fr;gap:1.5rem}
+  #optD .roster-row p{grid-column:1/-1;margin-top:0.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-banner">
+  <div>
+    <h1>Team Section</h1>
+    <span style="margin-left:1rem">5 mockup options &mdash; all use light theme background on headshots</span>
+  </div>
+  <div class="mockup-nav">
+    <a href="#optA">A</a>
+    <a href="#optB">B</a>
+    <a href="#optC">C</a>
+    <a href="#optD">D</a>
+    <a href="#optE">E</a>
+  </div>
+</div>
+
+<!-- ─── OPTION A ─────────────────────────────────────────────── -->
+<section class="option-label" id="optA-label">
+  <span class="pill">Option A</span>
+  <h2>Clean grid, names below</h2>
+  <p>Closest to current. Headshots on flat <code>--green-pale</code>, no dark gradient overlay, names/titles sit below in clean type. Reads as professional, polished, easy to scan.</p>
+</section>
+<section id="optA"><div class="team-frame">
+  <p class="section-label">Our Team</p>
+  <h2 class="section-title">The Leadership Behind <em>Mullin</em></h2>
+  <div class="team-grid">
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jim-Mullin720.jpg" alt="Jim Mullin"></div>
+      <div class="tinfo"><div class="tname">Jim Mullin</div><div class="ttitle">President</div></div>
+    </div>
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jacqueline-Swanson720.jpg" alt="Jacqueline Swanson"></div>
+      <div class="tinfo"><div class="tname">Jacqueline Swanson</div><div class="ttitle">Director of Operations</div></div>
+    </div>
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Mark-Simmons720.jpg" alt="Mark Simmons"></div>
+      <div class="tinfo"><div class="tname">Mark Simmons</div><div class="ttitle">Corporate Controller</div></div>
+    </div>
+    <div class="tmember">
+      <div class="headshot placeholder"></div>
+      <div class="tinfo"><div class="tname">Mark Jackson</div><div class="ttitle">Director of Market Research</div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ─── OPTION B ─────────────────────────────────────────────── -->
+<section class="option-label" id="optB-label">
+  <span class="pill">Option B</span>
+  <h2>Featured leader + cluster</h2>
+  <p>Jim Mullin gets a feature card with bio inline (signals leadership). The other three sit in a smaller row below. Hierarchy without being heavy-handed.</p>
+</section>
+<section id="optB"><div class="team-frame">
+  <p class="section-label">Our Team</p>
+  <h2 class="section-title">The Leadership Behind <em>Mullin</em></h2>
+  <div class="lead-card">
+    <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jim-Mullin720.jpg" alt="Jim Mullin"></div>
+    <div>
+      <h3>Jim Mullin</h3>
+      <div class="ttitle">President</div>
+      <p>With an early foundation in automotive retailing, Jim has deep experience in high-impact automotive real estate developments. Past President of Staubach AutoGroup, he's been involved in over 1,200 automotive retail locations and 40+ developments across the US, Saudi Arabia, Brazil, and China.</p>
+    </div>
+  </div>
+  <div class="row-3">
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jacqueline-Swanson720.jpg" alt="Jacqueline Swanson"></div>
+      <div class="tinfo"><div class="tname">Jacqueline Swanson</div><div class="ttitle">Director of Operations</div></div>
+    </div>
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Mark-Simmons720.jpg" alt="Mark Simmons"></div>
+      <div class="tinfo"><div class="tname">Mark Simmons</div><div class="ttitle">Corporate Controller</div></div>
+    </div>
+    <div class="tmember">
+      <div class="headshot placeholder"></div>
+      <div class="tinfo"><div class="tname">Mark Jackson</div><div class="ttitle">Director of Market Research</div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ─── OPTION C ─────────────────────────────────────────────── -->
+<section class="option-label" id="optC-label">
+  <span class="pill">Option C</span>
+  <h2>Circular portraits + bios</h2>
+  <p>Round headshots on a soft mist background. Bio sits directly below each portrait. Warmer, more personal &mdash; reads as "real people" rather than "executive roster."</p>
+</section>
+<section id="optC"><div class="team-frame">
+  <p class="section-label" style="justify-content:center">Our Team</p>
+  <h2 class="section-title" style="text-align:center">The Leadership Behind <em>Mullin</em></h2>
+  <div class="team-grid">
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jim-Mullin720.jpg" alt="Jim Mullin"></div>
+      <div class="tinfo">
+        <div class="tname">Jim Mullin</div>
+        <div class="ttitle">President</div>
+        <p class="tbio">30+ years in automotive real estate. 1,200+ retail locations developed across four continents.</p>
+      </div>
+    </div>
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jacqueline-Swanson720.jpg" alt="Jacqueline Swanson"></div>
+      <div class="tinfo">
+        <div class="tname">Jacqueline Swanson</div>
+        <div class="ttitle">Director of Operations</div>
+        <p class="tbio">Operational excellence and project management across healthcare, property, and construction.</p>
+      </div>
+    </div>
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Mark-Simmons720.jpg" alt="Mark Simmons"></div>
+      <div class="tinfo">
+        <div class="tname">Mark Simmons</div>
+        <div class="ttitle">Corporate Controller</div>
+        <p class="tbio">Four-decade finance career. Big Four accounting plus 30+ years as Controller / VP-Finance / CFO.</p>
+      </div>
+    </div>
+    <div class="tmember">
+      <div class="headshot placeholder"></div>
+      <div class="tinfo">
+        <div class="tname">Mark Jackson</div>
+        <div class="ttitle">Director of Market Research</div>
+        <p class="tbio">Market analysis and site selection. Identifies high-value opportunities across emerging markets.</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ─── OPTION D ─────────────────────────────────────────────── -->
+<section class="option-label" id="optD-label">
+  <span class="pill">Option D</span>
+  <h2>Roster list (editorial)</h2>
+  <p>Each member gets a full horizontal row: portrait left, big serif name center, full bio right. Reads like a printed annual report. Feels substantial, considered.</p>
+</section>
+<section id="optD"><div class="team-frame">
+  <p class="section-label">Our Team</p>
+  <h2 class="section-title">The Leadership Behind <em>Mullin</em></h2>
+  <div class="roster">
+    <div class="roster-row">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jim-Mullin720.jpg" alt="Jim Mullin"></div>
+      <div><h3>Jim Mullin</h3><div class="ttitle">President</div></div>
+      <p>Past President of Staubach AutoGroup. Involved in over 1,200 automotive retail locations and 40+ developments across the US, Saudi Arabia, Brazil, and China.</p>
+    </div>
+    <div class="roster-row">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jacqueline-Swanson720.jpg" alt="Jacqueline Swanson"></div>
+      <div><h3>Jacqueline Swanson</h3><div class="ttitle">Director of Operations</div></div>
+      <p>Seasoned in operational excellence and project management with a background in healthcare and property and construction management.</p>
+    </div>
+    <div class="roster-row">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Mark-Simmons720.jpg" alt="Mark Simmons"></div>
+      <div><h3>Mark Simmons</h3><div class="ttitle">Corporate Controller</div></div>
+      <p>Four-decade career across private and public sectors including the Big Four accounting firms, with over 30 years as Controller, VP-Finance, or CFO.</p>
+    </div>
+    <div class="roster-row">
+      <div class="headshot placeholder"></div>
+      <div><h3>Mark Jackson</h3><div class="ttitle">Director of Market Research</div></div>
+      <p>Deep expertise in market analysis and site selection. Identifies high-value development opportunities across emerging and established markets nationwide.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ─── OPTION E ─────────────────────────────────────────────── -->
+<section class="option-label" id="optE-label">
+  <span class="pill">Option E</span>
+  <h2>Hover-reveal tiles</h2>
+  <p>4-up grid, but each tile has a bio that slides up on hover. Compact static state with depth on interaction. Best if visitors are likely to be curious about backgrounds.</p>
+</section>
+<section id="optE"><div class="team-frame">
+  <p class="section-label">Our Team</p>
+  <h2 class="section-title">The Leadership Behind <em>Mullin</em></h2>
+  <div class="team-grid">
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jim-Mullin720.jpg" alt="Jim Mullin"></div>
+      <div class="reveal-info">
+        <div class="tname">Jim Mullin</div>
+        <div class="ttitle">President</div>
+        <div class="tbio">Past President of Staubach AutoGroup. Involved in 1,200+ automotive retail locations and 40+ developments across four continents.</div>
+      </div>
+    </div>
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Jacqueline-Swanson720.jpg" alt="Jacqueline Swanson"></div>
+      <div class="reveal-info">
+        <div class="tname">Jacqueline Swanson</div>
+        <div class="ttitle">Director of Operations</div>
+        <div class="tbio">Operational excellence and project management. Background in healthcare, property, and construction management.</div>
+      </div>
+    </div>
+    <div class="tmember">
+      <div class="headshot"><img src="https://mullin360.com/wp-content/uploads/2025/09/Mark-Simmons720.jpg" alt="Mark Simmons"></div>
+      <div class="reveal-info">
+        <div class="tname">Mark Simmons</div>
+        <div class="ttitle">Corporate Controller</div>
+        <div class="tbio">Four-decade finance career across Big Four firms; 30+ years as Controller, VP-Finance, or CFO.</div>
+      </div>
+    </div>
+    <div class="tmember">
+      <div class="headshot placeholder"></div>
+      <div class="reveal-info">
+        <div class="tname">Mark Jackson</div>
+        <div class="ttitle">Director of Market Research</div>
+        <div class="tbio">Market analysis and site selection. Identifies high-value development opportunities nationwide.</div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<div class="note">
+  <p><strong>Reviewing:</strong> All five use the existing live photos with a flat <code>--green-pale</code> background &mdash; in production each image becomes a transparent PNG of the subject placed over the flat color (cleaner edges than the blend-mode preview here). Pick a letter and I&rsquo;ll port it into <code>index.html</code>.</p>
+</div>
+
+</body>
+</html>

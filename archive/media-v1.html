@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights &amp; Media — Mullin Development</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#FFFFFF;
+  --white-soft:#F8FAF8;
+  --mist:#EEF3EF;
+  --mist-2:#E1E9E3;
+  --green:#0E6133;
+  --green-deep:#0A4A27;
+  --green-soft:#2C7A4B;
+  --green-muted:#7EA08A;
+  --green-pale:#DCE9E1;
+  --charcoal:#102218;
+  --stone:#5F6F66;
+  --line:#D5DED8;
+  --font-d:'Cormorant Garamond',Georgia,serif;
+  --font-b:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--white);color:var(--charcoal);font-size:16px;line-height:1.7}
+a{color:inherit;text-decoration:none}
+
+/* NAV (matches site) */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 5rem;background:rgba(16,34,24,0.96);box-shadow:0 1px 0 rgba(255,255,255,0.06)}
+.nav-logo{display:flex;align-items:center}
+.nav-logo img{height:34px;width:auto}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.78);transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--green-pale)}
+
+/* PAGE HERO */
+.page-hero{padding:10rem 5rem 5rem;background:linear-gradient(135deg,var(--mist) 0%,var(--mist-2) 100%);position:relative;overflow:hidden}
+.page-hero::after{content:'';position:absolute;right:-100px;top:-100px;width:400px;height:400px;background:radial-gradient(circle,var(--green-pale) 0%,transparent 70%);opacity:0.6}
+.page-hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2}
+.section-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::before{content:'';display:block;width:2rem;height:1px;background:var(--green)}
+.page-hero h1{font-family:var(--font-d);font-size:clamp(3rem,6vw,5rem);font-weight:300;line-height:1.05;color:var(--charcoal);margin-bottom:1rem;max-width:800px}
+.page-hero h1 em{font-style:italic;color:var(--green)}
+.page-hero p{font-size:1.1rem;color:var(--stone);font-weight:300;max-width:620px}
+
+/* CATEGORY FILTERS */
+.filter-bar{padding:2rem 5rem;background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.filter-chips{display:flex;gap:0.5rem;flex-wrap:wrap}
+.chip{padding:0.55rem 1.1rem;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;background:var(--white);color:var(--charcoal);cursor:pointer;transition:all 0.2s;font-family:var(--font-b);font-weight:400}
+.chip:hover{border-color:var(--green-muted)}
+.chip.active{background:var(--green);color:var(--white);border-color:var(--green)}
+.search{display:flex;align-items:center;gap:0.5rem;padding:0.55rem 1rem;border:1px solid var(--line);border-radius:999px;background:var(--white);min-width:240px}
+.search input{border:none;outline:none;font-family:var(--font-b);font-size:0.85rem;color:var(--charcoal);width:100%;background:transparent}
+.search svg{flex-shrink:0;color:var(--stone)}
+
+/* FEATURED ARTICLE */
+.featured{padding:4rem 5rem;background:var(--white)}
+.feat-card{display:grid;grid-template-columns:1.3fr 1fr;gap:0;background:var(--white);border:1px solid var(--line);border-radius:4px;overflow:hidden;cursor:pointer;transition:transform 0.4s,box-shadow 0.4s}
+.feat-card:hover{transform:translateY(-4px);box-shadow:0 30px 60px rgba(16,34,24,0.08)}
+.feat-img{position:relative;background:linear-gradient(135deg,var(--green) 0%,var(--green-deep) 100%);min-height:420px;overflow:hidden}
+.feat-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.feat-badge{position:absolute;top:1.5rem;left:1.5rem;background:var(--green);color:var(--white);padding:0.5rem 1rem;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;border-radius:2px;z-index:2}
+.feat-body{padding:3rem;display:flex;flex-direction:column;justify-content:center}
+.feat-meta{display:flex;gap:1rem;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone);margin-bottom:1rem}
+.feat-meta .cat{color:var(--green)}
+.feat-body h2{font-family:var(--font-d);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:300;line-height:1.15;color:var(--charcoal);margin-bottom:1rem}
+.feat-body p{color:var(--stone);font-weight:300;margin-bottom:2rem}
+.feat-author{display:flex;align-items:center;gap:0.75rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.author-pic{width:40px;height:40px;border-radius:50%;background:var(--green-pale)}
+.author-info{font-size:0.85rem}
+.author-info .name{font-weight:500;color:var(--charcoal)}
+.author-info .role{font-size:0.72rem;color:var(--stone)}
+
+/* GRID OF ARTICLES */
+.grid-section{padding:2rem 5rem 6rem;background:var(--white)}
+.grid-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;padding-top:2rem;border-top:1px solid var(--line)}
+.grid-header h2{font-family:var(--font-d);font-size:1.75rem;font-weight:300;color:var(--charcoal);margin-top:2rem}
+.grid-count{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--stone);margin-top:2rem}
+.article-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem 2rem}
+.acard{cursor:pointer;transition:transform 0.4s}
+.acard:hover{transform:translateY(-4px)}
+.acard-img{aspect-ratio:4/3;background:var(--mist-2);position:relative;overflow:hidden;margin-bottom:1.25rem;border-radius:3px}
+.acard-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+.acard:hover .acard-img img{transform:scale(1.05)}
+.acard-img .placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--green-pale) 0%,var(--mist-2) 100%);color:var(--green);font-family:var(--font-d);font-style:italic;font-size:1.2rem}
+.acard-meta{display:flex;gap:0.85rem;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone);margin-bottom:0.6rem}
+.acard-meta .cat{color:var(--green)}
+.acard h3{font-family:var(--font-d);font-size:1.4rem;font-weight:400;color:var(--charcoal);line-height:1.25;margin-bottom:0.6rem;transition:color 0.2s}
+.acard:hover h3{color:var(--green)}
+.acard p{color:var(--stone);font-size:0.92rem;font-weight:300;line-height:1.65}
+.acard-foot{margin-top:0.85rem;font-size:0.72rem;color:var(--green);letter-spacing:0.14em;text-transform:uppercase;font-weight:500}
+
+/* LOAD MORE */
+.load-more{display:flex;justify-content:center;margin-top:4rem}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.9rem;padding:1.1rem 2.75rem;font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;border-radius:3px;background:transparent;color:var(--charcoal);border:1.5px solid var(--charcoal);cursor:pointer;transition:all 0.3s}
+.btn-ghost:hover{background:var(--charcoal);color:var(--white)}
+
+/* NEWSLETTER BAND */
+.news-band{background:var(--green-deep);color:var(--white);padding:5rem 5rem;display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:center}
+.news-band h2{font-family:var(--font-d);font-size:clamp(2rem,3.5vw,2.75rem);font-weight:300;line-height:1.15}
+.news-band h2 em{color:var(--green-pale);font-style:italic}
+.news-band p{color:rgba(255,255,255,0.72);font-weight:300;margin-top:0.75rem}
+.news-form{display:flex;gap:0.75rem}
+.news-form input{flex:1;padding:1rem 1.25rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:var(--white);border-radius:3px;font-family:var(--font-b);font-size:0.92rem}
+.news-form input::placeholder{color:rgba(255,255,255,0.5)}
+.news-form input:focus{outline:none;border-color:var(--green-pale)}
+.news-form button{padding:1rem 2rem;background:var(--green-pale);color:var(--green-deep);font-family:var(--font-b);font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;border:none;border-radius:3px;cursor:pointer;white-space:nowrap}
+
+/* FOOTER (light version of site footer) */
+footer{background:var(--charcoal);padding:5rem 5rem 3rem;color:rgba(255,255,255,0.62)}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:2rem}
+footer h4{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:1.25rem}
+footer ul{list-style:none}
+footer li{margin-bottom:0.5rem}
+footer a{font-size:0.85rem;font-weight:300;transition:color 0.2s}
+footer a:hover{color:var(--green-pale)}
+.fcopy{font-size:0.72rem;color:rgba(255,255,255,0.28)}
+
+@media(max-width:1024px){
+  nav,.page-hero,.filter-bar,.featured,.grid-section,.news-band,footer{padding-left:2rem;padding-right:2rem}
+  .feat-card{grid-template-columns:1fr}
+  .article-grid{grid-template-columns:repeat(2,1fr)}
+  .news-band{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .article-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="white-sq-long.png" alt="Mullin Development"></a>
+  <ul class="nav-links">
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#vision">Our Vision</a></li>
+    <li><a href="index.html#team">Our Team</a></li>
+    <li><a href="media.html" class="active">Our Media</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <p class="section-label">Insights &amp; Media</p>
+    <h1>Stories from the<br><em>field.</em></h1>
+    <p>Project updates, market analysis, and perspectives on commercial real estate development in the Southwest and beyond.</p>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-chips">
+    <button class="chip active">All</button>
+    <button class="chip">Development</button>
+    <button class="chip">Automotive</button>
+    <button class="chip">Hospitality</button>
+    <button class="chip">Market Insights</button>
+    <button class="chip">Press</button>
+    <button class="chip">Community</button>
+  </div>
+  <div class="search">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="5"/><line x1="10" y1="10" x2="13" y2="13"/></svg>
+    <input type="search" placeholder="Search articles…">
+  </div>
+</div>
+
+<!-- FEATURED ARTICLE -->
+<section class="featured">
+  <article class="feat-card">
+    <div class="feat-img">
+      <span class="feat-badge">Featured</span>
+      <img src="1project-centerra.jpg" alt="Motorplex at Centerra">
+    </div>
+    <div class="feat-body">
+      <div class="feat-meta">
+        <span class="cat">Development</span>
+        <span>April 28, 2026</span>
+        <span>8 min read</span>
+      </div>
+      <h2>Motorplex at Centerra: how a 100-acre vision became Northern Colorado&rsquo;s largest auto destination.</h2>
+      <p>From early site selection through tenant signing, a look inside the eight-year arc of one of the region&rsquo;s most ambitious automotive developments.</p>
+      <div class="feat-author">
+        <div class="author-pic"></div>
+        <div class="author-info">
+          <div class="name">Jim Mullin</div>
+          <div class="role">President, Mullin Development</div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ARTICLE GRID -->
+<section class="grid-section">
+  <div class="grid-header">
+    <h2>Latest articles</h2>
+    <span class="grid-count">3 articles</span>
+  </div>
+
+  <div class="article-grid">
+
+    <article class="acard">
+      <div class="acard-img"><img src="1project-303.png" alt="303 Autoshow"></div>
+      <div class="acard-meta"><span class="cat">Development</span><span>Apr 12, 2026</span></div>
+      <h3>303 Autoshow breaks ground in Surprise, AZ.</h3>
+      <p>The 80-acre autoplex within the Prasada master-plan community will house up to nine premium franchises by 2028.</p>
+      <div class="acard-foot">Read more &rarr;</div>
+    </article>
+
+    <article class="acard">
+      <div class="acard-img"><img src="1project-greencastle.jpeg" alt="Greencastle Hotel"></div>
+      <div class="acard-meta"><span class="cat">Hospitality</span><span>Mar 30, 2026</span></div>
+      <h3>Adaptive reuse: turning a historic Indiana hotel into a luxury boutique.</h3>
+      <p>What changes &mdash; and what stays &mdash; when restoring a 19th-century building for a new hospitality concept.</p>
+      <div class="acard-foot">Read more &rarr;</div>
+    </article>
+
+    <article class="acard">
+      <div class="acard-img"><div class="placeholder">Market Insight</div></div>
+      <div class="acard-meta"><span class="cat">Market Insights</span><span>Mar 18, 2026</span></div>
+      <h3>Why dealership real estate is consolidating in the Southwest.</h3>
+      <p>Land scarcity, OEM territory rules, and the rise of the autoplex format &mdash; a look at the forces reshaping the asset class.</p>
+      <div class="acard-foot">Read more &rarr;</div>
+    </article>
+
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="news-band">
+  <div>
+    <h2>Get our quarterly <em>insights</em> letter.</h2>
+    <p>One email every three months. New projects, market notes, and the occasional photograph from the field.</p>
+  </div>
+  <form class="news-form">
+    <input type="email" placeholder="Your email address">
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="white-sq.png" alt="Mullin Development" style="height:50px;display:block;margin-bottom:1rem">
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.5);font-weight:300;margin-bottom:1rem">Developing with Purpose.</p>
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);max-width:270px">Real estate development specializing in automotive retail and commercial properties since 1994.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#vision">Our Vision</a></li>
+        <li><a href="index.html#team">Our Team</a></li>
+        <li><a href="media.html">Our Media</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Ventures</h4>
+      <ul>
+        <li><a href="https://mullin360.com" target="_blank" rel="noopener">Mullin360</a></li>
+        <li><a href="https://azcollaborate.com" target="_blank" rel="noopener">AZ Collaborate</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="contact.html">Get in Touch</a></li>
+        <li>Scottsdale, AZ</li>
+      </ul>
+    </div>
+  </div>
+  <p class="fcopy">&copy; 2026 Mullin Development, LLC. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found — Mullin Development</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="logo-green.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#F4F1EA;--ink:#151A15;--ink-70:rgba(21,26,21,0.72);--ink-55:rgba(21,26,21,0.56);
+  --line:rgba(21,26,21,0.16);--night:#0C120D;--bone:#F4F1EA;--bone-45:rgba(244,241,234,0.45);
+  --nline:rgba(244,241,234,0.14);--green:#0E6133;--green-lift:#7FA98E;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',-apple-system,'Helvetica Neue',sans-serif;
+  --mono:'IBM Plex Mono','SF Mono',Consolas,monospace;
+  --gutter:clamp(1.5rem,6vw,7.5rem);
+  --ease:cubic-bezier(0.19,1,0.22,1);
+}
+body{
+  font-family:var(--sans);font-weight:300;background:var(--night);color:var(--bone);
+  font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  min-height:100svh;display:flex;flex-direction:column;
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:0.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+::selection{background:var(--green);color:var(--bone)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--green-lift);outline-offset:4px}
+img{display:block}
+.mono{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.18em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+
+header{padding:1.6rem var(--gutter)}
+header img{height:30px;width:auto}
+
+main{
+  flex:1;display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(3rem,10vh,7rem) var(--gutter);
+}
+.bar{
+  display:flex;align-items:baseline;gap:1.4rem;
+  border-top:1px solid var(--bone);padding-top:1rem;margin-bottom:clamp(2.5rem,6vh,4rem);
+}
+.bar .idx{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.14em;color:var(--green-lift);font-weight:500}
+.bar .lbl{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--bone-45)}
+.bar .of{margin-left:auto;font-family:var(--mono);font-size:0.66rem;letter-spacing:0.14em;color:var(--bone-45)}
+
+h1{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(2.6rem,6vw,5.4rem);line-height:1.04;letter-spacing:-0.012em;
+  max-width:18ch;
+}
+h1 em{font-style:italic;font-weight:400}
+p.lead{margin-top:1.6rem;max-width:46ch;color:rgba(244,241,234,0.72)}
+
+.links{margin-top:clamp(2.5rem,6vh,4rem);display:flex;flex-wrap:wrap;gap:0 2.5rem}
+.links a{
+  font-family:var(--mono);font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--bone);text-decoration:none;
+  border-bottom:1px solid rgba(244,241,234,0.45);padding:0.5rem 0 0.45rem;
+  transition:color 0.3s,border-color 0.3s;
+}
+.links a:hover,.links a:focus-visible{color:var(--green-lift);border-color:var(--green-lift)}
+
+footer{
+  padding:1.5rem var(--gutter) 2rem;margin:0 var(--gutter);
+  border-top:1px solid var(--nline);color:var(--bone-45);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding-left:0;padding-right:0;
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" aria-label="Mullin Development — home">
+    <img src="white-sq-long.png" alt="Mullin Development" width="721" height="145">
+  </a>
+</header>
+
+<main>
+  <div class="bar">
+    <span class="idx">404</span>
+    <span class="lbl">Not found</span>
+    <span class="of">Off the plat</span>
+  </div>
+  <h1>This page isn&rsquo;t <em>on the map.</em></h1>
+  <p class="lead">The address exists, but nothing has been built here. Every parcel we have developed is in the record — start there.</p>
+  <nav class="links" aria-label="Recover">
+    <a href="index.html">Return home</a>
+    <a href="projects.html">The record</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</main>
+
+<footer>
+  <p class="mono">© 2026 Mullin Development, LLC.</p>
+  <p class="mono">Est. 1994 — Scottsdale, Arizona</p>
+</footer>
+</body>
+</html>

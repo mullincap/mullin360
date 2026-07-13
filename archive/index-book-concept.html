@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mullin Development — Developing with Purpose</title>
-<meta name="description" content="Mullin Development is a Scottsdale-based real estate development firm — thirty years, 1,200+ sites, and $1.6B in commercial real estate value. We carry ground through the full arc, from raw land to standing building.">
+<meta name="description" content="Mullin Development is a Scottsdale-based real estate development firm — thirty years, 1,200+ sites, and $1.6B in commercial real estate value across automotive, retail, and hospitality. Developing with Purpose since 1994.">
 
+<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mullin Development">
 <meta property="og:title" content="Mullin Development — Developing with Purpose">
@@ -14,6 +15,8 @@
 <meta property="og:image" content="https://mullindev.com/sas.jpg">
 <meta property="og:image:width" content="1504">
 <meta property="og:image:height" content="688">
+
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mullin Development — Developing with Purpose">
 <meta name="twitter:description" content="A national real estate development practice rooted in the desert Southwest. Thirty years, 1,200+ sites, $1.6B in commercial real estate value.">
@@ -27,63 +30,77 @@
 
 <style>
 /* ————————————————————————————————————————————————
-   MULLIN DEVELOPMENT — THE HYBRID
-   The book is the container: chapters, plates, a ledger, a colophon.
-   The arc is the argument: every work is somewhere between raw ground
-   and open doors, and the book says exactly where.
-   Green as a seal, not wallpaper.
+   MULLIN DEVELOPMENT — index
+   Thesis: the firm's book. Chapters, plates, a ledger,
+   signatures, and a colophon. Green as a seal, not wallpaper.
    ———————————————————————————————————————————————— */
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
+  /* paper + ink */
   --paper:#F4F1EA;
   --paper-2:#ECE8DE;
   --ink:#151A15;
   --ink-70:rgba(21,26,21,0.72);
   --ink-55:rgba(21,26,21,0.56);
-  --ink-30:rgba(21,26,21,0.30);
   --line:rgba(21,26,21,0.16);
   --line-soft:rgba(21,26,21,0.09);
+  /* night */
   --night:#0C120D;
   --night-2:#101812;
   --bone:#F4F1EA;
   --bone-70:rgba(244,241,234,0.72);
   --bone-45:rgba(244,241,234,0.45);
   --nline:rgba(244,241,234,0.14);
+  /* the seal */
   --green:#0E6133;
   --green-deep:#0A4A27;
-  --green-lift:#7FA98E;
+  --green-lift:#7FA98E;   /* green legible on night */
+  /* type */
   --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
   --sans:'DM Sans',-apple-system,'Helvetica Neue',sans-serif;
   --mono:'IBM Plex Mono','SF Mono',Consolas,monospace;
+  /* rhythm */
   --gutter:clamp(1.5rem,6vw,7.5rem);
   --chapter-gap:clamp(6rem,13vh,11rem);
-  --ease:cubic-bezier(0.19,1,0.22,1);
 }
 
 html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 body{
-  font-family:var(--sans);font-weight:300;
-  background:var(--paper);color:var(--ink);
-  font-size:16px;line-height:1.75;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  font-family:var(--sans);
+  font-weight:300;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
   overflow-x:hidden;
 }
+
+/* faint paper grain */
 body::after{
   content:'';position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:0.05;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
 }
+
 ::selection{background:var(--green);color:var(--bone)}
+
 img{max-width:100%;display:block}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--green);outline-offset:4px}
 .skip{position:absolute;left:-9999px;top:0;z-index:3000;background:var(--green);color:#fff;padding:0.75rem 1.25rem;font-family:var(--mono);font-size:0.75rem;letter-spacing:0.08em}
 .skip:focus{left:0}
 
-.mono{font-family:var(--mono);font-size:0.66rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+/* ——— shared voices ——— */
+.mono{
+  font-family:var(--mono);font-size:0.66rem;font-weight:400;
+  letter-spacing:0.18em;text-transform:uppercase;
+  font-variant-numeric:tabular-nums;
+}
 .wrap{padding-left:var(--gutter);padding-right:var(--gutter)}
 
 /* ————————————————— NAV ————————————————— */
@@ -91,7 +108,7 @@ header#nav{
   position:fixed;top:0;left:0;right:0;z-index:900;
   display:flex;align-items:center;justify-content:space-between;
   padding:1.4rem var(--gutter);
-  transition:background 0.5s var(--ease), padding 0.5s var(--ease), border-color 0.5s;
+  transition:background 0.5s cubic-bezier(0.19,1,0.22,1), padding 0.5s cubic-bezier(0.19,1,0.22,1), border-color 0.5s;
   border-bottom:1px solid transparent;
 }
 header#nav::before{
@@ -117,26 +134,31 @@ header#nav.solid .lg-blk{opacity:1}
 .nav-links a::after{
   content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;
   background:currentColor;transform:scaleX(0);transform-origin:right;
-  transition:transform 0.45s var(--ease);
+  transition:transform 0.45s cubic-bezier(0.19,1,0.22,1);
 }
 .nav-links a:hover::after,.nav-links a:focus-visible::after{transform:scaleX(1);transform-origin:left}
 header#nav.solid .nav-links a{color:var(--ink-70)}
 header#nav.solid .nav-links a:hover{color:var(--ink)}
 
-.menu-btn{display:none;background:none;border:0;cursor:pointer;padding:0.6rem 0;flex-direction:column;gap:7px;width:34px}
-.menu-btn span{display:block;height:1px;width:100%;background:var(--bone);transition:transform 0.4s var(--ease),opacity 0.3s,background 0.4s}
+/* mobile menu button */
+.menu-btn{
+  display:none;background:none;border:0;cursor:pointer;padding:0.6rem 0;
+  flex-direction:column;gap:7px;width:34px;
+}
+.menu-btn span{display:block;height:1px;width:100%;background:var(--bone);transition:transform 0.4s cubic-bezier(0.19,1,0.22,1),opacity 0.3s,background 0.4s}
 header#nav.solid .menu-btn span{background:var(--ink)}
 body.menu-open .menu-btn span{background:var(--bone)}
 body.menu-open .menu-btn span:nth-child(1){transform:translateY(4px) rotate(45deg)}
 body.menu-open .menu-btn span:nth-child(2){transform:translateY(-4px) rotate(-45deg)}
 
+/* mobile overlay */
 #mobileMenu{
   position:fixed;inset:0;z-index:850;background:var(--night);
   display:flex;flex-direction:column;justify-content:flex-end;
   padding:6rem var(--gutter) 3rem;
-  opacity:0;visibility:hidden;transition:opacity 0.5s var(--ease),visibility 0s 0.5s;
+  opacity:0;visibility:hidden;transition:opacity 0.5s cubic-bezier(0.19,1,0.22,1),visibility 0s 0.5s;
 }
-body.menu-open #mobileMenu{opacity:1;visibility:visible;transition:opacity 0.5s var(--ease)}
+body.menu-open #mobileMenu{opacity:1;visibility:visible;transition:opacity 0.5s cubic-bezier(0.19,1,0.22,1)}
 #mobileMenu nav ul{list-style:none}
 #mobileMenu nav li{border-top:1px solid var(--nline);overflow:hidden}
 #mobileMenu nav li:last-child{border-bottom:1px solid var(--nline)}
@@ -144,7 +166,7 @@ body.menu-open #mobileMenu{opacity:1;visibility:visible;transition:opacity 0.5s 
   display:flex;align-items:baseline;justify-content:space-between;
   font-family:var(--serif);font-weight:500;font-size:2.1rem;color:var(--bone);
   text-decoration:none;padding:1.05rem 0;line-height:1.1;
-  transform:translateY(102%);transition:transform 0.7s var(--ease);
+  transform:translateY(102%);transition:transform 0.7s cubic-bezier(0.19,1,0.22,1);
 }
 body.menu-open #mobileMenu nav a{transform:translateY(0)}
 #mobileMenu nav li:nth-child(1) a{transition-delay:0.08s}
@@ -165,10 +187,11 @@ body.menu-open #mobileMenu nav a{transform:translateY(0)}
 .hero-media{position:absolute;inset:0;overflow:hidden}
 .hero-media img{
   width:100%;height:100%;object-fit:cover;object-position:center 62%;
-  filter:saturate(0.88) contrast(1.04);transform:scale(1.07);
+  filter:saturate(0.88) contrast(1.04);
+  transform:scale(1.07);
 }
 @keyframes heroSettle{to{transform:scale(1)}}
-.js .hero-media img{animation:heroSettle 3.2s var(--ease) 0.2s forwards}
+.js .hero-media img{animation:heroSettle 3.2s cubic-bezier(0.19,1,0.22,1) 0.2s forwards}
 .hero-media::after{
   content:'';position:absolute;inset:0;
   background:
@@ -176,6 +199,7 @@ body.menu-open #mobileMenu nav a{transform:translateY(0)}
     linear-gradient(to top,rgba(8,13,9,0.78) 0%,rgba(8,13,9,0.18) 26%,transparent 45%),
     linear-gradient(to bottom,rgba(8,13,9,0.5) 0%,transparent 22%);
 }
+
 .hero-center{
   position:relative;z-index:2;flex:1;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -189,21 +213,28 @@ body.menu-open #mobileMenu nav a{transform:translateY(0)}
 .hero-imprint::before,.hero-imprint::after{
   content:'';display:block;width:clamp(2rem,6vw,4.5rem);height:1px;background:rgba(244,241,234,0.4);
 }
+
 h1{
   font-family:var(--serif);font-weight:500;
   font-size:clamp(3.3rem,9.2vw,8.4rem);
-  line-height:1.02;letter-spacing:-0.015em;color:var(--bone);
-  margin:1.6rem 0 1.4rem;text-shadow:0 2px 46px rgba(8,13,9,0.4);
+  line-height:1.02;letter-spacing:-0.015em;
+  color:var(--bone);
+  margin:1.6rem 0 1.4rem;
+  text-shadow:0 2px 46px rgba(8,13,9,0.4);
 }
 h1 em{font-style:italic;font-weight:400}
-.hero-sub{max-width:54ch;font-size:1.02rem;line-height:1.8;color:var(--bone-70)}
+
+.hero-sub{
+  max-width:52ch;font-size:1.02rem;line-height:1.8;color:var(--bone-70);
+}
 .hero-rule{
   width:1px;height:clamp(2rem,6vh,3.4rem);
   background:linear-gradient(to bottom,rgba(244,241,234,0.55),transparent);
   margin-top:clamp(1.6rem,4.5vh,2.8rem);
 }
 .hero-foot{
-  position:relative;z-index:2;display:flex;justify-content:center;
+  position:relative;z-index:2;
+  display:flex;justify-content:center;
   padding:1.35rem var(--gutter);
   border-top:1px solid rgba(244,241,234,0.18);
 }
@@ -216,7 +247,8 @@ h1 em{font-style:italic;font-weight:400}
 .hero-foot a b{font-weight:400;color:var(--green-lift);margin-right:0.55em}
 .hero-foot .sep{color:rgba(244,241,234,0.3);font-family:var(--mono);font-size:0.66rem;margin:0 0.7em}
 
-.js .h-in{opacity:0;transform:translateY(22px);animation:hIn 1.2s var(--ease) forwards}
+/* entrance */
+.js .h-in{opacity:0;transform:translateY(22px);animation:hIn 1.2s cubic-bezier(0.19,1,0.22,1) forwards}
 @keyframes hIn{to{opacity:1;transform:translateY(0)}}
 .js .h-in.d1{animation-delay:0.35s}
 .js .h-in.d2{animation-delay:0.55s}
@@ -228,12 +260,14 @@ main{background:var(--paper)}
 .chapter{padding-top:var(--chapter-gap);padding-bottom:var(--chapter-gap);scroll-margin-top:4.5rem}
 .chapterbar{
   display:flex;align-items:baseline;gap:1.4rem;
-  border-top:1px solid var(--ink);padding-top:1rem;
+  border-top:1px solid var(--ink);
+  padding-top:1rem;
   margin-bottom:clamp(3rem,7vh,5.5rem);
 }
 .chapterbar .idx{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.14em;color:var(--green);font-weight:500}
 .chapterbar .lbl{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-55)}
 .chapterbar .of{margin-left:auto;font-family:var(--mono);font-size:0.66rem;letter-spacing:0.14em;color:var(--ink-55)}
+
 .night .chapterbar{border-top-color:var(--bone)}
 .night .chapterbar .idx{color:var(--green-lift)}
 .night .chapterbar .lbl,.night .chapterbar .of{color:var(--bone-45)}
@@ -244,20 +278,22 @@ h2.display{
   line-height:1.06;letter-spacing:-0.01em;color:var(--ink);
 }
 h2.display em,.statement em{font-style:italic;font-weight:400}
-.night{background:var(--night);color:var(--bone)}
-.night h2.display{color:var(--bone)}
 
 /* ————————————————— 01 THE FIRM ————————————————— */
 .statement{
   font-family:var(--serif);font-weight:400;
   font-size:clamp(2rem,4.4vw,4rem);
-  line-height:1.2;letter-spacing:-0.005em;color:var(--ink);
-  max-width:27ch;text-indent:-0.42em;
+  line-height:1.2;letter-spacing:-0.005em;
+  color:var(--ink);
+  max-width:27ch;
+  text-indent:-0.42em; /* hanging opening quote */
 }
 .statement .q{color:var(--green)}
+
 .firm-cols{
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
-  gap:clamp(3rem,7vw,7rem);margin-top:clamp(3.5rem,8vh,6rem);
+  gap:clamp(3rem,7vw,7rem);
+  margin-top:clamp(3.5rem,8vh,6rem);
 }
 .firm-cols h3{
   font-family:var(--serif);font-weight:500;font-size:clamp(1.55rem,2.1vw,2.1rem);
@@ -266,48 +302,54 @@ h2.display em,.statement em{font-style:italic;font-weight:400}
 .firm-cols h3 em{font-style:italic;font-weight:400}
 .firm-copy p{color:var(--ink-70);max-width:56ch}
 .firm-copy p+p{margin-top:1.4rem}
-.firm-copy .sig{margin-top:2.4rem;display:flex;align-items:center;gap:1rem}
+.firm-copy .sig{
+  margin-top:2.4rem;display:flex;align-items:center;gap:1rem;
+}
 .firm-copy .sig::before{content:'';width:2.6rem;height:1px;background:var(--green)}
 .firm-copy .sig span{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-55)}
 
-.figures{margin-top:clamp(4.5rem,10vh,7.5rem);display:grid;grid-template-columns:repeat(4,1fr)}
-.figures .fig{border-top:1px solid var(--line);padding:1.4rem 1.6rem 0 0}
+/* figures ledger */
+.figures{
+  margin-top:clamp(4.5rem,10vh,7.5rem);
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.figures .fig{
+  border-top:1px solid var(--line);
+  padding:1.4rem 1.6rem 0 0;
+}
 .figures .fig+.fig{padding-left:1.6rem}
 .figures .n{
   font-family:var(--serif);font-weight:500;font-size:clamp(2.3rem,3.6vw,3.5rem);
-  line-height:1;letter-spacing:-0.01em;color:var(--ink);font-variant-numeric:lining-nums;
+  line-height:1;letter-spacing:-0.01em;color:var(--ink);
+  font-variant-numeric:lining-nums;
 }
 .figures .l{margin-top:0.7rem;color:var(--ink-55)}
 .figures .fn{color:var(--green);font-weight:500;margin-right:0.15em}
 
-/* ————————————————— THE PHASE METER (the graft) ————————————————— */
-.meter{display:flex;flex-direction:column;gap:0.45rem;min-width:0}
-.meter .bars{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
-.meter .b{height:5px;background:transparent;border:1px solid var(--line);transition:background 0.4s var(--ease),border-color 0.4s}
-.meter .b.f{background:var(--ink);border-color:var(--ink)}
-.meter .b.cur{background:var(--green);border-color:var(--green)}
-.meter .st{
-  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.11em;text-transform:uppercase;
-  color:var(--ink-55);font-variant-numeric:tabular-nums;white-space:nowrap;
+/* ————————————————— PLATES (full-bleed interludes) ————————————————— */
+.plate{
+  position:relative;overflow:hidden;
+  height:clamp(340px,62vh,640px);
+  background:var(--night);
 }
-.meter .st b{font-weight:500;color:var(--green)}
-.night .meter .b{border-color:var(--nline)}
-.night .meter .b.f{background:var(--bone-45);border-color:var(--bone-45)}
-.night .meter .b.cur{background:var(--green-lift);border-color:var(--green-lift)}
-.night .meter .st{color:var(--bone-45)}
-.night .meter .st b{color:var(--green-lift)}
-
-/* ————————————————— PLATES (photographic interludes) ————————————————— */
-.plate{position:relative;overflow:hidden;height:clamp(340px,62vh,640px);background:var(--night)}
 .plate .plx{position:absolute;inset:-12% 0;will-change:transform}
 .plate img{width:100%;height:100%;object-fit:cover;filter:saturate(0.82) contrast(1.05) sepia(0.05)}
-.plate::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,11,0.42),rgba(10,15,11,0.05) 45%)}
-.plate figcaption{position:absolute;left:var(--gutter);bottom:1.6rem;z-index:2;color:var(--bone-70);display:flex;gap:1.2rem;align-items:baseline}
+.plate::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,15,11,0.42),rgba(10,15,11,0.05) 45%);
+}
+.plate figcaption{
+  position:absolute;left:var(--gutter);bottom:1.6rem;z-index:2;
+  color:var(--bone-70);display:flex;gap:1.2rem;align-items:baseline;
+}
 .plate figcaption .mono{letter-spacing:0.22em}
 
 /* ————————————————— 02 THE WORK ————————————————— */
-.work-intro{display:flex;justify-content:space-between;align-items:flex-end;gap:3rem;margin-bottom:clamp(3.5rem,8vh,6rem)}
-.work-intro p{max-width:46ch;color:var(--ink-70)}
+.work-intro{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:3rem;
+  margin-bottom:clamp(3.5rem,8vh,6rem);
+}
+.work-intro p{max-width:44ch;color:var(--ink-70)}
 
 .lnk{
   display:inline-flex;align-items:baseline;gap:0.7rem;
@@ -316,29 +358,38 @@ h2.display em,.statement em{font-style:italic;font-weight:400}
   border-bottom:1px solid var(--ink);padding-bottom:0.45rem;
   transition:color 0.3s,border-color 0.3s;
 }
-.lnk .ar{transition:transform 0.4s var(--ease);display:inline-block}
+.lnk .ar{transition:transform 0.4s cubic-bezier(0.19,1,0.22,1);display:inline-block}
 .lnk:hover,.lnk:focus-visible{color:var(--green);border-color:var(--green)}
 .lnk:hover .ar{transform:translateX(5px)}
 .night .lnk{color:var(--bone);border-color:var(--bone-45)}
 .night .lnk:hover{color:var(--green-lift);border-color:var(--green-lift)}
 
+/* editorial plates per project */
 .wplate{
   display:grid;grid-template-columns:minmax(0,7.2fr) minmax(0,4.8fr);
-  gap:clamp(2rem,4.5vw,4.5rem);align-items:stretch;
+  gap:clamp(2rem,4.5vw,4.5rem);
+  align-items:stretch;
   text-decoration:none;color:inherit;
-  padding:clamp(2.4rem,5vh,3.6rem) 0;border-top:1px solid var(--line);
+  padding:clamp(2.4rem,5vh,3.6rem) 0;
+  border-top:1px solid var(--line);
 }
 .wplate:last-of-type{border-bottom:1px solid var(--line)}
 .wplate.flip{grid-template-columns:minmax(0,4.8fr) minmax(0,7.2fr)}
 .wplate.flip .wp-img{order:2}
 .wplate.flip .wp-info{order:1}
+
 .wp-img{position:relative;overflow:hidden;aspect-ratio:1.85/1;background:var(--paper-2)}
 .wp-img img{
   width:100%;height:100%;object-fit:cover;
   filter:saturate(0.84) contrast(1.05) sepia(0.05);
-  transform:scale(1.001);transition:transform 1.4s var(--ease);
+  transform:scale(1.001);
+  transition:transform 1.4s cubic-bezier(0.19,1,0.22,1);
 }
-.wp-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,11,0.18),transparent 40%);pointer-events:none}
+.wp-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,15,11,0.18),transparent 40%);
+  pointer-events:none;
+}
 .wplate:hover .wp-img img{transform:scale(1.035)}
 .wp-img img.crop-t{transform:scale(1.09);transform-origin:50% 82%}
 .wplate:hover .wp-img img.crop-t{transform:scale(1.12)}
@@ -352,90 +403,115 @@ h2.display em,.statement em{font-style:italic;font-weight:400}
   margin-top:1.1rem;max-width:13ch;
 }
 .wp-desc{margin-top:1.1rem;color:var(--ink-70);max-width:38ch;font-size:0.95rem}
-.wp-foot{margin-top:auto;padding-top:1.8rem;display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem}
-.wp-scale{display:flex;align-items:baseline;gap:0.8rem}
-.wp-scale .num{font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,3.4vw,3.3rem);line-height:1;letter-spacing:-0.01em}
-.wp-scale .txt{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.35rem,1.9vw,1.75rem);line-height:1}
+.wp-scale{
+  margin-top:auto;padding-top:2rem;
+  display:flex;align-items:baseline;gap:0.8rem;
+}
+.wp-scale .num{
+  font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,3.4vw,3.3rem);
+  line-height:1;letter-spacing:-0.01em;
+}
+.wp-scale .txt{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(1.35rem,1.9vw,1.75rem);line-height:1;
+}
 .wp-scale .unit{color:var(--ink-55)}
-.wp-foot .meter{width:clamp(120px,42%,170px);flex:none}
 .wplate:hover .wp-name{color:var(--green-deep);transition:color 0.35s}
-.wplate:hover .meter .b.f{background:var(--green-deep);border-color:var(--green-deep)}
 
-/* the record */
+/* the record — index table */
 .record{margin-top:clamp(4.5rem,10vh,7rem)}
-.record-head{display:flex;align-items:baseline;justify-content:space-between;gap:2rem;margin-bottom:0.9rem}
+.record-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:2rem;
+  margin-bottom:2rem;
+}
 .record-head h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,2vw,1.9rem);letter-spacing:-0.005em}
 .record-head .mono{color:var(--ink-55)}
-.legend{
-  display:flex;flex-wrap:wrap;gap:0.5rem 1.4rem;margin-bottom:1.8rem;
-  color:var(--ink-30);
-}
-.legend .mono{letter-spacing:0.14em;font-size:0.58rem}
-.legend .mono b{color:var(--ink-55);font-weight:400;margin-right:0.4em}
 
 .record a.row{
   display:grid;
-  grid-template-columns:3.4rem minmax(0,1.5fr) minmax(0,1.05fr) 176px minmax(0,0.7fr) 2rem;
-  gap:1.2rem;align-items:center;
-  padding:1.3rem 0;border-top:1px solid var(--line);
-  text-decoration:none;color:inherit;transition:background 0.3s;
+  grid-template-columns:3.4rem minmax(0,1.55fr) minmax(0,1.15fr) minmax(0,0.85fr) minmax(0,0.75fr) 2rem;
+  gap:1.2rem;align-items:baseline;
+  padding:1.35rem 0;
+  border-top:1px solid var(--line);
+  text-decoration:none;color:inherit;
+  transition:background 0.3s,padding 0.3s;
 }
 .record a.row:last-child{border-bottom:1px solid var(--line)}
 .record .c-no{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;color:var(--ink-55);font-variant-numeric:tabular-nums}
 .record .c-name{font-family:var(--serif);font-weight:500;font-size:clamp(1.15rem,1.6vw,1.5rem);line-height:1.15;letter-spacing:-0.005em}
-.record .c-loc{font-size:0.82rem;color:var(--ink-55);font-weight:300}
+.record .c-loc,.record .c-prog{font-size:0.82rem;color:var(--ink-55);font-weight:300}
 .record .c-scale{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.06em;color:var(--ink-70);font-variant-numeric:tabular-nums;text-align:right}
-.record .c-ar{font-family:var(--mono);color:var(--ink-55);text-align:right;opacity:0;transform:translateX(-6px);transition:opacity 0.3s,transform 0.4s var(--ease)}
+.record .c-ar{font-family:var(--mono);color:var(--ink-55);text-align:right;opacity:0;transform:translateX(-6px);transition:opacity 0.3s,transform 0.4s cubic-bezier(0.19,1,0.22,1)}
 .record a.row:hover{background:var(--paper-2)}
 .record a.row:hover .c-ar{opacity:1;transform:translateX(0);color:var(--green)}
 .record a.row:hover .c-name{color:var(--green-deep)}
-.record a.row:hover .meter .b.f{background:var(--green-deep);border-color:var(--green-deep)}
 
-/* ————————————————— 03 THE ARC (night) ————————————————— */
-.arc-lead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:end;margin-bottom:clamp(3.5rem,8vh,5.5rem)}
-.arc-lead p{color:var(--bone-70);max-width:44ch}
-.arc{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--bone)}
-.arc .st{position:relative;padding:1.6rem 1.4rem 0 0}
-.arc .st::before{content:'';position:absolute;top:-1px;left:0;width:1px;height:11px;background:var(--bone)}
-.arc .st:last-child::after{content:'';position:absolute;top:-1px;right:0;width:1px;height:11px;background:var(--bone)}
-.arc .no{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.14em;color:var(--green-lift);font-weight:500}
-.arc h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.3rem,1.75vw,1.75rem);line-height:1.15;letter-spacing:-0.005em;margin-top:0.85rem;color:var(--bone)}
-.arc p{margin-top:0.7rem;color:var(--bone-70);font-size:0.86rem;line-height:1.65}
-.arc .dur{
-  margin-top:1.5rem;padding-top:0.7rem;border-top:1px solid var(--nline);
-  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--bone-45);font-variant-numeric:tabular-nums;
+/* ————————————————— 03 THE METHOD (night) ————————————————— */
+.night{background:var(--night);color:var(--bone)}
+.night h2.display{color:var(--bone)}
+.method-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);
+  gap:clamp(3rem,7vw,8rem);align-items:start;
 }
-.arc .st.hard h3::after{content:'';display:block;width:2.2rem;height:2px;background:var(--green-lift);margin-top:0.7rem}
-.arc-note{margin-top:2.8rem;display:flex;gap:1.2rem;align-items:baseline}
-.arc-note b{color:var(--green-lift);font-weight:500;font-family:var(--mono);font-size:0.66rem;letter-spacing:0.18em;flex:none}
-.arc-note p{max-width:60ch;font-size:0.95rem;color:var(--bone-70)}
+.method-lead p{color:var(--bone-70);max-width:38ch;margin-top:1.8rem}
+.method-list{list-style:none;counter-reset:m}
+.method-list li{
+  counter-increment:m;
+  display:grid;grid-template-columns:3.2rem minmax(0,1fr);gap:1.4rem;
+  padding:1.9rem 0;border-top:1px solid var(--nline);
+}
+.method-list li:last-child{border-bottom:1px solid var(--nline)}
+.method-list li::before{
+  content:counter(m,decimal-leading-zero);
+  font-family:var(--mono);font-size:0.72rem;letter-spacing:0.1em;color:var(--green-lift);
+  padding-top:0.5rem;
+}
+.method-list h3{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.45rem,2vw,1.9rem);
+  letter-spacing:-0.005em;line-height:1.15;
+}
+.method-list p{margin-top:0.55rem;color:var(--bone-70);font-size:0.93rem;max-width:46ch}
 
-/* ————————————————— 04 THE PURPOSE ————————————————— */
+/* ————————————————— 04 THE PURPOSE (litany) ————————————————— */
 .litany{list-style:none}
 .litany li{
   display:grid;grid-template-columns:3.4rem minmax(0,1fr) minmax(0,1.05fr);
   gap:clamp(1.2rem,3vw,3rem);align-items:baseline;
-  padding:clamp(1.6rem,3vh,2.3rem) 0;border-top:1px solid var(--line);
+  padding:clamp(1.6rem,3vh,2.3rem) 0;
+  border-top:1px solid var(--line);
 }
 .litany li:last-child{border-bottom:1px solid var(--line)}
 .litany .num{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;color:var(--ink-55);font-variant-numeric:tabular-nums}
-.litany .verb{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.2rem,4.6vw,4.2rem);line-height:1;letter-spacing:-0.01em}
+.litany .verb{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(2.2rem,4.6vw,4.2rem);line-height:1;letter-spacing:-0.01em;
+}
 .litany p{color:var(--ink-70);font-size:0.94rem;max-width:48ch}
 
 /* ————————————————— 05 THE PEOPLE ————————————————— */
 .people{list-style:none}
 .people li{
-  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.35fr) 172px;
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1.35fr) 172px;
   gap:clamp(2rem,4.5vw,4.5rem);align-items:center;
-  padding:clamp(1.8rem,3.6vh,2.6rem) 0;border-top:1px solid var(--line);
+  padding:clamp(1.8rem,3.6vh,2.6rem) 0;
+  border-top:1px solid var(--line);
 }
 .people li:last-child{border-bottom:1px solid var(--line)}
-.p-id .p-name{font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,2.6vw,2.5rem);line-height:1.05;letter-spacing:-0.008em}
+.p-id .p-name{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,2.6vw,2.5rem);
+  line-height:1.05;letter-spacing:-0.008em;
+}
 .p-id .p-title{margin-top:0.7rem;color:var(--green);letter-spacing:0.2em}
 .p-bio{color:var(--ink-70);font-size:0.94rem;max-width:46ch}
-.p-photo{width:172px;height:216px;overflow:hidden;background:var(--paper-2);justify-self:end}
-.p-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(0.82) contrast(1.03);transition:transform 1.2s var(--ease)}
+.p-photo{
+  width:172px;height:216px;overflow:hidden;background:var(--paper-2);justify-self:end;
+}
+.p-photo img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  filter:saturate(0.82) contrast(1.03);
+  transition:transform 1.2s cubic-bezier(0.19,1,0.22,1);
+}
 .people li:hover .p-photo img{transform:scale(1.045)}
 .people li.no-photo{grid-template-columns:minmax(0,1.15fr) minmax(0,1.35fr) 172px}
 .people li.no-photo .p-bio{align-self:center}
@@ -445,14 +521,18 @@ h2.display em,.statement em{font-style:italic;font-weight:400}
 .ventures a{
   display:grid;grid-template-columns:3.4rem minmax(0,1fr) auto 2rem;
   gap:1.2rem;align-items:baseline;
-  padding:clamp(1.7rem,3.4vh,2.4rem) 0;border-top:1px solid var(--line);
+  padding:clamp(1.7rem,3.4vh,2.4rem) 0;
+  border-top:1px solid var(--line);
   text-decoration:none;color:inherit;transition:background 0.3s;
 }
 .ventures li:last-child a{border-bottom:1px solid var(--line)}
 .ventures .v-no{font-family:var(--mono);font-size:0.7rem;color:var(--ink-55)}
-.ventures .v-name{font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,3.4vw,3.1rem);line-height:1.05;letter-spacing:-0.01em}
+.ventures .v-name{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,3.4vw,3.1rem);
+  line-height:1.05;letter-spacing:-0.01em;
+}
 .ventures .v-url{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;color:var(--ink-55)}
-.ventures .v-ar{font-family:var(--mono);color:var(--ink-55);transition:transform 0.4s var(--ease),color 0.3s}
+.ventures .v-ar{font-family:var(--mono);color:var(--ink-55);transition:transform 0.4s cubic-bezier(0.19,1,0.22,1),color 0.3s}
 .ventures a:hover{background:var(--paper-2)}
 .ventures a:hover .v-ar{transform:translate(4px,-4px);color:var(--green)}
 .ventures a:hover .v-name{color:var(--green-deep)}
@@ -463,11 +543,13 @@ h2.display em,.statement em{font-style:italic;font-weight:400}
 .cta-inner{
   padding:var(--chapter-gap) var(--gutter);
   display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
-  gap:3rem;align-items:end;border-bottom:1px solid var(--nline);
+  gap:3rem;align-items:end;
+  border-bottom:1px solid var(--nline);
 }
 .cta-inner h2{
   font-family:var(--serif);font-weight:500;
-  font-size:clamp(2.6rem,6vw,5.4rem);line-height:1.04;letter-spacing:-0.012em;color:var(--bone);max-width:20ch;
+  font-size:clamp(2.6rem,6vw,5.4rem);line-height:1.04;letter-spacing:-0.012em;color:var(--bone);
+  max-width:20ch;
 }
 .cta-inner h2 em{font-style:italic;font-weight:400}
 .cta-right{display:flex;flex-direction:column;align-items:flex-start;gap:2.2rem;justify-self:end}
@@ -475,17 +557,19 @@ h2.display em,.statement em{font-style:italic;font-weight:400}
 .btn-seal{
   display:inline-flex;align-items:center;gap:1.1rem;
   font-family:var(--mono);font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;
-  color:var(--bone);text-decoration:none;border:1px solid var(--bone-45);padding:1.15rem 2.1rem;
-  transition:background 0.45s var(--ease),border-color 0.45s,color 0.45s;
+  color:var(--bone);text-decoration:none;
+  border:1px solid var(--bone-45);padding:1.15rem 2.1rem;
+  transition:background 0.45s cubic-bezier(0.19,1,0.22,1),border-color 0.45s,color 0.45s;
 }
-.btn-seal .ar{transition:transform 0.4s var(--ease)}
+.btn-seal .ar{transition:transform 0.4s cubic-bezier(0.19,1,0.22,1)}
 .btn-seal:hover,.btn-seal:focus-visible{background:var(--green);border-color:var(--green);color:#fff}
 .btn-seal:hover .ar{transform:translateX(5px)}
 
 footer{background:var(--night);color:var(--bone)}
 .colophon{
   padding:clamp(3.5rem,7vh,5.5rem) var(--gutter) 2.6rem;
-  display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:clamp(2rem,4vw,4rem);
+  display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));
+  gap:clamp(2rem,4vw,4rem);
 }
 .colophon .f-brand img{height:120px;width:120px;object-fit:contain;margin:-14px 0 0 -14px}
 .colophon .f-tag{margin-top:1.3rem;font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--bone-70)}
@@ -497,30 +581,34 @@ footer{background:var(--night);color:var(--bone)}
 .colophon address{font-style:normal;color:var(--bone-70);font-size:0.9rem;line-height:1.9}
 .colophon .coords{margin-top:1.1rem;color:var(--bone-45);letter-spacing:0.16em;line-height:2}
 .baseline{
-  margin:0 var(--gutter);padding:1.5rem 0 2rem;border-top:1px solid var(--nline);
-  display:flex;justify-content:space-between;gap:1rem;align-items:baseline;color:var(--bone-45);
+  margin:0 var(--gutter);padding:1.5rem 0 2rem;
+  border-top:1px solid var(--nline);
+  display:flex;justify-content:space-between;gap:1rem;align-items:baseline;
+  color:var(--bone-45);
 }
 .baseline .mono{letter-spacing:0.16em}
 
-/* ————————————————— RAIL ————————————————— */
+/* ————————————————— RAIL INDEX ————————————————— */
 #rail{
   position:fixed;left:1.6rem;bottom:1.8rem;z-index:500;
   font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--ink-55);writing-mode:vertical-rl;transform:rotate(180deg);
+  color:var(--ink-55);
+  writing-mode:vertical-rl;transform:rotate(180deg);
   opacity:0;transition:opacity 0.5s;pointer-events:none;
 }
 #rail.show{opacity:1}
 #rail.inv{color:var(--bone-45)}
 
 /* ————————————————— REVEALS ————————————————— */
-.js .rv{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity 1s cubic-bezier(0.19,1,0.22,1),transform 1s cubic-bezier(0.19,1,0.22,1);transition-delay:var(--d,0s)}
 .js .rv.on{opacity:1;transform:none}
 
+/* ————————————————— REDUCED MOTION ————————————————— */
 @media(prefers-reduced-motion:reduce){
   .js .rv,.js .h-in{opacity:1;transform:none;animation:none;transition:none}
   .js .hero-media img{animation:none;transform:none}
   .plate .plx{position:absolute;inset:0;transform:none !important}
-  .wp-img img,.p-photo img,.lnk .ar,.v-ar,.meter .b{transition:none}
+  .wp-img img,.p-photo img,.lnk .ar,.wp-go,.v-ar{transition:none}
 }
 
 /* ————————————————— RESPONSIVE ————————————————— */
@@ -531,9 +619,7 @@ footer{background:var(--night);color:var(--bone)}
   .figures .fig{padding:1.3rem 1rem 0 0}
   .figures .fig+.fig{padding-left:0}
   .figures .fig:nth-child(even){padding-left:1.4rem}
-  .arc{grid-template-columns:repeat(3,1fr)}
-  .arc .st{padding-bottom:2rem;border-bottom:1px solid var(--nline)}
-  .arc-lead{grid-template-columns:1fr;gap:1.6rem;align-items:start}
+  .method-grid{grid-template-columns:1fr;gap:3rem}
   .people li,.people li.no-photo{grid-template-columns:minmax(0,1fr) 150px;grid-template-rows:auto auto;align-items:start}
   .people .p-photo{grid-row:1;grid-column:2}
   .people .p-bio{grid-column:1 / -1;grid-row:2;max-width:60ch}
@@ -546,16 +632,14 @@ footer{background:var(--night);color:var(--bone)}
   .wplate.flip .wp-img{order:0}
   .wplate.flip .wp-info{order:1}
   .wp-name{max-width:none}
-  .wp-foot{padding-top:1.4rem}
-  .record a.row{
-    grid-template-columns:2.6rem minmax(0,1fr) 132px;
-    grid-template-rows:auto auto;row-gap:0.5rem;align-items:start;
-  }
+  .wp-scale{padding-top:1.4rem}
+  .record a.row{grid-template-columns:2.6rem minmax(0,1fr) auto;grid-template-rows:auto auto;row-gap:0.15rem}
+  .record .c-name{white-space:normal;grid-column:2;grid-row:1}
   .record .c-no{grid-row:1}
-  .record .c-name{grid-column:2;grid-row:1}
-  .record .c-loc{grid-column:2;grid-row:2;margin-top:-0.3rem}
-  .record .meter{grid-column:3;grid-row:1 / span 2;align-self:center}
-  .record .c-scale,.record .c-ar{display:none}
+  .record .c-loc{grid-column:2;grid-row:2}
+  .record .c-prog{display:none}
+  .record .c-scale{grid-column:3;grid-row:1}
+  .record .c-ar{display:none}
   .cta-inner{grid-template-columns:1fr;align-items:start}
   .cta-right{justify-self:start}
   .colophon{grid-template-columns:1fr 1fr}
@@ -567,7 +651,6 @@ footer{background:var(--night);color:var(--bone)}
   .hero-foot .sep{margin:0 0.45em}
   .work-intro{flex-direction:column;align-items:flex-start;gap:1.4rem}
   .figures{grid-template-columns:1fr 1fr}
-  .arc{grid-template-columns:1fr}
   .litany li{grid-template-columns:2.4rem minmax(0,1fr);gap:0.6rem 1rem}
   .litany li p{grid-column:2}
   .people li,.people li.no-photo{grid-template-columns:minmax(0,1fr) 118px}
@@ -577,9 +660,6 @@ footer{background:var(--night);color:var(--bone)}
   .colophon{grid-template-columns:1fr;gap:2.4rem}
   .baseline{flex-direction:column;gap:0.4rem}
   .plate figcaption{left:1.5rem}
-  .dplate-head,.dplate-foot{flex-direction:column;gap:0.4rem}
-  .wp-foot{flex-direction:column;align-items:flex-start;gap:1.2rem}
-  .wp-foot .meter{width:100%}
 }
 </style>
 </head>
@@ -606,6 +686,7 @@ footer{background:var(--night);color:var(--bone)}
   </button>
 </header>
 
+<!-- ——— MOBILE MENU ——— -->
 <div id="mobileMenu" aria-hidden="true">
   <nav aria-label="Mobile">
     <ul>
@@ -625,19 +706,19 @@ footer{background:var(--night);color:var(--bone)}
 <!-- ——— HERO / COVER ——— -->
 <section id="hero" aria-label="Mullin Development">
   <div class="hero-media">
-    <img src="sas.jpg" alt="The Scottsdale Autoshow development at dusk, desert mountains on the horizon" width="1504" height="688" fetchpriority="high">
+    <img src="sas.jpg" alt="Aerial view of the Scottsdale Autoshow development at dusk, desert mountains on the horizon" width="1504" height="688" fetchpriority="high">
   </div>
   <div class="hero-center">
     <p class="hero-imprint mono h-in d1">Scottsdale, Arizona — Est. 1994</p>
     <h1 class="h-in d2">Developing<br>with <em>Purpose.</em></h1>
-    <p class="hero-sub h-in d3">A national real estate development practice rooted in the desert Southwest — carrying raw ground through the full arc, from a line on paper to open doors, for more than thirty years.</p>
+    <p class="hero-sub h-in d3">A national real estate development practice rooted in the desert Southwest — building communities and legacies for more than thirty years.</p>
     <div class="hero-rule h-in d4" aria-hidden="true"></div>
   </div>
   <nav class="hero-foot h-in d4" aria-label="Contents">
     <p>
       <a href="#vision"><b>01</b>The Firm</a><span class="sep" aria-hidden="true">·</span>
       <a href="#projects"><b>02</b>The Work</a><span class="sep" aria-hidden="true">·</span>
-      <a href="#arc"><b>03</b>The Arc</a><span class="sep" aria-hidden="true">·</span>
+      <a href="#method"><b>03</b>The Method</a><span class="sep" aria-hidden="true">·</span>
       <a href="#purpose"><b>04</b>The Purpose</a><span class="sep" aria-hidden="true">·</span>
       <a href="#team"><b>05</b>The People</a><span class="sep" aria-hidden="true">·</span>
       <a href="#ventures"><b>06</b>Ventures</a>
@@ -694,252 +775,99 @@ footer{background:var(--night);color:var(--bone)}
     </div>
 
     <a class="wplate rv" href="project-detail.html?id=scottsdale-autoshow">
-      <div class="wp-img"><img src="1project-sas.jpg" alt="Scottsdale Autoshow at dusk — dealership campus against desert mountains" width="1022" height="480" loading="lazy" decoding="async"></div>
+      <div class="wp-img"><img src="1project-sas.png" alt="Scottsdale Autoshow at dusk — dealership campus against desert mountains" width="1022" height="480" loading="lazy" decoding="async"></div>
       <div class="wp-info">
         <div class="wp-meta"><span class="mono"><b>W.01</b>&ensp;Automotive</span><span class="mono">Scottsdale, AZ</span></div>
         <h3 class="wp-name">Scottsdale Autoshow</h3>
         <p class="wp-desc">A 70-acre automotive development on the Salt River Pima&#8211;Maricopa Indian Community.</p>
-        <div class="wp-foot">
-          <div class="wp-scale"><span class="num">70</span><span class="unit mono">Acres</span></div>
-          <div class="meter">
-            <div class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f cur"></i></div>
-            <p class="st">Phase 05 — Occupancy</p>
-          </div>
-        </div>
+        <div class="wp-scale"><span class="num">70</span><span class="unit mono">Acres</span></div>
       </div>
     </a>
 
     <a class="wplate flip rv" href="project-detail.html?id=penske-north-scottsdale">
-      <div class="wp-img"><img src="1project-penske.jpg" alt="Penske North Scottsdale campus — aerial view with palm-lined drives" width="1253" height="542" loading="lazy" decoding="async"></div>
+      <div class="wp-img"><img src="1project-penske.png" alt="Penske North Scottsdale campus — aerial view with palm-lined drives" width="1253" height="542" loading="lazy" decoding="async"></div>
       <div class="wp-info">
         <div class="wp-meta"><span class="mono"><b>W.02</b>&ensp;Automotive</span><span class="mono">Scottsdale, AZ</span></div>
         <h3 class="wp-name">Penske North Scottsdale 101</h3>
         <p class="wp-desc">A 40-acre facility off Loop 101, home to nine premium franchises.</p>
-        <div class="wp-foot">
-          <div class="wp-scale"><span class="num">40</span><span class="unit mono">Acres</span></div>
-          <div class="meter">
-            <div class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f cur"></i></div>
-            <p class="st">Phase 05 — Occupancy</p>
-          </div>
-        </div>
+        <div class="wp-scale"><span class="num">40</span><span class="unit mono">Acres</span></div>
       </div>
     </a>
 
-    <a class="wplate rv" href="project-detail.html?id=riverside-county">
-      <div class="wp-img"><img src="1project-reverside.jpg" alt="Site plan for the Riverside County Auto Park" width="1264" height="547" loading="lazy" decoding="async" style="object-position:0% 50%"></div>
+    <a class="wplate rv" href="project-detail.html?id=art-at-mmr">
+      <div class="wp-img"><img src="1project-art.png" alt="The Art at MMR — white contemporary retail architecture in McDowell Mountain Ranch" width="1264" height="547" loading="lazy" decoding="async" style="object-position:74% 45%"></div>
       <div class="wp-info">
-        <div class="wp-meta"><span class="mono"><b>W.06</b>&ensp;Automotive</span><span class="mono">Riverside County, CA</span></div>
-        <h3 class="wp-name">Riverside County Auto Park</h3>
-        <p class="wp-desc">A 70-acre campus marking the firm&rsquo;s expansion into Southern California — entitlements under way.</p>
-        <div class="wp-foot">
-          <div class="wp-scale"><span class="num">70</span><span class="unit mono">Acres</span></div>
-          <div class="meter">
-            <div class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b cur"></i><i class="b"></i><i class="b"></i><i class="b"></i></div>
-            <p class="st"><b>Phase 02</b> — Entitlement</p>
-          </div>
-        </div>
+        <div class="wp-meta"><span class="mono"><b>W.03</b>&ensp;Retail</span><span class="mono">McDowell Mountain Ranch, AZ</span></div>
+        <h3 class="wp-name">The Art at MMR</h3>
+        <p class="wp-desc">A 15,000-square-foot stylized retail development in the heart of McDowell Mountain Ranch.</p>
+        <div class="wp-scale"><span class="num">15,000</span><span class="unit mono">Sq ft</span></div>
       </div>
     </a>
 
     <a class="wplate flip rv" href="project-detail.html?id=greencastle-hotel">
       <div class="wp-img"><img class="crop-t" src="1project-greencastle.jpeg" alt="Rendering of the Greencastle Hotel roof garden bar, looking south" width="720" height="402" loading="lazy" decoding="async"></div>
       <div class="wp-info">
-        <div class="wp-meta"><span class="mono"><b>W.09</b>&ensp;Hospitality</span><span class="mono">Greencastle, IN</span></div>
+        <div class="wp-meta"><span class="mono"><b>W.04</b>&ensp;Hospitality</span><span class="mono">Greencastle, IN</span></div>
         <h3 class="wp-name">Greencastle Hotel</h3>
         <p class="wp-desc">A historic hotel transformed into a luxury boutique property.</p>
-        <div class="wp-foot">
-          <div class="wp-scale"><span class="txt">Adaptive reuse</span></div>
-          <div class="meter">
-            <div class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b cur"></i><i class="b"></i></div>
-            <p class="st"><b>Phase 04</b> — Vertical</p>
-          </div>
-        </div>
+        <div class="wp-scale"><span class="txt">In progress</span></div>
       </div>
     </a>
 
     <!-- the record -->
     <div class="record rv">
       <div class="record-head">
-        <h3>The record — where every work stands.</h3>
+        <h3>The record — nine developments.</h3>
         <span class="mono">1994 — present</span>
       </div>
-      <div class="legend" aria-hidden="true">
-        <span class="mono"><b>00</b>Ground</span>
-        <span class="mono"><b>01</b>Assemblage</span>
-        <span class="mono"><b>02</b>Entitlement</span>
-        <span class="mono"><b>03</b>Horizontal</span>
-        <span class="mono"><b>04</b>Vertical</span>
-        <span class="mono"><b>05</b>Occupancy</span>
-      </div>
-
       <a class="row" href="project-detail.html?id=scottsdale-autoshow">
-        <span class="c-no">01</span>
-        <span class="c-name">Scottsdale Autoshow</span>
-        <span class="c-loc">Scottsdale, AZ — Automotive</span>
-        <span class="meter">
-          <span class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f cur"></i></span>
-          <span class="st">Phase 05 — Occupancy</span>
-        </span>
-        <span class="c-scale">70 acres</span>
-        <span class="c-ar">→</span>
+        <span class="c-no">01</span><span class="c-name">Scottsdale Autoshow</span><span class="c-loc">Scottsdale, AZ</span><span class="c-prog">Automotive</span><span class="c-scale">70 acres</span><span class="c-ar">→</span>
       </a>
       <a class="row" href="project-detail.html?id=penske-north-scottsdale">
-        <span class="c-no">02</span>
-        <span class="c-name">Penske North Scottsdale 101</span>
-        <span class="c-loc">Scottsdale, AZ — Automotive</span>
-        <span class="meter">
-          <span class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f cur"></i></span>
-          <span class="st">Phase 05 — Occupancy</span>
-        </span>
-        <span class="c-scale">40 acres</span>
-        <span class="c-ar">→</span>
+        <span class="c-no">02</span><span class="c-name">Penske North Scottsdale 101</span><span class="c-loc">Scottsdale, AZ</span><span class="c-prog">Automotive</span><span class="c-scale">40 acres</span><span class="c-ar">→</span>
       </a>
       <a class="row" href="project-detail.html?id=303-autoshow">
-        <span class="c-no">03</span>
-        <span class="c-name">303 Autoshow</span>
-        <span class="c-loc">Surprise, AZ — Automotive</span>
-        <span class="meter">
-          <span class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f cur"></i></span>
-          <span class="st">Phase 05 — Occupancy</span>
-        </span>
-        <span class="c-scale">80 acres</span>
-        <span class="c-ar">→</span>
+        <span class="c-no">03</span><span class="c-name">303 Autoshow</span><span class="c-loc">Surprise, AZ</span><span class="c-prog">Automotive</span><span class="c-scale">80 acres</span><span class="c-ar">→</span>
       </a>
       <a class="row" href="project-detail.html?id=tempe-autoplex">
-        <span class="c-no">04</span>
-        <span class="c-name">Tempe Autoplex</span>
-        <span class="c-loc">Tempe, AZ — Automotive</span>
-        <span class="meter">
-          <span class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f cur"></i></span>
-          <span class="st">Phase 05 — Occupancy</span>
-        </span>
-        <span class="c-scale">80 acres</span>
-        <span class="c-ar">→</span>
+        <span class="c-no">04</span><span class="c-name">Tempe Autoplex</span><span class="c-loc">Tempe, AZ</span><span class="c-prog">Automotive</span><span class="c-scale">80 acres</span><span class="c-ar">→</span>
       </a>
       <a class="row" href="project-detail.html?id=centerra">
-        <span class="c-no">05</span>
-        <span class="c-name">Motorplex at Centerra</span>
-        <span class="c-loc">Loveland, CO — Automotive retail</span>
-        <span class="meter">
-          <span class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f cur"></i></span>
-          <span class="st">Phase 05 — Occupancy</span>
-        </span>
-        <span class="c-scale">100 acres</span>
-        <span class="c-ar">→</span>
+        <span class="c-no">05</span><span class="c-name">Motorplex at Centerra</span><span class="c-loc">Loveland, CO</span><span class="c-prog">Automotive retail</span><span class="c-scale">100 acres</span><span class="c-ar">→</span>
       </a>
       <a class="row" href="project-detail.html?id=riverside-county">
-        <span class="c-no">06</span>
-        <span class="c-name">Riverside County Auto Park</span>
-        <span class="c-loc">Riverside County, CA — Automotive</span>
-        <span class="meter">
-          <span class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b cur"></i><i class="b"></i><i class="b"></i><i class="b"></i></span>
-          <span class="st"><b>Phase 02</b> — Entitlement</span>
-        </span>
-        <span class="c-scale">70 acres</span>
-        <span class="c-ar">→</span>
+        <span class="c-no">06</span><span class="c-name">Riverside County Auto Park</span><span class="c-loc">Riverside County, CA</span><span class="c-prog">Automotive</span><span class="c-scale">In development</span><span class="c-ar">→</span>
       </a>
       <a class="row" href="project-detail.html?id=art-at-mmr">
-        <span class="c-no">07</span>
-        <span class="c-name">The Art at MMR</span>
-        <span class="c-loc">McDowell Mountain Ranch, AZ — Retail</span>
-        <span class="meter">
-          <span class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f cur"></i></span>
-          <span class="st">Phase 05 — Occupancy</span>
-        </span>
-        <span class="c-scale">15,000 sq ft</span>
-        <span class="c-ar">→</span>
+        <span class="c-no">07</span><span class="c-name">The Art at MMR</span><span class="c-loc">McDowell Mountain Ranch, AZ</span><span class="c-prog">Retail</span><span class="c-scale">15,000 sq ft</span><span class="c-ar">→</span>
       </a>
       <a class="row" href="project-detail.html?id=costco">
-        <span class="c-no">08</span>
-        <span class="c-name">Costco at Salt River</span>
-        <span class="c-loc">Scottsdale, AZ — Retail</span>
-        <span class="meter">
-          <span class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b cur"></i><i class="b"></i><i class="b"></i><i class="b"></i></span>
-          <span class="st"><b>Phase 02</b> — Entitlement</span>
-        </span>
-        <span class="c-scale">162,000 sq ft</span>
-        <span class="c-ar">→</span>
+        <span class="c-no">08</span><span class="c-name">Costco at Salt River</span><span class="c-loc">Scottsdale, AZ</span><span class="c-prog">Retail</span><span class="c-scale">162,000 sq ft</span><span class="c-ar">→</span>
       </a>
       <a class="row" href="project-detail.html?id=greencastle-hotel">
-        <span class="c-no">09</span>
-        <span class="c-name">Greencastle Hotel</span>
-        <span class="c-loc">Greencastle, IN — Hospitality</span>
-        <span class="meter">
-          <span class="bars" aria-hidden="true"><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b f"></i><i class="b cur"></i><i class="b"></i></span>
-          <span class="st"><b>Phase 04</b> — Vertical</span>
-        </span>
-        <span class="c-scale">Adaptive reuse</span>
-        <span class="c-ar">→</span>
-      </a>
-      <a class="row" href="project-detail.html?id=casa-grande">
-        <span class="c-no">10</span>
-        <span class="c-name">Casa Grande Autoplex</span>
-        <span class="c-loc">Casa Grande, AZ — Automotive</span>
-        <span class="meter">
-          <span class="bars" aria-hidden="true"><i class="b f"></i><i class="b cur"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i></span>
-          <span class="st"><b>Phase 01</b> — Assemblage</span>
-        </span>
-        <span class="c-scale">30 acres</span>
-        <span class="c-ar">→</span>
+        <span class="c-no">09</span><span class="c-name">Greencastle Hotel</span><span class="c-loc">Greencastle, IN</span><span class="c-prog">Hospitality</span><span class="c-scale">Adaptive reuse</span><span class="c-ar">→</span>
       </a>
     </div>
   </section>
 
-  <!-- ——— 03 THE ARC (night) ——— -->
-  <section id="arc" class="chapter night wrap" data-rail="03 — The Arc" data-inv>
+  <!-- ——— 03 THE METHOD (night) ——— -->
+  <section id="method" class="chapter night wrap" data-rail="03 — The Method" data-inv>
     <div class="chapterbar rv">
       <span class="idx">03</span>
-      <span class="lbl">The Arc</span>
+      <span class="lbl">The Method</span>
       <span class="of">/ 06</span>
     </div>
-
-    <div class="arc-lead">
-      <h2 class="display rv">Anyone can buy a building.<br><em>We make one exist.</em></h2>
-      <p class="rv" style="--d:0.1s">Every work in this book travelled the same road — from raw ground, through the years of approvals nobody photographs, to the day the doors open. This is that road.</p>
-    </div>
-
-    <div class="arc">
-      <div class="st rv">
-        <p class="no">00</p>
-        <h3>Ground</h3>
-        <p>We look for land before it looks like anything. Market research, corridors, traffic counts, the parcel nobody has drawn a line on yet.</p>
-        <p class="dur">6 — 24 months</p>
+    <div class="method-grid">
+      <div class="method-lead">
+        <h2 class="display rv">Strategic. Intentional. <em>Long&#8209;term.</em></h2>
+        <p class="rv" style="--d:0.1s">We don&rsquo;t just build properties. We build lasting relationships and community-defining developments that stand for generations.</p>
       </div>
-      <div class="st rv" style="--d:0.06s">
-        <p class="no">01</p>
-        <h3>Assemblage</h3>
-        <p>Land assembled, terms agreed, the ground secured — by purchase or by long-term lease with the community that owns it.</p>
-        <p class="dur">3 — 12 months</p>
-      </div>
-      <div class="st hard rv" style="--d:0.12s">
-        <p class="no">02</p>
-        <h3>Entitlement</h3>
-        <p>Zoning, use permits, jurisdictional approval, the plat recorded. The hardest years, and the reason developers exist.</p>
-        <p class="dur">9 — 36 months</p>
-      </div>
-      <div class="st rv" style="--d:0.18s">
-        <p class="no">03</p>
-        <h3>Horizontal</h3>
-        <p>Grading, utilities, drainage, roads, pads. The land is made ready to carry a building.</p>
-        <p class="dur">4 — 10 months</p>
-      </div>
-      <div class="st rv" style="--d:0.24s">
-        <p class="no">04</p>
-        <h3>Vertical</h3>
-        <p>Steel, glass, and the thing itself. Construction managed end to end, to completion.</p>
-        <p class="dur">8 — 18 months</p>
-      </div>
-      <div class="st rv" style="--d:0.3s">
-        <p class="no">05</p>
-        <h3>Occupancy</h3>
-        <p>Certificate of occupancy, doors open, and the long hold — a term measured in decades, not quarters.</p>
-        <p class="dur">20 — 99 year terms</p>
-      </div>
-    </div>
-
-    <div class="arc-note rv">
-      <b class="mono">Note</b>
-      <p>Most firms enter at phase 04 and leave at phase 05. Mullin has spent thirty years in phases 00 through 03 — the unglamorous part, where a development is actually decided.</p>
+      <ol class="method-list">
+        <li class="rv"><div><h3>Site Selection &amp; Research</h3><p>Rigorous market analysis identifying development opportunities with long-term viability.</p></div></li>
+        <li class="rv" style="--d:0.08s"><div><h3>Development &amp; Construction</h3><p>End-to-end management, from entitlement through construction completion.</p></div></li>
+        <li class="rv" style="--d:0.16s"><div><h3>Investment &amp; Finance</h3><p>Sophisticated structuring of real estate investment and sale-leaseback financing.</p></div></li>
+        <li class="rv" style="--d:0.24s"><div><h3>Partnerships &amp; Collaboration</h3><p>Deep relationships with national and international clients — and the communities they build in.</p></div></li>
+      </ol>
     </div>
   </section>
 
@@ -955,27 +883,33 @@ footer{background:var(--night);color:var(--bone)}
     </div>
     <ul class="litany">
       <li class="rv">
-        <span class="num">01</span><span class="verb">Develop</span>
+        <span class="num">01</span>
+        <span class="verb">Develop</span>
         <p>A different approach to crafting developments — high-quality properties that create value for stakeholders and neighboring communities alike.</p>
       </li>
       <li class="rv">
-        <span class="num">02</span><span class="verb">Plan</span>
+        <span class="num">02</span>
+        <span class="verb">Plan</span>
         <p>Strategic location, attention to detail, and aesthetic consideration of the surrounding environment.</p>
       </li>
       <li class="rv">
-        <span class="num">03</span><span class="verb">Build</span>
+        <span class="num">03</span>
+        <span class="verb">Build</span>
         <p>A responsibility to minimize environmental impact — influencing how buildings are built, sourced, managed, occupied, and sold.</p>
       </li>
       <li class="rv">
-        <span class="num">04</span><span class="verb">Consult</span>
+        <span class="num">04</span>
+        <span class="verb">Consult</span>
         <p>Proprietary research, strategically applied — delivering results that surpass expectations.</p>
       </li>
       <li class="rv">
-        <span class="num">05</span><span class="verb">Partner</span>
+        <span class="num">05</span>
+        <span class="verb">Partner</span>
         <p>Long-lasting relationships with retailers, financial institutions, property owners, communities, and municipalities.</p>
       </li>
       <li class="rv">
-        <span class="num">06</span><span class="verb">Give</span>
+        <span class="num">06</span>
+        <span class="verb">Give</span>
         <p>We align our work with clients we can give back to — every engagement creates value beyond the transaction.</p>
       </li>
     </ul>
@@ -995,7 +929,7 @@ footer{background:var(--night);color:var(--bone)}
       <span class="of">/ 06</span>
     </div>
     <div class="work-intro">
-      <h2 class="display rv">An arc this long needs <em>people who stay.</em></h2>
+      <h2 class="display rv">The executive <em>team.</em></h2>
     </div>
     <ul class="people">
       <li class="rv">
@@ -1004,7 +938,7 @@ footer{background:var(--night);color:var(--bone)}
           <p class="p-title mono">President</p>
         </div>
         <p class="p-bio">Past President of Staubach AutoGroup. Involved in more than 1,200 automotive retail locations and forty-plus developments across four continents.</p>
-        <div class="p-photo"><img src="team-headshot-1.jpg" alt="Portrait of Jim Mullin" width="720" height="1008" loading="lazy" decoding="async"></div>
+        <div class="p-photo"><img src="team-headshot-1.png" alt="Portrait of Jim Mullin" width="720" height="1008" loading="lazy" decoding="async"></div>
       </li>
       <li class="rv">
         <div class="p-id">
@@ -1012,7 +946,7 @@ footer{background:var(--night);color:var(--bone)}
           <p class="p-title mono">Director of Operations</p>
         </div>
         <p class="p-bio">Operational excellence and project management, with a background spanning healthcare, property, and construction management.</p>
-        <div class="p-photo"><img src="team-headshot-2.jpg" alt="Portrait of Jacqueline Swanson" width="720" height="1009" loading="lazy" decoding="async"></div>
+        <div class="p-photo"><img src="team-headshot-2.png" alt="Portrait of Jacqueline Swanson" width="720" height="1009" loading="lazy" decoding="async"></div>
       </li>
       <li class="rv">
         <div class="p-id">
@@ -1020,7 +954,7 @@ footer{background:var(--night);color:var(--bone)}
           <p class="p-title mono">Corporate Controller</p>
         </div>
         <p class="p-bio">A four-decade finance career across Big Four firms — more than thirty years as Controller, VP&#8209;Finance, or CFO.</p>
-        <div class="p-photo"><img src="team-headshot-3.jpg" alt="Portrait of Mark Simmons" width="720" height="1008" loading="lazy" decoding="async"></div>
+        <div class="p-photo"><img src="team-headshot-3.png" alt="Portrait of Mark Simmons" width="720" height="1008" loading="lazy" decoding="async"></div>
       </li>
       <li class="rv no-photo">
         <div class="p-id">
@@ -1043,12 +977,18 @@ footer{background:var(--night);color:var(--bone)}
     <ul class="ventures">
       <li class="rv">
         <a href="https://mullin360.com" target="_blank" rel="noopener">
-          <span class="v-no">V.01</span><span class="v-name">Mullin360</span><span class="v-url">mullin360.com</span><span class="v-ar">↗</span>
+          <span class="v-no">V.01</span>
+          <span class="v-name">Mullin360</span>
+          <span class="v-url">mullin360.com</span>
+          <span class="v-ar">↗</span>
         </a>
       </li>
       <li class="rv">
         <a href="https://azcollaborate.com" target="_blank" rel="noopener">
-          <span class="v-no">V.02</span><span class="v-name">AZ Collaborate</span><span class="v-url">azcollaborate.com</span><span class="v-ar">↗</span>
+          <span class="v-no">V.02</span>
+          <span class="v-name">AZ Collaborate</span>
+          <span class="v-url">azcollaborate.com</span>
+          <span class="v-ar">↗</span>
         </a>
       </li>
     </ul>
@@ -1059,7 +999,7 @@ footer{background:var(--night);color:var(--bone)}
 <!-- ——— CTA + COLOPHON ——— -->
 <footer class="night">
   <div id="cta" class="cta-inner">
-    <h2 class="rv">Bring us <em>ground.</em></h2>
+    <h2 class="rv">Let&rsquo;s build something <em>together.</em></h2>
     <div class="cta-right">
       <p class="mono rv">Scottsdale, Arizona<br>Serving clients nationally<br>and internationally</p>
       <a href="contact.html" class="btn-seal rv">Get in touch <span class="ar">→</span></a>
@@ -1076,7 +1016,6 @@ footer{background:var(--night);color:var(--bone)}
       <ul>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="#vision">The Firm</a></li>
-        <li><a href="#arc">The Arc</a></li>
         <li><a href="#team">The People</a></li>
         <li><a href="media.html">Media</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -1112,10 +1051,12 @@ footer{background:var(--night);color:var(--bone)}
   document.body.classList.add('js');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ——— nav ——— */
+  /* ——— nav state ——— */
   var nav = document.getElementById('nav');
   var hero = document.getElementById('hero');
-  function navState(){ nav.classList.toggle('solid', window.scrollY > hero.offsetHeight - 80); }
+  function navState(){
+    nav.classList.toggle('solid', window.scrollY > hero.offsetHeight - 80);
+  }
   navState();
   window.addEventListener('scroll', navState, {passive:true});
 
@@ -1141,7 +1082,7 @@ footer{background:var(--night);color:var(--bone)}
   }, {threshold:0.08, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
 
-  /* ——— rail ——— */
+  /* ——— rail index ——— */
   var rail = document.getElementById('rail');
   var sections = document.querySelectorAll('[data-rail]');
   var railIO = new IntersectionObserver(function(entries){
@@ -1154,9 +1095,11 @@ footer{background:var(--night);color:var(--bone)}
     });
   }, {rootMargin:'-45% 0px -45% 0px'});
   sections.forEach(function(s){ railIO.observe(s); });
-
+  /* hide rail over hero + footer */
   var edges = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){ if(en.isIntersecting) rail.classList.remove('show'); });
+    entries.forEach(function(en){
+      if(en.isIntersecting) rail.classList.remove('show');
+    });
   }, {rootMargin:'-40% 0px -40% 0px'});
   edges.observe(hero);
   edges.observe(document.querySelector('footer'));
@@ -1170,7 +1113,7 @@ footer{background:var(--night);color:var(--bone)}
         var r = p.parentElement.getBoundingClientRect();
         var vh = window.innerHeight;
         if(r.bottom < 0 || r.top > vh) return;
-        var prog = (r.top + r.height/2 - vh/2) / (vh/2 + r.height/2);
+        var prog = (r.top + r.height/2 - vh/2) / (vh/2 + r.height/2); /* -1..1 */
         p.style.transform = 'translateY(' + (prog * -5) + '%)';
       });
       ticking = false;

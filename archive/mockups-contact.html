@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Page — Mockup Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#FFFFFF;
+  --white-soft:#F8FAF8;
+  --mist:#EEF3EF;
+  --mist-2:#E1E9E3;
+  --green:#0E6133;
+  --green-deep:#0A4A27;
+  --green-soft:#2C7A4B;
+  --green-muted:#7EA08A;
+  --green-pale:#DCE9E1;
+  --charcoal:#102218;
+  --stone:#5F6F66;
+  --line:#D5DED8;
+  --font-d:'Cormorant Garamond',Georgia,serif;
+  --font-b:'DM Sans',sans-serif;
+}
+body{font-family:var(--font-b);background:var(--white);color:var(--charcoal);font-size:16px;line-height:1.7}
+a{color:inherit;text-decoration:none}
+
+/* Mockup chrome */
+.mockup-banner{position:sticky;top:0;z-index:1000;background:var(--charcoal);color:var(--white);padding:0.85rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08)}
+.mockup-banner h1{font-family:var(--font-d);font-size:1.1rem;font-weight:400;display:inline}
+.mockup-banner span{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+.mockup-nav{display:flex;gap:0.6rem}
+.mockup-nav a{color:var(--green-pale);font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.4rem 0.75rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px}
+.option-label{padding:3rem 5rem 1rem;background:var(--white)}
+.option-label .pill{display:inline-block;background:var(--green);color:var(--white);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.4rem 0.9rem;border-radius:999px;margin-bottom:0.75rem}
+.option-label h2{font-family:var(--font-d);font-size:2rem;font-weight:300;color:var(--charcoal)}
+.option-label p{font-size:0.9rem;color:var(--stone);max-width:680px;margin-top:0.5rem;font-weight:300}
+
+/* Shared form / typography pieces */
+.section-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::before{content:'';display:block;width:2rem;height:1px;background:var(--green)}
+.section-title{font-family:var(--font-d);font-size:clamp(2rem,3.5vw,2.75rem);font-weight:300;line-height:1.2;color:var(--charcoal);margin-bottom:1.25rem}
+.section-title em{font-style:italic;color:var(--green)}
+
+.field{display:block;margin-bottom:1.1rem}
+.field label{display:block;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone);margin-bottom:0.4rem}
+.field input,.field select,.field textarea{width:100%;padding:0.85rem 1rem;border:1px solid var(--line);background:var(--white);color:var(--charcoal);font-family:var(--font-b);font-size:0.92rem;font-weight:300;border-radius:3px;transition:border-color 0.2s}
+.field textarea{min-height:140px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--green)}
+.btn-terra{display:inline-flex;align-items:center;gap:0.9rem;padding:1.1rem 2.5rem;font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;border-radius:3px;background:var(--green);color:var(--white);border:none;cursor:pointer;transition:all 0.3s}
+.btn-terra:hover{background:var(--green-deep)}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.9rem;padding:1.1rem 2.5rem;font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;border-radius:3px;background:transparent;color:var(--charcoal);border:1.5px solid var(--charcoal);cursor:pointer;transition:all 0.3s}
+.btn-ghost:hover{background:var(--charcoal);color:var(--white)}
+
+/* Reusable info row */
+.info-row{display:grid;grid-template-columns:80px 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line)}
+.info-row:last-child{border-bottom:none}
+.info-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone);padding-top:0.2rem}
+.info-value{color:var(--charcoal);font-weight:300;font-size:0.95rem}
+
+/* Map placeholder */
+.map-pl{position:relative;width:100%;height:100%;background:linear-gradient(135deg,#cfd9d2 0%,#b9c9bf 100%);overflow:hidden}
+.map-pl::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(circle at 30% 60%,rgba(255,255,255,0.4) 0%,transparent 30%),
+  radial-gradient(circle at 70% 30%,rgba(14,97,51,0.15) 0%,transparent 40%),
+  repeating-linear-gradient(45deg,transparent 0,transparent 60px,rgba(255,255,255,0.06) 60px,rgba(255,255,255,0.06) 120px)}
+.map-pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--green);color:var(--white);padding:0.6rem 1.1rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;border-radius:2px;white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
+.map-pin::after{content:'';position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid var(--green)}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION A — FULL-BLEED MAP, FLOATING CARD
+   ──────────────────────────────────────────────────────────────── */
+#optA .stage{position:relative;height:780px;background:var(--mist)}
+#optA .map-pl{height:100%}
+#optA .float-card{position:absolute;top:50%;left:5rem;transform:translateY(-50%);background:var(--white);width:480px;max-width:calc(100vw - 4rem);padding:3rem;box-shadow:0 30px 80px rgba(0,0,0,0.18);border-radius:4px}
+#optA .float-card h2{font-family:var(--font-d);font-size:2rem;font-weight:300;line-height:1.15;margin-bottom:0.5rem}
+#optA .float-card h2 em{font-style:italic;color:var(--green)}
+#optA .float-card .sub{color:var(--stone);font-weight:300;font-size:0.92rem;margin-bottom:1.75rem}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION B — FORM-FIRST, MINIMAL
+   Single column. Big form is the page. Sidebar has just the
+   essentials at top.
+   ──────────────────────────────────────────────────────────────── */
+#optB .stage{padding:5rem 2rem 6rem;background:var(--white-soft)}
+#optB .wrap{max-width:680px;margin:0 auto}
+#optB .stage h2{font-family:var(--font-d);font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.05;margin-bottom:0.5rem;text-align:center}
+#optB .stage h2 em{color:var(--green);font-style:italic}
+#optB .stage .sub{text-align:center;color:var(--stone);font-weight:300;margin-bottom:3rem;font-size:1.05rem}
+#optB .quick-info{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:3rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+#optB .quick-info > div{padding:1.25rem 1rem;text-align:center;border-right:1px solid var(--line)}
+#optB .quick-info > div:last-child{border-right:none}
+#optB .quick-info .info-label{font-size:0.55rem;letter-spacing:0.22em;color:var(--stone);text-transform:uppercase;margin-bottom:0.4rem}
+#optB .quick-info .info-value{font-size:0.85rem}
+#optB .submit-row{display:flex;justify-content:flex-end;margin-top:1rem}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION C — SPLIT WITH OFFICE HERO IMAGE
+   Big photo of the office on the left, contact info + form on
+   right. The "we have a real place" approach.
+   ──────────────────────────────────────────────────────────────── */
+#optC .stage{display:grid;grid-template-columns:1fr 1fr;min-height:780px}
+#optC .photo-side{background:linear-gradient(120deg,rgba(0,40,32,0.65) 0%,rgba(0,0,0,0.25) 60%),url('office.jpg') center/cover no-repeat;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:4rem 3rem;color:var(--white)}
+#optC .photo-side .eyebrow{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green-pale);margin-bottom:0.75rem}
+#optC .photo-side h2{font-family:var(--font-d);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:300;line-height:1.1;color:var(--white);margin-bottom:1.25rem}
+#optC .photo-side h2 em{color:var(--green-pale);font-style:italic}
+#optC .photo-side p{color:rgba(255,255,255,0.78);font-weight:300;font-size:0.95rem;max-width:340px;margin-bottom:2rem}
+#optC .form-side{padding:5rem 4rem;background:var(--white)}
+#optC .form-side h3{font-family:var(--font-d);font-size:1.5rem;font-weight:400;margin-bottom:1.75rem}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION D — CARD STACK
+   Grid of small cards: each contact route gets its own (form, info,
+   ventures, calendar). Modern, scannable.
+   ──────────────────────────────────────────────────────────────── */
+#optD .stage{padding:5rem 5rem 6rem;background:var(--mist-2)}
+#optD .stage h2{font-family:var(--font-d);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:300;line-height:1.1;margin-bottom:0.5rem;max-width:760px}
+#optD .stage h2 em{color:var(--green);font-style:italic}
+#optD .stage > .sub{color:var(--stone);font-weight:300;font-size:1.05rem;max-width:580px;margin-bottom:3rem}
+#optD .card-grid{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;gap:24px}
+#optD .ccard{background:var(--white);border-radius:4px;padding:2.25rem 2rem;display:flex;flex-direction:column}
+#optD .ccard.tall{grid-row:1/3}
+#optD .ccard h3{font-family:var(--font-d);font-size:1.5rem;font-weight:400;margin-bottom:0.35rem}
+#optD .ccard .ctag{font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);margin-bottom:1rem}
+#optD .ccard p{color:var(--stone);font-size:0.9rem;font-weight:300;margin-bottom:1.25rem}
+#optD .vent-list{list-style:none;display:flex;flex-direction:column;gap:0.85rem;margin-top:0.5rem}
+#optD .vent-list a{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1rem;background:var(--mist);border-radius:3px;font-size:0.9rem;color:var(--charcoal);transition:background 0.2s}
+#optD .vent-list a:hover{background:var(--green-pale)}
+#optD .vent-list a span:last-child{color:var(--green);font-size:1.2rem}
+
+/* ─────────────────────────────────────────────────────────────────
+   OPTION E — TWO-COLUMN, BOOK-A-MEETING CTA
+   Refined version of the current layout, with a prominent Calendly-
+   style scheduling CTA at the top of the right column.
+   ──────────────────────────────────────────────────────────────── */
+#optE .hero-band{padding:4rem 5rem 2rem;background:var(--mist)}
+#optE .hero-band h2{font-family:var(--font-d);font-size:clamp(2.5rem,4.5vw,3.75rem);font-weight:300;line-height:1.05;margin-bottom:0.5rem;max-width:780px}
+#optE .hero-band h2 em{color:var(--green);font-style:italic}
+#optE .hero-band p{color:var(--stone);font-size:1.05rem;font-weight:300;max-width:580px}
+#optE .stage{display:grid;grid-template-columns:1fr 1.1fr;gap:0;padding:0 5rem 5rem;background:var(--mist)}
+#optE .col-left{padding:3rem 3rem 3rem 0}
+#optE .col-right{background:var(--white);padding:3rem;border-radius:4px}
+#optE .col-right h3{font-family:var(--font-d);font-size:1.5rem;font-weight:400;margin-bottom:0.5rem}
+#optE .col-right .ctag{font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);margin-bottom:1.25rem}
+#optE .book-cta{background:linear-gradient(135deg,var(--green) 0%,var(--green-deep) 100%);color:var(--white);padding:2rem;border-radius:4px;margin-bottom:2.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+#optE .book-cta h4{font-family:var(--font-d);font-size:1.4rem;font-weight:400;margin-bottom:0.2rem}
+#optE .book-cta p{color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:300}
+#optE .book-cta a{background:var(--white);color:var(--green-deep);padding:0.85rem 1.5rem;font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;border-radius:3px;white-space:nowrap}
+#optE .col-left h3{font-family:var(--font-d);font-size:1.4rem;font-weight:400;margin-bottom:1.5rem;color:var(--charcoal)}
+#optE .ventures-block{margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--line)}
+#optE .ventures-block h4{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--stone);margin-bottom:1rem}
+#optE .vlink{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;border-bottom:1px solid var(--line);font-size:0.92rem}
+#optE .vlink:last-child{border-bottom:none}
+#optE .vlink .vname{font-weight:400}
+#optE .vlink .vurl{color:var(--green);font-size:0.78rem}
+
+/* Footer note */
+.note{padding:4rem 5rem 6rem;background:var(--mist);text-align:center}
+.note p{color:var(--stone);font-weight:300;font-size:0.95rem;max-width:700px;margin:0 auto}
+.note p strong{color:var(--charcoal);font-weight:500}
+
+@media(max-width:1024px){
+  #optA .float-card{position:static;transform:none;width:auto;margin:2rem;max-width:none}
+  #optA .stage{height:auto}
+  #optA .map-pl{height:380px}
+  #optC .stage{grid-template-columns:1fr}
+  #optC .photo-side{min-height:380px}
+  #optD .card-grid{grid-template-columns:1fr}
+  #optD .ccard.tall{grid-row:auto}
+  #optE .stage{grid-template-columns:1fr;padding:0 2rem 4rem}
+  #optE .col-left{padding:2rem 0}
+  #optB .quick-info{grid-template-columns:1fr}
+  #optB .quick-info > div{border-right:none;border-bottom:1px solid var(--line)}
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-banner">
+  <div>
+    <h1>Contact Page</h1>
+    <span style="margin-left:1rem">5 mockup options &mdash; ARC link replaced with Mullin360 in all</span>
+  </div>
+  <div class="mockup-nav">
+    <a href="#optA">A</a><a href="#optB">B</a><a href="#optC">C</a><a href="#optD">D</a><a href="#optE">E</a>
+  </div>
+</div>
+
+<!-- ─── OPTION A: FULL-BLEED MAP ─────────────────────────────── -->
+<section class="option-label" id="optA-label">
+  <span class="pill">Option A</span>
+  <h2>Full-bleed map, floating contact card</h2>
+  <p>Map fills the screen. A clean white card floats over the left side with contact form and info. Best if the Scottsdale location is a selling point worth foregrounding.</p>
+</section>
+<section id="optA"><div class="stage">
+  <div class="map-pl"><div class="map-pin">Mullin Development HQ</div></div>
+  <div class="float-card">
+    <p class="section-label">Contact</p>
+    <h2>Let&rsquo;s <em>talk.</em></h2>
+    <p class="sub">A few details and we&rsquo;ll be in touch within 1&ndash;2 business days.</p>
+    <form>
+      <div class="field"><label>Name</label><input type="text"></div>
+      <div class="field"><label>Email</label><input type="email"></div>
+      <div class="field"><label>Inquiry</label><select><option>Development</option><option>Investment</option><option>Partnership</option></select></div>
+      <div class="field"><label>Message</label><textarea></textarea></div>
+      <button class="btn-terra">Send Message &rarr;</button>
+    </form>
+  </div>
+</div></section>
+
+<!-- ─── OPTION B: FORM-FIRST MINIMAL ─────────────────────────── -->
+<section class="option-label" id="optB-label">
+  <span class="pill">Option B</span>
+  <h2>Form-first, minimal</h2>
+  <p>Single column. The form is the page. Quick info (address / phone / email) sits in a thin band above. Removes friction &mdash; opens directly into the action.</p>
+</section>
+<section id="optB"><div class="stage"><div class="wrap">
+  <p class="section-label" style="justify-content:center">Get in touch</p>
+  <h2>Let&rsquo;s <em>build something</em><br>together.</h2>
+  <p class="sub">Tell us about your project &mdash; we&rsquo;ll respond within 1&ndash;2 business days.</p>
+  <div class="quick-info">
+    <div><div class="info-label">Office</div><div class="info-value">Scottsdale, AZ</div></div>
+    <div><div class="info-label">Phone</div><div class="info-value">(480) 555-0100</div></div>
+    <div><div class="info-label">Email</div><div class="info-value">hello@mullindev.com</div></div>
+  </div>
+  <form>
+    <div class="field"><label>Name</label><input type="text"></div>
+    <div class="field"><label>Company</label><input type="text"></div>
+    <div class="field"><label>Email</label><input type="email"></div>
+    <div class="field"><label>Inquiry Type</label><select><option>Development opportunity</option><option>Investment</option><option>Partnership</option><option>Press / Media</option></select></div>
+    <div class="field"><label>Message</label><textarea placeholder="Tell us about your project, timeline, and location..."></textarea></div>
+    <div class="submit-row"><button class="btn-terra">Send Message &rarr;</button></div>
+  </form>
+</div></div></section>
+
+<!-- ─── OPTION C: OFFICE PHOTO SPLIT ─────────────────────────── -->
+<section class="option-label" id="optC-label">
+  <span class="pill">Option C</span>
+  <h2>Office photo split</h2>
+  <p>Hero photo of the actual office on the left, form on the right. Says "we have a real place, real people." Works best if you have strong office / team imagery.</p>
+</section>
+<section id="optC"><div class="stage">
+  <div class="photo-side">
+    <div>
+      <p class="eyebrow">Scottsdale, Arizona</p>
+      <h2>Stop by, or<br>start a <em>conversation.</em></h2>
+      <p>7272 E Indian School Rd. Open Mon&ndash;Fri, 8am to 5pm. Or send a note &mdash; we read every one.</p>
+      <a href="#" class="btn-ghost" style="border-color:rgba(255,255,255,0.6);color:var(--white)">Get Directions &rarr;</a>
+    </div>
+  </div>
+  <div class="form-side">
+    <p class="section-label">Send a Note</p>
+    <h3>How can we help?</h3>
+    <form>
+      <div class="field"><label>Name</label><input type="text"></div>
+      <div class="field"><label>Email</label><input type="email"></div>
+      <div class="field"><label>Inquiry</label><select><option>Development</option><option>Investment</option><option>Partnership</option></select></div>
+      <div class="field"><label>Message</label><textarea></textarea></div>
+      <button class="btn-terra">Send Message &rarr;</button>
+    </form>
+  </div>
+</div></section>
+
+<!-- ─── OPTION D: CARD STACK ─────────────────────────────────── -->
+<section class="option-label" id="optD-label">
+  <span class="pill">Option D</span>
+  <h2>Card stack</h2>
+  <p>Each contact route gets its own card: form, location, ventures (with the new Mullin360 link), schedule a meeting. Modern and scannable. Visitor picks their own path.</p>
+</section>
+<section id="optD"><div class="stage">
+  <p class="section-label">Contact</p>
+  <h2>Multiple ways to <em>reach us.</em></h2>
+  <p class="sub">Pick what fits &mdash; send a quick note, schedule a meeting, or stop by the office.</p>
+  <div class="card-grid">
+    <div class="ccard tall">
+      <p class="ctag">Send a Message</p>
+      <h3>Tell us about it</h3>
+      <p>Project, timeline, location &mdash; whatever&rsquo;s relevant. We respond within 1&ndash;2 business days.</p>
+      <form style="margin-top:auto">
+        <div class="field"><label>Name</label><input type="text"></div>
+        <div class="field"><label>Email</label><input type="email"></div>
+        <div class="field"><label>Inquiry</label><select><option>Development</option><option>Investment</option><option>Partnership</option></select></div>
+        <div class="field"><label>Message</label><textarea style="min-height:100px"></textarea></div>
+        <button class="btn-terra">Send &rarr;</button>
+      </form>
+    </div>
+    <div class="ccard">
+      <p class="ctag">Visit</p>
+      <h3>Scottsdale Office</h3>
+      <p>7272 E Indian School Rd<br>Scottsdale, AZ 85251<br>Mon&ndash;Fri &middot; 8am &ndash; 5pm</p>
+      <a href="#" class="btn-ghost" style="margin-top:auto;align-self:flex-start">Directions &rarr;</a>
+    </div>
+    <div class="ccard">
+      <p class="ctag">Our Ventures</p>
+      <h3>Other ways to connect</h3>
+      <ul class="vent-list">
+        <li><a href="https://mullin360.com" target="_blank"><span>Mullin360</span><span>&rarr;</span></a></li>
+        <li><a href="https://azcollaborate.com" target="_blank"><span>AZ Collaborate</span><span>&rarr;</span></a></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- ─── OPTION E: TWO-COL WITH BOOK-A-MEETING CTA ────────────── -->
+<section class="option-label" id="optE-label">
+  <span class="pill">Option E</span>
+  <h2>Two-column with book-a-meeting CTA</h2>
+  <p>Refined version of the current layout. Big "Book a 30-min intro" CTA at the top of the right column for serious prospects, full form below. Info + ventures (Mullin360 link) on the left.</p>
+</section>
+<section id="optE">
+  <div class="hero-band">
+    <p class="section-label">Contact</p>
+    <h2>Let&rsquo;s build<br>something <em>together.</em></h2>
+    <p>Reach out for development, investment, or partnership conversations.</p>
+  </div>
+  <div class="stage">
+    <div class="col-left">
+      <h3>Get in touch</h3>
+      <div class="info-row"><div class="info-label">Office</div><div class="info-value">7272 E Indian School Rd<br>Scottsdale, AZ 85251</div></div>
+      <div class="info-row"><div class="info-label">Phone</div><div class="info-value">(480) 555-0100</div></div>
+      <div class="info-row"><div class="info-label">Email</div><div class="info-value">hello@mullindev.com</div></div>
+      <div class="info-row"><div class="info-label">Hours</div><div class="info-value">Mon&ndash;Fri &middot; 8am &ndash; 5pm</div></div>
+      <div class="ventures-block">
+        <h4>Our Ventures</h4>
+        <a href="https://mullin360.com" target="_blank" class="vlink"><span class="vname">Mullin360</span><span class="vurl">mullin360.com &rarr;</span></a>
+        <a href="https://azcollaborate.com" target="_blank" class="vlink"><span class="vname">AZ Collaborate</span><span class="vurl">azcollaborate.com &rarr;</span></a>
+      </div>
+    </div>
+    <div class="col-right">
+      <div class="book-cta">
+        <div>
+          <h4>Book a 30-min intro</h4>
+          <p>Skip the back and forth. Pick a time that works.</p>
+        </div>
+        <a href="#">Schedule &rarr;</a>
+      </div>
+      <p class="ctag">Or send a message</p>
+      <h3>How can we help?</h3>
+      <form style="margin-top:1.25rem">
+        <div class="field"><label>Name</label><input type="text"></div>
+        <div class="field"><label>Email</label><input type="email"></div>
+        <div class="field"><label>Inquiry</label><select><option>Development</option><option>Investment</option><option>Partnership</option><option>Press</option></select></div>
+        <div class="field"><label>Message</label><textarea></textarea></div>
+        <button class="btn-terra">Send Message &rarr;</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="note">
+  <p><strong>Reviewing:</strong> All five include the venture link to Mullin360 (replacing American Resort Communities / ARC). Pick a letter and I&rsquo;ll port it into <code>contact.html</code>.</p>
+</div>
+
+</body>
+</html>

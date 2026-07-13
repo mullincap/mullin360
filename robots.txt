@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_source/
+Disallow: /archive/
+
+Sitemap: https://mullindev.com/sitemap.xml

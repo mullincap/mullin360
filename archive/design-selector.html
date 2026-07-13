@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Selector — Mullin Development</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#FFFFFF;
+  --white-soft:#F8FAF8;
+  --mist:#EEF3EF;
+  --mist-2:#E1E9E3;
+  --green:#0E6133;
+  --green-deep:#0A4A27;
+  --green-soft:#2C7A4B;
+  --green-muted:#7EA08A;
+  --green-pale:#DCE9E1;
+  --charcoal:#102218;
+  --charcoal-soft:#1A2E22;
+  --stone:#5F6F66;
+  --stone-light:#86958D;
+  --line:#D5DED8;
+  --font-d:'Cormorant Garamond',Georgia,serif;
+  --font-b:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--white);color:var(--charcoal);font-size:16px;line-height:1.7;overflow-x:hidden}
+
+/* ──────────────────────────────────────────────────────────────────────
+   DESIGN SELECTOR TOOLBAR
+   ────────────────────────────────────────────────────────────────────── */
+.ds-toolbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--charcoal);color:var(--white);padding:0.85rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;border-bottom:1px solid rgba(255,255,255,0.08);box-shadow:0 4px 14px rgba(0,0,0,0.2)}
+.ds-brand{font-family:var(--font-d);font-style:italic;font-size:1.05rem;font-weight:400;color:var(--green-pale);white-space:nowrap}
+.ds-brand small{display:block;font-family:var(--font-b);font-style:normal;font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:2px}
+.ds-controls{display:flex;gap:1rem;flex:1;justify-content:center;flex-wrap:wrap}
+.ds-controls label{display:flex;align-items:center;gap:0.5rem;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.55)}
+.ds-controls select{font-family:var(--font-b);font-size:0.78rem;letter-spacing:0.04em;background:rgba(255,255,255,0.08);color:var(--white);border:1px solid rgba(255,255,255,0.18);border-radius:3px;padding:0.45rem 0.75rem;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23DCE9E1' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.6rem center;padding-right:1.75rem;min-width:230px}
+.ds-controls select:hover{background-color:rgba(255,255,255,0.14)}
+.ds-controls select:focus{outline:none;border-color:var(--green-pale)}
+.ds-back,.ds-collapse{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.55);text-decoration:none;background:transparent;border:1px solid rgba(255,255,255,0.15);padding:0.5rem 0.85rem;border-radius:3px;transition:all 0.2s;white-space:nowrap;font-family:var(--font-b);cursor:pointer}
+.ds-back:hover,.ds-collapse:hover{background:rgba(255,255,255,0.08);color:var(--green-pale);border-color:var(--green-pale)}
+.ds-toolbar-end{display:flex;gap:0.5rem;align-items:center}
+body{padding-top:60px}
+
+/* Collapsed state */
+.ds-toolbar{transition:transform 0.35s cubic-bezier(0.22,1,0.36,1)}
+body.toolbar-collapsed .ds-toolbar{transform:translateY(-100%)}
+body.toolbar-collapsed{padding-top:0}
+body.toolbar-collapsed nav#nb{top:0}
+
+/* Show tab (visible only when collapsed) */
+.ds-show{position:fixed;top:0.6rem;right:0.85rem;z-index:300;background:var(--charcoal);color:var(--green-pale);border:1px solid rgba(255,255,255,0.18);padding:0.5rem 0.9rem;border-radius:3px;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;font-family:var(--font-b);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(-12px);transition:all 0.3s cubic-bezier(0.22,1,0.36,1);box-shadow:0 8px 24px rgba(0,0,0,0.25)}
+body.toolbar-collapsed .ds-show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.ds-show:hover{background:var(--green-deep);color:var(--white)}
+
+/* Variant visibility */
+.hero-variant,.team-variant,.contact-variant{display:none}
+.hero-variant.active,.team-variant.active,.contact-variant.active{display:block}
+
+/* Variant label badge inside each variant */
+.variant-tag{position:absolute;top:0.85rem;left:0.85rem;z-index:50;background:rgba(14,97,51,0.92);color:var(--white);padding:0.35rem 0.75rem;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;border-radius:2px;pointer-events:none;backdrop-filter:blur(4px)}
+
+/* ──────────────────────────────────────────────────────────────────────
+   NAV (matches site)
+   ────────────────────────────────────────────────────────────────────── */
+nav#nb{position:fixed;top:60px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 5rem;transition:background 0.4s,box-shadow 0.4s}
+nav#nb::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(22,18,14,0.75) 0%,transparent 100%);pointer-events:none;transition:opacity 0.4s;z-index:-1}
+nav#nb.scrolled::before{opacity:0}
+nav#nb.scrolled{background:rgba(16,34,24,0.96);box-shadow:0 1px 0 rgba(255,255,255,0.06)}
+.nav-logo{position:relative;display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:34px;width:auto;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.18))}
+.nav-links{position:relative;display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.78);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--green-pale)}
+
+/* ──────────────────────────────────────────────────────────────────────
+   ANIMATIONS
+   ────────────────────────────────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1),transform 0.8s cubic-bezier(0.22,1,0.36,1)}
+.reveal.from-left{transform:translateX(-40px)}
+.reveal.from-right{transform:translateX(40px)}
+.reveal.visible{opacity:1;transform:translateY(0) translateX(0)}
+
+/* ──────────────────────────────────────────────────────────────────────
+   HERO — shared base
+   ────────────────────────────────────────────────────────────────────── */
+.hero-base{height:100vh;min-height:760px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center}
+.hero-base .hero-bg{position:absolute;inset:-10% 0;background:linear-gradient(to top,rgba(0,40,32,0.97) 0%,rgba(0,0,0,0.9) 45%,rgba(0,0,0,0.5) 100%),url('sas.jpg') center/cover no-repeat;will-change:transform}
+.hero-base .hero-content{position:relative;z-index:2;max-width:960px;padding:0 2rem}
+.hero-base .eyebrow{font-size:0.82rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--green-pale);margin-bottom:1.25rem}
+.hero-base h1{font-family:var(--font-d);font-size:clamp(3.8rem,8.5vw,7.2rem);font-weight:300;line-height:1.02;color:var(--white);margin-bottom:1.25rem}
+.hero-base h1 em{font-style:italic;color:var(--green-pale);font-weight:400}
+.hero-base .hero-sub{font-size:1.22rem;color:rgba(255,255,255,0.88);max-width:620px;margin:0 auto 2.5rem;font-weight:300}
+.btn-terra{display:inline-flex;align-items:center;gap:0.9rem;padding:1.25rem 3rem;font-size:0.85rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;font-weight:500;border-radius:6px;background:var(--green);color:var(--white);transition:all 0.3s}
+.btn-terra:hover{background:var(--green-deep);transform:translateY(-3px)}
+.btn-sage{display:inline-flex;align-items:center;gap:0.9rem;padding:1.25rem 3rem;font-size:0.85rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;font-weight:500;border-radius:6px;border:2px solid rgba(255,255,255,0.75);color:var(--white);margin-left:1rem;transition:all 0.3s}
+.btn-sage:hover{background:rgba(255,255,255,0.1)}
+.btn-link{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;color:var(--green);text-decoration:none;padding:0.5rem 0;transition:gap 0.25s ease,color 0.2s}
+.btn-link:hover{color:var(--green-deep);gap:1rem}
+
+/* ───── HERO A: Floating stat card overlap ───── */
+.hero-a .hero-base{height:calc(100vh + 80px);min-height:calc(760px + 80px)}
+.hero-a .statband-float{position:relative;margin:-73px 5rem -73px;background:var(--white);box-shadow:0 12px 36px rgba(0,0,0,0.10);display:grid;grid-template-columns:repeat(4,1fr);z-index:5;border-radius:4px;overflow:hidden}
+.hero-a .statband-float .stat{padding:2.5rem 1.5rem;text-align:center;border-right:1px solid var(--line)}
+.hero-a .statband-float .stat:last-child{border-right:none}
+.hero-a .statband-float .stat-n{font-family:var(--font-d);font-size:2.75rem;font-weight:300;color:var(--green);line-height:1}
+.hero-a .statband-float .stat-l{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone);margin-top:0.5rem}
+
+/* ───── HERO B: Vertical stat column ───── */
+.hero-b .hero-base{text-align:left}
+.hero-b .hero-content{max-width:1280px;width:100%;display:grid;grid-template-columns:1.4fr 1fr;gap:5rem;align-items:center}
+.hero-b h1{font-size:clamp(3rem,6.5vw,5.5rem)}
+.hero-b .hero-sub{margin-left:0}
+.hero-b .statcol{display:flex;flex-direction:column;gap:0;border-left:1px solid rgba(220,233,225,0.25);padding-left:2.5rem}
+.hero-b .statcol .stat{padding:1.4rem 0;border-bottom:1px solid rgba(220,233,225,0.15)}
+.hero-b .statcol .stat:last-child{border-bottom:none}
+.hero-b .statcol .stat-n{font-family:var(--font-d);font-size:2.5rem;font-weight:300;color:var(--white);line-height:1}
+.hero-b .statcol .stat-n em{color:var(--green-pale);font-style:normal}
+.hero-b .statcol .stat-l{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(220,233,225,0.6);margin-top:0.35rem}
+
+/* ───── HERO C: Inline stat row ───── */
+.hero-c .statinline{display:flex;justify-content:center;gap:0;margin:0 auto 2.5rem;max-width:800px;border-top:1px solid rgba(220,233,225,0.2);border-bottom:1px solid rgba(220,233,225,0.2);padding:1.5rem 0}
+.hero-c .statinline .stat{flex:1;text-align:center;border-right:1px solid rgba(220,233,225,0.15);padding:0 0.5rem}
+.hero-c .statinline .stat:last-child{border-right:none}
+.hero-c .statinline .stat-n{font-family:var(--font-d);font-size:1.85rem;font-weight:400;color:var(--green-pale);line-height:1}
+.hero-c .statinline .stat-l{font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-top:0.4rem}
+
+/* ───── HERO D: Typographic watermark ───── */
+.hero-d .hero-base{min-height:840px}
+.hero-d .hero-content{position:relative}
+.hero-d .statwatermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:0;overflow:hidden}
+.hero-d .statwatermark .stat-n{font-family:var(--font-d);font-size:clamp(12rem,24vw,22rem);font-weight:300;color:rgba(220,233,225,0.06);letter-spacing:-0.02em;line-height:1}
+.hero-d .hero-content > *{position:relative;z-index:2}
+.hero-d .statwm-row{position:absolute;bottom:3.5rem;left:0;right:0;display:flex;justify-content:center;gap:3rem;z-index:3;flex-wrap:wrap}
+.hero-d .statwm-row .stat{text-align:center;opacity:0.85}
+.hero-d .statwm-row .stat-n{font-family:var(--font-d);font-size:1.5rem;font-weight:400;color:var(--green-pale)}
+.hero-d .statwm-row .stat-l{font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-top:0.2rem}
+
+/* ───── HERO E: Glass stats bar — sits below the fold ───── */
+.hero-e .stats-glass{background:linear-gradient(to top,var(--green-deep) 0%,var(--green) 100%);display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(220,233,225,0.15)}
+.hero-e .stats-glass .stat{padding:2.75rem 1.5rem;text-align:center;border-right:1px solid rgba(220,233,225,0.1);position:relative}
+.hero-e .stats-glass .stat:last-child{border-right:none}
+.hero-e .stats-glass .stat::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:2.5rem;height:2px;background:var(--green-pale)}
+.hero-e .stats-glass .stat-n{font-family:var(--font-d);font-size:2.6rem;font-weight:300;color:var(--white);line-height:1}
+.hero-e .stats-glass .stat-l{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green-pale);margin-top:0.5rem}
+
+/* ──────────────────────────────────────────────────────────────────────
+   VISION (production)
+   ────────────────────────────────────────────────────────────────────── */
+#vision{display:grid;grid-template-columns:1fr 1fr;min-height:620px}
+.vision-img{position:relative;overflow:hidden}
+.vision-img img{width:100%;height:100%;object-fit:cover;min-height:500px;display:block}
+.vision-text{padding:5rem 4rem 5rem 5rem;background:var(--mist);display:flex;flex-direction:column;justify-content:center}
+.vision-slides{position:relative;width:100%;height:100%;min-height:500px}
+.vision-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;z-index:0}
+.vision-slide.active{opacity:1;z-index:1}
+.vision-slide img{width:100%;height:100%;object-fit:cover;display:block;min-height:500px}
+.slide-dots{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:0.5rem;z-index:3}
+.slide-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.4);border:none;cursor:pointer;padding:0;transition:background 0.3s}
+.slide-dot.active{background:var(--green-pale)}
+.section-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::before{content:'';display:block;width:2rem;height:1px;background:var(--green)}
+.section-title{font-family:var(--font-d);font-size:clamp(2rem,3.5vw,2.75rem);font-weight:300;line-height:1.2;color:var(--charcoal);margin-bottom:1.5rem}
+.section-title em{font-style:italic;color:var(--green)}
+blockquote{font-family:var(--font-d);font-size:1.25rem;font-style:italic;font-weight:300;color:var(--green-deep);padding:1.5rem 0 1.5rem 1.5rem;border-left:2px solid var(--green);margin:1.75rem 0;line-height:1.5}
+.vision-text p{color:var(--stone);font-weight:300;margin-bottom:1rem;font-size:0.95rem}
+.divider{width:2.5rem;height:1px;background:var(--green);margin:1.5rem 0}
+
+/* ──────────────────────────────────────────────────────────────────────
+   PROJECTS (production with current spacing)
+   ────────────────────────────────────────────────────────────────────── */
+#projects{padding:6rem 10rem;background:var(--white)}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5rem}
+.pcard{position:relative;overflow:hidden;cursor:pointer}
+.pcard img{width:100%;height:280px;object-fit:cover;display:block;transition:transform 0.7s ease}
+.pcard:hover img{transform:scale(1.04)}
+.poverlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(44,40,32,0.88) 0%,transparent 52%);display:flex;flex-direction:column;justify-content:flex-end;padding:2rem}
+.ptag{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green-pale);margin-bottom:0.35rem}
+.pname{font-family:var(--font-d);font-size:1.5rem;font-weight:400;color:var(--white)}
+.ploc{font-size:0.78rem;color:rgba(245,240,232,0.5)}
+
+/* ──────────────────────────────────────────────────────────────────────
+   APPROACH (production)
+   ────────────────────────────────────────────────────────────────────── */
+#approach{background:linear-gradient(135deg,var(--green-deep) 0%, var(--green) 100%);color:var(--white);display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;padding:6rem 5rem;align-items:start}
+.approach-intro .section-label{color:rgba(255,255,255,0.72)}
+.approach-intro .section-label::before{background:rgba(255,255,255,0.5)}
+.approach-intro .section-title{color:var(--white)}
+.approach-intro .section-title em{color:var(--green-pale)}
+.approach-intro>p{color:rgba(255,255,255,0.72);font-weight:300;font-size:0.92rem;max-width:340px;margin-top:1.25rem}
+.pillars{display:flex;flex-direction:column}
+.pillar{display:grid;grid-template-columns:3rem 1fr;gap:1.5rem;padding:2rem 0;border-bottom:1px solid rgba(245,240,232,0.1);align-items:start}
+.pnum{font-family:var(--font-d);font-size:2rem;font-weight:300;color:var(--green-pale);line-height:1}
+.pillar h3{font-family:var(--font-d);font-size:1.2rem;font-weight:400;color:var(--white);margin-bottom:0.35rem}
+.pillar p{font-size:0.875rem;color:rgba(255,255,255,0.68);font-weight:300}
+
+/* ──────────────────────────────────────────────────────────────────────
+   DEVELOPMENT (production)
+   ────────────────────────────────────────────────────────────────────── */
+#development{display:grid;grid-template-columns:280px 1fr;min-height:580px;background:var(--mist)}
+.dev-sidebar{display:flex;align-items:center;justify-content:center;padding:5rem 2.5rem;background:var(--green-pale);position:relative}
+.dev-sidebar::after{content:'';position:absolute;top:4rem;bottom:4rem;right:0;width:1px;background:linear-gradient(to bottom,transparent,var(--green-muted) 30%,var(--green-muted) 70%,transparent)}
+.dev-sidebar-label{font-family:var(--font-d);font-size:clamp(2rem,2.8vw,2.75rem);font-weight:300;color:var(--charcoal);letter-spacing:0.06em;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);line-height:1}
+.dev-body{padding:5rem 4.5rem;background:var(--mist)}
+.dev-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.dev-card{padding:2.25rem 0;border-bottom:1px solid var(--line)}
+.dev-card:nth-child(odd){padding-right:3rem;border-right:1px solid var(--line)}
+.dev-card:nth-child(even){padding-left:3rem}
+.dev-card:nth-last-child(-n+2){border-bottom:none}
+.dev-icon{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem}
+.dev-icon svg{flex-shrink:0;color:var(--green)}
+.dev-card h3{font-size:0.67rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);font-family:var(--font-b);font-weight:500;margin:0}
+.dev-card p{font-size:0.875rem;color:var(--stone);font-weight:300;line-height:1.7;margin-top:0.55rem}
+
+/* ──────────────────────────────────────────────────────────────────────
+   TEAM — shared base
+   ────────────────────────────────────────────────────────────────────── */
+.team-frame{padding:6rem 5rem;background:var(--mist-2)}
+.team-frame .section-label{margin-bottom:0.75rem}
+
+/* Headshot rendering — transparent PNG over flat green-pale */
+.headshot-img{background:var(--green-pale);position:relative;overflow:hidden}
+.headshot-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 18%}
+.headshot-img.placeholder{display:flex;align-items:center;justify-content:center}
+.headshot-img.placeholder::after{content:'MJ';font-family:var(--font-d);font-size:3rem;color:var(--green);opacity:0.5;font-style:italic}
+
+/* ───── TEAM A: Clean grid, names below ───── */
+.team-a .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.team-a .tmember{background:transparent}
+.team-a .headshot-img{height:380px;border-radius:2px}
+.team-a .tinfo{padding-top:1.25rem;text-align:left}
+.team-a .tname{font-family:var(--font-d);font-size:1.4rem;font-weight:400;color:var(--charcoal)}
+.team-a .ttitle{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-top:0.35rem}
+
+/* ───── TEAM B: Featured leader + cluster ───── */
+.team-b .lead-card{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;background:var(--white);padding:3rem;margin-bottom:3rem;align-items:center;border-radius:4px}
+.team-b .lead-card .headshot-img{height:420px;border-radius:2px}
+.team-b .lead-card h3{font-family:var(--font-d);font-size:2.4rem;font-weight:300;color:var(--charcoal);margin-bottom:0.4rem}
+.team-b .lead-card .ttitle{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem}
+.team-b .lead-card p{font-size:0.92rem;color:var(--stone);font-weight:300;line-height:1.75}
+.team-b .row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.team-b .row-3 .headshot-img{height:320px}
+.team-b .row-3 .tinfo{padding-top:1rem;text-align:left}
+.team-b .row-3 .tname{font-family:var(--font-d);font-size:1.2rem;font-weight:400;color:var(--charcoal)}
+.team-b .row-3 .ttitle{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-top:0.3rem}
+
+/* ───── TEAM C: Circular portraits + bios (current production base) ───── */
+.team-c .team-frame{background:var(--mist)}
+.team-c .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3rem;max-width:1200px;margin:0 auto}
+.team-c .headshot-img{width:240px;height:240px;border-radius:50%;margin:0 auto;background:var(--green-pale)}
+.team-c .headshot-img img{border-radius:50%}
+.team-c .tinfo{text-align:center;padding-top:1.5rem}
+.team-c .tname{font-family:var(--font-d);font-size:1.35rem;font-weight:400;color:var(--charcoal)}
+.team-c .ttitle{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);margin-top:0.4rem;margin-bottom:1rem}
+.team-c .tbio{font-size:0.85rem;color:var(--stone);font-weight:300;line-height:1.65;max-width:240px;margin:0 auto}
+.team-c .section-label{justify-content:center}
+.team-c .section-title{text-align:center}
+
+/* ───── TEAM D: Editorial roster ───── */
+.team-d .roster{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.team-d .roster-row{display:grid;grid-template-columns:200px 1.2fr 2fr;gap:3rem;padding:2.5rem 0;border-bottom:1px solid var(--line);align-items:center}
+.team-d .roster-row .headshot-img{width:200px;height:200px;border-radius:2px}
+.team-d .roster-row h3{font-family:var(--font-d);font-size:2rem;font-weight:300;color:var(--charcoal);line-height:1.1}
+.team-d .roster-row .ttitle{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-top:0.5rem}
+.team-d .roster-row p{font-size:0.88rem;color:var(--stone);font-weight:300;line-height:1.7}
+
+/* ───── TEAM E: Hover-reveal tiles ───── */
+.team-e .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.team-e .tmember{position:relative;overflow:hidden;border-radius:2px;cursor:pointer;background:var(--green-pale)}
+.team-e .headshot-img{height:420px}
+.team-e .reveal-info{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top,var(--charcoal) 60%,rgba(16,34,24,0.8) 90%,transparent 100%);color:var(--white);padding:1.5rem 1.5rem 1.5rem;transform:translateY(calc(100% - 5rem));transition:transform 0.45s cubic-bezier(0.22,1,0.36,1)}
+.team-e .tmember:hover .reveal-info{transform:translateY(0)}
+.team-e .tname{font-family:var(--font-d);font-size:1.3rem;font-weight:400}
+.team-e .ttitle{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green-pale);margin-top:0.3rem;margin-bottom:0.85rem}
+.team-e .tbio{font-size:0.8rem;color:rgba(255,255,255,0.75);font-weight:300;line-height:1.6}
+
+/* ───── TEAM F: Current production (portrait squares + bios, white bg) ───── */
+.team-f .team-frame{background:var(--white);text-align:center}
+.team-f .section-label{justify-content:center}
+.team-f .section-title{margin-bottom:3.5rem}
+.team-f .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3rem;max-width:1200px;margin:0 auto}
+.team-f .tmember{display:flex;flex-direction:column;align-items:center}
+.team-f .headshot-img{width:240px;height:320px;background:var(--green-pale);overflow:hidden;position:relative}
+.team-f .headshot-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform 0.5s ease}
+.team-f .tmember:hover .headshot-img img{transform:scale(1.04)}
+.team-f .tinfo{padding-top:1.5rem;text-align:center}
+.team-f .tname{font-family:var(--font-d);font-size:1.35rem;font-weight:400;color:var(--charcoal);line-height:1.2}
+.team-f .ttitle{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);margin-top:0.4rem;margin-bottom:1rem}
+.team-f .tbio{font-size:0.85rem;color:var(--stone);font-weight:300;line-height:1.65;max-width:240px;margin:0 auto}
+
+/* ──────────────────────────────────────────────────────────────────────
+   CTA (production)
+   ────────────────────────────────────────────────────────────────────── */
+#cta{background:var(--green);padding:5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+#cta h2{font-family:var(--font-d);font-size:2.75rem;font-weight:300;color:var(--white)}
+#cta p{color:rgba(255,255,255,0.76);font-size:0.9rem;margin-top:0.4rem;font-weight:300}
+.btn-cream{display:inline-flex;align-items:center;gap:0.75rem;background:var(--white);color:var(--green-deep);padding:1rem 2.5rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;font-weight:500;white-space:nowrap;transition:background 0.2s}
+.btn-cream:hover{background:var(--green-pale)}
+
+/* ──────────────────────────────────────────────────────────────────────
+   CONTACT — shared form bits
+   ────────────────────────────────────────────────────────────────────── */
+.contact-frame{position:relative}
+.contact-frame .field{display:block;margin-bottom:1.1rem}
+.contact-frame .field label{display:block;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone);margin-bottom:0.4rem}
+.contact-frame .field input,.contact-frame .field select,.contact-frame .field textarea{width:100%;padding:0.85rem 1rem;border:1px solid var(--line);background:var(--white);color:var(--charcoal);font-family:var(--font-b);font-size:0.92rem;font-weight:300;border-radius:3px}
+.contact-frame .field textarea{min-height:120px;resize:vertical}
+.btn-c-terra{display:inline-flex;align-items:center;gap:0.75rem;padding:1.1rem 2.5rem;font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;border-radius:3px;background:var(--green);color:var(--white);border:none;cursor:pointer}
+.btn-c-ghost{display:inline-flex;align-items:center;gap:0.75rem;padding:1.1rem 2.5rem;font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;border-radius:3px;background:transparent;color:var(--charcoal);border:1.5px solid var(--charcoal);text-decoration:none}
+.contact-info-row{display:grid;grid-template-columns:80px 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line)}
+.contact-info-row:last-child{border-bottom:none}
+.cir-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone);padding-top:0.2rem}
+.cir-value{color:var(--charcoal);font-weight:300;font-size:0.95rem}
+
+/* Map placeholder visual (no live iframe in selector) */
+.map-pl{position:relative;width:100%;height:100%;background:linear-gradient(135deg,#cfd9d2 0%,#b9c9bf 100%);overflow:hidden}
+.map-pl::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 60%,rgba(255,255,255,0.4) 0%,transparent 30%),radial-gradient(circle at 70% 30%,rgba(14,97,51,0.15) 0%,transparent 40%),repeating-linear-gradient(45deg,transparent 0,transparent 60px,rgba(255,255,255,0.06) 60px,rgba(255,255,255,0.06) 120px)}
+.map-pin-c{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--green);color:var(--white);padding:0.6rem 1.1rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;border-radius:2px;white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
+.map-pin-c::after{content:'';position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid var(--green)}
+
+/* ───── CONTACT A: Full-bleed map + floating card ───── */
+.contact-a .stage{position:relative;height:780px;background:var(--mist)}
+.contact-a .map-pl{height:100%}
+.contact-a .float-card{position:absolute;top:50%;left:5rem;transform:translateY(-50%);background:var(--white);width:480px;max-width:calc(100vw - 4rem);padding:3rem;box-shadow:0 30px 80px rgba(0,0,0,0.18);border-radius:4px}
+.contact-a .float-card h2{font-family:var(--font-d);font-size:2rem;font-weight:300;line-height:1.15;margin-bottom:0.5rem}
+.contact-a .float-card h2 em{font-style:italic;color:var(--green)}
+.contact-a .float-card .sub{color:var(--stone);font-weight:300;font-size:0.92rem;margin-bottom:1.75rem}
+
+/* ───── CONTACT B: Form-first minimal ───── */
+.contact-b .stage{padding:5rem 2rem 6rem;background:var(--white-soft)}
+.contact-b .wrap{max-width:680px;margin:0 auto}
+.contact-b .stage h2{font-family:var(--font-d);font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.05;margin-bottom:0.5rem;text-align:center}
+.contact-b .stage h2 em{color:var(--green);font-style:italic}
+.contact-b .stage .sub{text-align:center;color:var(--stone);font-weight:300;margin-bottom:3rem;font-size:1.05rem}
+.contact-b .quick-info{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:3rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.contact-b .quick-info > div{padding:1.25rem 1rem;text-align:center;border-right:1px solid var(--line)}
+.contact-b .quick-info > div:last-child{border-right:none}
+.contact-b .qi-label{font-size:0.55rem;letter-spacing:0.22em;color:var(--stone);text-transform:uppercase;margin-bottom:0.4rem}
+.contact-b .qi-value{font-size:0.85rem;color:var(--charcoal);font-weight:300}
+.contact-b .submit-row{display:flex;justify-content:flex-end;margin-top:1rem}
+
+/* ───── CONTACT C: Office photo split ───── */
+.contact-c .stage{display:grid;grid-template-columns:1fr 1fr;min-height:780px}
+.contact-c .photo-side{background:linear-gradient(120deg,rgba(0,40,32,0.65) 0%,rgba(0,0,0,0.25) 60%),url('office.jpg') center/cover no-repeat;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:4rem 3rem;color:var(--white)}
+.contact-c .photo-side .eyebrow-c{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green-pale);margin-bottom:0.75rem}
+.contact-c .photo-side h2{font-family:var(--font-d);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:300;line-height:1.1;color:var(--white);margin-bottom:1.25rem}
+.contact-c .photo-side h2 em{color:var(--green-pale);font-style:italic}
+.contact-c .photo-side p{color:rgba(255,255,255,0.78);font-weight:300;font-size:0.95rem;max-width:340px;margin-bottom:2rem}
+.contact-c .form-side{padding:5rem 4rem;background:var(--white)}
+.contact-c .form-side h3{font-family:var(--font-d);font-size:1.5rem;font-weight:400;margin-bottom:1.75rem}
+
+/* ───── CONTACT D: Card stack ───── */
+.contact-d .stage{padding:5rem 5rem 6rem;background:var(--mist-2)}
+.contact-d .stage h2{font-family:var(--font-d);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:300;line-height:1.1;margin-bottom:0.5rem;max-width:760px}
+.contact-d .stage h2 em{color:var(--green);font-style:italic}
+.contact-d .stage > .sub{color:var(--stone);font-weight:300;font-size:1.05rem;max-width:580px;margin-bottom:3rem}
+.contact-d .card-grid{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;gap:24px}
+.contact-d .ccard{background:var(--white);border-radius:4px;padding:2.25rem 2rem;display:flex;flex-direction:column}
+.contact-d .ccard.tall{grid-row:1/3}
+.contact-d .ccard h3{font-family:var(--font-d);font-size:1.5rem;font-weight:400;margin-bottom:0.35rem}
+.contact-d .ccard .ctag{font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);margin-bottom:1rem}
+.contact-d .ccard p{color:var(--stone);font-size:0.9rem;font-weight:300;margin-bottom:1.25rem}
+.contact-d .vent-list{list-style:none;display:flex;flex-direction:column;gap:0.85rem;margin-top:0.5rem}
+.contact-d .vent-list a{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1rem;background:var(--mist);border-radius:3px;font-size:0.9rem;color:var(--charcoal);transition:background 0.2s;text-decoration:none}
+.contact-d .vent-list a:hover{background:var(--green-pale)}
+.contact-d .vent-list a span:last-child{color:var(--green);font-size:1.2rem}
+
+/* ───── CONTACT E: Two-col with book-meeting CTA ───── */
+.contact-e .hero-band-c{padding:4rem 5rem 2rem;background:var(--mist)}
+.contact-e .hero-band-c h2{font-family:var(--font-d);font-size:clamp(2.5rem,4.5vw,3.75rem);font-weight:300;line-height:1.05;margin-bottom:0.5rem;max-width:780px}
+.contact-e .hero-band-c h2 em{color:var(--green);font-style:italic}
+.contact-e .hero-band-c p{color:var(--stone);font-size:1.05rem;font-weight:300;max-width:580px}
+.contact-e .stage{display:grid;grid-template-columns:1fr 1.1fr;gap:0;padding:0 5rem 5rem;background:var(--mist)}
+.contact-e .col-left{padding:3rem 3rem 3rem 0}
+.contact-e .col-right{background:var(--white);padding:3rem;border-radius:4px}
+.contact-e .col-right h3{font-family:var(--font-d);font-size:1.5rem;font-weight:400;margin-bottom:0.5rem}
+.contact-e .col-right .ctag{font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);margin-bottom:1.25rem}
+.contact-e .book-cta{background:linear-gradient(135deg,var(--green) 0%,var(--green-deep) 100%);color:var(--white);padding:2rem;border-radius:4px;margin-bottom:2.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.contact-e .book-cta h4{font-family:var(--font-d);font-size:1.4rem;font-weight:400;margin-bottom:0.2rem}
+.contact-e .book-cta p{color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:300}
+.contact-e .book-cta a{background:var(--white);color:var(--green-deep);padding:0.85rem 1.5rem;font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;border-radius:3px;white-space:nowrap;text-decoration:none}
+.contact-e .col-left h3{font-family:var(--font-d);font-size:1.4rem;font-weight:400;margin-bottom:1.5rem;color:var(--charcoal)}
+.contact-e .ventures-block{margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--line)}
+.contact-e .ventures-block h4{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--stone);margin-bottom:1rem}
+.contact-e .vlink{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;border-bottom:1px solid var(--line);font-size:0.92rem;text-decoration:none;color:inherit}
+.contact-e .vlink:last-child{border-bottom:none}
+.contact-e .vlink .vname{font-weight:400}
+.contact-e .vlink .vurl{color:var(--green);font-size:0.78rem}
+
+/* ──────────────────────────────────────────────────────────────────────
+   FOOTER (production)
+   ────────────────────────────────────────────────────────────────────── */
+footer{background:var(--charcoal);padding:5rem 5rem 3rem}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(245,240,232,0.08);margin-bottom:2rem}
+.fbrand{display:flex;align-items:center;margin-bottom:1rem}
+.fbrand img{height:50px;width:auto;display:block}
+.ftag{font-size:0.8rem;color:rgba(255,255,255,0.5);font-weight:300;margin-bottom:1rem}
+footer h4{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:1.25rem}
+footer ul{list-style:none}
+footer li{margin-bottom:0.5rem}
+footer a{font-size:0.85rem;color:rgba(255,255,255,0.62);text-decoration:none;transition:color 0.2s;font-weight:300}
+footer a:hover{color:var(--green-pale)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center}
+.fcopy,.faddr{font-size:0.72rem;color:rgba(255,255,255,0.28);font-style:normal}
+
+/* RESPONSIVE — coarse for selector usage */
+@media(max-width:1024px){
+  .ds-toolbar{flex-wrap:wrap;gap:0.75rem;padding:0.65rem 1rem}
+  .ds-controls{order:3;width:100%;justify-content:flex-start}
+  .ds-controls select{min-width:160px}
+  body{padding-top:120px}
+  nav#nb{top:120px;padding:1.25rem 2rem}
+  #vision{grid-template-columns:1fr}
+  #projects{padding:4rem 2rem}
+  .grid{grid-template-columns:1fr 1fr;gap:2rem}
+  #approach{grid-template-columns:1fr;padding:4rem 2rem}
+  .team-frame{padding:4rem 2rem}
+  .team-a .team-grid,.team-c .team-grid,.team-e .team-grid,.team-f .team-grid{grid-template-columns:1fr 1fr}
+  .hero-a .statband-float{grid-template-columns:repeat(2,1fr);margin:-147px 2rem -147px}
+  .team-b .lead-card{grid-template-columns:1fr}
+  .team-b .row-3{grid-template-columns:1fr 1fr}
+  .team-d .roster-row{grid-template-columns:120px 1fr}
+  .team-d .roster-row p{grid-column:1/-1}
+  .contact-c .stage{grid-template-columns:1fr}
+  .contact-d .card-grid{grid-template-columns:1fr}
+  .contact-d .ccard.tall{grid-row:auto}
+  .contact-e .stage{grid-template-columns:1fr;padding:0 2rem 4rem}
+  #cta{flex-direction:column;align-items:flex-start;padding:4rem 2rem}
+  footer{padding:4rem 2rem 3rem}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗
+     ║  DESIGN SELECTOR TOOLBAR                                          ║
+     ╚══════════════════════════════════════════════════════════════════╝ -->
+<div class="ds-toolbar">
+  <div class="ds-brand">
+    Design Selector
+    <small>Mullin Development</small>
+  </div>
+  <div class="ds-controls">
+    <label>
+      Hero
+      <select id="ds-hero" data-target="hero">
+        <option value="a">A — Floating stat card</option>
+        <option value="b">B — Vertical stat column</option>
+        <option value="c">C — Inline stat row</option>
+        <option value="d">D — Typographic watermark</option>
+        <option value="e">E — Glass stats bar</option>
+      </select>
+    </label>
+    <label>
+      Team
+      <select id="ds-team" data-target="team">
+        <option value="a">A — Clean grid + names below</option>
+        <option value="b">B — Featured leader</option>
+        <option value="c">C — Circular portraits + bios</option>
+        <option value="d">D — Editorial roster</option>
+        <option value="e">E — Hover-reveal tiles</option>
+        <option value="f">F — Current production (portrait + bios)</option>
+      </select>
+    </label>
+    <label>
+      Contact
+      <select id="ds-contact" data-target="contact">
+        <option value="a">A — Full-bleed map + card</option>
+        <option value="b">B — Form-first minimal</option>
+        <option value="c">C — Office photo split</option>
+        <option value="d">D — Card stack</option>
+        <option value="e">E — Book-a-meeting CTA</option>
+      </select>
+    </label>
+  </div>
+  <div class="ds-toolbar-end">
+    <a href="index.html" class="ds-back">← Back to site</a>
+    <button type="button" class="ds-collapse" id="ds-collapse" title="Hide toolbar">Hide ▴</button>
+  </div>
+</div>
+
+<button type="button" class="ds-show" id="ds-show" title="Show design selector">Design Selector ▾</button>
+
+<!-- ─── NAV ──────────────────────────────────────────────────────────── -->
+<nav id="nb">
+  <a href="#" class="nav-logo" aria-label="Mullin home"><img src="white-sq-long.png" alt="Mullin Development"></a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#vision">Our Vision</a></li>
+    <li><a href="#team-section">Our Team</a></li>
+    <li><a href="media.html">Our Media</a></li>
+    <li><a href="#contact-section">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗
+     ║  HERO VARIANTS                                                   ║
+     ╚══════════════════════════════════════════════════════════════════╝ -->
+<div id="hero-section">
+
+  <!-- HERO A -->
+  <div class="hero-variant hero-a active">
+    <span class="variant-tag">Hero A</span>
+    <section class="hero-base">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Scottsdale, Arizona &middot; Est. 1994</p>
+        <h1>Developing<br>with <em>Purpose.</em></h1>
+        <p class="hero-sub">Real estate development rooted in the desert Southwest &mdash; building communities and legacies for over 30 years.</p>
+        <div class="btn-group">
+          <a href="#projects" class="btn-terra">View Projects &rarr;</a>
+          <a href="#vision" class="btn-sage">Our Story</a>
+        </div>
+      </div>
+    </section>
+    <div class="statband-float">
+      <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Years in Operation</div></div>
+      <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Industries</div></div>
+      <div class="stat"><div class="stat-n">1,200+</div><div class="stat-l">Sites</div></div>
+      <div class="stat"><div class="stat-n">$1.6B</div><div class="stat-l">Commercial Real Estate</div></div>
+    </div>
+  </div>
+
+  <!-- HERO B -->
+  <div class="hero-variant hero-b">
+    <span class="variant-tag">Hero B</span>
+    <section class="hero-base">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <div>
+          <p class="eyebrow">Scottsdale, Arizona &middot; Est. 1994</p>
+          <h1>Developing<br>with <em>Purpose.</em></h1>
+          <p class="hero-sub">Real estate development rooted in the desert Southwest &mdash; building communities and legacies for over 30 years.</p>
+          <div class="btn-group">
+            <a href="#projects" class="btn-terra">View Projects &rarr;</a>
+            <a href="#vision" class="btn-sage">Our Story</a>
+          </div>
+        </div>
+        <div class="statcol">
+          <div class="stat"><div class="stat-n"><em>30+</em></div><div class="stat-l">Years in Operation</div></div>
+          <div class="stat"><div class="stat-n"><em>7+</em></div><div class="stat-l">Industries</div></div>
+          <div class="stat"><div class="stat-n"><em>1,200+</em></div><div class="stat-l">Sites</div></div>
+          <div class="stat"><div class="stat-n"><em>$1.6B</em></div><div class="stat-l">Commercial Real Estate</div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- HERO C -->
+  <div class="hero-variant hero-c">
+    <span class="variant-tag">Hero C</span>
+    <section class="hero-base">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Scottsdale, Arizona &middot; Est. 1994</p>
+        <h1>Developing<br>with <em>Purpose.</em></h1>
+        <p class="hero-sub">Real estate development rooted in the desert Southwest &mdash; building communities and legacies for over 30 years.</p>
+        <div class="statinline">
+          <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Years</div></div>
+          <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Industries</div></div>
+          <div class="stat"><div class="stat-n">1,200+</div><div class="stat-l">Sites</div></div>
+          <div class="stat"><div class="stat-n">$1.6B</div><div class="stat-l">CRE Value</div></div>
+        </div>
+        <div class="btn-group">
+          <a href="#projects" class="btn-terra">View Projects &rarr;</a>
+          <a href="#vision" class="btn-sage">Our Story</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- HERO D -->
+  <div class="hero-variant hero-d">
+    <span class="variant-tag">Hero D</span>
+    <section class="hero-base">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Scottsdale, Arizona &middot; Est. 1994</p>
+        <h1>Developing<br>with <em>Purpose.</em></h1>
+        <p class="hero-sub">Real estate development rooted in the desert Southwest &mdash; building communities and legacies for over 30 years.</p>
+        <div class="btn-group">
+          <a href="#projects" class="btn-terra">View Projects &rarr;</a>
+          <a href="#vision" class="btn-sage">Our Story</a>
+        </div>
+      </div>
+      <div class="statwm-row">
+        <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Years</div></div>
+        <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Industries</div></div>
+        <div class="stat"><div class="stat-n">1,200+</div><div class="stat-l">Sites</div></div>
+        <div class="stat"><div class="stat-n">$1.6B</div><div class="stat-l">CRE Value</div></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- HERO E -->
+  <div class="hero-variant hero-e">
+    <span class="variant-tag">Hero E</span>
+    <section class="hero-base">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Scottsdale, Arizona &middot; Est. 1994</p>
+        <h1>Developing<br>with <em>Purpose.</em></h1>
+        <p class="hero-sub">Real estate development rooted in the desert Southwest &mdash; building communities and legacies for over 30 years.</p>
+        <div class="btn-group">
+          <a href="#projects" class="btn-terra">View Projects &rarr;</a>
+          <a href="#vision" class="btn-sage">Our Story</a>
+        </div>
+      </div>
+    </section>
+    <div class="stats-glass">
+      <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Years in Operation</div></div>
+      <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Industries</div></div>
+      <div class="stat"><div class="stat-n">1,200+</div><div class="stat-l">Sites</div></div>
+      <div class="stat"><div class="stat-n">$1.6B</div><div class="stat-l">Commercial Real Estate</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ─── VISION (production, unchanged) ──────────────────────────────── -->
+<section id="vision">
+  <div class="vision-img">
+    <div class="vision-slides" id="visionSlides">
+      <div class="vision-slide active"><img src="m360-14c.png" alt="Mullin Development team"></div>
+      <div class="vision-slide"><img src="office.jpg" alt="Mullin Development office"></div>
+      <div class="vision-slide"><img src="https://azcollaborate.com/wp-content/uploads/2025/09/The-Back-Lot-17-of-30.jpg" alt="The Back Lot development"></div>
+      <div class="vision-slide"><img src="m360-22.jpg" alt="Mullin Development project"></div>
+    </div>
+    <div class="slide-dots">
+      <button class="slide-dot active" data-index="0" aria-label="Slide 1"></button>
+      <button class="slide-dot" data-index="1" aria-label="Slide 2"></button>
+      <button class="slide-dot" data-index="2" aria-label="Slide 3"></button>
+      <button class="slide-dot" data-index="3" aria-label="Slide 4"></button>
+    </div>
+  </div>
+  <div class="vision-text reveal from-right">
+    <p class="section-label">Our Vision</p>
+    <h2 class="section-title">Rooted in the<br><em>Southwest. Built</em><br>for the Nation.</h2>
+    <div class="divider"></div>
+    <blockquote>&ldquo;Committed to impacting communities through innovative development, dedicated people, and loyal relationships.&rdquo;</blockquote>
+    <p>Mullin Development was founded by father-son team Art and Jim Mullin. Over three decades, we&rsquo;ve grown the business to shape automotive and commercial real estate at the local and national level.</p>
+    <p>Strategic rather than transactional &mdash; we invest in relationships as much as real estate, ensuring every project makes a long-term contribution to its community.</p>
+    <a href="#team-section" class="btn-terra" style="margin-top:1.5rem;align-self:flex-start">Meet the Team &rarr;</a>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─────────────────────────────────────────────────────── -->
+<section id="projects">
+  <div class="ph reveal">
+    <div>
+      <p class="section-label">Our Work</p>
+      <h2 class="section-title">Recent <em>Projects</em></h2>
+    </div>
+    <a href="projects.html" class="btn-link">All Projects &rarr;</a>
+  </div>
+  <div class="grid">
+    <div class="pcard reveal"><img src="1project-sas.png" alt="Scottsdale Autoshow"><div class="poverlay"><p class="ptag">Automotive &middot; Scottsdale, AZ</p><p class="pname">Scottsdale Autoshow</p><p class="ploc">70 acre development</p></div></div>
+    <div class="pcard reveal"><img src="1project-penske.png" alt="Penske North Scottsdale 101"><div class="poverlay"><p class="ptag">Automotive &middot; Scottsdale, AZ</p><p class="pname">Penske North Scottsdale 101</p><p class="ploc">40 acre facility &mdash; 9 premium franchises</p></div></div>
+    <div class="pcard reveal"><img src="1project-reverside.png" alt="Riverside County Auto Park"><div class="poverlay"><p class="ptag">Automotive &middot; Riverside County, CA</p><p class="pname">Riverside County Auto Park</p><p class="ploc">Under development</p></div></div>
+    <div class="pcard reveal"><img src="1project-art.png" alt="The Art at MMR"><div class="poverlay"><p class="ptag">Retail &middot; McDowell Mountain Ranch, AZ</p><p class="pname">The Art at MMR</p><p class="ploc">15,000 sq ft stylized retail</p></div></div>
+    <div class="pcard reveal"><img src="1project-303.png" alt="303 Autoshow"><div class="poverlay"><p class="ptag">Automotive &middot; Surprise, AZ</p><p class="pname">303 Autoshow</p><p class="ploc">80 acre autoplex</p></div></div>
+    <div class="pcard reveal"><img src="1project-greencastle.jpeg" alt="Greencastle Hotel"><div class="poverlay"><p class="ptag">Hospitality &middot; Greencastle, IN</p><p class="pname">Greencastle Hotel</p><p class="ploc">Historic hotel transformed</p></div></div>
+    <div class="pcard reveal"><img src="1project-tempe.png" alt="Tempe Autoplex"><div class="poverlay"><p class="ptag">Automotive &middot; Tempe, AZ</p><p class="pname">Tempe Autoplex</p><p class="ploc">80 acre autoplex development</p></div></div>
+    <div class="pcard reveal"><img src="1project-costco.png" alt="Costco at Salt River"><div class="poverlay"><p class="ptag">Retail &middot; Scottsdale, AZ</p><p class="pname">Costco</p><p class="ploc">162,000 sq ft retail anchor at Salt River</p></div></div>
+    <div class="pcard reveal"><img src="1project-centerra.jpg" alt="Motorplex at Centerra"><div class="poverlay"><p class="ptag">Automotive Retail &middot; Loveland, CO</p><p class="pname">Centerra</p><p class="ploc">Largest automotive center in Northern Colorado &mdash; 100 acres</p></div></div>
+  </div>
+</section>
+
+<!-- ─── APPROACH ─────────────────────────────────────────────────────── -->
+<section id="approach">
+  <div class="approach-intro reveal from-left">
+    <p class="section-label">How We Work</p>
+    <h2 class="section-title">Strategic.<br><em>Intentional.</em><br>Long-term.</h2>
+    <p>We don&rsquo;t just build properties. We build lasting relationships and community-defining developments.</p>
+  </div>
+  <div class="pillars">
+    <div class="pillar reveal"><span class="pnum">01</span><div><h3>Site Selection &amp; Research</h3><p>Rigorous market analysis identifying long-term viability.</p></div></div>
+    <div class="pillar reveal"><span class="pnum">02</span><div><h3>Development &amp; Construction</h3><p>End-to-end management through completion.</p></div></div>
+    <div class="pillar reveal"><span class="pnum">03</span><div><h3>Investment &amp; Finance</h3><p>Sale-leaseback financing and structuring.</p></div></div>
+    <div class="pillar reveal"><span class="pnum">04</span><div><h3>Partnerships &amp; Collaboration</h3><p>Deep relationships with national and local partners.</p></div></div>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗
+     ║  TEAM VARIANTS                                                   ║
+     ╚══════════════════════════════════════════════════════════════════╝ -->
+<div id="team-section">
+
+  <!-- TEAM A -->
+  <section class="team-variant team-a active">
+    <div class="team-frame">
+      <span class="variant-tag" style="position:relative;display:inline-block;margin-bottom:1.5rem">Team A</span>
+      <p class="section-label">Our Execs</p>
+      <h2 class="section-title">The Executive <em>Team</em></h2>
+      <div class="team-grid">
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-1.png" alt="Jim Mullin"></div><div class="tinfo"><div class="tname">Jim Mullin</div><div class="ttitle">President</div></div></div>
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-2.png" alt="Jacqueline Swanson"></div><div class="tinfo"><div class="tname">Jacqueline Swanson</div><div class="ttitle">Director of Operations</div></div></div>
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-3.png" alt="Mark Simmons"></div><div class="tinfo"><div class="tname">Mark Simmons</div><div class="ttitle">Corporate Controller</div></div></div>
+        <div class="tmember"><div class="headshot-img placeholder"></div><div class="tinfo"><div class="tname">Mark Jackson</div><div class="ttitle">Director of Market Research</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM B -->
+  <section class="team-variant team-b">
+    <div class="team-frame">
+      <span class="variant-tag" style="position:relative;display:inline-block;margin-bottom:1.5rem">Team B</span>
+      <p class="section-label">Our Execs</p>
+      <h2 class="section-title">The Executive <em>Team</em></h2>
+      <div class="lead-card">
+        <div class="headshot-img"><img src="team-headshot-1.png" alt="Jim Mullin"></div>
+        <div>
+          <h3>Jim Mullin</h3>
+          <div class="ttitle">President</div>
+          <p>Past President of Staubach AutoGroup. Involved in over 1,200 automotive retail locations and 40+ developments across the US, Saudi Arabia, Brazil, and China.</p>
+        </div>
+      </div>
+      <div class="row-3">
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-2.png" alt="Jacqueline Swanson"></div><div class="tinfo"><div class="tname">Jacqueline Swanson</div><div class="ttitle">Director of Operations</div></div></div>
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-3.png" alt="Mark Simmons"></div><div class="tinfo"><div class="tname">Mark Simmons</div><div class="ttitle">Corporate Controller</div></div></div>
+        <div class="tmember"><div class="headshot-img placeholder"></div><div class="tinfo"><div class="tname">Mark Jackson</div><div class="ttitle">Director of Market Research</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM C -->
+  <section class="team-variant team-c">
+    <div class="team-frame">
+      <div style="text-align:center"><span class="variant-tag" style="position:relative;display:inline-block;margin-bottom:1.5rem">Team C</span></div>
+      <p class="section-label">Our Execs</p>
+      <h2 class="section-title">The Executive <em>Team</em></h2>
+      <div class="team-grid">
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-1.png" alt="Jim Mullin"></div><div class="tinfo"><div class="tname">Jim Mullin</div><div class="ttitle">President</div><p class="tbio">30+ years in automotive real estate. 1,200+ retail locations across four continents.</p></div></div>
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-2.png" alt="Jacqueline Swanson"></div><div class="tinfo"><div class="tname">Jacqueline Swanson</div><div class="ttitle">Director of Operations</div><p class="tbio">Operational excellence across healthcare, property, and construction.</p></div></div>
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-3.png" alt="Mark Simmons"></div><div class="tinfo"><div class="tname">Mark Simmons</div><div class="ttitle">Corporate Controller</div><p class="tbio">Four-decade finance career. Big Four plus 30+ years as Controller / VP-Finance / CFO.</p></div></div>
+        <div class="tmember"><div class="headshot-img placeholder"></div><div class="tinfo"><div class="tname">Mark Jackson</div><div class="ttitle">Director of Market Research</div><p class="tbio">Market analysis and site selection across emerging markets.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM D -->
+  <section class="team-variant team-d">
+    <div class="team-frame">
+      <span class="variant-tag" style="position:relative;display:inline-block;margin-bottom:1.5rem">Team D</span>
+      <p class="section-label">Our Execs</p>
+      <h2 class="section-title">The Executive <em>Team</em></h2>
+      <div class="roster">
+        <div class="roster-row">
+          <div class="headshot-img"><img src="team-headshot-1.png" alt="Jim Mullin"></div>
+          <div><h3>Jim Mullin</h3><div class="ttitle">President</div></div>
+          <p>Past President of Staubach AutoGroup. Involved in over 1,200 automotive retail locations and 40+ developments across four continents.</p>
+        </div>
+        <div class="roster-row">
+          <div class="headshot-img"><img src="team-headshot-2.png" alt="Jacqueline Swanson"></div>
+          <div><h3>Jacqueline Swanson</h3><div class="ttitle">Director of Operations</div></div>
+          <p>Seasoned in operational excellence and project management with a background in healthcare and property and construction management.</p>
+        </div>
+        <div class="roster-row">
+          <div class="headshot-img"><img src="team-headshot-3.png" alt="Mark Simmons"></div>
+          <div><h3>Mark Simmons</h3><div class="ttitle">Corporate Controller</div></div>
+          <p>Four-decade career across private and public sectors including the Big Four accounting firms, with over 30 years as Controller, VP-Finance, or CFO.</p>
+        </div>
+        <div class="roster-row">
+          <div class="headshot-img placeholder"></div>
+          <div><h3>Mark Jackson</h3><div class="ttitle">Director of Market Research</div></div>
+          <p>Deep expertise in market analysis and site selection. Identifies high-value development opportunities across emerging and established markets nationwide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM E -->
+  <section class="team-variant team-e">
+    <div class="team-frame">
+      <span class="variant-tag" style="position:relative;display:inline-block;margin-bottom:1.5rem">Team E</span>
+      <p class="section-label">Our Execs</p>
+      <h2 class="section-title">The Executive <em>Team</em></h2>
+      <div class="team-grid">
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-1.png" alt="Jim Mullin"></div><div class="reveal-info"><div class="tname">Jim Mullin</div><div class="ttitle">President</div><div class="tbio">Past President of Staubach AutoGroup. 1,200+ retail locations, 40+ developments across four continents.</div></div></div>
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-2.png" alt="Jacqueline Swanson"></div><div class="reveal-info"><div class="tname">Jacqueline Swanson</div><div class="ttitle">Director of Operations</div><div class="tbio">Operational excellence and project management. Healthcare, property, and construction background.</div></div></div>
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-3.png" alt="Mark Simmons"></div><div class="reveal-info"><div class="tname">Mark Simmons</div><div class="ttitle">Corporate Controller</div><div class="tbio">Four-decade finance career across Big Four firms; 30+ years as Controller, VP-Finance, or CFO.</div></div></div>
+        <div class="tmember"><div class="headshot-img placeholder"></div><div class="reveal-info"><div class="tname">Mark Jackson</div><div class="ttitle">Director of Market Research</div><div class="tbio">Market analysis and site selection. Identifies high-value development opportunities nationwide.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM F (Current production) -->
+  <section class="team-variant team-f">
+    <div class="team-frame">
+      <div style="text-align:center"><span class="variant-tag" style="position:relative;display:inline-block;margin-bottom:1.5rem">Team F (Production)</span></div>
+      <p class="section-label">Our Execs</p>
+      <h2 class="section-title">The Executive <em>Team</em></h2>
+      <div class="team-grid">
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-1.png" alt="Jim Mullin"></div><div class="tinfo"><div class="tname">Jim Mullin</div><div class="ttitle">President</div><p class="tbio">Past President of Staubach AutoGroup. Involved in 1,200+ automotive retail locations and 40+ developments across four continents.</p></div></div>
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-2.png" alt="Jacqueline Swanson"></div><div class="tinfo"><div class="tname">Jacqueline Swanson</div><div class="ttitle">Director of Operations</div><p class="tbio">Operational excellence and project management. Background in healthcare, property, and construction management.</p></div></div>
+        <div class="tmember"><div class="headshot-img"><img src="team-headshot-3.png" alt="Mark Simmons"></div><div class="tinfo"><div class="tname">Mark Simmons</div><div class="ttitle">Corporate Controller</div><p class="tbio">Four-decade finance career across Big Four firms; 30+ years as Controller, VP-Finance, or CFO.</p></div></div>
+        <div class="tmember"><div class="headshot-img placeholder"></div><div class="tinfo"><div class="tname">Mark Jackson</div><div class="ttitle">Director of Market Research</div><p class="tbio">Market analysis and site selection. Identifies high-value development opportunities across emerging markets.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ─── CTA ──────────────────────────────────────────────────────────── -->
+<div id="cta">
+  <div class="reveal from-left">
+    <h2>Let&rsquo;s Build Something Together.</h2>
+    <p>Scottsdale, AZ &middot; Serving clients nationally and internationally</p>
+  </div>
+  <a href="#contact-section" class="btn-cream reveal from-right">Get in Touch &rarr;</a>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗
+     ║  CONTACT VARIANTS                                                ║
+     ╚══════════════════════════════════════════════════════════════════╝ -->
+<div id="contact-section">
+
+  <!-- CONTACT A -->
+  <section class="contact-variant contact-a active contact-frame">
+    <span class="variant-tag">Contact A</span>
+    <div class="stage">
+      <div class="map-pl"><div class="map-pin-c">Mullin Development HQ</div></div>
+      <div class="float-card">
+        <p class="section-label">Contact</p>
+        <h2>Let&rsquo;s <em>talk.</em></h2>
+        <p class="sub">A few details and we&rsquo;ll be in touch within 1&ndash;2 business days.</p>
+        <form>
+          <div class="field"><label>Name</label><input type="text"></div>
+          <div class="field"><label>Email</label><input type="email"></div>
+          <div class="field"><label>Inquiry</label><select><option>Development</option><option>Investment</option><option>Partnership</option></select></div>
+          <div class="field"><label>Message</label><textarea></textarea></div>
+          <button type="button" class="btn-c-terra">Send Message &rarr;</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT B -->
+  <section class="contact-variant contact-b contact-frame">
+    <span class="variant-tag">Contact B</span>
+    <div class="stage">
+      <div class="wrap">
+        <p class="section-label" style="justify-content:center">Get in touch</p>
+        <h2>Let&rsquo;s <em>build something</em><br>together.</h2>
+        <p class="sub">Tell us about your project &mdash; we&rsquo;ll respond within 1&ndash;2 business days.</p>
+        <div class="quick-info">
+          <div><div class="qi-label">Office</div><div class="qi-value">Scottsdale, AZ</div></div>
+          <div><div class="qi-label">Phone</div><div class="qi-value">(480) 800-5500</div></div>
+          <div><div class="qi-label">Email</div><div class="qi-value">info@mullindev.com</div></div>
+        </div>
+        <form>
+          <div class="field"><label>Name</label><input type="text"></div>
+          <div class="field"><label>Company</label><input type="text"></div>
+          <div class="field"><label>Email</label><input type="email"></div>
+          <div class="field"><label>Inquiry Type</label><select><option>Development opportunity</option><option>Investment</option><option>Partnership</option><option>Press / Media</option></select></div>
+          <div class="field"><label>Message</label><textarea placeholder="Tell us about your project, timeline, and location..."></textarea></div>
+          <div class="submit-row"><button type="button" class="btn-c-terra">Send Message &rarr;</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT C -->
+  <section class="contact-variant contact-c contact-frame">
+    <span class="variant-tag">Contact C</span>
+    <div class="stage">
+      <div class="photo-side">
+        <div>
+          <p class="eyebrow-c">Scottsdale, Arizona</p>
+          <h2>Stop by, or<br>start a <em>conversation.</em></h2>
+          <p>6910 E 5th Ave. Open Mon&ndash;Fri, 9am to 5pm. Or send a note &mdash; we read every one.</p>
+          <a href="https://maps.google.com/?q=6910+E+5th+Ave+Scottsdale+AZ" target="_blank" rel="noopener" class="btn-c-ghost" style="border-color:rgba(255,255,255,0.6);color:var(--white)">Get Directions &rarr;</a>
+        </div>
+      </div>
+      <div class="form-side">
+        <p class="section-label">Send a Note</p>
+        <h3>How can we help?</h3>
+        <form>
+          <div class="field"><label>Name</label><input type="text"></div>
+          <div class="field"><label>Email</label><input type="email"></div>
+          <div class="field"><label>Inquiry</label><select><option>Development</option><option>Investment</option><option>Partnership</option></select></div>
+          <div class="field"><label>Message</label><textarea></textarea></div>
+          <button type="button" class="btn-c-terra">Send Message &rarr;</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT D -->
+  <section class="contact-variant contact-d contact-frame">
+    <span class="variant-tag">Contact D</span>
+    <div class="stage">
+      <p class="section-label">Contact</p>
+      <h2>Multiple ways to <em>reach us.</em></h2>
+      <p class="sub">Pick what fits &mdash; send a quick note, drop by the office, or visit one of our ventures.</p>
+      <div class="card-grid">
+        <div class="ccard tall">
+          <p class="ctag">Send a Message</p>
+          <h3>Tell us about it</h3>
+          <p>Project, timeline, location &mdash; whatever&rsquo;s relevant. We respond within one business day.</p>
+          <form style="margin-top:auto">
+            <div class="field"><label>Name</label><input type="text"></div>
+            <div class="field"><label>Email</label><input type="email"></div>
+            <div class="field"><label>Inquiry</label><select><option>Development</option><option>Investment</option><option>Partnership</option></select></div>
+            <div class="field"><label>Message</label><textarea style="min-height:100px"></textarea></div>
+            <button type="button" class="btn-c-terra">Send &rarr;</button>
+          </form>
+        </div>
+        <div class="ccard">
+          <p class="ctag">Visit</p>
+          <h3>Scottsdale Office</h3>
+          <p>6910 E 5th Ave<br>Scottsdale, AZ 85251<br>Mon&ndash;Fri &middot; 9am &ndash; 5pm</p>
+          <a href="#" class="btn-c-ghost" style="margin-top:auto;align-self:flex-start">Directions &rarr;</a>
+        </div>
+        <div class="ccard">
+          <p class="ctag">Our Ventures</p>
+          <h3>Other ways to connect</h3>
+          <ul class="vent-list">
+            <li><a href="https://mullin360.com" target="_blank"><span>Mullin360</span><span>&rarr;</span></a></li>
+            <li><a href="https://azcollaborate.com" target="_blank"><span>AZ Collaborate</span><span>&rarr;</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT E -->
+  <section class="contact-variant contact-e contact-frame">
+    <span class="variant-tag">Contact E</span>
+    <div class="hero-band-c">
+      <p class="section-label">Contact</p>
+      <h2>Let&rsquo;s build<br>something <em>together.</em></h2>
+      <p>Reach out for development, investment, or partnership conversations.</p>
+    </div>
+    <div class="stage">
+      <div class="col-left">
+        <h3>Get in touch</h3>
+        <div class="contact-info-row"><div class="cir-label">Office</div><div class="cir-value">6910 E 5th Ave<br>Scottsdale, AZ 85251</div></div>
+        <div class="contact-info-row"><div class="cir-label">Phone</div><div class="cir-value">(480) 800-5500</div></div>
+        <div class="contact-info-row"><div class="cir-label">Email</div><div class="cir-value">info@mullindev.com</div></div>
+        <div class="contact-info-row"><div class="cir-label">Hours</div><div class="cir-value">Mon&ndash;Fri &middot; 9am &ndash; 5pm</div></div>
+        <div class="ventures-block">
+          <h4>Our Ventures</h4>
+          <a href="https://mullin360.com" target="_blank" class="vlink"><span class="vname">Mullin360</span><span class="vurl">mullin360.com &rarr;</span></a>
+          <a href="https://azcollaborate.com" target="_blank" class="vlink"><span class="vname">AZ Collaborate</span><span class="vurl">azcollaborate.com &rarr;</span></a>
+        </div>
+      </div>
+      <div class="col-right">
+        <div class="book-cta">
+          <div>
+            <h4>Book a 30-min intro</h4>
+            <p>Skip the back and forth. Pick a time that works.</p>
+          </div>
+          <a href="#">Schedule &rarr;</a>
+        </div>
+        <p class="ctag" style="font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);margin-bottom:1.25rem">Or send a message</p>
+        <h3>How can we help?</h3>
+        <form style="margin-top:1.25rem">
+          <div class="field"><label>Name</label><input type="text"></div>
+          <div class="field"><label>Email</label><input type="email"></div>
+          <div class="field"><label>Inquiry</label><select><option>Development</option><option>Investment</option><option>Partnership</option><option>Press</option></select></div>
+          <div class="field"><label>Message</label><textarea></textarea></div>
+          <button type="button" class="btn-c-terra">Send Message &rarr;</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ─── FOOTER ───────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="fbrand"><img src="white-sq.png" alt="Mullin Development Company logo"></div>
+      <p class="ftag">Developing with Purpose.</p>
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);font-weight:300;max-width:270px">Real estate development specializing in automotive retail and commercial properties since 1994.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#projects">Our Projects</a></li>
+        <li><a href="#vision">Our Vision</a></li>
+        <li><a href="#team-section">Our Team</a></li>
+        <li><a href="media.html">Our Media</a></li>
+        <li><a href="#contact-section">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Ventures</h4>
+      <ul>
+        <li><a href="https://mullin360.com" target="_blank" rel="noopener">Mullin360</a></li>
+        <li><a href="https://azcollaborate.com" target="_blank" rel="noopener">AZ Collaborate</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="contact.html">Locate &amp; Contact</a></li>
+        <li><a href="#">Scottsdale, AZ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="fcopy">&copy; 2026 Mullin Development, LLC. All rights reserved.</p>
+    <address class="faddr">6910 E 5th Ave &middot; Scottsdale, AZ 85251</address>
+  </div>
+</footer>
+
+<script>
+  // ─── Toolbar collapse / show
+  document.getElementById('ds-collapse').addEventListener('click', function(){
+    document.body.classList.add('toolbar-collapsed');
+  });
+  document.getElementById('ds-show').addEventListener('click', function(){
+    document.body.classList.remove('toolbar-collapsed');
+  });
+
+  // ─── Variant switcher
+  document.querySelectorAll('.ds-controls select').forEach(function(sel) {
+    sel.addEventListener('change', function(e) {
+      var target = e.target.dataset.target;
+      var value = e.target.value;
+      var className = target + '-variant';
+      document.querySelectorAll('.' + className).forEach(function(el) {
+        el.classList.remove('active');
+      });
+      var match = document.querySelector('.' + className + '.' + target + '-' + value);
+      if (match) {
+        match.classList.add('active');
+        // Trigger reveal animations on newly visible content
+        match.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+      }
+    });
+  });
+
+  // ─── Nav scroll
+  var nb = document.getElementById('nb');
+  window.addEventListener('scroll', function() {
+    nb.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ─── Vision slideshow
+  (function() {
+    var slides = document.querySelectorAll('.vision-slide');
+    var dots = document.querySelectorAll('.slide-dot');
+    if (!slides.length) return;
+    var current = 0;
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+    setInterval(function(){ goTo(current + 1); }, 10000);
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        goTo(parseInt(this.dataset.index));
+      });
+    });
+  })();
+
+  // ─── Reveal animations on scroll
+  (function() {
+    var reveals = document.querySelectorAll('.reveal');
+    if (!reveals.length) return;
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el) { observer.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

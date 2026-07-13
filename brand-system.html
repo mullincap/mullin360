@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Identity System — Mullin Development</title>
+<meta name="description" content="The Mullin brand identity system: the identity of Mullin Development set down in one volume — marks, inks, letterforms, spaces, motion, and voice. First edition, MMXXVI.">
+<meta name="robots" content="noindex">
+
+<link rel="icon" type="image/png" href="logo-green.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ————————————————————————————————————————————————
+   MULLIN DEVELOPMENT — brand identity system
+   Volume II of the firm's book. The same paper, ink,
+   and seal it codifies: every token below is lifted
+   verbatim from /index.html. This document is the
+   source of truth for all pages that follow.
+   ———————————————————————————————————————————————— */
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* paper + ink */
+  --paper:#F4F1EA;
+  --paper-2:#ECE8DE;
+  --ink:#151A15;
+  --ink-70:rgba(21,26,21,0.72);
+  --ink-55:rgba(21,26,21,0.56);
+  --line:rgba(21,26,21,0.16);
+  --line-soft:rgba(21,26,21,0.09);
+  /* night */
+  --night:#0C120D;
+  --night-2:#101812;
+  --bone:#F4F1EA;
+  --bone-70:rgba(244,241,234,0.72);
+  --bone-45:rgba(244,241,234,0.45);
+  --nline:rgba(244,241,234,0.14);
+  /* the seal */
+  --green:#0E6133;
+  --green-deep:#0A4A27;
+  --green-lift:#7FA98E;   /* green legible on night */
+  /* type */
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'DM Sans',-apple-system,'Helvetica Neue',sans-serif;
+  --mono:'IBM Plex Mono','SF Mono',Consolas,monospace;
+  /* rhythm */
+  --gutter:clamp(1.5rem,6vw,7.5rem);
+  --chapter-gap:clamp(6rem,13vh,11rem);
+  /* the signature ease */
+  --ease:cubic-bezier(0.19,1,0.22,1);
+}
+
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  font-family:var(--sans);
+  font-weight:300;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+/* faint paper grain */
+body::after{
+  content:'';position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:0.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+::selection{background:var(--green);color:var(--bone)}
+
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.night :focus-visible,.on-night :focus-visible{outline-color:var(--green-lift)}
+.skip{position:absolute;left:-9999px;top:0;z-index:3000;background:var(--green);color:#fff;padding:0.75rem 1.25rem;font-family:var(--mono);font-size:0.75rem;letter-spacing:0.08em}
+.skip:focus{left:0}
+
+/* ——— shared voices ——— */
+.mono{
+  font-family:var(--mono);font-size:0.66rem;font-weight:400;
+  letter-spacing:0.18em;text-transform:uppercase;
+  font-variant-numeric:tabular-nums;
+}
+.wrap{padding-left:var(--gutter);padding-right:var(--gutter)}
+
+/* ————————————————— DOC NAV ————————————————— */
+#docnav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+  padding:0.9rem var(--gutter);
+  background:rgba(244,241,234,0.94);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft);
+  transform:translateY(-101%);visibility:hidden;
+  transition:transform 0.5s var(--ease),visibility 0s 0.5s;
+}
+#docnav.show{transform:none;visibility:visible;transition:transform 0.5s var(--ease)}
+.dn-brand{display:flex;align-items:center;gap:1rem;text-decoration:none;flex:none}
+.dn-brand img{height:22px;width:auto}
+.dn-brand .mono{color:var(--ink-55);letter-spacing:0.22em}
+.dn-links{display:flex;gap:1.35rem;list-style:none;align-items:baseline}
+.dn-links a{
+  font-family:var(--mono);font-size:0.64rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--ink-55);text-decoration:none;padding:0.3rem 0;transition:color 0.3s;
+  font-variant-numeric:tabular-nums;
+}
+.dn-links a:hover,.dn-links a:focus-visible{color:var(--ink)}
+.dn-links a.cur{color:var(--green)}
+
+/* ————————————————— COVER ————————————————— */
+#cover{
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;
+  background:var(--paper);
+}
+.cov-top{
+  display:flex;justify-content:space-between;gap:1rem;
+  padding:1.6rem var(--gutter) 1.15rem;color:var(--ink-55);
+}
+.cov-rule{height:1px;background:var(--ink);margin:0 var(--gutter);transform-origin:center}
+.cov-mid{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:clamp(2.5rem,6vh,4rem) var(--gutter);
+}
+.cov-seal{width:clamp(132px,16vw,196px);flex:none;margin:-1.4rem 0 -2.2rem} /* the PNG carries generous transparent margins; tuck them */
+.cov-seal img{width:100%;height:auto}
+h1.cov-title{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(3.3rem,9.2vw,8.4rem);
+  line-height:1.02;letter-spacing:-0.015em;color:var(--ink);
+  margin:clamp(1.2rem,3vh,2rem) 0 1.5rem;
+}
+h1.cov-title em{font-style:italic;font-weight:400}
+.tl{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:0.04em;margin-bottom:-0.04em}
+.tw{display:inline-block}
+.cov-sub{max-width:54ch;font-size:1.02rem;line-height:1.8;color:var(--ink-70)}
+.cov-meta{margin-top:1.6rem;color:var(--ink-55);letter-spacing:0.22em !important}
+.cov-vrule{
+  width:1px;height:clamp(1.8rem,5vh,3rem);
+  background:linear-gradient(to bottom,var(--ink-55),transparent);
+  margin-top:clamp(1.4rem,4vh,2.4rem);transform-origin:top;
+}
+.cov-foot{position:relative;padding:1.35rem var(--gutter);display:flex;justify-content:center}
+.cov-foot::before{
+  content:'';position:absolute;top:0;left:var(--gutter);right:var(--gutter);height:1px;
+  background:var(--line);transform-origin:center;
+}
+.cov-foot p{text-align:center;line-height:2.2}
+.cov-foot a{
+  font-family:var(--mono);font-size:0.64rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink-55);text-decoration:none;transition:color 0.3s;white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.cov-foot a:hover,.cov-foot a:focus-visible{color:var(--ink)}
+.cov-foot a b{font-weight:400;color:var(--green);margin-right:0.5em}
+.cov-foot .sep{color:var(--ink-55);opacity:0.5;font-family:var(--mono);font-size:0.64rem;margin:0 0.55em}
+
+/* cover choreography — the identity assembling itself.
+   runs only with js + motion allowed; static otherwise. */
+@keyframes covSx{from{transform:scaleX(0)}}
+@keyframes covSy{from{transform:scaleY(0)}}
+@keyframes covUp{from{opacity:0;transform:translateY(12px)}}
+@keyframes covStamp{from{opacity:0;transform:scale(1.55);filter:blur(10px)}}
+@keyframes covRise{from{transform:translateY(110%)}}
+.js #cover.play .cov-rule{animation:covSx 1.5s var(--ease) 0.1s both}
+.js #cover.play .cov-top span{animation:covUp 0.9s var(--ease) both}
+.js #cover.play .cov-top span:first-child{animation-delay:0.55s}
+.js #cover.play .cov-top span:last-child{animation-delay:0.7s}
+.js #cover.play .cov-seal{animation:covStamp 1.25s var(--ease) 0.85s both}
+.js #cover.play .tw-1{animation:covRise 1.3s var(--ease) 1.55s both}
+.js #cover.play .tw-2{animation:covRise 1.3s var(--ease) 1.68s both}
+.js #cover.play .tw-3{animation:covRise 1.3s var(--ease) 1.81s both}
+.js #cover.play .cov-sub{animation:covUp 1s var(--ease) 2.35s both}
+.js #cover.play .cov-meta{animation:covUp 1s var(--ease) 2.5s both}
+.js #cover.play .cov-vrule{animation:covSy 1s var(--ease) 2.7s both}
+.js #cover.play .cov-foot::before{animation:covSx 1.3s var(--ease) 2.9s both}
+.js #cover.play .cov-foot p{animation:covUp 1.1s var(--ease) 3.05s both}
+
+/* ————————————————— CHAPTER SCAFFOLD ————————————————— */
+main{background:var(--paper)}
+.chapter{padding-top:var(--chapter-gap);padding-bottom:var(--chapter-gap);scroll-margin-top:4.5rem}
+.chapterbar{
+  display:flex;align-items:baseline;gap:1.4rem;
+  border-top:1px solid var(--ink);
+  padding-top:1rem;
+  margin-bottom:clamp(3rem,7vh,5.5rem);
+}
+.chapterbar .idx{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.14em;color:var(--green);font-weight:500}
+.chapterbar .lbl{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-55)}
+.chapterbar .of{margin-left:auto;font-family:var(--mono);font-size:0.66rem;letter-spacing:0.14em;color:var(--ink-55)}
+.night .chapterbar{border-top-color:var(--bone)}
+.night .chapterbar .idx{color:var(--green-lift)}
+.night .chapterbar .lbl,.night .chapterbar .of{color:var(--bone-45)}
+
+h2.display{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(2.4rem,5vw,4.6rem);
+  line-height:1.06;letter-spacing:-0.01em;color:var(--ink);
+}
+h2.display em,.statement em{font-style:italic;font-weight:400}
+.night{background:var(--night);color:var(--bone)}
+.night h2.display{color:var(--bone)}
+
+.statement{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(2rem,4.4vw,4rem);
+  line-height:1.2;letter-spacing:-0.005em;
+  color:var(--ink);
+  max-width:27ch;
+  text-indent:-0.42em; /* hanging opening quote */
+}
+.statement .q{color:var(--green)}
+.night .statement{color:var(--bone)}
+.night .statement .q{color:var(--green-lift)}
+
+/* thesis columns */
+.thesis-cols{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(3rem,7vw,7rem);margin-top:clamp(3.5rem,8vh,6rem);
+}
+
+/* chapter intro row: display + lead copy */
+.ch-intro{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:3rem;
+  margin-bottom:clamp(3rem,7vh,5rem);
+}
+.ch-intro p{max-width:44ch;color:var(--ink-70)}
+.night .ch-intro p{color:var(--bone-70)}
+.lead{color:var(--ink-70);max-width:56ch}
+.lead+.lead{margin-top:1.4rem}
+.night .lead{color:var(--bone-70)}
+
+/* section head inside a chapter */
+h3.sect{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.55rem,2.1vw,2.1rem);
+  line-height:1.25;letter-spacing:-0.005em;
+  margin-top:clamp(4rem,9vh,6.5rem);
+}
+h3.sect em{font-style:italic;font-weight:400}
+h3.sect+.lead,h3.sect+p.lead{margin-top:1.1rem}
+
+/* ————————————————— FIGURES LEDGER (component) ————————————————— */
+.figures{
+  margin-top:clamp(2rem,4vh,3rem);
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.figures .fig{border-top:1px solid var(--line);padding:1.4rem 1.6rem 0 0}
+.figures .fig+.fig{padding-left:1.6rem}
+.figures .n{
+  font-family:var(--serif);font-weight:500;font-size:clamp(2.3rem,3.6vw,3.5rem);
+  line-height:1;letter-spacing:-0.01em;color:var(--ink);
+  font-variant-numeric:lining-nums;
+}
+.figures .l{margin-top:0.7rem;color:var(--ink-55)}
+.figures .fn{color:var(--green);font-weight:500;margin-right:0.15em}
+
+/* ————————————————— PLATES ————————————————— */
+.plate{
+  position:relative;overflow:hidden;
+  height:clamp(340px,62vh,640px);
+  background:var(--night);
+}
+.plate .plx{position:absolute;inset:-12% 0;will-change:transform}
+.plate img{width:100%;height:100%;object-fit:cover;filter:saturate(0.82) contrast(1.05) sepia(0.05)}
+.plate::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,15,11,0.42),rgba(10,15,11,0.05) 45%);
+}
+.plate figcaption{
+  position:absolute;left:var(--gutter);bottom:1.6rem;z-index:2;
+  color:var(--bone-70);display:flex;gap:1.2rem;align-items:baseline;
+}
+.plate figcaption .mono{letter-spacing:0.22em}
+
+/* ————————————————— LINKS & BUTTONS (component) ————————————————— */
+.lnk{
+  display:inline-flex;align-items:baseline;gap:0.7rem;
+  font-family:var(--mono);font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;white-space:nowrap;
+  border-bottom:1px solid var(--ink);padding-bottom:0.45rem;
+  transition:color 0.3s,border-color 0.3s;
+}
+.lnk .ar{transition:transform 0.4s var(--ease);display:inline-block}
+.lnk:hover,.lnk:focus-visible{color:var(--green);border-color:var(--green)}
+.lnk:hover .ar{transform:translateX(5px)}
+.night .lnk,.on-night .lnk{color:var(--bone);border-color:var(--bone-45)}
+.night .lnk:hover,.on-night .lnk:hover{color:var(--green-lift);border-color:var(--green-lift)}
+
+.btn-seal{
+  display:inline-flex;align-items:center;gap:1.1rem;
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--bone);text-decoration:none;
+  border:1px solid var(--bone-45);padding:1.15rem 2.1rem;
+  transition:background 0.45s var(--ease),border-color 0.45s,color 0.45s;
+}
+.btn-seal .ar{transition:transform 0.4s var(--ease)}
+.btn-seal:hover,.btn-seal:focus-visible{background:var(--green);border-color:var(--green);color:#fff}
+.btn-seal:hover .ar{transform:translateX(5px)}
+.btn-seal.on-paper{color:var(--ink);border-color:var(--ink)}
+.btn-seal.on-paper:hover,.btn-seal.on-paper:focus-visible{background:var(--green);border-color:var(--green);color:#fff}
+
+/* ————————————————— WPLATE (component) ————————————————— */
+.wplate{
+  display:grid;grid-template-columns:minmax(0,7.2fr) minmax(0,4.8fr);
+  gap:clamp(2rem,4.5vw,4.5rem);
+  align-items:stretch;
+  text-decoration:none;color:inherit;
+  padding:clamp(2.4rem,5vh,3.6rem) 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.wp-img{position:relative;overflow:hidden;aspect-ratio:1.85/1;background:var(--paper-2)}
+.wp-img img{
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(0.84) contrast(1.05) sepia(0.05);
+  transform:scale(1.001);
+  transition:transform 1.4s var(--ease);
+}
+.wp-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,15,11,0.18),transparent 40%);
+  pointer-events:none;
+}
+.wplate:hover .wp-img img{transform:scale(1.035)}
+.wp-info{display:flex;flex-direction:column;min-width:0}
+.wp-meta{display:flex;justify-content:space-between;gap:1rem;color:var(--ink-55)}
+.wp-meta .mono b{color:var(--green);font-weight:500}
+.wp-name{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(1.9rem,3vw,3rem);line-height:1.05;letter-spacing:-0.01em;
+  margin-top:1.1rem;max-width:13ch;
+}
+.wp-desc{margin-top:1.1rem;color:var(--ink-70);max-width:38ch;font-size:0.95rem}
+.wp-scale{margin-top:auto;padding-top:2rem;display:flex;align-items:baseline;gap:0.8rem}
+.wp-scale .num{
+  font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,3.4vw,3.3rem);
+  line-height:1;letter-spacing:-0.01em;
+}
+.wp-scale .unit{color:var(--ink-55)}
+.wplate:hover .wp-name{color:var(--green-deep);transition:color 0.35s}
+
+/* ————————————————— RECORD (component) ————————————————— */
+.record a.row{
+  display:grid;
+  grid-template-columns:3.4rem minmax(0,1.55fr) minmax(0,1.15fr) minmax(0,0.85fr) minmax(0,0.75fr) 2rem;
+  gap:1.2rem;align-items:baseline;
+  padding:1.35rem 0;
+  border-top:1px solid var(--line);
+  text-decoration:none;color:inherit;
+  transition:background 0.3s;
+}
+.record a.row:last-child{border-bottom:1px solid var(--line)}
+.record .c-no{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;color:var(--ink-55);font-variant-numeric:tabular-nums}
+.record .c-name{font-family:var(--serif);font-weight:500;font-size:clamp(1.15rem,1.6vw,1.5rem);line-height:1.15;letter-spacing:-0.005em}
+.record .c-loc,.record .c-prog{font-size:0.82rem;color:var(--ink-55);font-weight:300}
+.record .c-scale{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.06em;color:var(--ink-70);font-variant-numeric:tabular-nums;text-align:right}
+.record .c-ar{font-family:var(--mono);color:var(--ink-55);text-align:right;opacity:0;transform:translateX(-6px);transition:opacity 0.3s,transform 0.4s var(--ease)}
+.record a.row:hover{background:var(--paper-2)}
+.record a.row:hover .c-ar{opacity:1;transform:translateX(0);color:var(--green)}
+.record a.row:hover .c-name{color:var(--green-deep)}
+
+/* ————————————————— METHOD LIST (component) ————————————————— */
+.method-list{list-style:none;counter-reset:m}
+.method-list li{
+  counter-increment:m;
+  display:grid;grid-template-columns:3.2rem minmax(0,1fr);gap:1.4rem;
+  padding:1.9rem 0;border-top:1px solid var(--nline);
+}
+.method-list li:last-child{border-bottom:1px solid var(--nline)}
+.method-list li::before{
+  content:counter(m,decimal-leading-zero);
+  font-family:var(--mono);font-size:0.72rem;letter-spacing:0.1em;color:var(--green-lift);
+  padding-top:0.5rem;
+}
+.method-list h4{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.45rem,2vw,1.9rem);
+  letter-spacing:-0.005em;line-height:1.15;
+}
+.method-list p{margin-top:0.55rem;color:var(--bone-70);font-size:0.93rem;max-width:52ch}
+/* paper variant */
+.method-list.on-paper li{border-top-color:var(--line)}
+.method-list.on-paper li:last-child{border-bottom-color:var(--line)}
+.method-list.on-paper li::before{color:var(--green)}
+.method-list.on-paper p{color:var(--ink-70)}
+
+/* ————————————————— LITANY (component) ————————————————— */
+.litany{list-style:none}
+.litany li{
+  display:grid;grid-template-columns:3.4rem minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(1.2rem,3vw,3rem);align-items:baseline;
+  padding:clamp(1.6rem,3vh,2.3rem) 0;
+  border-top:1px solid var(--line);
+}
+.litany li:last-child{border-bottom:1px solid var(--line)}
+.litany .num{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;color:var(--ink-55);font-variant-numeric:tabular-nums}
+.litany .verb{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(2.2rem,4.6vw,4.2rem);line-height:1;letter-spacing:-0.01em;
+}
+.litany p{color:var(--ink-70);font-size:0.94rem;max-width:48ch}
+
+/* ————————————————— PEOPLE ROW (component) ————————————————— */
+.people{list-style:none}
+.people li{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1.35fr) 172px;
+  gap:clamp(2rem,4.5vw,4.5rem);align-items:center;
+  padding:clamp(1.8rem,3.6vh,2.6rem) 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.p-id .p-name{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,2.6vw,2.5rem);
+  line-height:1.05;letter-spacing:-0.008em;
+}
+.p-id .p-title{margin-top:0.7rem;color:var(--green);letter-spacing:0.2em}
+.p-bio{color:var(--ink-70);font-size:0.94rem;max-width:46ch}
+.p-photo{width:172px;height:216px;overflow:hidden;background:var(--paper-2);justify-self:end}
+.p-photo img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  filter:saturate(0.82) contrast(1.03);
+  transition:transform 1.2s var(--ease);
+}
+.people li:hover .p-photo img{transform:scale(1.045)}
+
+/* ————————————————— VENTURES ROW (component) ————————————————— */
+.ventures{list-style:none}
+.ventures a{
+  display:grid;grid-template-columns:3.4rem minmax(0,1fr) auto 2rem;
+  gap:1.2rem;align-items:baseline;
+  padding:clamp(1.7rem,3.4vh,2.4rem) 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  text-decoration:none;color:inherit;transition:background 0.3s;
+}
+.ventures .v-no{font-family:var(--mono);font-size:0.7rem;color:var(--ink-55)}
+.ventures .v-name{
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,3.4vw,3.1rem);
+  line-height:1.05;letter-spacing:-0.01em;
+}
+.ventures .v-url{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;color:var(--ink-55)}
+.ventures .v-ar{font-family:var(--mono);color:var(--ink-55);transition:transform 0.4s var(--ease),color 0.3s}
+.ventures a:hover{background:var(--paper-2)}
+.ventures a:hover .v-ar{transform:translate(4px,-4px);color:var(--green)}
+.ventures a:hover .v-name{color:var(--green-deep)}
+
+/* ————————————————— SPECIMEN FRAMES (doc-only) ————————————————— */
+.frame{
+  --frame-page:var(--paper);
+  position:relative;border:1px solid var(--line);
+  padding:clamp(1.6rem,3.5vw,3rem);
+  margin-top:2.6rem;
+}
+.night .frame{--frame-page:var(--night);border-color:var(--nline)}
+.ftab{
+  position:absolute;top:0;left:clamp(1rem,2vw,1.6rem);transform:translateY(-50%);
+  background:var(--frame-page);padding:0 0.75em;
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink-55);white-space:nowrap;max-width:calc(100% - 2rem);overflow:hidden;text-overflow:ellipsis;
+}
+.ftab b{font-weight:500;color:var(--green);margin-right:0.6em}
+.night .ftab{color:var(--bone-45)}
+.night .ftab b{color:var(--green-lift)}
+.fuse{
+  margin-top:clamp(1.6rem,3.5vh,2.4rem);padding-top:1.05rem;
+  border-top:1px solid var(--line-soft);
+  font-size:0.86rem;color:var(--ink-55);max-width:72ch;
+}
+.fuse b{font-family:var(--mono);font-size:0.6rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--green);margin-right:0.8em}
+.night .fuse{border-top-color:var(--nline);color:var(--bone-45)}
+.night .fuse b{color:var(--green-lift)}
+/* a frame whose interior is night, sitting on paper */
+.frame.holds-night{background:var(--night);border-color:var(--night);color:var(--bone)}
+.frame.holds-night .fuse{border-top-color:var(--nline);color:var(--bone-45)}
+.frame.holds-night .fuse b{color:var(--green-lift)}
+
+/* ————————————————— MARKS (ch 02) ————————————————— */
+.marks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem;margin-top:2.6rem}
+.mark-tile{border:1px solid var(--nline);display:flex;flex-direction:column}
+.mark-stage{
+  display:flex;align-items:center;justify-content:center;
+  min-height:clamp(150px,22vh,220px);padding:2.4rem;
+}
+.mark-stage.on-paper-g{background:var(--paper)}
+.mark-stage img{width:auto}
+.mark-caption{
+  border-top:1px solid var(--nline);padding:0.95rem 1.2rem;
+  display:flex;justify-content:space-between;gap:1rem;align-items:baseline;
+  color:var(--bone-45);
+}
+.mark-caption .mono b{color:var(--green-lift);font-weight:500;margin-right:0.6em}
+.mark-tile.on-paper-t{border-color:transparent}
+.mark-tile.on-paper-t .mark-caption{border-top-color:var(--line);color:var(--ink-55)}
+.mark-tile.on-paper-t .mark-caption .mono b{color:var(--green)}
+
+/* asset ledger */
+.ledger{margin-top:2.4rem}
+.ledger .lrow{
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,0.9fr) minmax(0,0.9fr) minmax(0,1.6fr);
+  gap:1.2rem;align-items:baseline;
+  padding:1.05rem 0;border-top:1px solid var(--nline);
+}
+.ledger .lrow:last-child{border-bottom:1px solid var(--nline)}
+.ledger .lrow.lhead{border-top:0;padding-bottom:0.55rem}
+.ledger .lrow.lhead span{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--bone-45)}
+.ledger .lc{font-size:0.88rem;color:var(--bone-70)}
+.ledger .lc.file{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.06em;color:var(--bone)}
+.ledger.on-paper .lrow{border-color:var(--line)}
+.ledger.on-paper .lrow.lhead span{color:var(--ink-55)}
+.ledger.on-paper .lc{color:var(--ink-70)}
+.ledger.on-paper .lc.file{color:var(--ink)}
+
+/* clear-space diagram */
+.cs-wrap{display:flex;justify-content:center;padding:clamp(1rem,3vw,2rem) 0}
+.cs{
+  position:relative;
+  border:1px dashed var(--bone-45);
+  padding:56px;
+}
+.cs .cs-mark{display:block;height:48px;width:auto;position:relative;z-index:1}
+.cs .cs-x{
+  position:absolute;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;
+  color:var(--green-lift);font-style:normal;
+}
+.cs .cs-x.top{top:20px;left:50%;transform:translateX(-50%)}
+.cs .cs-x.bottom{bottom:20px;left:50%;transform:translateX(-50%)}
+.cs .cs-x.left{left:22px;top:50%;transform:translateY(-50%)}
+.cs .cs-x.right{right:22px;top:50%;transform:translateY(-50%)}
+
+/* misuse — typographic rules, no clip-art */
+.rules{list-style:none;counter-reset:r;margin-top:1.4rem}
+.rules li{
+  counter-increment:r;
+  display:grid;grid-template-columns:3.2rem minmax(0,1fr);gap:1.4rem;align-items:baseline;
+  padding:1.15rem 0;border-top:1px solid var(--nline);
+}
+.rules li:last-child{border-bottom:1px solid var(--nline)}
+.rules li::before{
+  content:counter(r,decimal-leading-zero);
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.1em;color:var(--green-lift);
+}
+.rules p{color:var(--bone-70);font-size:0.94rem;max-width:64ch}
+.rules p b{font-weight:400;color:var(--bone)}
+.rules.on-paper li{border-color:var(--line)}
+.rules.on-paper li::before{color:var(--green)}
+.rules.on-paper p{color:var(--ink-70)}
+.rules.on-paper p b{color:var(--ink)}
+
+/* ————————————————— COLOR (ch 03) ————————————————— */
+.inks-label{
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.24em;text-transform:uppercase;
+  color:var(--ink-55);margin:2.8rem 0 1.1rem;display:flex;align-items:baseline;gap:1rem;
+}
+.inks-label::after{content:'';flex:1;height:1px;background:var(--line-soft);align-self:center}
+.inks{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem}
+.inks.seal-row{grid-template-columns:repeat(5,1fr)}
+.ink-chip{text-align:left;padding:0;display:block}
+.ink-chip .c{
+  height:clamp(88px,13vh,140px);
+  border:1px solid var(--line-soft);
+  position:relative;
+  transition:transform 0.4s var(--ease);
+}
+.ink-chip:hover .c{transform:translateY(-3px)}
+.ink-chip .meta{margin-top:0.85rem}
+.ink-chip .meta .nm{font-size:0.88rem;font-weight:400;color:var(--ink)}
+.ink-chip .meta .hx{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;color:var(--ink-55);margin-top:0.2rem;text-transform:uppercase}
+.ink-chip .meta .vr{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;color:var(--ink-55);text-transform:none}
+.ink-chip .meta .role{font-size:0.78rem;color:var(--ink-55);margin-top:0.35rem;line-height:1.5}
+
+/* hairline samples */
+.hairlines{margin-top:1.2rem}
+.hairlines .hrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:1.6rem;align-items:center;padding:1.1rem 0;border-top:1px solid var(--line-soft)}
+.hairlines .hrow:last-child{border-bottom:1px solid var(--line-soft)}
+.hairlines .hmeta{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;color:var(--ink-55)}
+.hairlines .hsample{height:1px}
+.hairlines .hsample.on-dark{height:33px;background:var(--night);position:relative}
+.hairlines .hsample.on-dark::after{content:'';position:absolute;top:16px;left:0;right:0;height:1px;background:var(--nline)}
+
+/* contrast ledger */
+.cx-head{display:grid;grid-template-columns:5.6rem minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:1.2rem;padding-bottom:0.6rem}
+.cx-head span{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-55)}
+.cx{
+  display:grid;grid-template-columns:5.6rem minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);
+  gap:1.2rem;align-items:center;
+  padding:0.9rem 0;border-top:1px solid var(--line);
+}
+.cx:last-of-type{border-bottom:1px solid var(--line)}
+.cx .chip{
+  width:5.6rem;height:3.3rem;display:grid;place-items:center;
+  font-family:var(--serif);font-size:1.4rem;font-weight:500;line-height:1;
+  border:1px solid var(--line-soft);
+}
+.cx .pair{font-size:0.88rem;color:var(--ink-70)}
+.cx .pair code{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.04em;color:var(--ink-55)}
+.cx .ratio{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;color:var(--ink);font-variant-numeric:tabular-nums}
+.cx .verdict{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-55)}
+.cx .verdict.ok{color:var(--green);font-weight:500}
+.cx .verdict.no{color:var(--ink);font-weight:500}
+
+/* paper vs night pairing panel */
+.pairing{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:2.6rem;border:1px solid var(--line)}
+.pairing .side{padding:clamp(1.8rem,4vw,3rem)}
+.pairing .side.p-night{background:var(--night);color:var(--bone)}
+.pairing .side .demo-bar{display:flex;align-items:baseline;gap:1.2rem;border-top:1px solid var(--ink);padding-top:0.9rem}
+.pairing .side.p-night .demo-bar{border-top-color:var(--bone)}
+.pairing .side .demo-bar .idx{font-family:var(--mono);font-size:0.72rem;color:var(--green);font-weight:500}
+.pairing .side.p-night .demo-bar .idx{color:var(--green-lift)}
+.pairing .side .demo-bar .lbl{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-55)}
+.pairing .side.p-night .demo-bar .lbl{color:var(--bone-45)}
+.pairing .side h4{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,2.2vw,2.1rem);line-height:1.15;margin-top:1.6rem}
+.pairing .side h4 em{font-style:italic;font-weight:400}
+.pairing .side p.demo-p{margin-top:0.9rem;font-size:0.94rem;color:var(--ink-70);max-width:34ch}
+.pairing .side.p-night p.demo-p{color:var(--bone-70)}
+.pairing .side .mono.tagl{display:block;margin-top:1.6rem;color:var(--ink-55)}
+.pairing .side.p-night .mono.tagl{color:var(--bone-45)}
+
+/* ————————————————— TYPE (ch 04) ————————————————— */
+.spec{
+  display:grid;grid-template-columns:clamp(200px,23vw,300px) minmax(0,1fr);
+  gap:clamp(1.5rem,4vw,4rem);
+  padding:clamp(1.8rem,4vh,2.8rem) 0;
+  border-top:1px solid var(--line);
+  align-items:center;
+}
+.spec:last-of-type{border-bottom:1px solid var(--line)}
+.spec .sm{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.06em;color:var(--ink-55);line-height:2.05}
+.spec .sm .sn{color:var(--ink);font-weight:500}
+.spec .sm .si{color:var(--green);font-weight:500;margin-right:0.7em}
+.spec .sample{min-width:0}
+.spec .sample>*{overflow-wrap:break-word}
+
+.t-hero{font-family:var(--serif);font-weight:500;font-size:clamp(3.3rem,9.2vw,8.4rem);line-height:1.02;letter-spacing:-0.015em}
+.t-hero em{font-style:italic;font-weight:400}
+.t-display{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,5vw,4.6rem);line-height:1.06;letter-spacing:-0.01em}
+.t-display em{font-style:italic;font-weight:400}
+.t-statement{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4.4vw,4rem);line-height:1.2;letter-spacing:-0.005em;max-width:27ch;text-indent:-0.42em}
+.t-statement .q{color:var(--green)}
+.t-name{font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,3vw,3rem);line-height:1.05;letter-spacing:-0.01em}
+.t-verb{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.2rem,4.6vw,4.2rem);line-height:1;letter-spacing:-0.01em}
+.t-fig{font-family:var(--serif);font-weight:500;font-size:clamp(2.3rem,3.6vw,3.5rem);line-height:1;letter-spacing:-0.01em;font-variant-numeric:lining-nums}
+.t-fig .fn{color:var(--green);font-weight:500}
+.t-sub{font-family:var(--serif);font-weight:500;font-size:clamp(1.55rem,2.1vw,2.1rem);line-height:1.25;letter-spacing:-0.005em}
+.t-sub em{font-style:italic;font-weight:400}
+.t-body{font-size:1rem;line-height:1.75;font-weight:300;color:var(--ink);max-width:56ch}
+.t-small{font-size:0.94rem;line-height:1.7;font-weight:300;color:var(--ink-70);max-width:48ch}
+.t-label{font-family:var(--mono);font-size:0.66rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-55)}
+.t-index{font-family:var(--mono);font-size:0.72rem;font-weight:500;letter-spacing:0.14em;color:var(--green);font-variant-numeric:tabular-nums}
+
+/* clamp anatomy */
+.clamp-anatomy{margin-top:2.4rem;border:1px solid var(--line);padding:clamp(1.6rem,3.5vw,2.6rem)}
+.clamp-line{font-family:var(--mono);font-size:clamp(0.78rem,1.6vw,1.05rem);letter-spacing:0.04em;color:var(--ink);display:flex;flex-wrap:wrap;gap:0.35em;align-items:baseline}
+.clamp-line .seg{position:relative;padding-bottom:2rem;margin:0 0.45em}
+.clamp-line .seg::before{content:'';position:absolute;left:0;right:0;bottom:1.55rem;height:6px;border:1px solid var(--line);border-top:0}
+.clamp-line .seg::after{
+  content:attr(data-l);position:absolute;left:50%;transform:translateX(-50%);bottom:0;
+  font-size:0.54rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);white-space:nowrap;font-weight:500;
+}
+.clamp-line .seg.mid{padding-bottom:3.4rem}
+.clamp-line .seg.mid::before{bottom:2.95rem}
+.clamp-line .pn{color:var(--ink-55);padding-bottom:2rem}
+
+/* ————————————————— SPACE (ch 05) ————————————————— */
+.space-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(3rem,7vw,7rem);align-items:start}
+.skel{display:flex;flex-direction:column;width:min(320px,100%);margin-left:auto}
+.sk{border:1px solid var(--line);position:relative;padding:0.5rem 0.7rem}
+.sk .mono{font-size:0.5rem;letter-spacing:0.16em;color:var(--ink-55)}
+.sk.dark{background:var(--night)}
+.sk.dark .mono{color:var(--bone-45)}
+.sk .mini-rule{height:1px;background:var(--line);margin:0.45rem 0}
+.sk .mini-rule.strong{background:var(--ink)}
+.skgap{display:flex;align-items:center;gap:0.7rem;padding:0.9rem 0}
+.skgap::before,.skgap::after{content:'';flex:1;height:1px;background:var(--line-soft)}
+.skgap .mono{font-size:0.5rem;letter-spacing:0.14em;color:var(--green);white-space:nowrap}
+
+/* live rhythm readout */
+.rhythm{margin-top:2.4rem}
+.rhythm .rrow{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) minmax(0,0.7fr);
+  gap:1.2rem;align-items:baseline;
+  padding:1.05rem 0;border-top:1px solid var(--line);
+}
+.rhythm .rrow:last-child{border-bottom:1px solid var(--line)}
+.rhythm .rrow.rhead{border-top:0;padding-bottom:0.5rem}
+.rhythm .rrow.rhead span{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-55)}
+.rhythm .rtok{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.06em;color:var(--ink)}
+.rhythm .rval{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.04em;color:var(--ink-55)}
+.rhythm .rnow{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.06em;color:var(--green);font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+
+/* ————————————————— NAV DEMO (ch 06) ————————————————— */
+.navdemo{display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:1.3rem 1.6rem}
+.navdemo.nd-night{background:linear-gradient(to bottom,#1d241e,var(--night-2))}
+.navdemo.nd-paper{background:rgba(244,241,234,0.94);border-bottom:1px solid var(--line-soft)}
+.navdemo img{height:26px;width:auto}
+.navdemo ul{display:flex;gap:2.2rem;list-style:none}
+.navdemo a{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none}
+.navdemo.nd-night a{color:rgba(244,241,234,0.85)}
+.navdemo.nd-paper a{color:var(--ink-70)}
+
+/* ————————————————— MOTION (ch 07) ————————————————— */
+.motion-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(3rem,6vw,6rem);align-items:start;margin-top:2.6rem}
+.curve-fig{border:1px solid var(--nline);padding:clamp(1.4rem,3vw,2.4rem)}
+.curve-fig svg{width:100%;height:auto;display:block}
+.curve-cap{margin-top:1.2rem;font-size:0.86rem;color:var(--bone-45);max-width:52ch}
+
+/* duration ledger */
+.durs .drow{
+  display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,0.8fr) minmax(0,1.6fr);
+  gap:1.2rem;align-items:baseline;padding:1.05rem 0;border-top:1px solid var(--nline);
+}
+.durs .drow:last-child{border-bottom:1px solid var(--nline)}
+.durs .drow.dhead{border-top:0;padding-bottom:0.5rem}
+.durs .drow.dhead span{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--bone-45)}
+.durs .dname{font-family:var(--serif);font-weight:500;font-size:1.15rem;color:var(--bone)}
+.durs .dtime{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.08em;color:var(--green-lift);font-variant-numeric:tabular-nums}
+.durs .duse{font-size:0.88rem;color:var(--bone-70)}
+
+/* live motion stage */
+.stage{border:1px solid var(--nline);padding:clamp(2rem,5vw,3.5rem);margin-top:2.6rem;overflow:hidden}
+.stage .demo-rv{transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}
+.stage.armed .demo-rv{opacity:0;transform:translateY(26px);transition:none}
+.stage-bar{display:flex;align-items:baseline;gap:1.4rem;border-top:1px solid var(--bone);padding-top:1rem}
+.stage-bar .idx{font-family:var(--mono);font-size:0.72rem;color:var(--green-lift);font-weight:500}
+.stage-bar .lbl{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--bone-45)}
+.stage h4{font-family:var(--serif);font-weight:500;font-size:clamp(1.9rem,3.4vw,3rem);line-height:1.08;margin-top:1.8rem;max-width:18ch}
+.stage h4 em{font-style:italic;font-weight:400}
+.stage p.st-p{margin-top:1rem;color:var(--bone-70);font-size:0.94rem;max-width:44ch}
+.stage-controls{margin-top:2.2rem;display:flex;align-items:center;gap:1.6rem}
+.replay{
+  display:inline-flex;align-items:center;gap:0.9rem;
+  font-family:var(--mono);font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--bone);border:1px solid var(--bone-45);padding:0.95rem 1.7rem;
+  transition:background 0.45s var(--ease),border-color 0.45s,color 0.45s;
+}
+.replay:hover,.replay:focus-visible{background:var(--green);border-color:var(--green);color:#fff}
+.rm-note{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--bone-45);display:none}
+@media(prefers-reduced-motion:reduce){.replay{display:none}.rm-note{display:block}}
+
+/* ————————————————— PHOTOGRAPHY (ch 08) ————————————————— */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.6rem}
+.ba figure{margin:0}
+.ba .ba-img{overflow:hidden;background:var(--paper-2);aspect-ratio:1504/688}
+.ba .ba-img img{width:100%;height:100%;object-fit:cover}
+.ba figure.treated .ba-img img{filter:saturate(0.84) contrast(1.05) sepia(0.05)}
+.ba figcaption{margin-top:0.85rem;display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
+.ba figcaption .mono{color:var(--ink-55)}
+.ba figcaption .mono b{color:var(--green);font-weight:500;margin-right:0.6em}
+
+.scrim-demo{position:relative;overflow:hidden;margin-top:2.6rem;height:clamp(280px,48vh,480px);background:var(--night)}
+.scrim-demo img{width:100%;height:100%;object-fit:cover;filter:saturate(0.82) contrast(1.05) sepia(0.05)}
+.scrim-demo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,11,0.42),rgba(10,15,11,0.05) 45%)}
+.scrim-demo figcaption{position:absolute;left:clamp(1.5rem,4vw,3rem);bottom:1.6rem;z-index:2;color:var(--bone-70);display:flex;gap:1.2rem;align-items:baseline}
+.scrim-demo figcaption .mono{letter-spacing:0.22em}
+
+.recipe{margin-top:2.4rem;border:1px solid var(--line);padding:clamp(1.4rem,3vw,2.2rem)}
+.recipe pre{font-family:var(--mono);font-size:0.7rem;line-height:2;letter-spacing:0.04em;color:var(--ink-70);white-space:pre-wrap;word-break:break-word}
+.recipe pre b{color:var(--green);font-weight:500}
+
+/* ————————————————— VOICE (ch 09) ————————————————— */
+.voice-pair{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.6rem,4vw,4rem);
+  padding:clamp(1.6rem,3.5vh,2.4rem) 0;border-top:1px solid var(--line);
+}
+.voice-pair:last-of-type{border-bottom:1px solid var(--line)}
+.voice-pair .vhead{font-family:var(--mono);font-size:0.6rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:0.85rem}
+.voice-pair .vhead.w{color:var(--green)}
+.voice-pair .vhead.n{color:var(--ink-55)}
+.voice-pair blockquote{border:0;margin:0}
+.voice-pair .vw{font-family:var(--serif);font-size:clamp(1.2rem,1.8vw,1.55rem);line-height:1.4;color:var(--ink)}
+.voice-pair .vn{font-family:var(--serif);font-size:clamp(1.2rem,1.8vw,1.55rem);line-height:1.4;color:var(--ink-55);text-decoration:line-through;text-decoration-color:var(--line);text-decoration-thickness:1px}
+.voice-pair .vwhy{margin-top:0.7rem;font-size:0.84rem;color:var(--ink-55);max-width:44ch}
+
+/* ————————————————— APPLICATION (ch 10) ————————————————— */
+.tokens{
+  margin-top:2.6rem;border:1px solid var(--nline);
+  position:relative;
+}
+.tokens pre{
+  padding:clamp(1.6rem,3.5vw,2.6rem);
+  font-family:var(--mono);font-size:0.7rem;line-height:1.95;letter-spacing:0.02em;
+  color:var(--bone-70);overflow-x:auto;
+}
+.tokens pre .cm{color:var(--bone-45)}
+.tokens pre .vn{color:var(--green-lift)}
+.tokens .copy{
+  position:absolute;top:0;right:0;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--bone-45);padding:0.9rem 1.2rem;border-left:1px solid var(--nline);border-bottom:1px solid var(--nline);
+  transition:color 0.3s;background:var(--night);
+}
+.tokens .copy:hover,.tokens .copy:focus-visible{color:var(--green-lift)}
+
+.checklist{list-style:none;counter-reset:c;margin-top:1.4rem}
+.checklist li{
+  counter-increment:c;
+  display:grid;grid-template-columns:4.6rem minmax(0,1fr);gap:1.4rem;align-items:baseline;
+  padding:1.15rem 0;border-top:1px solid var(--nline);
+}
+.checklist li:last-child{border-bottom:1px solid var(--nline)}
+.checklist li::before{
+  content:"CHK " counter(c,decimal-leading-zero);
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;color:var(--green-lift);
+}
+.checklist p{color:var(--bone-70);font-size:0.92rem;max-width:66ch}
+.checklist p b{font-weight:400;color:var(--bone)}
+
+/* ————————————————— COLOPHON ————————————————— */
+footer{background:var(--night);color:var(--bone)}
+.colophon{
+  padding:clamp(3.5rem,7vh,5.5rem) var(--gutter) 2.6rem;
+  display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));
+  gap:clamp(2rem,4vw,4rem);
+}
+.colophon .f-brand img{height:120px;width:120px;object-fit:contain;margin:-14px 0 0 -14px}
+.colophon .f-tag{margin-top:1.3rem;font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--bone-70)}
+.colophon h4{font-family:var(--mono);font-size:0.62rem;font-weight:400;letter-spacing:0.24em;text-transform:uppercase;color:var(--bone-45);margin-bottom:1.4rem}
+.colophon ul{list-style:none}
+.colophon li{margin-bottom:0.65rem}
+.colophon a{color:var(--bone-70);text-decoration:none;font-size:0.9rem;font-weight:300;transition:color 0.3s}
+.colophon a:hover{color:var(--bone)}
+.colophon p,.colophon address{font-style:normal;color:var(--bone-70);font-size:0.9rem;line-height:1.9;font-weight:300}
+.colophon .coords{margin-top:1.1rem;color:var(--bone-45);letter-spacing:0.16em;line-height:2}
+.baseline{
+  margin:0 var(--gutter);padding:1.5rem 0 2rem;
+  border-top:1px solid var(--nline);
+  display:flex;justify-content:space-between;gap:1rem;align-items:baseline;
+  color:var(--bone-45);
+}
+.baseline .mono{letter-spacing:0.16em}
+.baseline button.mono{color:var(--bone-45);transition:color 0.3s;letter-spacing:0.16em;text-transform:uppercase;font-size:0.66rem}
+.baseline button.mono:hover,.baseline button.mono:focus-visible{color:var(--green-lift)}
+
+/* ————————————————— RAIL INDEX ————————————————— */
+#rail{
+  position:fixed;left:1.6rem;bottom:1.8rem;z-index:500;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--ink-55);
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  opacity:0;transition:opacity 0.5s;pointer-events:none;
+}
+#rail.show{opacity:1}
+#rail.inv{color:var(--bone-45)}
+
+/* ————————————————— REVEALS ————————————————— */
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}
+.js .rv.on{opacity:1;transform:none}
+
+/* toast */
+#toast{
+  position:fixed;left:50%;bottom:2rem;z-index:2500;transform:translate(-50%,12px);
+  background:var(--ink);color:var(--bone);
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;
+  padding:0.8rem 1.4rem;opacity:0;pointer-events:none;
+  transition:opacity 0.35s var(--ease),transform 0.35s var(--ease);
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ————————————————— REDUCED MOTION ————————————————— */
+@media(prefers-reduced-motion:reduce){
+  .js .rv{opacity:1;transform:none;transition:none}
+  .js #cover.play .cov-rule,.js #cover.play .cov-top span,.js #cover.play .cov-seal,
+  .js #cover.play .tw-1,.js #cover.play .tw-2,.js #cover.play .cov-sub,
+  .js #cover.play .cov-meta,.js #cover.play .cov-vrule,
+  .js #cover.play .cov-foot::before,.js #cover.play .cov-foot p{animation:none}
+  .plate .plx{position:absolute;inset:0;transform:none !important}
+  .wp-img img,.p-photo img,.lnk .ar,.v-ar,.ink-chip .c{transition:none}
+  .stage .demo-rv{transition:none}
+  .stage.armed .demo-rv{opacity:1;transform:none}
+}
+
+/* ————————————————— RESPONSIVE ————————————————— */
+@media(max-width:1100px){
+  #rail{display:none}
+  .dn-links a.ch{display:none}
+  .thesis-cols{grid-template-columns:1fr;gap:2.6rem}
+  .figures{grid-template-columns:repeat(2,1fr)}
+  .figures .fig{padding:1.3rem 1rem 0 0}
+  .figures .fig+.fig{padding-left:0}
+  .figures .fig:nth-child(even){padding-left:1.4rem}
+  .inks{grid-template-columns:repeat(3,1fr)}
+  .motion-grid{grid-template-columns:1fr}
+  .space-grid{grid-template-columns:1fr;gap:3rem}
+  .skel{margin-left:0}
+}
+@media(max-width:900px){
+  .ch-intro{flex-direction:column;align-items:flex-start;gap:1.4rem}
+  .wplate{grid-template-columns:1fr;gap:1.6rem}
+  .wp-name{max-width:none}
+  .wp-scale{padding-top:1.4rem}
+  .record a.row{grid-template-columns:2.6rem minmax(0,1fr) auto;grid-template-rows:auto auto;row-gap:0.15rem}
+  .record .c-name{white-space:normal;grid-column:2;grid-row:1}
+  .record .c-no{grid-row:1}
+  .record .c-loc{grid-column:2;grid-row:2}
+  .record .c-prog{display:none}
+  .record .c-scale{grid-column:3;grid-row:1}
+  .record .c-ar{display:none}
+  .people li{grid-template-columns:minmax(0,1fr) 150px;grid-template-rows:auto auto;align-items:start}
+  .people .p-photo{grid-row:1;grid-column:2;width:150px;height:188px}
+  .people .p-bio{grid-column:1 / -1;grid-row:2;max-width:60ch}
+  .marks-grid{grid-template-columns:1fr}
+  .pairing{grid-template-columns:1fr}
+  .spec{grid-template-columns:1fr;gap:1.1rem;align-items:start}
+  .ba{grid-template-columns:1fr}
+  .voice-pair{grid-template-columns:1fr;gap:1.3rem}
+  .ledger .lrow{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);row-gap:0.3rem}
+  .ledger .lrow.lhead span:nth-child(n+3){display:none}
+  .ledger .lrow .lc:nth-child(n+3){grid-column:2}
+  .ledger .lrow .lc.file{grid-column:1;grid-row:1 / span 3}
+  .colophon{grid-template-columns:1fr 1fr}
+  .cx-head{display:none}
+  .cx{grid-template-columns:4.6rem minmax(0,1fr);grid-template-rows:auto auto;row-gap:0.3rem;align-items:start}
+  .cx .chip{width:4.6rem;height:3rem;grid-row:1 / span 2}
+  .cx .ratio{grid-column:2}
+  .cx .verdict{grid-column:2}
+}
+@media(max-width:640px){
+  :root{--chapter-gap:5rem}
+  .cov-top{flex-direction:column;gap:0.2rem}
+  .cov-foot a,.cov-foot .sep{font-size:0.56rem;letter-spacing:0.12em}
+  .cov-foot .sep{margin:0 0.4em}
+  .inks{grid-template-columns:repeat(2,1fr)}
+  .litany li{grid-template-columns:2.4rem minmax(0,1fr);gap:0.6rem 1rem}
+  .litany li p{grid-column:2}
+  .people li{grid-template-columns:minmax(0,1fr) 118px}
+  .people .p-photo{width:118px;height:148px}
+  .ventures a{grid-template-columns:2.6rem minmax(0,1fr) 2rem}
+  .ventures .v-url{display:none}
+  .rules li,.checklist li{grid-template-columns:2.6rem minmax(0,1fr);gap:1rem}
+  .checklist li{grid-template-columns:4rem minmax(0,1fr)}
+  .rhythm .rrow{grid-template-columns:minmax(0,1fr) minmax(0,0.7fr);grid-template-rows:auto auto;row-gap:0.2rem}
+  .rhythm .rval{grid-column:1 / -1;grid-row:2}
+  .navdemo ul{display:none}
+  .colophon{grid-template-columns:1fr;gap:2.4rem}
+  .baseline{flex-direction:column;gap:0.4rem}
+  .plate figcaption,.scrim-demo figcaption{left:1.5rem}
+  .cs{padding:38px}
+  .cs .cs-mark{height:34px}
+  .cs .cs-x.top{top:12px}.cs .cs-x.bottom{bottom:12px}.cs .cs-x.left{left:12px}.cs .cs-x.right{right:12px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ——— DOC NAV ——— -->
+<header id="docnav">
+  <a href="#cover" class="dn-brand" aria-label="Brand Identity System — back to cover">
+    <img src="logo-long-blk.png" alt="Mullin Development" width="767" height="203">
+    <span class="mono">Brand Identity System</span>
+  </a>
+  <nav aria-label="Chapters">
+    <ul class="dn-links">
+      <li><a class="ch" href="#thesis" aria-label="Chapter 01 — The Thesis">01</a></li>
+      <li><a class="ch" href="#marks" aria-label="Chapter 02 — The Marks">02</a></li>
+      <li><a class="ch" href="#color" aria-label="Chapter 03 — The Inks">03</a></li>
+      <li><a class="ch" href="#type" aria-label="Chapter 04 — The Letterforms">04</a></li>
+      <li><a class="ch" href="#space" aria-label="Chapter 05 — The Spaces">05</a></li>
+      <li><a class="ch" href="#components" aria-label="Chapter 06 — The Components">06</a></li>
+      <li><a class="ch" href="#motion" aria-label="Chapter 07 — The Motion">07</a></li>
+      <li><a class="ch" href="#photography" aria-label="Chapter 08 — The Plates">08</a></li>
+      <li><a class="ch" href="#voice" aria-label="Chapter 09 — The Voice">09</a></li>
+      <li><a class="ch" href="#application" aria-label="Chapter 10 — The Application">10</a></li>
+      <li><a href="#colophon">Colophon</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ——— COVER — the identity assembling itself ——— -->
+<section id="cover" aria-label="Cover — Brand Identity System">
+  <p class="cov-top mono">
+    <span>Mullin Development</span>
+    <span>The Firm&rsquo;s Book</span>
+  </p>
+  <div class="cov-rule" aria-hidden="true"></div>
+  <div class="cov-mid">
+    <div class="cov-seal">
+      <img src="logo-green.png" alt="The Mullin seal — an M drawn as three towers, above the wordmark" width="1024" height="1024" fetchpriority="high">
+    </div>
+    <h1 class="cov-title"><span class="tl"><span class="tw tw-1">Brand&nbsp;</span></span><span class="tl"><span class="tw tw-2">Identity&nbsp;</span></span><span class="tl"><span class="tw tw-3"><em>System.</em></span></span></h1>
+    <p class="cov-sub">The identity of Mullin Development, set down in one volume — its marks, inks, letterforms, spaces, motion, and voice. What follows is not a style guide. It is the firm's book, and the rules by which every future page is printed.</p>
+    <p class="cov-meta mono">First edition · MMXXVI · Scottsdale, Arizona</p>
+    <div class="cov-vrule" aria-hidden="true"></div>
+  </div>
+  <nav class="cov-foot" aria-label="Contents">
+    <p>
+      <a href="#thesis"><b>01</b>Thesis</a><span class="sep" aria-hidden="true">·</span>
+      <a href="#marks"><b>02</b>Marks</a><span class="sep" aria-hidden="true">·</span>
+      <a href="#color"><b>03</b>Inks</a><span class="sep" aria-hidden="true">·</span>
+      <a href="#type"><b>04</b>Letterforms</a><span class="sep" aria-hidden="true">·</span>
+      <a href="#space"><b>05</b>Spaces</a><span class="sep" aria-hidden="true">·</span>
+      <a href="#components"><b>06</b>Components</a><span class="sep" aria-hidden="true">·</span>
+      <a href="#motion"><b>07</b>Motion</a><span class="sep" aria-hidden="true">·</span>
+      <a href="#photography"><b>08</b>Plates</a><span class="sep" aria-hidden="true">·</span>
+      <a href="#voice"><b>09</b>Voice</a><span class="sep" aria-hidden="true">·</span>
+      <a href="#application"><b>10</b>Application</a>
+    </p>
+  </nav>
+</section>
+
+<main id="main">
+
+  <!-- ——— 01 THE THESIS ——— -->
+  <section id="thesis" class="chapter wrap" data-rail="01 — The Thesis">
+    <div class="chapterbar rv">
+      <span class="idx">01</span>
+      <span class="lbl">The Thesis</span>
+      <span class="of">/ 10</span>
+    </div>
+
+    <p class="statement rv"><span class="q">&ldquo;</span>The brand is a book. Every page the firm publishes is a page of&nbsp;it.<span class="q">&rdquo;</span></p>
+
+    <div class="thesis-cols">
+      <h3 class="rv t-sub" style="max-width:22ch">A monograph,<br><em>not a website.</em></h3>
+      <div>
+        <p class="lead rv">Mullin Development does not present itself the way developers usually do — with glass towers, gradients, and superlatives. It presents itself the way an institution does: as a record. The identity is organized as a monograph — the firm&rsquo;s book — with numbered chapters, full-bleed photographic plates, data set as a ruled ledger, and a green seal applied sparingly, the way a publisher stamps a spine.</p>
+        <p class="lead rv" style="--d:0.12s">This organizing idea decides everything downstream. Chapters give pages their structure. Hairline rules — not cards or boxes — give them their skeleton. Serif display type carries the gravity; a quiet sans carries the reading; a mono register carries the metadata. Paper and night are the only two grounds. Green is never decoration. Negative space is the luxury.</p>
+        <p class="lead rv" style="--d:0.2s">When a question of design arises that this volume does not answer, answer it the way a book would.</p>
+      </div>
+    </div>
+
+    <h3 class="sect rv">Four commitments, <em>everywhere.</em></h3>
+    <ul class="litany" style="margin-top:2rem">
+      <li class="rv">
+        <span class="num">01</span>
+        <span class="verb">Chapters</span>
+        <p>Content is numbered and named — 01, 02, 03 — each chapter opened by a full-width rule and a mono index. A page is a sequence, not a pile of sections.</p>
+      </li>
+      <li class="rv">
+        <span class="num">02</span>
+        <span class="verb">Plates</span>
+        <p>Photography appears as full-bleed plates between chapters — treated, captioned, and numbered. Never galleries, never carousels, never decoration.</p>
+      </li>
+      <li class="rv">
+        <span class="num">03</span>
+        <span class="verb">Ledgers</span>
+        <p>Data is set in ruled rows with mono labels and serif figures. Thirty years and $1.6B need no infographic; the ledger is the infographic.</p>
+      </li>
+      <li class="rv">
+        <span class="num">04</span>
+        <span class="verb">The&nbsp;seal</span>
+        <p>Green is applied like a seal on a document — the index, the key figure, the quotation mark, the one invitation. If green starts to feel like a theme, remove some.</p>
+      </li>
+    </ul>
+
+    <div class="figures" role="list" aria-label="Firm figures">
+      <div class="fig rv" role="listitem"><div class="n">30<span class="fn">+</span></div><div class="l mono">Years of development</div></div>
+      <div class="fig rv" style="--d:0.1s" role="listitem"><div class="n">7<span class="fn">+</span></div><div class="l mono">Industries served</div></div>
+      <div class="fig rv" style="--d:0.2s" role="listitem"><div class="n">1,200<span class="fn">+</span></div><div class="l mono">Sites involved</div></div>
+      <div class="fig rv" style="--d:0.3s" role="listitem"><div class="n"><span class="fn">$</span>1.6B</div><div class="l mono">CRE value developed</div></div>
+    </div>
+    <p class="fuse" style="margin-top:1.2rem;border-top:0;padding-top:0"><b>The seal of facts</b> Scottsdale, Arizona · Est. 1994 · founded by Art &amp; Jim Mullin · 6910 E 5th Ave, Scottsdale, AZ 85251. These are the only numbers the brand speaks with. Do not invent others.</p>
+  </section>
+
+  <!-- ——— PLATE 01 ——— -->
+  <figure class="plate" aria-label="The Mullin Development studio in Scottsdale at dusk">
+    <div class="plx"><img src="m360-15.jpg" alt="Entrance of the Mullin Development studio in Scottsdale, lit warmly at dusk" width="1200" height="797" loading="lazy" decoding="async"></div>
+    <figcaption><span class="mono">Plate 01</span><span class="mono">The studio — Scottsdale, Arizona</span></figcaption>
+  </figure>
+
+  <!-- ——— 02 THE MARKS (night) ——— -->
+  <section id="marks" class="chapter night wrap" data-rail="02 — The Marks" data-inv>
+    <div class="chapterbar rv">
+      <span class="idx">02</span>
+      <span class="lbl">The Marks</span>
+      <span class="of">/ 10</span>
+    </div>
+
+    <div class="ch-intro">
+      <h2 class="display rv">One mark, <em>five impressions.</em></h2>
+      <p class="rv">An M drawn as three towers, above a wide-tracked wordmark. There is one mark; what changes is the ink it is struck in — bone for night and photography, ink for paper, green when it acts as the seal itself.</p>
+    </div>
+
+    <div class="marks-grid">
+      <div class="mark-tile rv">
+        <div class="mark-stage"><img src="white-sq-long.png" alt="Horizontal Mullin lockup in bone on a night ground" width="721" height="145" style="height:34px" loading="lazy" decoding="async"></div>
+        <div class="mark-caption"><span class="mono"><b>M.01</b>white-sq-long.png</span><span class="mono">Nav · night &amp; photography</span></div>
+      </div>
+      <div class="mark-tile on-paper-t rv" style="--d:0.08s">
+        <div class="mark-stage on-paper-g"><img src="logo-long-blk.png" alt="Horizontal Mullin lockup in ink on a paper ground" width="767" height="203" style="height:38px" loading="lazy" decoding="async"></div>
+        <div class="mark-caption"><span class="mono"><b>M.02</b>logo-long-blk.png</span><span class="mono">Nav · paper (solid state)</span></div>
+      </div>
+      <div class="mark-tile rv" style="--d:0.12s">
+        <div class="mark-stage"><img src="white-full.png" alt="Full stacked Mullin lockup in bone — mark, wordmark, and subline — on a night ground" width="1024" height="1024" style="height:150px" loading="lazy" decoding="async"></div>
+        <div class="mark-caption"><span class="mono"><b>M.03</b>white-full.png</span><span class="mono">Colophon · night</span></div>
+      </div>
+      <div class="mark-tile rv" style="--d:0.16s">
+        <div class="mark-stage"><img src="white-sq.png" alt="Compact stacked Mullin lockup in bone on a night ground" width="445" height="408" style="height:96px" loading="lazy" decoding="async"></div>
+        <div class="mark-caption"><span class="mono"><b>M.04</b>white-sq.png</span><span class="mono">Confined spaces · night</span></div>
+      </div>
+      <div class="mark-tile on-paper-t rv" style="--d:0.2s">
+        <div class="mark-stage on-paper-g"><img src="logo-green.png" alt="Stacked Mullin lockup in seal green on a paper ground" width="1024" height="1024" style="height:130px" loading="lazy" decoding="async"></div>
+        <div class="mark-caption"><span class="mono"><b>M.05</b>logo-green.png</span><span class="mono">The seal · covers, documents, favicon · paper only</span></div>
+      </div>
+      <div class="mark-tile rv" style="--d:0.24s">
+        <div class="mark-stage" style="flex-direction:column;gap:1rem">
+          <p class="mono" style="color:var(--bone);letter-spacing:0.24em">Mullin Development</p>
+          <p class="mono" style="color:var(--bone-45);font-size:0.56rem">Below minimum size, the mark retires</p>
+        </div>
+        <div class="mark-caption"><span class="mono"><b>M.06</b>No small mark exists</span><span class="mono">Set the name in the register instead</span></div>
+      </div>
+    </div>
+
+    <div class="ledger rv" role="table" aria-label="Logo asset ledger">
+      <div class="lrow lhead" role="row">
+        <span role="columnheader">File</span><span role="columnheader">Ground</span><span role="columnheader">Minimum</span><span role="columnheader">Use</span>
+      </div>
+      <div class="lrow" role="row">
+        <span class="lc file" role="cell">white-sq-long.png</span><span class="lc" role="cell">Night · photography</span><span class="lc" role="cell">24&nbsp;px tall</span><span class="lc" role="cell">Navigation over imagery; night headers and bands</span>
+      </div>
+      <div class="lrow" role="row">
+        <span class="lc file" role="cell">logo-long-blk.png</span><span class="lc" role="cell">Paper</span><span class="lc" role="cell">24&nbsp;px tall</span><span class="lc" role="cell">Navigation in the solid (scrolled) state; paper documents</span>
+      </div>
+      <div class="lrow" role="row">
+        <span class="lc file" role="cell">white-full.png</span><span class="lc" role="cell">Night</span><span class="lc" role="cell">96&nbsp;px tall</span><span class="lc" role="cell">The colophon; closing pages; large night compositions</span>
+      </div>
+      <div class="lrow" role="row">
+        <span class="lc file" role="cell">white-sq.png</span><span class="lc" role="cell">Night</span><span class="lc" role="cell">48&nbsp;px tall</span><span class="lc" role="cell">Square and confined placements on night grounds</span>
+      </div>
+      <div class="lrow" role="row">
+        <span class="lc file" role="cell">logo-green.png</span><span class="lc" role="cell">Paper only</span><span class="lc" role="cell">64&nbsp;px tall</span><span class="lc" role="cell">Cover seals, printed matter, the favicon — never on night</span>
+      </div>
+    </div>
+
+    <h3 class="sect rv" style="color:var(--bone)">Clear space &amp; <em>minimums.</em></h3>
+    <p class="lead rv">The mark holds a margin of <b style="font-weight:400;color:var(--bone)">x</b> on all sides — x being the height of the towers. Nothing enters that margin: no type, no rules, no photography incident. Below its minimum size a lockup is not shrunk further; it is replaced by the firm&rsquo;s name set in the mono register.</p>
+    <div class="cs-wrap rv">
+      <div class="cs">
+        <em class="cs-x top" aria-hidden="true">x</em>
+        <em class="cs-x bottom" aria-hidden="true">x</em>
+        <em class="cs-x left" aria-hidden="true">x</em>
+        <em class="cs-x right" aria-hidden="true">x</em>
+        <img class="cs-mark" src="white-sq-long.png" alt="Clear-space diagram — the horizontal lockup surrounded by a margin of x, the height of the towers" width="721" height="145" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <h3 class="sect rv" style="color:var(--bone)">The mark is <em>never</em> —</h3>
+    <ul class="rules rv">
+      <li><p><b>Recolored.</b> It exists in bone, ink, and seal green. No other ink is struck.</p></li>
+      <li><p><b>Set green on night.</b> The seal belongs to paper. On night, the mark is bone — always.</p></li>
+      <li><p><b>Placed on an untreated photograph.</b> A night scrim first (Chapter 08); then bone.</p></li>
+      <li><p><b>Redrawn, stretched, rotated, outlined, shadowed, or boxed.</b> The mark is flat ink on a ground.</p></li>
+      <li><p><b>Crowded.</b> Neighboring marks or type sit beyond the x-margin, separated by a hairline.</p></li>
+      <li><p><b>Shrunk past its minimum.</b> Below 24&nbsp;px, retire the mark and set the name in the register.</p></li>
+    </ul>
+  </section>
+
+  <!-- ——— 03 THE INKS ——— -->
+  <section id="color" class="chapter wrap" data-rail="03 — The Inks">
+    <div class="chapterbar rv">
+      <span class="idx">03</span>
+      <span class="lbl">The Inks</span>
+      <span class="of">/ 10</span>
+    </div>
+
+    <div class="ch-intro">
+      <h2 class="display rv">Paper, ink, <em>and a seal.</em></h2>
+      <p class="rv">The palette is a printer&rsquo;s, not a painter&rsquo;s: two grounds, two inks with their tints, and one green struck like sealing wax. Click any swatch to copy its value.</p>
+    </div>
+
+    <p class="inks-label rv">The paper side — grounds &amp; ink</p>
+    <div class="inks rv">
+      <button class="ink-chip" data-copy="#F4F1EA" type="button">
+        <span class="c" style="background:#F4F1EA;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Paper</span>
+          <span class="hx" style="display:block">#F4F1EA</span>
+          <span class="vr" style="display:block">--paper</span>
+          <span class="role" style="display:block">The default ground. Warm, not white.</span>
+        </span>
+      </button>
+      <button class="ink-chip" data-copy="#ECE8DE" type="button">
+        <span class="c" style="background:#ECE8DE;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Paper&#8209;2</span>
+          <span class="hx" style="display:block">#ECE8DE</span>
+          <span class="vr" style="display:block">--paper-2</span>
+          <span class="role" style="display:block">Recessed ground; hover fills; image mats.</span>
+        </span>
+      </button>
+      <button class="ink-chip" data-copy="#151A15" type="button">
+        <span class="c" style="background:#151A15;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Ink</span>
+          <span class="hx" style="display:block">#151A15</span>
+          <span class="vr" style="display:block">--ink</span>
+          <span class="role" style="display:block">Display type, chapter rules, primary text.</span>
+        </span>
+      </button>
+      <button class="ink-chip" data-copy="rgba(21,26,21,0.72)" type="button">
+        <span class="c" style="background:linear-gradient(rgba(21,26,21,0.72),rgba(21,26,21,0.72)),#F4F1EA;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Ink&#8209;70</span>
+          <span class="hx" style="display:block">rgba · 72%</span>
+          <span class="vr" style="display:block">--ink-70</span>
+          <span class="role" style="display:block">Running text. The reading tint.</span>
+        </span>
+      </button>
+      <button class="ink-chip" data-copy="rgba(21,26,21,0.56)" type="button">
+        <span class="c" style="background:linear-gradient(rgba(21,26,21,0.56),rgba(21,26,21,0.56)),#F4F1EA;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Ink&#8209;55</span>
+          <span class="hx" style="display:block">rgba · 56%</span>
+          <span class="vr" style="display:block">--ink-55</span>
+          <span class="role" style="display:block">Mono labels &amp; metadata only — never body copy.</span>
+        </span>
+      </button>
+    </div>
+
+    <p class="inks-label rv">The night side</p>
+    <div class="inks rv">
+      <button class="ink-chip" data-copy="#0C120D" type="button">
+        <span class="c" style="background:#0C120D;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Night</span>
+          <span class="hx" style="display:block">#0C120D</span>
+          <span class="vr" style="display:block">--night</span>
+          <span class="role" style="display:block">The dark ground. Green-black, not gray.</span>
+        </span>
+      </button>
+      <button class="ink-chip" data-copy="#101812" type="button">
+        <span class="c" style="background:#101812;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Night&#8209;2</span>
+          <span class="hx" style="display:block">#101812</span>
+          <span class="vr" style="display:block">--night-2</span>
+          <span class="role" style="display:block">Lifted night panels; layered dark surfaces.</span>
+        </span>
+      </button>
+      <button class="ink-chip" data-copy="#F4F1EA" type="button">
+        <span class="c" style="background:#F4F1EA;border-color:var(--line);display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Bone</span>
+          <span class="hx" style="display:block">#F4F1EA</span>
+          <span class="vr" style="display:block">--bone</span>
+          <span class="role" style="display:block">Ink&rsquo;s counterpart on night. Same hex as paper.</span>
+        </span>
+      </button>
+      <button class="ink-chip" data-copy="rgba(244,241,234,0.72)" type="button">
+        <span class="c" style="background:linear-gradient(rgba(244,241,234,0.72),rgba(244,241,234,0.72)),#0C120D;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Bone&#8209;70</span>
+          <span class="hx" style="display:block">rgba · 72%</span>
+          <span class="vr" style="display:block">--bone-70</span>
+          <span class="role" style="display:block">Running text on night.</span>
+        </span>
+      </button>
+      <button class="ink-chip" data-copy="rgba(244,241,234,0.45)" type="button">
+        <span class="c" style="background:linear-gradient(rgba(244,241,234,0.45),rgba(244,241,234,0.45)),#0C120D;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Bone&#8209;45</span>
+          <span class="hx" style="display:block">rgba · 45%</span>
+          <span class="vr" style="display:block">--bone-45</span>
+          <span class="role" style="display:block">Night labels &amp; metadata only.</span>
+        </span>
+      </button>
+    </div>
+
+    <p class="inks-label rv">The seal</p>
+    <div class="inks rv">
+      <button class="ink-chip" data-copy="#0E6133" type="button">
+        <span class="c" style="background:#0E6133;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Green</span>
+          <span class="hx" style="display:block">#0E6133</span>
+          <span class="vr" style="display:block">--green</span>
+          <span class="role" style="display:block">The seal. Indices, accents, the one invitation. Paper only.</span>
+        </span>
+      </button>
+      <button class="ink-chip" data-copy="#0A4A27" type="button">
+        <span class="c" style="background:#0A4A27;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Green&#8209;deep</span>
+          <span class="hx" style="display:block">#0A4A27</span>
+          <span class="vr" style="display:block">--green-deep</span>
+          <span class="role" style="display:block">Hover state of sealed names on paper.</span>
+        </span>
+      </button>
+      <button class="ink-chip" data-copy="#7FA98E" type="button">
+        <span class="c" style="background:#7FA98E;display:block"></span>
+        <span class="meta" style="display:block">
+          <span class="nm" style="display:block">Green&#8209;lift</span>
+          <span class="hx" style="display:block">#7FA98E</span>
+          <span class="vr" style="display:block">--green-lift</span>
+          <span class="role" style="display:block">The only green legible on night. See the ledger below.</span>
+        </span>
+      </button>
+    </div>
+
+    <h3 class="sect rv">The hairlines.</h3>
+    <p class="lead rv">Structure is drawn, never boxed. Rules are one pixel, and their weight is carried by opacity, not thickness.</p>
+    <div class="hairlines rv">
+      <div class="hrow">
+        <span class="hmeta">--line · ink at 16% · primary rule on paper</span>
+        <div class="hsample" style="background:rgba(21,26,21,0.16)"></div>
+      </div>
+      <div class="hrow">
+        <span class="hmeta">--line-soft · ink at 9% · secondary rule on paper</span>
+        <div class="hsample" style="background:rgba(21,26,21,0.09)"></div>
+      </div>
+      <div class="hrow">
+        <span class="hmeta">--nline · bone at 14% · the rule on night</span>
+        <div class="hsample on-dark"></div>
+      </div>
+      <div class="hrow">
+        <span class="hmeta">--ink at 100% · chapter-opening rule only</span>
+        <div class="hsample" style="background:var(--ink)"></div>
+      </div>
+    </div>
+
+    <h3 class="sect rv">The discipline of <em>green.</em></h3>
+    <p class="lead rv">Green is a seal, not a theme. On any screen it appears a handful of times — the chapter index, a figure&rsquo;s footnote, the quotation marks of a statement, a hover, the single sealed button. It fills a surface in exactly two sanctioned moments: the hover of <code style="font-family:var(--mono);font-size:0.75em">.btn-seal</code>, and the text selection. Select this sentence and the page will show you the second.</p>
+    <p class="lead rv">On night grounds, <b style="font-weight:400">#0E6133 disappears</b> — 2.5:1 against night, illegible by any standard. That is why green&#8209;lift exists. The rule is absolute: seal green on paper, green&#8209;lift on night, never the reverse, and never green as wallpaper. If a layout feels like it needs more green, it needs less.</p>
+
+    <h3 class="sect rv">The two grounds, <em>paired.</em></h3>
+    <p class="lead rv">Night is not a &ldquo;dark mode&rdquo; — it is the same page printed on different stock. Every voice has its equivalent: ink becomes bone, ink&#8209;55 becomes bone&#8209;45, green becomes green&#8209;lift, line becomes nline. The composition does not change; only the ink does.</p>
+    <div class="pairing rv">
+      <div class="side">
+        <div class="demo-bar"><span class="idx">03</span><span class="lbl">On Paper</span></div>
+        <h4>The same page, <em>day.</em></h4>
+        <p class="demo-p">Ink on paper. Rules at 16%. The seal in full green — #0E6133 reads at 6.7:1 here.</p>
+        <span class="mono tagl">Ink · Ink-55 · Green · Line</span>
+      </div>
+      <div class="side p-night">
+        <div class="demo-bar"><span class="idx">03</span><span class="lbl">On Night</span></div>
+        <h4>The same page, <em>night.</em></h4>
+        <p class="demo-p">Bone on night. Rules at 14%. The seal lifts to #7FA98E — 7.2:1 where full green would vanish.</p>
+        <span class="mono tagl">Bone · Bone-45 · Green-lift · Nline</span>
+      </div>
+    </div>
+
+    <h3 class="sect rv">The contrast <em>ledger.</em></h3>
+    <p class="lead rv">Measured, not assumed. WCAG&nbsp;2.1 ratios for every sanctioned pairing — including the one that fails, kept here as the standing argument for green&#8209;lift.</p>
+    <div class="rv" style="margin-top:2.2rem">
+      <div class="cx-head" aria-hidden="true"><span>Sample</span><span>Pairing</span><span>Ratio</span><span>Verdict</span></div>
+      <div class="cx"><span class="chip" style="background:#F4F1EA;color:#151A15">Aa</span><span class="pair">Ink on Paper <code>#151A15 / #F4F1EA</code></span><span class="ratio">15.6 : 1</span><span class="verdict ok">AAA — all text</span></div>
+      <div class="cx"><span class="chip" style="background:#F4F1EA;color:rgba(21,26,21,0.72)">Aa</span><span class="pair">Ink&#8209;70 on Paper <code>body copy</code></span><span class="ratio">6.6 : 1</span><span class="verdict ok">AA — all text</span></div>
+      <div class="cx"><span class="chip" style="background:#F4F1EA;color:rgba(21,26,21,0.56)">Aa</span><span class="pair">Ink&#8209;55 on Paper <code>labels &amp; metadata</code></span><span class="ratio">3.9 : 1</span><span class="verdict">Large type &amp; labels only</span></div>
+      <div class="cx"><span class="chip" style="background:#F4F1EA;color:#0E6133">Aa</span><span class="pair">Green on Paper <code>#0E6133 / #F4F1EA</code></span><span class="ratio">6.7 : 1</span><span class="verdict ok">AA — all text</span></div>
+      <div class="cx"><span class="chip" style="background:#F4F1EA;color:#0A4A27">Aa</span><span class="pair">Green&#8209;deep on Paper <code>hover ink</code></span><span class="ratio">9.2 : 1</span><span class="verdict ok">AAA — all text</span></div>
+      <div class="cx"><span class="chip" style="background:#0E6133;color:#FFFFFF">Aa</span><span class="pair">White on Green <code>.btn-seal hover</code></span><span class="ratio">7.6 : 1</span><span class="verdict ok">AA — all text</span></div>
+      <div class="cx"><span class="chip" style="background:#0C120D;color:#F4F1EA">Aa</span><span class="pair">Bone on Night <code>#F4F1EA / #0C120D</code></span><span class="ratio">16.8 : 1</span><span class="verdict ok">AAA — all text</span></div>
+      <div class="cx"><span class="chip" style="background:#0C120D;color:rgba(244,241,234,0.72)">Aa</span><span class="pair">Bone&#8209;70 on Night <code>body copy</code></span><span class="ratio">9.0 : 1</span><span class="verdict ok">AAA — all text</span></div>
+      <div class="cx"><span class="chip" style="background:#0C120D;color:#7FA98E">Aa</span><span class="pair">Green&#8209;lift on Night <code>#7FA98E / #0C120D</code></span><span class="ratio">7.2 : 1</span><span class="verdict ok">AA — all text</span></div>
+      <div class="cx"><span class="chip" style="background:#0C120D;color:#0E6133">Aa</span><span class="pair">Green on Night <code>the forbidden pair</code></span><span class="ratio">2.5 : 1</span><span class="verdict no">Fails — never set</span></div>
+    </div>
+  </section>
+
+  <!-- ——— 04 THE LETTERFORMS ——— -->
+  <section id="type" class="chapter wrap" data-rail="04 — The Letterforms">
+    <div class="chapterbar rv">
+      <span class="idx">04</span>
+      <span class="lbl">The Letterforms</span>
+      <span class="of">/ 10</span>
+    </div>
+
+    <div class="ch-intro">
+      <h2 class="display rv">Three voices, <em>one page.</em></h2>
+      <p class="rv">Cormorant Garamond carries all the gravity — large, patient, lightly tracked-in. DM Sans at 300 does the reading. IBM Plex Mono keeps the record: labels, indices, coordinates, always uppercase, always wide. No fourth voice is ever added.</p>
+    </div>
+
+    <div class="spec rv">
+      <p class="sm"><span class="si">S.01</span><span class="sn">The Display</span><br>Cormorant Garamond 500<br>clamp(3.3rem, 9.2vw, 8.4rem)<br>Line 1.02 · Track &#8722;0.015em<br>Covers &amp; heroes only — one per page</p>
+      <div class="sample"><p class="t-hero">With <em>Purpose.</em></p></div>
+    </div>
+    <div class="spec rv">
+      <p class="sm"><span class="si">S.02</span><span class="sn">The Chapter Display</span><br>Cormorant Garamond 500<br>clamp(2.4rem, 5vw, 4.6rem)<br>Line 1.06 · Track &#8722;0.01em<br>The h2 of every chapter</p>
+      <div class="sample"><p class="t-display">Selected <em>work.</em></p></div>
+    </div>
+    <div class="spec rv">
+      <p class="sm"><span class="si">S.03</span><span class="sn">The Statement</span><br>Cormorant Garamond 400<br>clamp(2rem, 4.4vw, 4rem)<br>Line 1.2 · Max 27ch<br>Hanging quote: text-indent &#8722;0.42em</p>
+      <div class="sample"><p class="t-statement"><span class="q">&ldquo;</span>Committed to impacting communities through innovative development.<span class="q">&rdquo;</span></p></div>
+    </div>
+    <div class="spec rv">
+      <p class="sm"><span class="si">S.04</span><span class="sn">The Verb</span><br>Cormorant Garamond 400 italic<br>clamp(2.2rem, 4.6vw, 4.2rem)<br>Line 1 · The litany voice</p>
+      <div class="sample"><p class="t-verb">Develop</p></div>
+    </div>
+    <div class="spec rv">
+      <p class="sm"><span class="si">S.05</span><span class="sn">The Name</span><br>Cormorant Garamond 500<br>clamp(1.9rem, 3vw, 3rem)<br>Line 1.05 · Projects &amp; people</p>
+      <div class="sample"><p class="t-name">Scottsdale Autoshow</p></div>
+    </div>
+    <div class="spec rv">
+      <p class="sm"><span class="si">S.06</span><span class="sn">The Figure</span><br>Cormorant Garamond 500<br>clamp(2.3rem, 3.6vw, 3.5rem)<br>Lining numerals · seal on the unit</p>
+      <div class="sample"><p class="t-fig"><span class="fn">$</span>1.6B&ensp;·&ensp;1,200<span class="fn">+</span></p></div>
+    </div>
+    <div class="spec rv">
+      <p class="sm"><span class="si">S.07</span><span class="sn">The Subhead</span><br>Cormorant Garamond 500<br>clamp(1.55rem, 2.1vw, 2.1rem)<br>Line 1.25 · Section heads</p>
+      <div class="sample"><p class="t-sub">Rooted in the Southwest.<br><em>Built for the nation.</em></p></div>
+    </div>
+    <div class="spec rv">
+      <p class="sm"><span class="si">S.08</span><span class="sn">The Text</span><br>DM Sans 300 · 16px / 1.75<br>Ink&#8209;70 · Max 56ch<br>Small variant 0.94rem for asides</p>
+      <div class="sample"><p class="t-body" style="color:var(--ink-70)">Mullin Development was founded in Scottsdale in 1994 by father and son Art and Jim Mullin. Over three decades, the firm has grown from its desert roots into a national practice.</p></div>
+    </div>
+    <div class="spec rv">
+      <p class="sm"><span class="si">S.09</span><span class="sn">The Register</span><br>IBM Plex Mono 400 · 0.66rem<br>Track 0.18–0.22em · Uppercase<br>Tabular numerals</p>
+      <div class="sample"><p class="t-label">Scottsdale, Arizona — Est. 1994 · 33.49° N · 111.93° W</p></div>
+    </div>
+    <div class="spec rv">
+      <p class="sm"><span class="si">S.10</span><span class="sn">The Index</span><br>IBM Plex Mono 500 · 0.72rem<br>Track 0.14em · Seal green<br>Chapter &amp; row numerals</p>
+      <div class="sample"><p class="t-index">01&ensp;02&ensp;03&ensp;04&ensp;05&ensp;06&ensp;07&ensp;08&ensp;09&ensp;10</p></div>
+    </div>
+
+    <h3 class="sect rv">Fluid sizing, <em>one formula.</em></h3>
+    <p class="lead rv">Every display size is a clamp — a floor for the phone, a viewport-tracking middle, a ceiling for the studio display. Type is never resized by breakpoint; it breathes with the page.</p>
+    <div class="clamp-anatomy rv">
+      <p class="clamp-line" aria-label="Anatomy of clamp(3.3rem, 9.2vw, 8.4rem)">
+        <span class="pn">font-size:&nbsp;clamp(</span><span class="seg" data-l="floor · phone">3.3rem</span><span class="pn">,</span><span class="seg mid" data-l="fluid · tracks the viewport">9.2vw</span><span class="pn">,</span><span class="seg" data-l="ceiling · studio">8.4rem</span><span class="pn">)</span>
+      </p>
+    </div>
+
+    <h3 class="sect rv">The small <em>laws.</em></h3>
+    <ul class="rules on-paper rv">
+      <li><p><b>Italic is meaning, not decoration.</b> One italic em per composition — the turned word of the thought: <em>Purpose.</em> <em>together.</em> <em>work.</em></p></li>
+      <li><p><b>Weights are fixed.</b> Serif 500 (display) and 400 (statements, italics); sans 300 (reading), 400–500 only inside interface moments; mono 400, 500 for indices.</p></li>
+      <li><p><b>Display tightens as it grows.</b> &#8722;0.005em at statement size, &#8722;0.015em at cover size. The register spreads instead: 0.18–0.22em, always uppercase.</p></li>
+      <li><p><b>Punctuation hangs.</b> Opening quotes overhang the margin (text-indent&nbsp;&#8722;0.42em) and are struck in the seal. Em-dashes, real quotes, non-breaking spaces before short last words.</p></li>
+      <li><p><b>Numerals know their column.</b> Tabular in the register and every ledger; lining in serif figures. A ledger that wobbles is a ledger misset.</p></li>
+    </ul>
+  </section>
+
+  <!-- ——— 05 THE SPACES ——— -->
+  <section id="space" class="chapter wrap" data-rail="05 — The Spaces">
+    <div class="chapterbar rv">
+      <span class="idx">05</span>
+      <span class="lbl">The Spaces</span>
+      <span class="of">/ 10</span>
+    </div>
+
+    <div class="ch-intro">
+      <h2 class="display rv">Negative space is <em>the luxury.</em></h2>
+      <p class="rv">Density reads small; space reads institutional. The page spends emptiness the way the firm spends land — deliberately, and at scale.</p>
+    </div>
+
+    <div class="space-grid">
+      <div>
+        <p class="lead rv">Two tokens govern the entire rhythm. The <b style="font-weight:400">gutter</b> holds every left and right margin — one value, fluid, from phone to studio wall. The <b style="font-weight:400">chapter gap</b> separates chapters vertically and scales with the height of the window, so a chapter always arrives with air above it.</p>
+        <div class="rhythm rv">
+          <div class="rrow rhead"><span>Token</span><span>Value</span><span>Now</span></div>
+          <div class="rrow"><span class="rtok">--gutter</span><span class="rval">clamp(1.5rem, 6vw, 7.5rem)</span><span class="rnow" id="liveGutter">—</span></div>
+          <div class="rrow"><span class="rtok">--chapter-gap</span><span class="rval">clamp(6rem, 13vh, 11rem)</span><span class="rnow" id="liveGap">—</span></div>
+          <div class="rrow"><span class="rtok">viewport</span><span class="rval">the page measures itself against the window</span><span class="rnow" id="liveVw">—</span></div>
+        </div>
+        <p class="fuse rv" style="border-top:0;padding-top:0.4rem"><b>Live</b> Measured against this window, now. Resize it and the rhythm follows — no breakpoints involved.</p>
+
+        <h3 class="sect rv">The ruled <em>skeleton.</em></h3>
+        <p class="lead rv">The rule is the only container. Chapters open with a full-width rule at 100% ink; everything inside is separated by hairlines at 16% and 9%. Nothing is boxed, nothing is rounded, nothing casts a shadow. When a region must read as a surface, the ground shifts to Paper&#8209;2 or Night&#8209;2 — a change of stock, not a card.</p>
+        <p class="lead rv">Grids are content-led: the ledger is four columns, the editorial plate is 7.2&nbsp;:&nbsp;4.8, people are three columns ending in a portrait. Columns collapse at 1100, 900, and 640 pixels — and the gutter never changes.</p>
+      </div>
+      <div class="skel rv" role="img" aria-label="Diagram of a page skeleton: cover, chapter, plate, chapter, colophon, separated by chapter gaps">
+        <div class="sk dark" style="height:74px"><span class="mono">Cover · night or paper · 100svh</span></div>
+        <div class="skgap"><span class="mono">chapter gap</span></div>
+        <div class="sk" style="height:120px">
+          <span class="mono">Chapter 01 · paper</span>
+          <div class="mini-rule strong"></div>
+          <div class="mini-rule"></div>
+          <div class="mini-rule"></div>
+        </div>
+        <div class="skgap"><span class="mono">chapter gap</span></div>
+        <div class="sk dark" style="height:56px"><span class="mono">Plate · full bleed · 62vh</span></div>
+        <div class="skgap"><span class="mono">chapter gap</span></div>
+        <div class="sk" style="height:100px">
+          <span class="mono">Chapter 02 · paper or night</span>
+          <div class="mini-rule strong"></div>
+          <div class="mini-rule"></div>
+        </div>
+        <div class="skgap"><span class="mono">chapter gap</span></div>
+        <div class="sk dark" style="height:48px"><span class="mono">Colophon · night</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ——— PLATE 02 ——— -->
+  <figure class="plate" aria-label="Interior of the Mullin Development studio">
+    <div class="plx"><img src="office.jpg" alt="Open steel staircase inside the Mullin Development studio, glass-walled offices beyond" width="1248" height="832" loading="lazy" decoding="async"></div>
+    <figcaption><span class="mono">Plate 02</span><span class="mono">Inside the studio — Scottsdale, Arizona</span></figcaption>
+  </figure>
+
+  <!-- ——— 06 THE COMPONENTS ——— -->
+  <section id="components" class="chapter wrap" data-rail="06 — The Components">
+    <div class="chapterbar rv">
+      <span class="idx">06</span>
+      <span class="lbl">The Components</span>
+      <span class="of">/ 10</span>
+    </div>
+
+    <div class="ch-intro">
+      <h2 class="display rv">The working <em>library.</em></h2>
+      <p class="rv">Every part below is live — real CSS, real content, the same classes the site ships with. Nothing here is an illustration of a component; it is the component.</p>
+    </div>
+
+    <div class="frame rv">
+      <p class="ftab"><b>Fig. 6.1</b>The chapter bar</p>
+      <div class="chapterbar" style="margin-bottom:0">
+        <span class="idx">02</span>
+        <span class="lbl">The Work</span>
+        <span class="of">/ 06</span>
+      </div>
+      <p class="fuse"><b>Use</b> Opens every chapter — full-width rule at 100% ink, sealed index, tracked label, position marker right. Never appears mid-section; nothing but the nav ever sits above it.</p>
+    </div>
+
+    <div class="frame rv">
+      <p class="ftab"><b>Fig. 6.2</b>The statement</p>
+      <p class="statement"><span class="q">&ldquo;</span>Committed to impacting communities through innovative development, dedicated&nbsp;people, and loyal&nbsp;relationships.<span class="q">&rdquo;</span></p>
+      <p class="fuse"><b>Use</b> One per page: the chapter&rsquo;s single idea, set as a hanging quotation with sealed quote marks. If a page wants two statements, it is two pages.</p>
+    </div>
+
+    <div class="frame rv">
+      <p class="ftab"><b>Fig. 6.3</b>The figures ledger</p>
+      <div class="figures" style="margin-top:0.4rem">
+        <div class="fig"><div class="n">30<span class="fn">+</span></div><div class="l mono">Years of development</div></div>
+        <div class="fig"><div class="n">7<span class="fn">+</span></div><div class="l mono">Industries served</div></div>
+        <div class="fig"><div class="n">1,200<span class="fn">+</span></div><div class="l mono">Sites involved</div></div>
+        <div class="fig"><div class="n"><span class="fn">$</span>1.6B</div><div class="l mono">CRE value developed</div></div>
+      </div>
+      <p class="fuse"><b>Use</b> Primary firm data — four figures at most, serif numerals, mono labels, the unit or sign struck in the seal. Never charts, never icons.</p>
+    </div>
+
+    <div class="frame rv">
+      <p class="ftab"><b>Fig. 6.4</b>The editorial plate — wplate</p>
+      <a class="wplate" href="projects.html">
+        <div class="wp-img"><img src="sas.jpg" alt="Scottsdale Autoshow at dusk — dealership campus against desert mountains" width="1504" height="688" loading="lazy" decoding="async"></div>
+        <div class="wp-info">
+          <div class="wp-meta"><span class="mono"><b>W.01</b>&ensp;Automotive</span><span class="mono">Scottsdale, AZ</span></div>
+          <h3 class="wp-name">Scottsdale Autoshow</h3>
+          <p class="wp-desc">A 70-acre automotive development on the Salt River Pima&#8211;Maricopa Indian Community.</p>
+          <div class="wp-scale"><span class="num">70</span><span class="unit mono">Acres</span></div>
+        </div>
+      </a>
+      <p class="fuse"><b>Use</b> One project, one image, one measure of scale. Alternate the image column left and right (class <span style="font-family:var(--mono);font-size:0.85em">.flip</span>) down the page. The scale slot takes a serif numeral or an italic status — never both.</p>
+    </div>
+
+    <div class="frame rv">
+      <p class="ftab"><b>Fig. 6.5</b>The record — index table</p>
+      <div class="record">
+        <a class="row" href="projects.html">
+          <span class="c-no">01</span><span class="c-name">Scottsdale Autoshow</span><span class="c-loc">Scottsdale, AZ</span><span class="c-prog">Automotive</span><span class="c-scale">70 acres</span><span class="c-ar">→</span>
+        </a>
+        <a class="row" href="projects.html">
+          <span class="c-no">02</span><span class="c-name">Motorplex at Centerra</span><span class="c-loc">Loveland, CO</span><span class="c-prog">Automotive retail</span><span class="c-scale">100 acres</span><span class="c-ar">→</span>
+        </a>
+        <a class="row" href="projects.html">
+          <span class="c-no">03</span><span class="c-name">Costco at Salt River</span><span class="c-loc">Scottsdale, AZ</span><span class="c-prog">Retail</span><span class="c-scale">162,000 sq ft</span><span class="c-ar">→</span>
+        </a>
+      </div>
+      <p class="fuse"><b>Use</b> The complete index of anything — dense, ruled, tabular. Rows are links; the arrow earns its place only on hover. On small screens the program column retires first.</p>
+    </div>
+
+    <div class="frame holds-night rv">
+      <p class="ftab"><b>Fig. 6.6</b>The method list — on night</p>
+      <ol class="method-list">
+        <li><div><h4>Site Selection &amp; Research</h4><p>Rigorous market analysis identifying development opportunities with long-term viability.</p></div></li>
+        <li><div><h4>Development &amp; Construction</h4><p>End-to-end management, from entitlement through construction completion.</p></div></li>
+      </ol>
+      <p class="fuse"><b>Use</b> Numbered process — decimal-leading-zero counters in green-lift, serif heads, quiet body. The night ground is its home; on paper, the counters take the seal.</p>
+    </div>
+
+    <div class="frame rv">
+      <p class="ftab"><b>Fig. 6.7</b>The litany</p>
+      <ul class="litany">
+        <li>
+          <span class="num">01</span>
+          <span class="verb">Develop</span>
+          <p>A different approach to crafting developments — high-quality properties that create value for stakeholders and neighboring communities alike.</p>
+        </li>
+        <li>
+          <span class="num">06</span>
+          <span class="verb">Give</span>
+          <p>We align our work with clients we can give back to — every engagement creates value beyond the transaction.</p>
+        </li>
+      </ul>
+      <p class="fuse"><b>Use</b> Verbs as liturgy — italic serif, one line each, a numbered rule per verb. Reserved for the firm&rsquo;s beliefs; never used for features or services.</p>
+    </div>
+
+    <div class="frame rv">
+      <p class="ftab"><b>Fig. 6.8</b>The people row</p>
+      <ul class="people">
+        <li>
+          <div class="p-id">
+            <h3 class="p-name">Jim Mullin</h3>
+            <p class="p-title mono">President</p>
+          </div>
+          <p class="p-bio">Past President of Staubach AutoGroup. Involved in more than 1,200 automotive retail locations and forty-plus developments across four continents.</p>
+          <div class="p-photo"><img src="team-headshot-1.jpg" alt="Portrait of Jim Mullin" width="720" height="1008" loading="lazy" decoding="async"></div>
+        </li>
+      </ul>
+      <p class="fuse"><b>Use</b> A person is a row, not a card — name and sealed title left, biography center, portrait right at 172&nbsp;×&nbsp;216. Portraits are treated like every other photograph (Chapter 08).</p>
+    </div>
+
+    <div class="frame rv">
+      <p class="ftab"><b>Fig. 6.9</b>The ventures row</p>
+      <ul class="ventures">
+        <li>
+          <a href="https://mullin360.com" target="_blank" rel="noopener">
+            <span class="v-no">V.01</span>
+            <span class="v-name">Mullin360</span>
+            <span class="v-url">mullin360.com</span>
+            <span class="v-ar">↗</span>
+          </a>
+        </li>
+      </ul>
+      <p class="fuse"><b>Use</b> Outbound holdings and sister companies. The northeast arrow ↗ always means &ldquo;leaves this site&rdquo; — nowhere else is it used.</p>
+    </div>
+
+    <div class="frame rv">
+      <p class="ftab"><b>Fig. 6.10</b>Links &amp; the sealed button</p>
+      <div style="display:flex;flex-wrap:wrap;gap:2.4rem;align-items:center;padding:0.6rem 0 0.2rem">
+        <a class="lnk" href="projects.html">Complete portfolio <span class="ar">→</span></a>
+        <a href="contact.html" class="btn-seal on-paper">Get in touch <span class="ar">→</span></a>
+      </div>
+      <p class="fuse"><b>Use</b> The underlined mono link (<span style="font-family:var(--mono);font-size:0.85em">.lnk</span>) is the workhorse; its arrow travels on hover. The sealed button (<span style="font-family:var(--mono);font-size:0.85em">.btn-seal</span>) is the page&rsquo;s one invitation — one per page, hairline border, filling green only on hover. Two buttons on a page means one of them is a link.</p>
+    </div>
+
+    <div class="frame rv" style="padding-left:0;padding-right:0;padding-bottom:0">
+      <p class="ftab"><b>Fig. 6.11</b>The nav — two states</p>
+      <div style="padding:0 clamp(1.6rem,3.5vw,3rem)">
+        <div class="navdemo nd-night">
+          <img src="white-sq-long.png" alt="Mullin lockup in bone — nav over imagery" width="721" height="145">
+          <ul><li><a href="#components" tabindex="-1" aria-hidden="true">The Firm</a></li><li><a href="#components" tabindex="-1" aria-hidden="true">The Work</a></li><li><a href="#components" tabindex="-1" aria-hidden="true">Contact</a></li></ul>
+        </div>
+        <div class="navdemo nd-paper" style="margin-top:1.2rem">
+          <img src="logo-long-blk.png" alt="Mullin lockup in ink — nav in the solid scrolled state" width="767" height="203">
+          <ul><li><a href="#components" tabindex="-1" aria-hidden="true">The Firm</a></li><li><a href="#components" tabindex="-1" aria-hidden="true">The Work</a></li><li><a href="#components" tabindex="-1" aria-hidden="true">Contact</a></li></ul>
+        </div>
+      </div>
+      <p class="fuse" style="margin-left:clamp(1.6rem,3.5vw,3rem);margin-right:clamp(1.6rem,3.5vw,3rem);padding-bottom:clamp(1.6rem,3.5vw,3rem)"><b>Use</b> Over imagery the nav is transparent with a soft top gradient and the bone lockup. Once scrolled past the hero it turns solid paper — blurred at 94% opacity, ink lockup, tightened padding. The swap is a cross-fade, never a jump. Links underline on hover, drawn left to right.</p>
+    </div>
+
+    <div class="frame rv">
+      <p class="ftab"><b>Fig. 6.12</b>The colophon</p>
+      <p class="lead" style="max-width:64ch">Every page closes the same way: the night ground, the full white lockup, the italic tagline, ruled columns of navigation, the office address with its coordinates in the register, and a baseline rule carrying the copyright. The footer of this document — below — is the live specimen.</p>
+      <p class="fuse"><b>Use</b> Identical on every page of the site. The colophon is the one component never redesigned per page.</p>
+    </div>
+  </section>
+
+  <!-- ——— 07 THE MOTION (night) ——— -->
+  <section id="motion" class="chapter night wrap" data-rail="07 — The Motion" data-inv>
+    <div class="chapterbar rv">
+      <span class="idx">07</span>
+      <span class="lbl">The Motion</span>
+      <span class="of">/ 10</span>
+    </div>
+
+    <div class="ch-intro">
+      <h2 class="display rv">Engineered <em>calm.</em></h2>
+      <p class="rv">One easing curve moves everything the brand owns. Half of any travel is over in the first tenth of its duration; the remaining nine-tenths are deceleration. Nothing bounces. Nothing spins.</p>
+    </div>
+
+    <div class="motion-grid">
+      <div class="curve-fig rv">
+        <svg viewBox="0 0 560 440" role="img" aria-label="Graph of the easing curve cubic-bezier 0.19, 1, 0.22, 1 — progress rises almost vertically then decelerates into a long flat approach">
+          <style>
+            .glb{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.14em;fill:rgba(244,241,234,0.45);text-transform:uppercase}
+            .glb2{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.08em;fill:#7FA98E}
+          </style>
+          <!-- grid -->
+          <g stroke="rgba(244,241,234,0.14)" stroke-width="1">
+            <line x1="40" y1="40" x2="40" y2="360"/>
+            <line x1="160" y1="40" x2="160" y2="360"/>
+            <line x1="280" y1="40" x2="280" y2="360"/>
+            <line x1="400" y1="40" x2="400" y2="360"/>
+            <line x1="520" y1="40" x2="520" y2="360"/>
+            <line x1="40" y1="40" x2="520" y2="40"/>
+            <line x1="40" y1="120" x2="520" y2="120"/>
+            <line x1="40" y1="200" x2="520" y2="200"/>
+            <line x1="40" y1="280" x2="520" y2="280"/>
+            <line x1="40" y1="360" x2="520" y2="360"/>
+          </g>
+          <!-- linear reference -->
+          <line x1="40" y1="360" x2="520" y2="40" stroke="rgba(244,241,234,0.28)" stroke-width="1" stroke-dasharray="3 6"/>
+          <!-- control arms -->
+          <line x1="40" y1="360" x2="131.2" y2="40" stroke="rgba(127,169,142,0.4)" stroke-width="1" stroke-dasharray="2 5"/>
+          <line x1="520" y1="40" x2="145.6" y2="40" stroke="rgba(127,169,142,0.4)" stroke-width="1" stroke-dasharray="2 5"/>
+          <!-- the curve -->
+          <path d="M 40 360 C 131.2 40 145.6 40 520 40" fill="none" stroke="#7FA98E" stroke-width="2.25"/>
+          <!-- control points -->
+          <circle cx="131.2" cy="40" r="4" fill="#0C120D" stroke="#7FA98E" stroke-width="1.5"/>
+          <circle cx="145.6" cy="40" r="4" fill="#7FA98E"/>
+          <!-- 50% travel marker -->
+          <circle cx="90.4" cy="200" r="4" fill="#F4F1EA"/>
+          <line x1="90.4" y1="200" x2="90.4" y2="360" stroke="rgba(244,241,234,0.28)" stroke-width="1" stroke-dasharray="2 5"/>
+          <text x="104" y="204" class="glb2">50% travel · 10.5% time</text>
+          <!-- labels -->
+          <text x="150" y="28" class="glb2">P1 (0.19, 1) · P2 (0.22, 1)</text>
+          <text x="40" y="390" class="glb">0</text>
+          <text x="472" y="390" class="glb">Time → 1</text>
+          <text x="40" y="415" class="glb">↑ Progress · 0 → 1</text>
+        </svg>
+        <p class="curve-cap">Fig. 7.1 — the signature ease, <span style="font-family:var(--mono);font-size:0.92em;color:var(--bone-70)">cubic-bezier(0.19,&nbsp;1,&nbsp;0.22,&nbsp;1)</span>. Both control points sit at full progress: motion arrives almost immediately, then spends its time settling. There is no second curve.</p>
+      </div>
+
+      <div>
+        <div class="durs rv">
+          <div class="drow dhead"><span>Register</span><span>Duration</span><span>Applied to</span></div>
+          <div class="drow"><span class="dname">The flick</span><span class="dtime">0.3 – 0.45s</span><span class="duse">Color, border, and opacity on hover — links, rows, arrows.</span></div>
+          <div class="drow"><span class="dname">The move</span><span class="dtime">0.5 – 0.7s</span><span class="duse">Nav state changes, the menu, underlines drawing in.</span></div>
+          <div class="drow"><span class="dname">The reveal</span><span class="dtime">1 – 1.4s</span><span class="duse">Content rising 26px on scroll; images easing between scales.</span></div>
+          <div class="drow"><span class="dname">The settle</span><span class="dtime">3.2s</span><span class="duse">The hero image only — scale 1.07 → 1, once, on arrival.</span></div>
+        </div>
+
+        <ul class="rules rv" style="margin-top:2.6rem">
+          <li><p><b>One curve.</b> Every transition and animation uses the signature ease. No ease-in-out, no springs, no bounces.</p></li>
+          <li><p><b>Short distances.</b> Reveals travel 26px. Images scale by at most 7%. Plates drift ±5% in parallax. Motion is felt, not watched.</p></li>
+          <li><p><b>Once.</b> Reveals fire a single time and rest. Nothing loops, pulses, or waits to be noticed.</p></li>
+          <li><p><b>Reduced motion is a designed state.</b> Under <span style="font-family:var(--mono);font-size:0.85em">prefers-reduced-motion</span>, everything sits at its final position — the page is complete, not broken.</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stage rv" id="motionStage">
+      <p class="ftab" style="position:static;transform:none;background:none;padding:0;margin-bottom:1.6rem"><b>Fig. 7.2</b>The reveal, live</p>
+      <div class="stage-bar demo-rv"><span class="idx">03</span><span class="lbl">The Method</span></div>
+      <h4 class="demo-rv" style="--d:0.12s">Strategic. Intentional. <em>Long&#8209;term.</em></h4>
+      <p class="st-p demo-rv" style="--d:0.24s">Each element rises 26 pixels over one second, staggered by 120 milliseconds — the exact choreography of every chapter on the site.</p>
+      <div class="stage-controls">
+        <button class="replay" type="button" id="replayBtn">Run the reveal <span aria-hidden="true">↻</span></button>
+        <p class="rm-note">Motion is at rest — reduced motion is on.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ——— 08 THE PLATES ——— -->
+  <section id="photography" class="chapter wrap" data-rail="08 — The Plates">
+    <div class="chapterbar rv">
+      <span class="idx">08</span>
+      <span class="lbl">The Plates</span>
+      <span class="of">/ 10</span>
+    </div>
+
+    <div class="ch-intro">
+      <h2 class="display rv">One darkroom for <em>every photograph.</em></h2>
+      <p class="rv">Source photography arrives from decades of projects, cameras, and light. A single treatment prints them all on the same stock: desaturated, slightly firmed, warmed a breath toward the paper.</p>
+    </div>
+
+    <div class="ba">
+      <figure class="rv">
+        <div class="ba-img"><img src="sas.jpg" alt="Scottsdale Autoshow at dusk, untreated — original color straight from the camera" width="1504" height="688" loading="lazy" decoding="async"></div>
+        <figcaption><span class="mono"><b>Fig. 8.1</b>As shot</span><span class="mono">No treatment</span></figcaption>
+      </figure>
+      <figure class="treated rv" style="--d:0.12s">
+        <div class="ba-img"><img src="sas.jpg" alt="Scottsdale Autoshow at dusk with the standard treatment — desaturated, contrast firmed, faintly warmed" width="1504" height="688" loading="lazy" decoding="async"></div>
+        <figcaption><span class="mono"><b>Fig. 8.2</b>As printed</span><span class="mono">saturate .84 · contrast 1.05 · sepia .05</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="recipe rv">
+      <pre><b>/* the treatment — applied to every photograph */</b>
+filter: saturate(0.82–0.88) contrast(1.03–1.05) sepia(0.05);
+
+<b>/* the scrim — before type or marks sit on a photograph */</b>
+background: linear-gradient(to top, rgba(10,15,11,0.42), rgba(10,15,11,0.05) 45%);
+
+<b>/* the hero scrim — covers only: radial vignette + top and bottom shafts */</b>
+background:
+  radial-gradient(ellipse 120% 90% at 50% 58%, rgba(8,13,9,0.52), rgba(8,13,9,0.14) 72%),
+  linear-gradient(to top, rgba(8,13,9,0.78), transparent 45%),
+  linear-gradient(to bottom, rgba(8,13,9,0.5), transparent 22%);
+
+<b>/* the paper grain — fixed overlay on every page, 5% opacity */</b>
+SVG fractal noise · 140 × 140 · base frequency 0.9 · two octaves</pre>
+    </div>
+
+    <h3 class="sect rv">The plate, <em>assembled.</em></h3>
+    <p class="lead rv">Treatment, scrim, and caption together. Plates are numbered in sequence per page and captioned in the register — subject first, place second. The image drifts ±5% as the reader passes; the caption does not move.</p>
+    <figure class="scrim-demo rv" aria-label="A finished plate: treated photograph, night scrim, register caption">
+      <img src="m360-24.jpg" alt="Palm-lined walkway approaching a dealership at the Scottsdale Autoshow" width="534" height="800" loading="lazy" decoding="async">
+      <figcaption><span class="mono">Plate 03</span><span class="mono">The approach — Scottsdale, Arizona</span></figcaption>
+    </figure>
+
+    <h3 class="sect rv">Crop for <em>monumentality.</em></h3>
+    <ul class="rules on-paper rv">
+      <li><p><b>Land is the subject.</b> A 40-to-100-acre site is photographed like landform: horizons kept low, mid-distance held, wide aspect ratios (1.85:1 in editorial plates). Never fisheye, never drone-spiral.</p></li>
+      <li><p><b>Dusk over noon.</b> Where a choice exists, choose the hour when buildings glow and the sky holds the site — it meets the night ground halfway.</p></li>
+      <li><p><b>People appear incidentally.</b> The firm photographs places; portraits belong to the people rows, at 172&nbsp;×&nbsp;216, treated like every other photograph.</p></li>
+      <li><p><b>Every image is captioned in the code.</b> Alt text is written like a plate caption — subject, place, time of day. An image without alt text does not ship.</p></li>
+    </ul>
+  </section>
+
+  <!-- ——— 09 THE VOICE ——— -->
+  <section id="voice" class="chapter wrap" data-rail="09 — The Voice">
+    <div class="chapterbar rv">
+      <span class="idx">09</span>
+      <span class="lbl">The Voice</span>
+      <span class="of">/ 10</span>
+    </div>
+
+    <div class="ch-intro">
+      <h2 class="display rv">Say it once, <em>plainly.</em></h2>
+      <p class="rv">The firm writes the way it builds — spare, declarative, long-term. The tagline is <em>Developing with Purpose.</em> — always with its period, never reworded, its one italic earned.</p>
+    </div>
+
+    <ul class="rules on-paper rv">
+      <li><p><b>Numbers carry the weight.</b> &ldquo;1,200+ sites&rdquo; needs no adjective. If a sentence leans on <em>world-class</em>, <em>exciting</em>, or an exclamation mark, the sentence is rebuilt. The firm has never used an exclamation mark.</p></li>
+      <li><p><b>The definite article.</b> Chapters are institutions: The Firm, The Work, The Method, The Purpose, The People. Verbs head the litany: Develop, Plan, Build, Consult, Partner, Give.</p></li>
+      <li><p><b>Present tense, long horizon.</b> &ldquo;Strategic rather than transactional&rdquo; — the voice states positions, it does not campaign. Claims are dated, placed, and sourced from the seal of facts.</p></li>
+      <li><p><b>Real typography in every sentence.</b> Em-dashes — like this — for the turn of thought. Real quotation marks. Non-breaking spaces guard short last words. Ampersands only in the register.</p></li>
+    </ul>
+
+    <h3 class="sect rv">Write / <em>never.</em></h3>
+    <div class="rv" style="margin-top:2rem">
+      <div class="voice-pair">
+        <div>
+          <p class="vhead w">Write</p>
+          <blockquote class="vw">A 70-acre automotive development on the Salt River Pima&#8211;Maricopa Indian Community.</blockquote>
+          <p class="vwhy">Scale, program, and place. The fact is the persuasion.</p>
+        </div>
+        <div>
+          <p class="vhead n">Never</p>
+          <blockquote class="vn">An exciting, world-class 70-acre auto mall experience!</blockquote>
+          <p class="vwhy">Three adjectives, an exclamation mark, and less information.</p>
+        </div>
+      </div>
+      <div class="voice-pair">
+        <div>
+          <p class="vhead w">Write</p>
+          <blockquote class="vw">Est. 1994 — Scottsdale, Arizona.</blockquote>
+          <p class="vwhy">The register states the record and stops.</p>
+        </div>
+        <div>
+          <p class="vhead n">Never</p>
+          <blockquote class="vn">Proudly serving the greater Scottsdale area since 1994!</blockquote>
+          <p class="vwhy">Pride is demonstrated in the work, not announced.</p>
+        </div>
+      </div>
+      <div class="voice-pair">
+        <div>
+          <p class="vhead w">Write</p>
+          <blockquote class="vw">Strategic rather than transactional — we invest in relationships as much as real estate.</blockquote>
+          <p class="vwhy">A position, taken plainly, with one em-dash turn.</p>
+        </div>
+        <div>
+          <p class="vhead n">Never</p>
+          <blockquote class="vn">We think outside the box to deliver win-win solutions for all stakeholders.</blockquote>
+          <p class="vwhy">Borrowed language. The firm speaks in its own words or not at all.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ——— 10 THE APPLICATION (night) ——— -->
+  <section id="application" class="chapter night wrap" data-rail="10 — The Application" data-inv>
+    <div class="chapterbar rv">
+      <span class="idx">10</span>
+      <span class="lbl">The Application</span>
+      <span class="of">/ 10</span>
+    </div>
+
+    <div class="ch-intro">
+      <h2 class="display rv">Building the <em>next page.</em></h2>
+      <p class="rv">Projects, contact, media, a detail page not yet imagined — every one is composed the same way. Follow the order of operations, run the checks, ship nothing that fails them.</p>
+    </div>
+
+    <ol class="method-list rv" style="max-width:880px">
+      <li><div><h4>Choose the ground</h4><p>Paper by default. Night for at most one chapter per page, plus the colophon. A page that is mostly night is a cover, and there is only one cover.</p></div></li>
+      <li><div><h4>Open with the chapter bar</h4><p>Full-width rule, sealed index, tracked label. Number the chapters across the page — a reader should always know where in the book they stand.</p></div></li>
+      <li><div><h4>Give the chapter one idea</h4><p>A single display line or statement carries the chapter. Everything else — text, ledgers, plates — supports it at reading size.</p></div></li>
+      <li><div><h4>Set data as a ledger</h4><p>Hairline rows, mono labels, serif figures, tabular numerals. If it feels like it wants a card or a chart, it wants a ledger.</p></div></li>
+      <li><div><h4>Interlude with a plate</h4><p>Between chapters, a full-bleed treated photograph with its register caption. One plate can do the work of a thousand words of copy; use it instead of them.</p></div></li>
+      <li><div><h4>Close with the seal</h4><p>One sealed invitation — a single .btn-seal — then the colophon, identical to every other page&rsquo;s. The book ends the same way every time.</p></div></li>
+    </ol>
+
+    <h3 class="sect rv" style="color:var(--bone)">The pre-flight <em>checks.</em></h3>
+    <ul class="checklist rv">
+      <li><p><b>Grounds.</b> Only paper and night. No white, no gray, no third ground invented for the occasion.</p></li>
+      <li><p><b>The green budget.</b> Count the green on screen. More than a handful of seals, and something is wallpaper. On night, green-lift only.</p></li>
+      <li><p><b>The scale.</b> Every size on the page exists in Chapter 04. A new font size is a new decision nobody authorized.</p></li>
+      <li><p><b>The register.</b> Mono is uppercase, tracked 0.18–0.22em, tabular. If a label reads comfortably, its tracking is too tight.</p></li>
+      <li><p><b>Rules, not boxes.</b> No cards, no shadows, no rounded corners. Hairlines and ground-shifts only.</p></li>
+      <li><p><b>The darkroom.</b> Every photograph treated; every image with plate-caption alt text; scrims under any type that sits on imagery.</p></li>
+      <li><p><b>The motion.</b> One easing curve, distances ≤ 26px, reveals fire once, reduced-motion leaves a complete page.</p></li>
+      <li><p><b>The arithmetic.</b> Text pairings hold the ratios in Chapter 03. Ink-55 and bone-45 never set running text.</p></li>
+      <li><p><b>The facts.</b> Every number traces to the seal of facts. Nothing is rounded up, embellished, or invented.</p></li>
+    </ul>
+
+    <h3 class="sect rv" style="color:var(--bone)">The tokens, <em>verbatim.</em></h3>
+    <p class="lead rv">Copied from <span style="font-family:var(--mono);font-size:0.85em">index.html</span>, character for character. Start every new page by pasting this block; if a value here disagrees with any other document, this block wins.</p>
+    <div class="tokens rv">
+      <button class="copy" type="button" id="copyTokens">Copy</button>
+      <pre id="tokenBlock">:root{
+  <span class="cm">/* paper + ink */</span>
+  <span class="vn">--paper</span>:#F4F1EA;
+  <span class="vn">--paper-2</span>:#ECE8DE;
+  <span class="vn">--ink</span>:#151A15;
+  <span class="vn">--ink-70</span>:rgba(21,26,21,0.72);
+  <span class="vn">--ink-55</span>:rgba(21,26,21,0.56);
+  <span class="vn">--line</span>:rgba(21,26,21,0.16);
+  <span class="vn">--line-soft</span>:rgba(21,26,21,0.09);
+  <span class="cm">/* night */</span>
+  <span class="vn">--night</span>:#0C120D;
+  <span class="vn">--night-2</span>:#101812;
+  <span class="vn">--bone</span>:#F4F1EA;
+  <span class="vn">--bone-70</span>:rgba(244,241,234,0.72);
+  <span class="vn">--bone-45</span>:rgba(244,241,234,0.45);
+  <span class="vn">--nline</span>:rgba(244,241,234,0.14);
+  <span class="cm">/* the seal */</span>
+  <span class="vn">--green</span>:#0E6133;
+  <span class="vn">--green-deep</span>:#0A4A27;
+  <span class="vn">--green-lift</span>:#7FA98E;   <span class="cm">/* green legible on night */</span>
+  <span class="cm">/* type */</span>
+  <span class="vn">--serif</span>:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  <span class="vn">--sans</span>:'DM Sans',-apple-system,'Helvetica Neue',sans-serif;
+  <span class="vn">--mono</span>:'IBM Plex Mono','SF Mono',Consolas,monospace;
+  <span class="cm">/* rhythm */</span>
+  <span class="vn">--gutter</span>:clamp(1.5rem,6vw,7.5rem);
+  <span class="vn">--chapter-gap</span>:clamp(6rem,13vh,11rem);
+}</pre>
+    </div>
+    <p class="fuse rv" style="border-top:0;padding-top:0.6rem"><b>Note</b> The signature ease — cubic-bezier(0.19, 1, 0.22, 1) — is written inline throughout index.html; this volume also exposes it as --ease for convenience.</p>
+  </section>
+
+</main>
+
+<!-- ——— COLOPHON ——— -->
+<footer id="colophon">
+  <div class="colophon">
+    <div class="f-brand">
+      <img src="white-full.png" alt="Mullin — A Development Company" width="1024" height="1024" loading="lazy" decoding="async">
+      <p class="f-tag">Developing with Purpose.</p>
+    </div>
+    <div>
+      <h4>This volume</h4>
+      <p>Brand Identity System<br>First edition — MMXXVI<br>Supersedes all prior guides.<br>The source of truth is <a href="index.html">index.html</a>; this book is its record.</p>
+    </div>
+    <div>
+      <h4>Set in</h4>
+      <p>Cormorant Garamond<br>DM Sans<br>IBM Plex Mono</p>
+      <p class="coords mono">Paper #F4F1EA<br>Ink #151A15<br>Seal #0E6133</p>
+    </div>
+    <div>
+      <h4>Office</h4>
+      <address>6910 E 5th Ave<br>Scottsdale, AZ 85251</address>
+      <p class="coords mono">33.49° N<br>111.93° W<br>Est. 1994</p>
+    </div>
+  </div>
+  <div class="baseline">
+    <p class="mono">© 2026 Mullin Development, LLC. All rights reserved.</p>
+    <button class="mono" type="button" id="reprint">Reprint the cover ↻</button>
+    <p class="mono">Brand Identity System — Est. 1994, Scottsdale, Arizona</p>
+  </div>
+</footer>
+
+<div id="rail" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+  document.documentElement.classList.add('js');
+  document.body.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ——— the cover assembles itself ——— */
+  var cover = document.getElementById('cover');
+  cover.classList.add('play');
+
+  var reprint = document.getElementById('reprint');
+  reprint.addEventListener('click', function(){
+    cover.classList.remove('play');
+    /* the press returns to page one, instantly */
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    document.documentElement.style.scrollBehavior = '';
+    setTimeout(function(){
+      void cover.offsetWidth; /* reflow — rewind the press */
+      cover.classList.add('play');
+    }, 80);
+  });
+
+  /* ——— doc nav ——— */
+  var nav = document.getElementById('docnav');
+  function navState(){
+    nav.classList.toggle('show', window.scrollY > cover.offsetHeight - 80);
+  }
+  navState();
+  window.addEventListener('scroll', navState, {passive:true});
+
+  /* current chapter in the nav */
+  var chLinks = {};
+  document.querySelectorAll('.dn-links a.ch').forEach(function(a){
+    chLinks[a.getAttribute('href').slice(1)] = a;
+  });
+  var curIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        Object.keys(chLinks).forEach(function(k){ chLinks[k].classList.remove('cur'); });
+        var a = chLinks[en.target.id];
+        if(a) a.classList.add('cur');
+      }
+    });
+  }, {rootMargin:'-45% 0px -45% 0px'});
+  document.querySelectorAll('main .chapter').forEach(function(s){ curIO.observe(s); });
+
+  /* ——— reveals ——— */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('on'); io.unobserve(en.target); }
+    });
+  }, {threshold:0.08, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+  /* ——— rail index ——— */
+  var rail = document.getElementById('rail');
+  var railIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        rail.textContent = en.target.getAttribute('data-rail');
+        rail.classList.add('show');
+        rail.classList.toggle('inv', en.target.hasAttribute('data-inv'));
+      }
+    });
+  }, {rootMargin:'-45% 0px -45% 0px'});
+  document.querySelectorAll('[data-rail]').forEach(function(s){ railIO.observe(s); });
+  var edges = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting) rail.classList.remove('show'); });
+  }, {rootMargin:'-40% 0px -40% 0px'});
+  edges.observe(cover);
+  edges.observe(document.querySelector('footer'));
+
+  /* ——— plate parallax ——— */
+  if(!reduce){
+    var plates = Array.prototype.slice.call(document.querySelectorAll('.plate .plx'));
+    var ticking = false;
+    function plx(){
+      plates.forEach(function(p){
+        var r = p.parentElement.getBoundingClientRect();
+        var vh = window.innerHeight;
+        if(r.bottom < 0 || r.top > vh) return;
+        var prog = (r.top + r.height/2 - vh/2) / (vh/2 + r.height/2);
+        p.style.transform = 'translateY(' + (prog * -5) + '%)';
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function(){
+      if(!ticking){ requestAnimationFrame(plx); ticking = true; }
+    }, {passive:true});
+    plx();
+  }
+
+  /* ——— toast ——— */
+  var toast = document.getElementById('toast');
+  var toastT;
+  function say(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(function(){ toast.classList.remove('show'); }, 1600);
+  }
+
+  /* ——— copy helpers ——— */
+  function copyText(txt, label){
+    function done(){ say(label + ' — copied'); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done, function(){ fallback(); });
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = txt; ta.setAttribute('readonly','');
+      ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }catch(e){ say('Select to copy'); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  document.querySelectorAll('.ink-chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var v = chip.getAttribute('data-copy');
+      copyText(v, v.length > 18 ? v.slice(0,18) + '…' : v);
+    });
+  });
+
+  var copyBtn = document.getElementById('copyTokens');
+  copyBtn.addEventListener('click', function(){
+    copyText(document.getElementById('tokenBlock').textContent, 'The tokens');
+  });
+
+  /* ——— live rhythm readout ——— */
+  var probe = document.createElement('div');
+  probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;width:var(--gutter);height:var(--chapter-gap);';
+  document.body.appendChild(probe);
+  var elG = document.getElementById('liveGutter');
+  var elC = document.getElementById('liveGap');
+  var elV = document.getElementById('liveVw');
+  function rhythm(){
+    var r = probe.getBoundingClientRect();
+    elG.textContent = Math.round(r.width) + ' px';
+    elC.textContent = Math.round(r.height) + ' px';
+    elV.textContent = window.innerWidth + ' × ' + window.innerHeight;
+  }
+  rhythm();
+  var rT;
+  window.addEventListener('resize', function(){
+    clearTimeout(rT); rT = setTimeout(rhythm, 120);
+  });
+
+  /* ——— motion stage ——— */
+  var stage = document.getElementById('motionStage');
+  var replayBtn = document.getElementById('replayBtn');
+  replayBtn.addEventListener('click', function(){
+    if(reduce) return;
+    stage.classList.add('armed');
+    void stage.offsetWidth;
+    stage.classList.remove('armed');
+  });
+})();
+</script>
+</body>
+</html>

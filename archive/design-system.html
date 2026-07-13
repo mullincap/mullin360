@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mullin Development — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   Mullin Development Design System — standalone spec document
+   Mirrors the tokens found in /index.html so Figma/dev reference stays 1:1.
+   ========================================================================== */
+:root{
+  /* Brand (Green system) */
+  --green:#0E6133;
+  --green-deep:#0A4A27;
+  --green-soft:#2C7A4B;
+  --green-muted:#7EA08A;
+  --green-pale:#DCE9E1;
+
+  /* Neutrals */
+  --white:#FFFFFF;
+  --white-soft:#F8FAF8;
+  --mist:#EEF3EF;
+  --mist-2:#E1E9E3;
+  --charcoal:#102218;
+  --charcoal-soft:#1A2E22;
+  --stone:#5F6F66;
+  --stone-light:#86958D;
+  --line:#D5DED8;
+
+  /* Semantic */
+  --warn:#f0c060;
+
+  /* DS document-only tokens */
+  --ds-page:#F5F7F5;
+  --ds-card:#FFFFFF;
+  --ds-ink:#102218;
+  --ds-ink-soft:#4a5a51;
+  --ds-rule:#e4ece6;
+  --ds-ok:#137a43;
+  --ds-warn:#b06d00;
+  --ds-bad:#a3262c;
+
+  --font-d:'Cormorant Garamond',Georgia,serif;
+  --font-b:'DM Sans',system-ui,sans-serif;
+  --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ds-page);color:var(--ds-ink);font-family:var(--font-b);font-size:15px;line-height:1.55}
+a{color:var(--green);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* --- Layout shell --- */
+.ds-shell{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+.ds-side{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:2rem 1.5rem;background:var(--charcoal);color:#d5ded8}
+.ds-side .brand{display:block;margin-bottom:.5rem}
+.ds-side .brand img{display:block;height:34px;width:auto;max-width:100%}
+.ds-side .sub{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(220,233,225,.6);margin-bottom:2rem}
+.ds-side nav a{display:block;padding:.45rem 0;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);border-left:2px solid transparent;padding-left:.75rem;margin-left:-.75rem}
+.ds-side nav a:hover{color:var(--green-pale);text-decoration:none;border-left-color:var(--green-pale)}
+.ds-side nav .group{margin-top:1.75rem;font-size:.6rem;letter-spacing:.28em;color:rgba(220,233,225,.35);text-transform:uppercase;padding-left:.75rem;margin-left:-.75rem}
+
+.ds-main{padding:3rem 3.5rem 6rem;max-width:1200px}
+@media (max-width:900px){
+  .ds-shell{grid-template-columns:1fr}
+  .ds-side{position:static;height:auto}
+  .ds-main{padding:2rem 1.25rem 4rem}
+}
+
+/* --- Section header --- */
+section.ds-sec{padding:2.5rem 0;border-top:1px solid var(--ds-rule)}
+section.ds-sec:first-of-type{border-top:none;padding-top:0}
+.ds-eyebrow{font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--green);font-weight:500;margin:0 0 .5rem}
+.ds-h1{font-family:var(--font-d);font-weight:300;font-size:clamp(2.4rem,4vw,3.4rem);line-height:1.05;margin:0 0 1rem}
+.ds-h1 em{color:var(--green);font-style:italic}
+.ds-h2{font-family:var(--font-d);font-weight:300;font-size:clamp(1.7rem,2.4vw,2.2rem);line-height:1.15;margin:0 0 .75rem}
+.ds-h3{font-family:var(--font-b);font-weight:500;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ds-ink-soft);margin:2rem 0 .75rem}
+.ds-lead{font-size:1.02rem;line-height:1.7;color:var(--ds-ink-soft);max-width:62ch;margin:0 0 1.5rem}
+.ds-p{font-size:.95rem;color:var(--ds-ink-soft);max-width:70ch}
+
+/* --- Cards, grids, tables --- */
+.ds-card{background:var(--ds-card);border:1px solid var(--ds-rule);border-radius:10px;padding:1.25rem}
+.ds-grid{display:grid;gap:1rem}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media(max-width:900px){.grid-3,.grid-4,.grid-5{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.grid-2,.grid-3,.grid-4,.grid-5{grid-template-columns:1fr}}
+
+table.ds-table{width:100%;border-collapse:collapse;font-size:.86rem;background:var(--ds-card);border:1px solid var(--ds-rule);border-radius:10px;overflow:hidden}
+.ds-table th,.ds-table td{padding:.65rem .85rem;text-align:left;border-bottom:1px solid var(--ds-rule);vertical-align:top}
+.ds-table th{background:#f6f9f6;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ds-ink-soft);font-weight:500}
+.ds-table tr:last-child td{border-bottom:none}
+.ds-table code{font-family:var(--font-m);font-size:.8rem;background:#f2f5f2;padding:.1rem .35rem;border-radius:4px}
+
+.mono{font-family:var(--font-m);font-size:.82rem;background:#f2f5f2;padding:.15rem .45rem;border-radius:4px;color:var(--ds-ink)}
+.pill{display:inline-block;padding:.2rem .55rem;border-radius:999px;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.pill-ok{background:#e4f3ea;color:var(--ds-ok)}
+.pill-warn{background:#fbecd1;color:var(--ds-warn)}
+.pill-bad{background:#f7dcde;color:var(--ds-bad)}
+
+/* --- Color swatches --- */
+.swatch{border-radius:10px;overflow:hidden;border:1px solid var(--ds-rule);background:#fff}
+.swatch .chip{height:110px;display:flex;align-items:flex-end;padding:.75rem;color:#fff;font-family:var(--font-m);font-size:.7rem}
+.swatch .chip.dark{color:var(--charcoal)}
+.swatch .meta{padding:.75rem .85rem 1rem}
+.swatch .meta .name{font-weight:500;font-size:.85rem;margin-bottom:.15rem}
+.swatch .meta .token{font-family:var(--font-m);font-size:.72rem;color:var(--ds-ink-soft)}
+.swatch .meta .hex{font-family:var(--font-m);font-size:.72rem;color:var(--ds-ink-soft);margin-top:.1rem}
+.swatch .meta .use{font-size:.74rem;color:var(--ds-ink-soft);margin-top:.35rem;line-height:1.45}
+
+/* --- Type specimens --- */
+.type-row{display:grid;grid-template-columns:220px 1fr;gap:1rem;padding:1rem 0;border-bottom:1px dashed var(--ds-rule)}
+.type-row:last-child{border-bottom:none}
+.type-meta{font-family:var(--font-m);font-size:.72rem;color:var(--ds-ink-soft);line-height:1.5}
+.type-meta b{color:var(--ds-ink);font-weight:500}
+.type-sample{min-width:0}
+.type-sample.d{font-family:var(--font-d)}
+.type-sample.b{font-family:var(--font-b)}
+
+/* --- Scale chips --- */
+.scale-row{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;padding:1rem 0}
+.scale-chip{background:#eaf1ec;border:1px solid var(--ds-rule);border-radius:6px;padding:.4rem .5rem;font-family:var(--font-m);font-size:.7rem;color:var(--ds-ink-soft);display:flex;flex-direction:column;align-items:center;min-width:58px}
+.scale-chip .bar{background:var(--green);border-radius:3px;margin-bottom:.4rem}
+.radius-box{width:80px;height:80px;background:linear-gradient(135deg,var(--green) 0%,var(--green-soft) 100%);border:1px solid var(--ds-rule);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-m);font-size:.7rem}
+
+/* --- Shadow cards --- */
+.shadow-card{background:#fff;border:1px solid var(--ds-rule);padding:1rem;min-height:110px;display:flex;flex-direction:column;justify-content:space-between;font-family:var(--font-m);font-size:.7rem;color:var(--ds-ink-soft)}
+.shadow-card b{color:var(--ds-ink);font-weight:500}
+
+/* ==========================================================================
+   SITE-ACCURATE COMPONENT PREVIEWS
+   (These use the site's actual CSS values so what you see here = what ships.)
+   ========================================================================== */
+
+/* Buttons — exact site classes */
+.btn-terra{display:inline-flex;align-items:center;gap:.5rem;background:var(--green);color:#fff;padding:1.25rem 3rem;font-family:var(--font-b);font-size:.85rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border-radius:6px;border:none;cursor:pointer;transition:all .35s cubic-bezier(.23,1,.32,1)}
+.btn-terra:hover{background:var(--green-deep);transform:translateY(-6px);box-shadow:0 15px 35px rgba(14,97,51,.35);text-decoration:none}
+.btn-sage{display:inline-flex;align-items:center;gap:.5rem;border:2px solid rgba(16,34,24,.75);color:var(--charcoal);background:transparent;padding:1.25rem 3rem;font-family:var(--font-b);font-size:.85rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border-radius:6px;cursor:pointer;transition:all .35s cubic-bezier(.23,1,.32,1)}
+.btn-sage:hover{background:rgba(14,97,51,.06);border-color:var(--green);transform:translateY(-4px);text-decoration:none}
+.btn-submit{background:var(--green);color:#fff;padding:1rem 2.5rem;font-family:var(--font-b);font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border:none;border-radius:0;cursor:pointer;box-shadow:0 14px 34px rgba(14,97,51,.22);transition:all .2s ease}
+.btn-submit:hover{background:var(--green-deep);transform:translateY(-1px)}
+.btn-cream{background:#fff;color:var(--green-deep);padding:1rem 2.5rem;font-family:var(--font-b);font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border:none;border-radius:0;cursor:pointer;transition:all .2s ease}
+.btn-cream:hover{background:var(--green-pale)}
+.on-dark{background:linear-gradient(135deg,var(--charcoal) 0%,var(--green-deep) 100%);color:#fff;padding:2rem;border-radius:10px}
+.on-dark .btn-sage{border-color:rgba(255,255,255,.75);color:#fff}
+.on-dark .btn-sage:hover{background:rgba(255,255,255,.1);border-color:var(--green-pale)}
+
+/* Form field */
+.field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.field label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);font-weight:500}
+.field input,.field select,.field textarea{font-family:var(--font-b);font-size:.9rem;color:var(--charcoal);border:1px solid var(--line);background:#fff;padding:.8rem 1rem;border-radius:0;outline:none;transition:border-color .2s,box-shadow .2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(14,97,51,.08)}
+.field input::placeholder{color:var(--stone-light)}
+.field textarea{resize:vertical;min-height:100px}
+
+/* Filter buttons */
+.filter-btn{font-family:var(--font-b);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:.45rem 1.1rem;border:1px solid var(--line);background:transparent;color:var(--stone);cursor:pointer;transition:all .2s ease}
+.filter-btn:hover{border-color:var(--green);color:var(--green)}
+.filter-btn.active{background:var(--green);border-color:var(--green);color:#fff}
+
+/* Status badge */
+.status-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-b);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;padding:.4rem .9rem;border:1px solid rgba(14,97,51,.4);color:var(--green);background:#fff}
+.status-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
+.status-badge.in-progress{border-color:rgba(240,192,96,.6);color:var(--warn)}
+.status-badge.in-progress::before{background:var(--warn)}
+.status-badge.coming-soon{border-color:rgba(95,111,102,.4);color:var(--stone)}
+.status-badge.coming-soon::before{background:var(--stone-light)}
+
+/* Info block */
+.info-block{display:flex;flex-direction:column;gap:.3rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.info-label{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:500}
+.info-value{font-size:.95rem;color:var(--charcoal);font-weight:300;line-height:1.7}
+
+/* Venture link */
+.venture-link{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;border:1px solid var(--line);font-size:.85rem;color:var(--charcoal);transition:all .2s ease;cursor:pointer;background:#fff}
+.venture-link:hover{background:var(--green);border-color:var(--green);color:#fff;text-decoration:none}
+.venture-link:hover .venture-arrow{transform:translateX(4px)}
+.venture-link span{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase}
+.venture-arrow{transition:transform .2s ease}
+
+/* Project card */
+.pcard{position:relative;overflow:hidden;display:block;cursor:pointer;background:var(--charcoal);min-height:420px}
+.pcard .pimg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.pcard:hover .pimg{transform:scale(1.04)}
+.poverlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,20,12,.92) 0%,rgba(0,20,12,.6) 50%,rgba(0,0,0,.1) 100%);padding:2rem;display:flex;flex-direction:column;justify-content:flex-end;color:#fff}
+.ptag{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green-pale);margin:0 0 .5rem}
+.pname{font-family:var(--font-d);font-size:1.5rem;font-weight:400;color:#fff;margin:0 0 .25rem;line-height:1.2}
+.ploc{font-size:.78rem;color:rgba(245,240,232,.55);margin:0 0 .75rem}
+.pstatus{display:inline-flex;align-items:center;gap:.35rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green-pale);opacity:0;transform:translateY(6px);transition:all .3s ease}
+.pstatus::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green-pale)}
+.pcard:hover .pstatus{opacity:1;transform:translateY(0)}
+.parrow{position:absolute;top:0;right:0;width:2.5rem;height:2.5rem;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;transform:translate(10px,-10px);transition:all .3s ease;font-size:1.1rem}
+.pcard:hover .parrow{opacity:1;transform:translate(0,0)}
+
+/* Team member */
+.tmember{position:relative;overflow:hidden;background:linear-gradient(135deg,#425e50,#1a2e22);min-height:380px;cursor:pointer}
+.tmember .timg{position:absolute;inset:0;background-size:cover;background-position:center;filter:sepia(8%);transition:transform .5s,filter .5s}
+.tmember:hover .timg{transform:scale(1.03);filter:sepia(0%)}
+.toverlay{position:absolute;left:0;right:0;bottom:0;padding:2rem;background:linear-gradient(to top,rgba(0,20,12,.9) 0%,transparent 100%);color:#fff}
+.tname{font-family:var(--font-d);font-size:1.3rem;font-weight:400;margin-bottom:.25rem}
+.ttitle{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green-pale)}
+
+/* Nav preview */
+.nav-demo{background:var(--charcoal);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;color:#fff;border-radius:10px}
+.nav-demo .logo{display:flex;align-items:center}
+.nav-demo .logo img{display:block;height:28px;width:auto}
+.nav-demo ul{list-style:none;display:flex;gap:2rem;margin:0;padding:0}
+.nav-demo li a{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78)}
+.nav-demo li a.active{color:var(--green-pale)}
+.nav-demo li a:hover{color:var(--green-pale);text-decoration:none}
+
+/* Eyebrow sample */
+.eyebrow-sample{font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--green);font-weight:500}
+
+/* Legend for WCAG audit */
+.legend{display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0 1.25rem}
+
+/* Print */
+@media print{
+  .ds-side{display:none}
+  .ds-shell{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="ds-shell">
+
+<!-- =========================== SIDE NAV =========================== -->
+<aside class="ds-side">
+  <a class="brand" href="#" aria-label="Mullin Development home"><img src="white-sq-long.png" alt="Mullin Development"></a>
+  <div class="sub">Design System v0.1</div>
+  <nav>
+    <div class="group">Foundations</div>
+    <a href="#colors">Colors</a>
+    <a href="#typography">Typography</a>
+    <a href="#spacing">Spacing</a>
+    <a href="#radius">Radius</a>
+    <a href="#shadows">Shadows</a>
+    <a href="#borders">Borders</a>
+    <a href="#motion">Motion</a>
+    <a href="#breakpoints">Breakpoints</a>
+
+    <div class="group">Components</div>
+    <a href="#nav">Navigation</a>
+    <a href="#buttons">Buttons</a>
+    <a href="#forms">Form fields</a>
+    <a href="#filters">Filter chips</a>
+    <a href="#badges">Status badges</a>
+    <a href="#info">Info blocks</a>
+    <a href="#ventures">Venture links</a>
+    <a href="#pcards">Project cards</a>
+    <a href="#tmembers">Team cards</a>
+
+    <div class="group">Patterns</div>
+    <a href="#pat-hero">Hero</a>
+    <a href="#pat-split">Split section</a>
+    <a href="#pat-stats">Stats strip</a>
+    <a href="#pat-pillars">Pillars</a>
+    <a href="#pat-grid">Grid sections</a>
+    <a href="#pat-footer">Footer</a>
+
+    <div class="group">Audit</div>
+    <a href="#score">Maturity score</a>
+    <a href="#gaps">Gaps</a>
+    <a href="#wcag">WCAG contrast</a>
+    <a href="#recs">Priority actions</a>
+    <a href="#figma">Figma handoff</a>
+  </nav>
+</aside>
+
+<!-- =========================== MAIN =========================== -->
+<main class="ds-main">
+
+<!-- ========== INTRO ========== -->
+<section class="ds-sec" style="padding-top:0">
+  <p class="ds-eyebrow">Design System · April 2026</p>
+  <h1 class="ds-h1">Mullin Development <em>design system</em>.</h1>
+  <p class="ds-lead">
+    This document is the source of truth for tokens, components, and patterns used on
+    <span class="mono">mullinv1.netlify.app</span>. Every value shown is extracted directly from
+    <span class="mono">index.html</span> and its sibling pages — so what you see here is what renders in production.
+    Each section is structured to map cleanly onto Figma frames: one page per foundation,
+    one frame per component, and one master file for patterns.
+  </p>
+
+  <div class="ds-grid grid-4" style="margin-top:1.5rem">
+    <div class="ds-card">
+      <div class="ds-h3" style="margin:0 0 .5rem">Maturity score</div>
+      <div style="font-family:var(--font-d);font-size:2.4rem;line-height:1;font-weight:300">62<span style="color:var(--ds-ink-soft);font-size:1.1rem">/100</span></div>
+      <div class="ds-p" style="font-size:.8rem;margin-top:.35rem">Consistent visual language, tokenization gaps.</div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-h3" style="margin:0 0 .5rem">Components</div>
+      <div style="font-family:var(--font-d);font-size:2.4rem;line-height:1;font-weight:300">11</div>
+      <div class="ds-p" style="font-size:.8rem;margin-top:.35rem">9 documented · 2 partial (tmember-placeholder, scroll hint)</div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-h3" style="margin:0 0 .5rem">Tokens</div>
+      <div style="font-family:var(--font-d);font-size:2.4rem;line-height:1;font-weight:300">47</div>
+      <div class="ds-p" style="font-size:.8rem;margin-top:.35rem">14 color · 2 type families · 17 spacing · 3 radius · 4 shadow · rest: motion/border</div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-h3" style="margin:0 0 .5rem">Top risks</div>
+      <div style="font-family:var(--font-d);font-size:2.4rem;line-height:1;font-weight:300">3</div>
+      <div class="ds-p" style="font-size:.8rem;margin-top:.35rem">WCAG contrast · missing focus rings · no spacing scale</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COLORS ========== -->
+<section class="ds-sec" id="colors">
+  <p class="ds-eyebrow">Foundations · 01</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Colors</h2>
+  <p class="ds-lead">
+    Two intentional families: a deep green brand spectrum and a warm-leaning neutral. The palette is
+    small by design, but opacity variants are overused — see the <a href="#gaps">Gaps</a> section.
+  </p>
+
+  <h3 class="ds-h3">Brand · Green</h3>
+  <div class="ds-grid grid-5">
+    <div class="swatch"><div class="chip" style="background:#0E6133">#0E6133</div><div class="meta"><div class="name">Green</div><div class="token">--green</div><div class="use">Primary brand, CTAs, links</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#0A4A27">#0A4A27</div><div class="meta"><div class="name">Green Deep</div><div class="token">--green-deep</div><div class="use">Hover, stats section bg</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#2C7A4B">#2C7A4B</div><div class="meta"><div class="name">Green Soft</div><div class="token">--green-soft</div><div class="use">Secondary accent</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#7EA08A">#7EA08A</div><div class="meta"><div class="name">Green Muted</div><div class="token">--green-muted</div><div class="use">Subtle text, muted borders</div></div></div>
+    <div class="swatch"><div class="chip dark" style="background:#DCE9E1">#DCE9E1</div><div class="meta"><div class="name">Green Pale</div><div class="token">--green-pale</div><div class="use">Italics on dark, accents</div></div></div>
+  </div>
+
+  <h3 class="ds-h3">Neutrals</h3>
+  <div class="ds-grid grid-5">
+    <div class="swatch"><div class="chip dark" style="background:#FFFFFF;border-bottom:1px solid var(--ds-rule)">#FFFFFF</div><div class="meta"><div class="name">White</div><div class="token">--white</div><div class="use">Primary surface</div></div></div>
+    <div class="swatch"><div class="chip dark" style="background:#F8FAF8">#F8FAF8</div><div class="meta"><div class="name">White Soft</div><div class="token">--white-soft</div><div class="use">Subtle section tint</div></div></div>
+    <div class="swatch"><div class="chip dark" style="background:#EEF3EF">#EEF3EF</div><div class="meta"><div class="name">Mist</div><div class="token">--mist</div><div class="use">Section backgrounds</div></div></div>
+    <div class="swatch"><div class="chip dark" style="background:#E1E9E3">#E1E9E3</div><div class="meta"><div class="name">Mist 2</div><div class="token">--mist-2</div><div class="use">Alt section bg</div></div></div>
+    <div class="swatch"><div class="chip dark" style="background:#D5DED8">#D5DED8</div><div class="meta"><div class="name">Line</div><div class="token">--line</div><div class="use">Dividers, input borders</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#86958D">#86958D</div><div class="meta"><div class="name">Stone Light</div><div class="token">--stone-light</div><div class="use">Placeholder, tertiary text</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#5F6F66">#5F6F66</div><div class="meta"><div class="name">Stone</div><div class="token">--stone</div><div class="use">Body on light bg</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#1A2E22">#1A2E22</div><div class="meta"><div class="name">Charcoal Soft</div><div class="token">--charcoal-soft</div><div class="use">Headings alt</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#102218">#102218</div><div class="meta"><div class="name">Charcoal</div><div class="token">--charcoal</div><div class="use">Primary text, footer bg</div></div></div>
+    <div class="swatch"><div class="chip dark" style="background:#f0c060">#f0c060</div><div class="meta"><div class="name">Warn / In-progress</div><div class="token">undefined</div><div class="use">Coming-soon, status <span class="pill pill-warn">not tokenized</span></div></div></div>
+  </div>
+
+  <h3 class="ds-h3">Common overlays / tints used in the site</h3>
+  <table class="ds-table">
+    <thead><tr><th>Value</th><th>Where</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td><code>rgba(255,255,255,.78)</code></td><td>Nav links default</td><td>—</td></tr>
+      <tr><td><code>rgba(255,255,255,.62)</code></td><td>Footer links</td><td><span class="pill pill-bad">Below 4.5:1 on charcoal</span></td></tr>
+      <tr><td><code>rgba(245,240,232,.55)</code></td><td>Card meta text</td><td>cream-leaning white; off-palette</td></tr>
+      <tr><td><code>rgba(14,97,51,.35)</code></td><td>Button hover shadow</td><td>—</td></tr>
+      <tr><td><code>rgba(14,97,51,.08)</code></td><td>Field focus ring</td><td>—</td></tr>
+      <tr><td><code>rgba(220,233,225,.25 / .4)</code></td><td>Status-badge borders</td><td>Two similar variants; consolidate</td></tr>
+    </tbody>
+  </table>
+
+  <div class="ds-card" style="margin-top:1.25rem;background:#fbf5e8;border-color:#ead9b4">
+    <div class="ds-h3" style="margin-top:0;color:var(--ds-warn)">Heads-up · unused / alias tokens</div>
+    <p class="ds-p" style="margin:0">
+      <code>--cream</code> (#0c1a11), <code>--terra</code> (alias of --green), and <code>--terra-light</code>
+      (alias of --green-soft) are declared but never referenced. Delete from <span class="mono">:root</span>
+      or repurpose as canonical names — aliases fragment the token graph.
+    </p>
+  </div>
+</section>
+
+<!-- ========== TYPOGRAPHY ========== -->
+<section class="ds-sec" id="typography">
+  <p class="ds-eyebrow">Foundations · 02</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Typography</h2>
+  <p class="ds-lead">
+    Two families: <b>Cormorant Garamond</b> for expressive display, <b>DM Sans</b> for the rest.
+    The display voice leans 300-weight and uses italicized <em>ems</em> in green-pale for emphasis.
+    Body sizing is fluid via <span class="mono">clamp()</span> — good in practice, but no named
+    scale means every headline picks its own clamp range.
+  </p>
+
+  <h3 class="ds-h3">Font families</h3>
+  <div class="ds-grid grid-2">
+    <div class="ds-card">
+      <div style="font-family:var(--font-d);font-size:3.2rem;font-weight:300;line-height:1">Cormorant Garamond</div>
+      <div class="mono" style="margin-top:.6rem">--font-d · 300 / 400 / 500 / 600 · italic 300,400</div>
+      <div class="ds-p" style="margin-top:.4rem">Display serif. Used for h1, h2, project names, team names, stat numerals, blockquotes.</div>
+    </div>
+    <div class="ds-card">
+      <div style="font-family:var(--font-b);font-size:2.2rem;font-weight:400;line-height:1.1">DM Sans</div>
+      <div class="mono" style="margin-top:.6rem">--font-b · 300 / 400 / 500 · no italics imported</div>
+      <div class="ds-p" style="margin-top:.4rem">UI sans. Body, labels, buttons, eyebrows, metadata.</div>
+    </div>
+  </div>
+
+  <h3 class="ds-h3">Display specimens (Cormorant)</h3>
+  <div class="ds-card" style="padding:1.25rem 1.5rem">
+    <div class="type-row"><div class="type-meta"><b>Display · Hero XL</b><br>clamp(3.8rem, 8.5vw, 7.2rem)<br>weight 300 · line-height 1.02</div><div class="type-sample d" style="font-size:clamp(2.2rem,5vw,4rem);font-weight:300;line-height:1.02">Build <em style="color:var(--green);font-style:italic">boldly</em>, where<br>others hesitate.</div></div>
+    <div class="type-row"><div class="type-meta"><b>Display · Hero</b><br>clamp(3rem, 5.5vw, 4.5rem)<br>weight 300 · line-height 1.05</div><div class="type-sample d" style="font-size:clamp(1.9rem,3.4vw,2.8rem);font-weight:300;line-height:1.05">Let's <em style="color:var(--green);font-style:italic">talk.</em></div></div>
+    <div class="type-row"><div class="type-meta"><b>Section Title</b><br>clamp(2rem, 3.5vw, 2.75rem)<br>weight 300 · line-height 1.2</div><div class="type-sample d" style="font-size:clamp(1.7rem,2.6vw,2.2rem);font-weight:300;line-height:1.2">Our vision for the corridor</div></div>
+    <div class="type-row"><div class="type-meta"><b>Stat numeral</b><br>3.5rem · weight 300 · line-height 1</div><div class="type-sample d" style="font-size:3rem;font-weight:300;line-height:1">10</div></div>
+    <div class="type-row"><div class="type-meta"><b>Project name</b><br>1.5rem · weight 400</div><div class="type-sample d" style="font-size:1.5rem;font-weight:400">Scottsdale Autoshow</div></div>
+    <div class="type-row"><div class="type-meta"><b>Blockquote</b><br>italic 400 · line-height 1.5</div><div class="type-sample d" style="font-style:italic;font-weight:400;line-height:1.5;font-size:1.1rem;border-left:2px solid var(--green);padding-left:1rem;color:var(--ds-ink-soft)">"We build neighborhoods, not parcels."</div></div>
+  </div>
+
+  <h3 class="ds-h3">UI specimens (DM Sans)</h3>
+  <div class="ds-card" style="padding:1.25rem 1.5rem">
+    <div class="type-row"><div class="type-meta"><b>Lead</b><br>1.22rem · weight 300 · line-height 1.6</div><div class="type-sample b" style="font-size:1.1rem;font-weight:300;line-height:1.6">Commercial and mixed-use developments across the Sun Corridor.</div></div>
+    <div class="type-row"><div class="type-meta"><b>Body</b><br>1rem · weight 400 · line-height 1.7</div><div class="type-sample b">We develop and operate commercial real estate in partnership with communities, tenants, and investors.</div></div>
+    <div class="type-row"><div class="type-meta"><b>Small / meta</b><br>.85rem · weight 400 · line-height 1.5</div><div class="type-sample b" style="font-size:.85rem">Scottsdale · Est. 2018</div></div>
+    <div class="type-row"><div class="type-meta"><b>Eyebrow / label</b><br>.65rem · uppercase · letter-spacing .25em · weight 500</div><div class="type-sample b eyebrow-sample">PROJECTS &middot; SUN CORRIDOR</div></div>
+    <div class="type-row"><div class="type-meta"><b>Nav link</b><br>.7rem · uppercase · letter-spacing .16em</div><div class="type-sample b" style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase">PROJECTS</div></div>
+    <div class="type-row"><div class="type-meta"><b>Button text</b><br>.72-.85rem · uppercase · letter-spacing .12-.14em · weight 500</div><div class="type-sample b" style="font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500">GET IN TOUCH</div></div>
+  </div>
+
+  <h3 class="ds-h3">Letter-spacing cheat sheet</h3>
+  <table class="ds-table">
+    <thead><tr><th>Token candidate</th><th>Value</th><th>Used in</th></tr></thead>
+    <tbody>
+      <tr><td>--tracking-hero</td><td><code>.32em</code></td><td>Hero eyebrow</td></tr>
+      <tr><td>--tracking-label</td><td><code>.25em</code></td><td>Section labels, eyebrows</td></tr>
+      <tr><td>--tracking-footer</td><td><code>.2em</code></td><td>Footer heads, status, info labels</td></tr>
+      <tr><td>--tracking-form</td><td><code>.18em</code></td><td>Form labels</td></tr>
+      <tr><td>--tracking-nav</td><td><code>.16em</code></td><td>Nav links, filter buttons</td></tr>
+      <tr><td>--tracking-btn</td><td><code>.14em</code></td><td>Primary buttons</td></tr>
+      <tr><td>--tracking-btn-sm</td><td><code>.12em</code></td><td>Small buttons, CTA links</td></tr>
+      <tr><td colspan="3"><span class="pill pill-warn">Consolidate</span> Seven adjacent values is too many. Recommend collapsing to 3: <code>.12em</code> (buttons), <code>.18em</code> (labels), <code>.28em</code> (eyebrows).</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== SPACING ========== -->
+<section class="ds-sec" id="spacing">
+  <p class="ds-eyebrow">Foundations · 03</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Spacing</h2>
+  <p class="ds-lead">
+    The site uses <b>17 distinct spacing values</b> without a declared scale. Most values fall on or near a 4px
+    grid, but there's meaningful drift — values like <code>.45rem</code> and <code>.55rem</code> exist for
+    one-off nudges. Below is the observed spectrum and the recommended reduced scale.
+  </p>
+
+  <h3 class="ds-h3">Observed spacing (in rem, 16px base)</h3>
+  <div class="scale-row">
+    <div class="scale-chip"><div class="bar" style="width:4px;height:4px"></div>.25rem<br>4px</div>
+    <div class="scale-chip"><div class="bar" style="width:8px;height:8px"></div>.5rem<br>8px</div>
+    <div class="scale-chip"><div class="bar" style="width:12px;height:12px"></div>.75rem<br>12px</div>
+    <div class="scale-chip"><div class="bar" style="width:16px;height:16px"></div>1rem<br>16px</div>
+    <div class="scale-chip"><div class="bar" style="width:20px;height:20px"></div>1.25rem<br>20px</div>
+    <div class="scale-chip"><div class="bar" style="width:24px;height:24px"></div>1.5rem<br>24px</div>
+    <div class="scale-chip"><div class="bar" style="width:32px;height:32px"></div>2rem<br>32px</div>
+    <div class="scale-chip"><div class="bar" style="width:40px;height:40px"></div>2.5rem<br>40px</div>
+    <div class="scale-chip"><div class="bar" style="width:48px;height:48px"></div>3rem<br>48px</div>
+    <div class="scale-chip"><div class="bar" style="width:64px;height:64px"></div>4rem<br>64px</div>
+    <div class="scale-chip"><div class="bar" style="width:80px;height:80px"></div>5rem<br>80px</div>
+    <div class="scale-chip"><div class="bar" style="width:96px;height:96px"></div>6rem<br>96px</div>
+  </div>
+  <p class="ds-p" style="margin-top:1rem">
+    <span class="pill pill-warn">Drift</span>
+    Non-conforming values seen in production: <code>.2rem</code>, <code>.3rem</code>, <code>.4rem</code>,
+    <code>.45rem</code>, <code>.55rem</code>, <code>.6rem</code>, <code>.8rem</code>, <code>.85rem</code>,
+    <code>.9rem</code>, <code>1.1rem</code>, <code>1.2rem</code>, <code>1.75rem</code>, <code>3.5rem</code>,
+    <code>4.5rem</code>. Recommend snapping to the 12-step scale above.
+  </p>
+</section>
+
+<!-- ========== RADIUS ========== -->
+<section class="ds-sec" id="radius">
+  <p class="ds-eyebrow">Foundations · 04</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Border radius</h2>
+  <p class="ds-lead">
+    Three effective values. Sharp corners are the default — radii are used sparingly for "click" affordance
+    on primary buttons and 100% for dots/avatars.
+  </p>
+  <div class="ds-grid grid-4">
+    <div class="ds-card" style="display:flex;gap:1rem;align-items:center">
+      <div class="radius-box" style="border-radius:0">0</div>
+      <div><div style="font-weight:500">--radius-none</div><div class="mono" style="margin-top:.2rem">0</div><div class="ds-p" style="font-size:.78rem;margin-top:.3rem">Cards, form inputs, submit btn</div></div>
+    </div>
+    <div class="ds-card" style="display:flex;gap:1rem;align-items:center">
+      <div class="radius-box" style="border-radius:6px">6px</div>
+      <div><div style="font-weight:500">--radius-md</div><div class="mono" style="margin-top:.2rem">6px</div><div class="ds-p" style="font-size:.78rem;margin-top:.3rem">Primary buttons (.btn-terra, .btn-sage)</div></div>
+    </div>
+    <div class="ds-card" style="display:flex;gap:1rem;align-items:center">
+      <div class="radius-box" style="border-radius:50%;width:60px;height:60px">●</div>
+      <div><div style="font-weight:500">--radius-round</div><div class="mono" style="margin-top:.2rem">50%</div><div class="ds-p" style="font-size:.78rem;margin-top:.3rem">Dots, avatars, slide indicators</div></div>
+    </div>
+    <div class="ds-card" style="background:#fbf5e8;border-color:#ead9b4">
+      <div style="font-weight:500;color:var(--ds-warn)">Inconsistency</div>
+      <div class="ds-p" style="font-size:.78rem;margin-top:.3rem">Contact form submit button has 0 radius while hero buttons have 6px. Decide which is canonical and apply everywhere.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SHADOWS ========== -->
+<section class="ds-sec" id="shadows">
+  <p class="ds-eyebrow">Foundations · 05</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Shadows / elevation</h2>
+  <p class="ds-lead">
+    Shadows are used as motion accents (on hover / lift) rather than for static elevation. No card shadow
+    tokens exist — cards use borders instead.
+  </p>
+  <div class="ds-grid grid-3">
+    <div class="shadow-card" style="box-shadow:0 6px 18px rgba(0,0,0,.18)"><b>--elev-nav</b><span>0 6px 18px rgba(0,0,0,.18)</span></div>
+    <div class="shadow-card" style="box-shadow:0 14px 34px rgba(14,97,51,.22)"><b>--elev-cta</b><span>0 14px 34px rgba(14,97,51,.22)</span></div>
+    <div class="shadow-card" style="box-shadow:0 15px 35px rgba(14,97,51,.35)"><b>--elev-cta-hover</b><span>0 15px 35px rgba(14,97,51,.35)</span></div>
+  </div>
+</section>
+
+<!-- ========== BORDERS ========== -->
+<section class="ds-sec" id="borders">
+  <p class="ds-eyebrow">Foundations · 06</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Borders</h2>
+  <table class="ds-table">
+    <thead><tr><th>Width</th><th>Color</th><th>Used for</th></tr></thead>
+    <tbody>
+      <tr><td>1px solid</td><td><code>var(--line)</code> #D5DED8</td><td>Form fields, info blocks, cards, dividers</td></tr>
+      <tr><td>1px solid</td><td><code>var(--green)</code></td><td>Field focus state</td></tr>
+      <tr><td>1px solid</td><td><code>rgba(245,240,232,.08)</code></td><td>Footer bottom</td></tr>
+      <tr><td>2px solid</td><td><code>var(--green)</code></td><td>Blockquote left border</td></tr>
+      <tr><td>2px solid</td><td><code>rgba(255,255,255,.75)</code></td><td>Secondary button (.btn-sage on dark)</td></tr>
+      <tr><td>2px solid</td><td><code>rgba(14,97,51,.18)</code></td><td>Avatar placeholder</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== MOTION ========== -->
+<section class="ds-sec" id="motion">
+  <p class="ds-eyebrow">Foundations · 07</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Motion</h2>
+  <p class="ds-lead">
+    Fourteen distinct duration values is too many. Recommend collapsing to a five-step scale
+    (100 / 200 / 350 / 600 / 1000ms) plus two easings.
+  </p>
+  <h3 class="ds-h3">Durations observed</h3>
+  <table class="ds-table">
+    <thead><tr><th>Duration</th><th>Used in</th><th>Recommended</th></tr></thead>
+    <tbody>
+      <tr><td>.15s</td><td>Button active state</td><td><span class="mono">100ms</span></td></tr>
+      <tr><td>.2s / .3s</td><td>Hover colors, filter active</td><td><span class="mono">200ms</span></td></tr>
+      <tr><td>.35s / .4s</td><td>Button transforms, nav scroll</td><td><span class="mono">350ms</span></td></tr>
+      <tr><td>.5s / .6s / .7s</td><td>Image zoom on hover</td><td><span class="mono">600ms</span></td></tr>
+      <tr><td>.8s–1.2s</td><td>Page reveal / fade-up</td><td><span class="mono">1000ms</span></td></tr>
+      <tr><td>1.8s / 2.2s</td><td>Scroll arrow bounce (ambient)</td><td><span class="mono">1800ms</span> (keep)</td></tr>
+    </tbody>
+  </table>
+  <h3 class="ds-h3">Easings</h3>
+  <table class="ds-table">
+    <thead><tr><th>Name</th><th>Value</th><th>Used for</th></tr></thead>
+    <tbody>
+      <tr><td>--ease-out-site</td><td><code>cubic-bezier(.22, 1, .36, 1)</code></td><td>Reveals, card image zooms</td></tr>
+      <tr><td>--ease-out-btn</td><td><code>cubic-bezier(.23, 1, .32, 1)</code></td><td>Button transforms on hover</td></tr>
+      <tr><td>--ease-std</td><td><code>ease</code> / <code>ease-in-out</code></td><td>Hover color swaps (consolidate)</td></tr>
+    </tbody>
+  </table>
+  <p class="ds-p" style="margin-top:1rem"><span class="pill pill-ok">Good</span> <code>prefers-reduced-motion: reduce</code> is respected across all keyframe animations.</p>
+</section>
+
+<!-- ========== BREAKPOINTS ========== -->
+<section class="ds-sec" id="breakpoints">
+  <p class="ds-eyebrow">Foundations · 08</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Breakpoints</h2>
+  <table class="ds-table">
+    <thead><tr><th>Name</th><th>Query</th><th>Drop-ins</th></tr></thead>
+    <tbody>
+      <tr><td>desktop (default)</td><td>—</td><td>3-col grids, 5rem section padding</td></tr>
+      <tr><td>tablet</td><td><code>(max-width: 1024px)</code></td><td>2-col grids, 2rem nav padding, split sections stack</td></tr>
+      <tr><td>mobile</td><td><code>(max-width: 640px)</code></td><td>1-col grids, nav links hidden, hero type shrinks</td></tr>
+    </tbody>
+  </table>
+  <p class="ds-p" style="margin-top:1rem"><span class="pill pill-warn">Gap</span> No tablet-portrait (768px) breakpoint — layouts either commit desktop or mobile behavior in that range.</p>
+</section>
+
+<!-- ========== NAV ========== -->
+<section class="ds-sec" id="nav">
+  <p class="ds-eyebrow">Components · 01</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Navigation</h2>
+  <p class="ds-lead">Fixed header. Transparent while at top, picks up <code>.scrolled</code> class after 60px scroll.</p>
+  <div class="nav-demo" style="margin-bottom:.75rem">
+    <a class="logo" href="#" aria-label="Mullin Development home"><img src="white-sq-long.png" alt="Mullin Development"></a>
+    <ul><li><a href="#">Projects</a></li><li><a class="active" href="#">Contact</a></li></ul>
+  </div>
+  <div class="nav-demo" style="background:rgba(16,34,24,.96);box-shadow:0 1px 0 rgba(255,255,255,.06)">
+    <a class="logo" href="#" aria-label="Mullin Development home"><img src="white-sq-long.png" alt="Mullin Development"></a>
+    <ul><li><a href="#">Projects</a></li><li><a class="active" href="#">Contact</a></li></ul>
+  </div>
+  <table class="ds-table" style="margin-top:1rem">
+    <thead><tr><th>State</th><th>Background</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Default (top)</td><td>transparent</td><td>Text on hero gradient</td></tr>
+      <tr><td>Scrolled</td><td><code>rgba(16,34,24,.96)</code></td><td>Adds <code>0 1px 0 rgba(255,255,255,.06)</code> bottom line</td></tr>
+      <tr><td>Link hover / active</td><td>—</td><td>Color → <code>--green-pale</code></td></tr>
+      <tr><td>Focus (missing)</td><td>—</td><td><span class="pill pill-bad">No focus ring — add</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== BUTTONS ========== -->
+<section class="ds-sec" id="buttons">
+  <p class="ds-eyebrow">Components · 02</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Buttons</h2>
+  <p class="ds-lead">Four variants in production. Inconsistent radius between <code>.btn-terra</code> (6px) and <code>.btn-submit</code> (0) is the top fix.</p>
+
+  <h3 class="ds-h3">On light surface</h3>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem">
+    <button class="btn-terra">Primary · terra</button>
+    <button class="btn-sage">Secondary · sage</button>
+    <button class="btn-submit">Submit</button>
+  </div>
+
+  <h3 class="ds-h3">On dark surface</h3>
+  <div class="on-dark" style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem">
+    <button class="btn-terra">Primary · terra</button>
+    <button class="btn-sage">Secondary · sage</button>
+    <button class="btn-cream">Cream CTA</button>
+  </div>
+
+  <table class="ds-table">
+    <thead><tr><th>Variant</th><th>Padding</th><th>Radius</th><th>Size</th><th>Hover</th></tr></thead>
+    <tbody>
+      <tr><td>.btn-terra</td><td>1.25rem 3rem</td><td>6px</td><td>.85rem · .14em</td><td>bg → green-deep · ty(-6px) · shadow</td></tr>
+      <tr><td>.btn-sage</td><td>1.25rem 3rem</td><td>6px</td><td>.85rem · .14em</td><td>bg tint · border → green · ty(-4px)</td></tr>
+      <tr><td>.btn-submit</td><td>1rem 2.5rem</td><td><span class="pill pill-warn">0</span></td><td>.72rem · .12em</td><td>bg → green-deep · ty(-1px)</td></tr>
+      <tr><td>.btn-cream</td><td>1rem 2.5rem</td><td><span class="pill pill-warn">0</span></td><td>.72rem · .12em</td><td>bg → green-pale</td></tr>
+      <tr><td>Disabled</td><td colspan="4"><span class="pill pill-bad">Not defined</span></td></tr>
+      <tr><td>Focus</td><td colspan="4"><span class="pill pill-bad">Not defined</span></td></tr>
+      <tr><td>Loading</td><td colspan="4"><span class="pill pill-bad">Not defined</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== FORMS ========== -->
+<section class="ds-sec" id="forms">
+  <p class="ds-eyebrow">Components · 03</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Form fields</h2>
+  <p class="ds-lead">Label + input stacked vertically. Focus ring is good; error and success states don't exist yet.</p>
+  <div class="ds-grid grid-2">
+    <div class="ds-card">
+      <div class="field">
+        <label for="ex-name">Your name</label>
+        <input type="text" id="ex-name" placeholder="Jane Smith">
+      </div>
+      <div class="field">
+        <label for="ex-email">Email</label>
+        <input type="email" id="ex-email" placeholder="jane@example.com">
+      </div>
+      <div class="field">
+        <label for="ex-inq">Inquiry type</label>
+        <select id="ex-inq"><option>Partnership</option><option>Leasing</option><option>Press</option></select>
+      </div>
+      <div class="field">
+        <label for="ex-msg">Message</label>
+        <textarea id="ex-msg" placeholder="Tell us about your project…"></textarea>
+      </div>
+      <button class="btn-submit">Send message</button>
+    </div>
+    <div class="ds-card">
+      <div class="ds-h3" style="margin-top:0">States</div>
+      <table class="ds-table" style="border:none">
+        <tr><td><span class="pill pill-ok">Default</span></td><td>1px solid #D5DED8 · .8rem 1rem padding</td></tr>
+        <tr><td><span class="pill pill-ok">Focus</span></td><td>border → --green · shadow 0 0 0 3px rgba(14,97,51,.08)</td></tr>
+        <tr><td><span class="pill pill-bad">Error</span></td><td>Not defined — add: border → #a3262c · inline message .8rem</td></tr>
+        <tr><td><span class="pill pill-bad">Disabled</span></td><td>Not defined — add: bg → --mist · color → --stone-light</td></tr>
+        <tr><td><span class="pill pill-warn">Placeholder</span></td><td>color --stone-light · ~4.1:1 contrast, borderline</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FILTERS ========== -->
+<section class="ds-sec" id="filters">
+  <p class="ds-eyebrow">Components · 04</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Filter chips</h2>
+  <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Automotive</button>
+    <button class="filter-btn">Hospitality</button>
+    <button class="filter-btn">Retail</button>
+    <button class="filter-btn">Mixed-use</button>
+  </div>
+</section>
+
+<!-- ========== BADGES ========== -->
+<section class="ds-sec" id="badges">
+  <p class="ds-eyebrow">Components · 05</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Status badges</h2>
+  <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+    <span class="status-badge">Complete</span>
+    <span class="status-badge in-progress">In progress</span>
+    <span class="status-badge coming-soon">Coming soon</span>
+  </div>
+</section>
+
+<!-- ========== INFO BLOCKS ========== -->
+<section class="ds-sec" id="info">
+  <p class="ds-eyebrow">Components · 06</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Info blocks</h2>
+  <div class="ds-card" style="max-width:460px;padding:1.5rem 1.75rem">
+    <div class="info-block"><span class="info-label">Address</span><span class="info-value">7580 E Gray Rd<br>Scottsdale, AZ 85260</span></div>
+    <div class="info-block"><span class="info-label">Email</span><span class="info-value">hello@mullindev.com</span></div>
+    <div class="info-block" style="border-bottom:none"><span class="info-label">Phone</span><span class="info-value">+1 (480) 555-0199</span></div>
+  </div>
+</section>
+
+<!-- ========== VENTURES ========== -->
+<section class="ds-sec" id="ventures">
+  <p class="ds-eyebrow">Components · 07</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Venture links</h2>
+  <div class="ds-grid grid-2" style="max-width:720px">
+    <a href="#" class="venture-link"><span>AZ Collaborate</span><span class="venture-arrow">→</span></a>
+    <a href="#" class="venture-link"><span>The Back Lot</span><span class="venture-arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ========== PROJECT CARDS ========== -->
+<section class="ds-sec" id="pcards">
+  <p class="ds-eyebrow">Components · 08</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Project cards</h2>
+  <div class="ds-grid grid-3">
+    <a class="pcard" href="#"><div class="pimg" style="background-image:url('1project-centerra.jpg')"></div><div class="poverlay"><p class="ptag">Automotive · Arizona</p><p class="pname">Centerra Motorplex</p><p class="ploc">Chandler, AZ</p><span class="pstatus">In progress</span></div><div class="parrow">→</div></a>
+    <a class="pcard" href="#"><div class="pimg" style="background-image:url('sas.jpg')"></div><div class="poverlay"><p class="ptag">Automotive · Arizona</p><p class="pname">Scottsdale Autoshow</p><p class="ploc">Scottsdale, AZ</p><span class="pstatus">Complete</span></div><div class="parrow">→</div></a>
+    <a class="pcard" href="#"><div class="pimg" style="background-image:url('centera2.jpg')"></div><div class="poverlay"><p class="ptag">Mixed-use · Arizona</p><p class="pname">Tempe Autoplex</p><p class="ploc">Tempe, AZ</p><span class="pstatus">Coming soon</span></div><div class="parrow">→</div></a>
+  </div>
+  <p class="ds-p" style="margin-top:1rem"><span class="pill pill-warn">Hover-only affordance</span> The arrow icon and status badge only appear on hover. Consider making them visible on touch devices.</p>
+</section>
+
+<!-- ========== TEAM CARDS ========== -->
+<section class="ds-sec" id="tmembers">
+  <p class="ds-eyebrow">Components · 09</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Team cards</h2>
+  <div class="ds-grid grid-3">
+    <div class="tmember"><div class="timg" style="background-image:url('https://mullin360.com/wp-content/uploads/2025/09/Jim-Mullin720.jpg');background-position:center 20%"></div><div class="toverlay"><div class="tname">Jim Mullin</div><div class="ttitle">Principal</div></div></div>
+    <div class="tmember"><div class="timg" style="background-image:url('https://mullin360.com/wp-content/uploads/2025/09/Jacqueline-Swanson720.jpg');background-position:center 20%"></div><div class="toverlay"><div class="tname">Jacqueline Swanson</div><div class="ttitle">Director of Operations</div></div></div>
+    <div class="tmember"><div class="timg" style="background-image:url('https://mullin360.com/wp-content/uploads/2025/09/Mark-Simmons720.jpg');background-position:center 20%"></div><div class="toverlay"><div class="tname">Mark Simmons</div><div class="ttitle">Development</div></div></div>
+  </div>
+</section>
+
+<!-- ========== PATTERNS ========== -->
+<section class="ds-sec" id="pat-hero">
+  <p class="ds-eyebrow">Patterns · 01</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Hero</h2>
+  <div style="position:relative;overflow:hidden;border-radius:10px;min-height:360px;color:#fff">
+    <div style="position:absolute;inset:0;background:url('sas.jpg') center/cover no-repeat"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,40,32,.97) 0%,rgba(0,0,0,.9) 45%,rgba(0,0,0,.5) 100%)"></div>
+    <div style="position:relative;padding:5rem 3rem 3rem">
+      <p class="eyebrow-sample" style="color:var(--green-pale)">SCOTTSDALE · EST. 2018</p>
+      <h1 style="font-family:var(--font-d);font-size:clamp(2.4rem,5vw,4.2rem);font-weight:300;line-height:1.05;margin:.5rem 0 1rem;max-width:18ch">Build <em style="color:var(--green-pale);font-style:italic">boldly</em>, where others hesitate.</h1>
+      <p style="max-width:48ch;font-size:1.02rem;font-weight:300;line-height:1.7;color:rgba(245,240,232,.78)">Commercial and mixed-use developments across the Sun Corridor.</p>
+      <div style="margin-top:1.5rem;display:flex;gap:1rem;flex-wrap:wrap">
+        <button class="btn-terra">Our projects</button>
+        <button class="btn-sage">Get in touch</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-sec" id="pat-split">
+  <p class="ds-eyebrow">Patterns · 02</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Split section</h2>
+  <div class="ds-grid grid-2" style="align-items:stretch">
+    <div style="background:url('office.jpg') center/cover no-repeat;min-height:340px;border-radius:10px;position:relative">
+      <div style="position:absolute;right:1rem;bottom:1rem;background:var(--charcoal);color:#fff;padding:.75rem 1rem;font-family:var(--font-d);font-size:1.1rem;font-weight:400">"Built on place, not hype."</div>
+    </div>
+    <div style="background:var(--mist);padding:2.5rem;border-radius:10px">
+      <p class="eyebrow-sample">OUR VISION</p>
+      <h2 style="font-family:var(--font-d);font-weight:300;font-size:clamp(1.7rem,2.6vw,2.4rem);line-height:1.2;margin:.5rem 0 1rem">Long-horizon investment in <em style="color:var(--green);font-style:italic">the Sun Corridor.</em></h2>
+      <blockquote style="border-left:2px solid var(--green);padding:0 0 0 1rem;margin:0 0 1rem;font-style:italic;color:var(--ds-ink-soft);font-family:var(--font-d);font-weight:400;font-size:1.05rem;line-height:1.5">We build neighborhoods, not parcels. Every project is shaped by climate, community, and what's already there.</blockquote>
+      <p class="ds-p">Our portfolio spans automotive, hospitality, and mixed-use — always with a 20-year view.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ds-sec" id="pat-stats">
+  <p class="ds-eyebrow">Patterns · 03</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Stats strip</h2>
+  <div style="background:var(--green-deep);color:#fff;border-radius:10px;padding:3rem 2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center">
+    <div><div style="font-family:var(--font-d);font-weight:300;font-size:2.8rem;line-height:1">10</div><div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,.55);margin-top:.5rem">Projects</div></div>
+    <div style="border-left:1px solid rgba(220,233,225,.25)"><div style="font-family:var(--font-d);font-weight:300;font-size:2.8rem;line-height:1">20+</div><div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,.55);margin-top:.5rem">Years</div></div>
+    <div style="border-left:1px solid rgba(220,233,225,.25)"><div style="font-family:var(--font-d);font-weight:300;font-size:2.8rem;line-height:1">1.2M</div><div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,.55);margin-top:.5rem">SqFt</div></div>
+    <div style="border-left:1px solid rgba(220,233,225,.25)"><div style="font-family:var(--font-d);font-weight:300;font-size:2.8rem;line-height:1">3</div><div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,.55);margin-top:.5rem">Counties</div></div>
+  </div>
+</section>
+
+<section class="ds-sec" id="pat-pillars">
+  <p class="ds-eyebrow">Patterns · 04</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Pillars</h2>
+  <div style="background:linear-gradient(135deg,var(--green-deep) 0%,var(--green) 100%);color:#fff;border-radius:10px;padding:3rem 2.5rem;display:grid;grid-template-columns:1fr 1.3fr;gap:3rem">
+    <div>
+      <p class="eyebrow-sample" style="color:var(--green-pale)">OUR APPROACH</p>
+      <h2 style="font-family:var(--font-d);font-weight:300;font-size:clamp(1.6rem,2.4vw,2.1rem);line-height:1.15;margin:.5rem 0 0">How we build, summarized.</h2>
+    </div>
+    <div>
+      <div style="display:grid;grid-template-columns:3rem 1fr;gap:1rem;padding:1.25rem 0;border-bottom:1px solid rgba(220,233,225,.25)"><div style="font-family:var(--font-d);font-weight:300;font-size:1.6rem;color:var(--green-pale)">01</div><div><h3 style="font-family:var(--font-d);font-weight:400;font-size:1.2rem;margin:0 0 .25rem">Climate-first design</h3><p style="color:rgba(245,240,232,.7);margin:0;font-size:.9rem">Desert-tuned massing, shade, and thermal envelope decisions at land-entitlement stage.</p></div></div>
+      <div style="display:grid;grid-template-columns:3rem 1fr;gap:1rem;padding:1.25rem 0;border-bottom:1px solid rgba(220,233,225,.25)"><div style="font-family:var(--font-d);font-weight:300;font-size:1.6rem;color:var(--green-pale)">02</div><div><h3 style="font-family:var(--font-d);font-weight:400;font-size:1.2rem;margin:0 0 .25rem">Community alignment</h3><p style="color:rgba(245,240,232,.7);margin:0;font-size:.9rem">City conversations start before the survey. Projects are shaped by what the place already tells us.</p></div></div>
+      <div style="display:grid;grid-template-columns:3rem 1fr;gap:1rem;padding:1.25rem 0"><div style="font-family:var(--font-d);font-weight:300;font-size:1.6rem;color:var(--green-pale)">03</div><div><h3 style="font-family:var(--font-d);font-weight:400;font-size:1.2rem;margin:0 0 .25rem">Long-hold economics</h3><p style="color:rgba(245,240,232,.7);margin:0;font-size:.9rem">We develop to own, not to flip. That changes every material decision.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-sec" id="pat-footer">
+  <p class="ds-eyebrow">Patterns · 05</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Footer</h2>
+  <div style="background:var(--charcoal);color:rgba(255,255,255,.78);border-radius:10px;padding:3rem 2.5rem">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem">
+      <div>
+        <img src="white-sq.png" alt="Mullin Development" style="display:block;height:50px;width:auto">
+        <p style="font-size:.85rem;margin:1rem 0 0;max-width:34ch">Commercial and mixed-use developments across the Sun Corridor.</p>
+      </div>
+      <div>
+        <h4 style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green-pale);font-weight:500;margin:0 0 1rem">Navigate</h4>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;font-size:.85rem">
+          <li><a href="#" style="color:rgba(255,255,255,.62)">Projects</a></li>
+          <li><a href="#" style="color:rgba(255,255,255,.62)">Team</a></li>
+          <li><a href="#" style="color:rgba(255,255,255,.62)">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green-pale);font-weight:500;margin:0 0 1rem">Ventures</h4>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;font-size:.85rem">
+          <li><a href="#" style="color:rgba(255,255,255,.62)">AZ Collaborate</a></li>
+          <li><a href="#" style="color:rgba(255,255,255,.62)">The Back Lot</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green-pale);font-weight:500;margin:0 0 1rem">Contact</h4>
+        <address style="font-style:normal;font-size:.72rem;line-height:1.7;color:rgba(255,255,255,.62)">7580 E Gray Rd<br>Scottsdale, AZ 85260</address>
+      </div>
+    </div>
+    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(245,240,232,.08);font-size:.72rem;color:rgba(255,255,255,.5)">© 2026 Mullin Development · All rights reserved</div>
+  </div>
+  <p class="ds-p" style="margin-top:1rem"><span class="pill pill-bad">A11y</span> Footer links at <code>rgba(255,255,255,.62)</code> on <code>#102218</code> score ≈3.8:1 — below AA 4.5:1. Bump to <code>.78</code>.</p>
+</section>
+
+<!-- ========== AUDIT ========== -->
+<section class="ds-sec" id="score">
+  <p class="ds-eyebrow">Audit · 01</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Maturity score · 62/100</h2>
+  <table class="ds-table">
+    <thead><tr><th>Category</th><th>Score</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Color tokens</td><td>8 / 10</td><td>Well-structured; three unused aliases to remove</td></tr>
+      <tr><td>Typography tokens</td><td>7 / 10</td><td>Good families, no named size scale</td></tr>
+      <tr><td>Spacing tokens</td><td>5 / 10</td><td>17 observed values, no declared scale</td></tr>
+      <tr><td>Radius tokens</td><td>6 / 10</td><td>3 values, inconsistent between button variants</td></tr>
+      <tr><td>Shadow tokens</td><td>6 / 10</td><td>3 in use, none named; no card elevation</td></tr>
+      <tr><td>Motion tokens</td><td>5 / 10</td><td>14 durations — consolidate</td></tr>
+      <tr><td>Component completeness</td><td>6 / 10</td><td>Missing: focus, error, disabled, loading states</td></tr>
+      <tr><td>Accessibility</td><td>5 / 10</td><td>Contrast fails in footer; focus rings absent</td></tr>
+      <tr><td>Documentation</td><td>4 / 10</td><td>This doc closes the gap</td></tr>
+      <tr><td>Code ↔ design parity</td><td>7 / 10</td><td>Good — tokens in CSS variables</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="ds-sec" id="gaps">
+  <p class="ds-eyebrow">Audit · 02</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Gaps · hardcoded & inconsistent values</h2>
+  <h3 class="ds-h3">Hardcoded pixel values (should be tokens)</h3>
+  <table class="ds-table">
+    <thead><tr><th>Value</th><th>Where</th><th>Issue</th></tr></thead>
+    <tbody>
+      <tr><td><code>20px</code></td><td>Grid gaps across projects/team/gallery</td><td>Recommend <code>--space-5</code> (20px) token</td></tr>
+      <tr><td><code>34 / 30 / 26px</code></td><td>Nav logo height at 3 breakpoints</td><td>Extract to <code>--nav-logo-h</code></td></tr>
+      <tr><td><code>420 / 380 / 280 / 300px</code></td><td>Card image heights</td><td>Define <code>--card-media-h</code> tokens</td></tr>
+      <tr><td><code>60px</code></td><td>JS scroll threshold</td><td>Expose as data-attribute or token</td></tr>
+      <tr><td><code>.45rem / .55rem / .85rem</code></td><td>Various off-scale spacing</td><td>Snap to 4px scale</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="ds-h3">Near-duplicates</h3>
+  <table class="ds-table">
+    <thead><tr><th>Items</th><th>Recommendation</th></tr></thead>
+    <tbody>
+      <tr><td><code>--charcoal</code> #102218 vs <code>--charcoal-soft</code> #1A2E22</td><td>Slight variation, rarely used deliberately. Consider dropping one.</td></tr>
+      <tr><td><code>rgba(255,255,255,.78)</code> vs <code>.62</code> vs <code>.55</code> vs <code>.5</code></td><td>Define an opacity scale: <code>--opacity-primary .88</code>, <code>--opacity-muted .66</code>, <code>--opacity-subtle .4</code></td></tr>
+      <tr><td>Easings <code>cubic-bezier(.22,1,.36,1)</code> vs <code>(.23,1,.32,1)</code></td><td>Nearly identical — collapse to one named easing</td></tr>
+      <tr><td><code>--terra</code>, <code>--terra-light</code>, <code>--cream</code></td><td>Unused aliases — delete from <code>:root</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="ds-h3">Missing component states</h3>
+  <table class="ds-table">
+    <thead><tr><th>Component</th><th>Missing</th></tr></thead>
+    <tbody>
+      <tr><td>Buttons</td><td>Focus ring, disabled, loading</td></tr>
+      <tr><td>Nav links</td><td>Focus ring</td></tr>
+      <tr><td>Project cards</td><td>Focus ring, keyboard-visible status/arrow</td></tr>
+      <tr><td>Form fields</td><td>Error, success, disabled</td></tr>
+      <tr><td>Filter chips</td><td>Focus ring</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="ds-sec" id="wcag">
+  <p class="ds-eyebrow">Audit · 03</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">WCAG contrast spot-checks</h2>
+  <div class="legend">
+    <span class="pill pill-ok">AA pass ≥ 4.5:1</span>
+    <span class="pill pill-warn">Borderline</span>
+    <span class="pill pill-bad">Fail</span>
+  </div>
+  <table class="ds-table">
+    <thead><tr><th>Pair</th><th>Foreground</th><th>Background</th><th>Ratio</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Body on white</td><td><code>--stone</code> #5F6F66</td><td>#FFFFFF</td><td>~5.5:1</td><td><span class="pill pill-ok">AA</span></td></tr>
+      <tr><td>Labels on white</td><td><code>--stone-light</code> #86958D</td><td>#FFFFFF</td><td>~4.1:1</td><td><span class="pill pill-warn">Borderline large-text only</span></td></tr>
+      <tr><td>Nav links</td><td>rgba(255,255,255,.78)</td><td>#102218 (scrolled)</td><td>~6.1:1</td><td><span class="pill pill-ok">AA</span></td></tr>
+      <tr><td>Footer links</td><td>rgba(255,255,255,.62)</td><td>#102218</td><td>~3.8:1</td><td><span class="pill pill-bad">Fail 4.5:1</span></td></tr>
+      <tr><td>Footer copyright</td><td>rgba(255,255,255,.5)</td><td>#102218</td><td>~2.9:1</td><td><span class="pill pill-bad">Fail</span></td></tr>
+      <tr><td>Card meta</td><td>rgba(245,240,232,.55)</td><td>pcard overlay dark</td><td>~3.5:1</td><td><span class="pill pill-warn">Large text only</span></td></tr>
+      <tr><td>Green-pale on green</td><td>#DCE9E1</td><td>#0E6133</td><td>~2.1:1</td><td><span class="pill pill-bad">Decorative only — don't use for text</span></td></tr>
+      <tr><td>#f0c060 on dark</td><td>#f0c060</td><td>rgba(0,40,32,.97)</td><td>~7.2:1</td><td><span class="pill pill-ok">AA</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="ds-sec" id="recs">
+  <p class="ds-eyebrow">Audit · 04</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">Priority actions</h2>
+  <div class="ds-grid grid-2">
+    <div class="ds-card">
+      <div class="ds-h3" style="margin-top:0;color:var(--ds-bad)">P0 · this sprint</div>
+      <ol style="padding-left:1.2rem;line-height:1.8">
+        <li>Lift footer link opacity from <code>.62</code> → <code>.78</code>; copyright to <code>.72</code>.</li>
+        <li>Add <code>:focus-visible</code> ring to buttons, nav links, cards, filter chips (2px <code>--green-pale</code> outline, 2px offset).</li>
+        <li>Unify button radius — decide 0 or 6px and apply to all four variants.</li>
+      </ol>
+    </div>
+    <div class="ds-card">
+      <div class="ds-h3" style="margin-top:0;color:var(--ds-warn)">P1 · next sprint</div>
+      <ol style="padding-left:1.2rem;line-height:1.8">
+        <li>Publish a 12-step spacing scale and codemod off-scale values.</li>
+        <li>Collapse 14 motion durations → 5 (100/200/350/600/1000ms).</li>
+        <li>Consolidate letter-spacing values from 7 → 3.</li>
+        <li>Define error / disabled / success states for form fields and buttons.</li>
+      </ol>
+    </div>
+    <div class="ds-card">
+      <div class="ds-h3" style="margin-top:0;color:var(--ds-ok)">P2 · nice to have</div>
+      <ol style="padding-left:1.2rem;line-height:1.8">
+        <li>Add a 768px tablet-portrait breakpoint.</li>
+        <li>Extract image-height tokens for media cards.</li>
+        <li>Remove unused aliases <code>--cream</code>, <code>--terra</code>, <code>--terra-light</code>.</li>
+        <li>Add skip-to-content link on every page.</li>
+      </ol>
+    </div>
+    <div class="ds-card">
+      <div class="ds-h3" style="margin-top:0">Metrics to track post-fix</div>
+      <ul style="padding-left:1.2rem;line-height:1.8">
+        <li>Axe Core failures: should reach 0</li>
+        <li>Unique spacing values: &lt; 14</li>
+        <li>Unique motion durations: &lt; 6</li>
+        <li>CSS custom properties with 0 references: 0</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FIGMA HANDOFF ========== -->
+<section class="ds-sec" id="figma">
+  <p class="ds-eyebrow">Delivery · Figma</p>
+  <h2 class="ds-h1" style="font-size:clamp(2rem,3vw,2.6rem)">How to drop this into Figma</h2>
+  <p class="ds-lead">Three realistic paths, in order of effort:</p>
+
+  <div class="ds-grid grid-3">
+    <div class="ds-card">
+      <div class="ds-h3" style="margin-top:0">A · html.to.design plugin</div>
+      <p class="ds-p">Install <b>html.to.design</b> in Figma (free tier covers single-file docs). Paste this document's URL (or drag the file) — it auto-generates a Figma page with real frames and text layers. Best one-click option.</p>
+    </div>
+    <div class="ds-card">
+      <div class="ds-h3" style="margin-top:0">B · Tokens Studio import</div>
+      <p class="ds-p">I can spin up a <code>design-tokens.json</code> matching W3C DTCG format from the values in this doc. Load it into <b>Tokens Studio for Figma</b>. You'll get colors + typography styles + spacing variables wired to Figma variables in about 5 minutes.</p>
+    </div>
+    <div class="ds-card">
+      <div class="ds-h3" style="margin-top:0">C · Screenshot + rebuild</div>
+      <p class="ds-p">Low-tech but reliable: take screenshots of each section, paste onto a Figma page for reference, and rebuild natively. Best if you want clean Figma components from day one.</p>
+    </div>
+  </div>
+
+  <p class="ds-p" style="margin-top:1.5rem">Say the word ("generate tokens.json") and I'll produce the file. Likewise if you want a Figma-plugin-ready SVG of each component for direct import, I can export those.</p>
+</section>
+
+</main>
+</div>
+</body>
+</html>
