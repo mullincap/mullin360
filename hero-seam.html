@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seam colour — Mullin Development</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="logo-green.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#F4F1EA;--ink:#151A15;--ink-55:rgba(21,26,21,0.56);--line-soft:rgba(21,26,21,0.09);
+  --night:#0C120D;--bone:#F4F1EA;--bone-70:rgba(244,241,234,0.72);--bone-45:rgba(244,241,234,0.45);
+  --green:#0E6133;--green-lift:#7FA98E;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+  --mono:'IBM Plex Mono','SF Mono',Consolas,monospace;
+  --gutter:clamp(1.5rem,6vw,7.5rem);
+  --ease:cubic-bezier(0.19,1,0.22,1);
+
+  /* the thing under test */
+  --seam:rgba(244,241,234,0.9);
+  --seam-w:1px;
+  --seam-glow:0 0 10px rgba(244,241,234,0.35);
+  --seam-peak:0.85;
+}
+body{font-family:var(--sans);font-weight:300;background:var(--night);color:var(--bone);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+.mono{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.18em;text-transform:uppercase}
+:focus-visible{outline:2px solid var(--green-lift);outline-offset:3px}
+
+/* ——— control bar ——— */
+#bar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;gap:0.7rem;flex-wrap:wrap;
+  padding:0.8rem clamp(1rem,4vw,2rem);
+  background:rgba(244,241,234,0.95);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft);color:var(--ink);
+}
+#bar .t{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;margin-right:0.6rem}
+#bar button{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;
+  background:transparent;border:1px solid rgba(21,26,21,0.2);color:var(--ink-55);
+  padding:0.5rem 0.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;
+  transition:border-color 0.3s,color 0.3s;
+}
+#bar button:hover{border-color:var(--ink);color:var(--ink)}
+#bar button.on{border-color:var(--green);color:var(--green)}
+#bar button i{display:block;width:10px;height:10px;border:1px solid rgba(21,26,21,0.25)}
+#bar .replay{margin-left:auto;border-color:var(--green);color:var(--green)}
+
+/* ——— the hero, exactly as it ships ——— */
+#hero{
+  position:relative;height:100svh;min-height:600px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:hidden;background:var(--night);
+}
+.hero-media{position:absolute;inset:0;z-index:1;overflow:hidden}
+.hero-media img{
+  width:100%;height:100%;object-fit:cover;object-position:center 62%;
+  filter:saturate(0.88) contrast(1.04);transform:scale(1.06);
+}
+.play .hero-media img{animation:heroSettle 4s var(--ease) 0.9s forwards}
+@keyframes heroSettle{to{transform:scale(1)}}
+
+.hero-dof{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  -webkit-backdrop-filter:blur(7px) saturate(0.45) brightness(0.86);
+  backdrop-filter:blur(7px) saturate(0.45) brightness(0.86);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 40%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.8) 72%,#000 88%);
+  mask-image:linear-gradient(to bottom,transparent 0%,transparent 40%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.8) 72%,#000 88%);
+}
+.hero-vig{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse 78% 62% at 50% 34%,transparent 0%,transparent 42%,rgba(8,13,9,0.42) 100%);
+}
+.hero-scrim{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 58%,rgba(8,13,9,0.5) 0%,rgba(8,13,9,0.28) 48%,rgba(8,13,9,0.12) 72%),
+    linear-gradient(to top,rgba(8,13,9,0.78) 0%,rgba(8,13,9,0.18) 26%,transparent 45%),
+    linear-gradient(to bottom,rgba(8,13,9,0.5) 0%,transparent 22%);
+}
+.hero-shutters{position:absolute;inset:0;z-index:4;display:grid;grid-template-columns:repeat(7,1fr);pointer-events:none}
+.hero-shutters .sh{background:var(--night)}
+.play .hero-shutters .sh{animation:bayUp 1.5s var(--ease) forwards}
+@keyframes bayUp{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 100% 0)}}
+.play .sh:nth-child(1){animation-delay:0.15s}
+.play .sh:nth-child(2){animation-delay:0.27s}
+.play .sh:nth-child(3){animation-delay:0.39s}
+.play .sh:nth-child(4){animation-delay:0.51s}
+.play .sh:nth-child(5){animation-delay:0.63s}
+.play .sh:nth-child(6){animation-delay:0.75s}
+.play .sh:nth-child(7){animation-delay:0.87s}
+
+.hero-seams{position:absolute;inset:0;z-index:5;pointer-events:none}
+.hero-seams .sm{
+  position:absolute;top:0;bottom:0;
+  width:var(--seam-w);
+  left:calc(var(--i) * 100% / 7);
+  background:var(--seam);
+  box-shadow:var(--seam-glow);
+  opacity:0;
+}
+.play .hero-seams .sm{animation:seam 2.4s var(--ease) forwards}
+@keyframes seam{0%{opacity:0}18%{opacity:var(--seam-peak)}100%{opacity:0}}
+.play .sm:nth-child(1){animation-delay:0.27s}
+.play .sm:nth-child(2){animation-delay:0.39s}
+.play .sm:nth-child(3){animation-delay:0.51s}
+.play .sm:nth-child(4){animation-delay:0.63s}
+.play .sm:nth-child(5){animation-delay:0.75s}
+.play .sm:nth-child(6){animation-delay:0.87s}
+
+.hero-logo{position:absolute;top:4.5rem;left:var(--gutter);z-index:6}
+.hero-logo img{height:26px;width:auto}
+.hero-center{
+  position:relative;z-index:6;flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem var(--gutter) 3.5rem;
+}
+.hero-imprint{
+  color:rgba(244,241,234,0.9);letter-spacing:0.3em;display:flex;align-items:center;gap:1.3rem;
+  text-shadow:0 1px 14px rgba(8,13,9,0.6);opacity:0;
+}
+.play .hero-imprint{animation:fIn 1.2s var(--ease) 0.9s forwards}
+@keyframes fIn{to{opacity:1}}
+.hero-imprint::before,.hero-imprint::after{content:'';display:block;width:clamp(2rem,6vw,4.5rem);height:1px;background:rgba(244,241,234,0.4)}
+h1{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(3rem,8.4vw,7.6rem);line-height:1.02;letter-spacing:-0.015em;color:var(--bone);
+  margin:1.5rem 0 1.3rem;text-shadow:0 2px 46px rgba(8,13,9,0.4);
+}
+h1 em{font-style:italic;font-weight:400}
+.line{display:block;overflow:hidden;padding-bottom:0.1em;margin-bottom:-0.1em}
+.line > span{display:block;transform:translateY(105%)}
+.play .line > span{animation:lineUp 1.3s var(--ease) forwards}
+@keyframes lineUp{to{transform:translateY(0)}}
+.play .l1 > span{animation-delay:1.15s}
+.play .l2 > span{animation-delay:1.32s}
+.hero-sub{max-width:52ch;font-size:1rem;line-height:1.8;color:var(--bone-70);opacity:0}
+.play .hero-sub{animation:fIn 1.2s var(--ease) 1.85s forwards}
+
+.caption{
+  position:absolute;left:var(--gutter);bottom:2.2rem;z-index:6;
+  color:var(--bone-45);font-family:var(--mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+}
+.caption b{color:var(--bone);font-weight:400}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-media img{transform:none;animation:none}
+  .hero-shutters,.hero-seams{display:none}
+  .line > span{transform:none;animation:none}
+  .hero-imprint,.hero-sub{opacity:1;animation:none}
+}
+</style>
+</head>
+<body>
+
+<div id="bar">
+  <span class="t">Seam colour</span>
+  <button type="button" data-opt="bone" class="on"><i style="background:#F4F1EA"></i>Bone</button>
+  <button type="button" data-opt="light"><i style="background:#fff"></i>Light</button>
+  <button type="button" data-opt="shadow"><i style="background:#0C120D"></i>Shadow</button>
+  <button type="button" data-opt="ember"><i style="background:#E9B978"></i>Ember</button>
+  <button type="button" data-opt="seal"><i style="background:#0E6133"></i>Deep seal</button>
+  <button type="button" data-opt="mint"><i style="background:#7FA98E"></i>Mint (current)</button>
+  <button type="button" data-opt="none"><i style="background:transparent"></i>None</button>
+  <button type="button" class="replay" id="replay">Replay ↻</button>
+</div>
+
+<section id="hero" aria-label="Mullin Development">
+  <div class="hero-media">
+    <img src="sas.jpg" alt="The Scottsdale Autoshow at dusk, Camelback Mountain on the horizon" width="1504" height="688" fetchpriority="high">
+  </div>
+  <div class="hero-dof" aria-hidden="true"></div>
+  <div class="hero-vig" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-shutters" aria-hidden="true">
+    <span class="sh"></span><span class="sh"></span><span class="sh"></span><span class="sh"></span>
+    <span class="sh"></span><span class="sh"></span><span class="sh"></span>
+  </div>
+  <div class="hero-seams" aria-hidden="true">
+    <span class="sm" style="--i:1"></span><span class="sm" style="--i:2"></span><span class="sm" style="--i:3"></span>
+    <span class="sm" style="--i:4"></span><span class="sm" style="--i:5"></span><span class="sm" style="--i:6"></span>
+  </div>
+
+  <a class="hero-logo" href="index.html"><img src="white-sq-long.png" alt="Mullin Development" width="721" height="145"></a>
+
+  <div class="hero-center">
+    <p class="hero-imprint mono">Scottsdale, Arizona — Est. 1994</p>
+    <h1>
+      <span class="line l1"><span>Developing</span></span>
+      <span class="line l2"><span>with <em>Purpose.</em></span></span>
+    </h1>
+    <p class="hero-sub">A national real estate development practice rooted in the desert Southwest — carrying raw ground through the full arc, from a line on paper to open doors.</p>
+  </div>
+
+  <p class="caption">Showing — <b id="label">Bone</b></p>
+</section>
+
+<script>
+(function(){
+  'use strict';
+  var OPTS = {
+    bone:   {seam:'rgba(244,241,234,0.9)',  w:'1px', glow:'0 0 10px rgba(244,241,234,0.35)', peak:0.85, label:'Bone — the brand’s own light on night'},
+    light:  {seam:'#FFFFFF',                w:'1px', glow:'0 0 18px rgba(255,255,255,0.55)', peak:0.95, label:'Light — a brighter, more cinematic flare'},
+    shadow: {seam:'rgba(6,9,7,0.85)',       w:'2px', glow:'0 0 14px rgba(6,9,7,0.6)',        peak:0.9,  label:'Shadow — the bays cast an edge instead of glowing'},
+    ember:  {seam:'#E9B978',                w:'1px', glow:'0 0 14px rgba(233,185,120,0.45)', peak:0.8,  label:'Ember — sampled from the showroom glow in the photo'},
+    seal:   {seam:'#0E6133',                w:'2px', glow:'0 0 10px rgba(14,97,51,0.5)',     peak:0.95, label:'Deep seal — the true brand green'},
+    mint:   {seam:'#7FA98E',                w:'1px', glow:'none',                            peak:0.85, label:'Mint — what is live now'},
+    none:   {seam:'transparent',            w:'0px', glow:'none',                            peak:0,    label:'None — the bays rise with no line at all'}
+  };
+  var root = document.documentElement;
+  var hero = document.getElementById('hero');
+  var label = document.getElementById('label');
+  var btns = document.querySelectorAll('#bar button[data-opt]');
+
+  function play(){
+    hero.classList.remove('play');
+    void hero.offsetWidth;
+    hero.classList.add('play');
+  }
+  function apply(k){
+    var o = OPTS[k];
+    root.style.setProperty('--seam', o.seam);
+    root.style.setProperty('--seam-w', o.w);
+    root.style.setProperty('--seam-glow', o.glow);
+    root.style.setProperty('--seam-peak', o.peak);
+    label.textContent = o.label;
+    btns.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-opt') === k); });
+    play();
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-opt')); });
+  });
+  document.getElementById('replay').addEventListener('click', play);
+  apply('bone');
+})();
+</script>
+</body>
+</html>
