@@ -181,39 +181,6 @@ body.menu-open #mobileMenu nav a{transform:translateY(0)}
 @keyframes heroSettle{to{transform:scale(1)}}
 @keyframes heroDrift{to{transform:scale(1.04) translateX(-1.4%)}}
 
-/* the bays go up */
-.hero-shutters{position:absolute;inset:0;z-index:4;display:grid;grid-template-columns:repeat(7,1fr);pointer-events:none}
-.hero-shutters .sh{background:var(--night)}
-.js .hero-shutters .sh{animation:bayUp 1.5s var(--ease) forwards}
-@keyframes bayUp{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 100% 0)}}
-.js .sh:nth-child(1){animation-delay:0.15s}
-.js .sh:nth-child(2){animation-delay:0.27s}
-.js .sh:nth-child(3){animation-delay:0.39s}
-.js .sh:nth-child(4){animation-delay:0.51s}
-.js .sh:nth-child(5){animation-delay:0.63s}
-.js .sh:nth-child(6){animation-delay:0.75s}
-.js .sh:nth-child(7){animation-delay:0.87s}
-
-/* The seam flares as its bay lands, then goes out. Bone, not green: this is
-   the brand's own light on night — the same value as the nav and the display
-   type — so the line reads as light, not as an accent colour. */
-.hero-seams{position:absolute;inset:0;z-index:5;pointer-events:none}
-.hero-seams .sm{
-  position:absolute;top:0;bottom:0;width:1px;
-  left:calc(var(--i) * 100% / 7);
-  background:rgba(244,241,234,0.9);
-  box-shadow:0 0 10px rgba(244,241,234,0.35);
-  opacity:0;
-}
-.js .hero-seams .sm{animation:seam 2.4s var(--ease) forwards}
-@keyframes seam{0%{opacity:0}18%{opacity:0.85}100%{opacity:0}}
-.js .sm:nth-child(1){animation-delay:0.27s}
-.js .sm:nth-child(2){animation-delay:0.39s}
-.js .sm:nth-child(3){animation-delay:0.51s}
-.js .sm:nth-child(4){animation-delay:0.63s}
-.js .sm:nth-child(5){animation-delay:0.75s}
-.js .sm:nth-child(6){animation-delay:0.87s}
-
 /* the parking lot, thrown out of focus — the cars become atmosphere */
 .hero-dof{
   position:absolute;inset:0;z-index:2;pointer-events:none;
@@ -585,7 +552,6 @@ footer{background:var(--night);color:var(--bone)}
   .js .rv,.js .h-in{opacity:1;transform:none;animation:none;transition:none}
   /* the bays are simply already up, and the frame never drifts */
   .js .hero-media img{animation:none;transform:none}
-  .hero-shutters,.hero-seams{display:none}
   .js .line > span{transform:none;animation:none}
   .plate .plx{position:absolute;inset:0;transform:none !important}
   .wp-img img,.p-photo img,.lnk .ar,.v-ar,.meter .b{transition:none}
@@ -698,14 +664,6 @@ footer{background:var(--night);color:var(--bone)}
   <div class="hero-dof" aria-hidden="true"></div>
   <div class="hero-vig" aria-hidden="true"></div>
   <div class="hero-scrim" aria-hidden="true"></div>
-  <div class="hero-shutters" aria-hidden="true">
-    <span class="sh"></span><span class="sh"></span><span class="sh"></span><span class="sh"></span>
-    <span class="sh"></span><span class="sh"></span><span class="sh"></span>
-  </div>
-  <div class="hero-seams" aria-hidden="true">
-    <span class="sm" style="--i:1"></span><span class="sm" style="--i:2"></span><span class="sm" style="--i:3"></span>
-    <span class="sm" style="--i:4"></span><span class="sm" style="--i:5"></span><span class="sm" style="--i:6"></span>
-  </div>
 
   <div class="hero-center">
     <p class="hero-imprint mono h-in d1">Scottsdale, Arizona — Est. 1994</p>
